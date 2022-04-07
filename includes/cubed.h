@@ -4,15 +4,27 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
 
-typedef struct s_vector
+# define SCREEN_HEIGHT	480
+# define SCREEN_WIDTH	640
+# define MOVE_SPEED		5
+# define ROTATE_SPEED	3
+# define FOV			90
+
+typedef struct s_vector_uint
 {
 	unsigned int	x;
 	unsigned int	y;
-}				t_vector;
+}				t_vector_uint;
+
+typedef struct s_vector_double
+{
+	double	x;
+	double	y;
+}				t_vector_double;
 
 typedef struct s_player
 {
-	t_vector	pos;
+	t_vector_uint	pos;
 }			t_player;
 
 typedef struct s_mlx
@@ -26,8 +38,6 @@ typedef struct s_mlx
 	mlx_texture_t	*ea_texture;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
-	unsigned int	window_w;
-	unsigned int	window_h;
 }			t_mlx;
 
 typedef struct s_level
@@ -38,10 +48,18 @@ typedef struct s_level
 	unsigned int	map_h;
 }				t_level;
 
+typedef struct s_camera
+{
+	t_vector_double	pos;
+	t_vector_double	dir;
+	t_vector_double	plane;
+}			t_camera;
+
 typedef struct s_data
 {
 	t_mlx			mlx;
 	t_level			level;
+	t_camera		cam;
 }				t_data;
 
 #endif

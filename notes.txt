@@ -1,0 +1,15 @@
+Cube3d:
+
+Fov (wolfenstein3d had 70 at 4:3 (around 100 degrees at 16:9)
+Probably should set it at 90 degrees
+
+Maybe implement anisotropic filtering? (bonus only and a big maybe)
+Do we use a smaller window and scale it ? (if possible/easy to do)
+
+Have an fps counter? 
+Can use the delta time of mlx_handle for that
+
+Have the floor and ceiling be in a separate image (background image)should save on calculations hopefully.
+And makes it easier for the floor and ceiling to be made of textures.
+
+Maybe have the fast inverse square root function from doom? (just for fun, maybe for optimiazition)
