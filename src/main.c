@@ -1,30 +1,18 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/04/06 13:18:02 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/06 13:32:10 by shoogenb      ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../lib/MLX42/include/MLX42/MLX42.h"
-#include <stdlib.h>
+#include "cubed.h"
 
 int	main(int argc, char **argv)
 {
-	mlx_t		*mlx;
-	mlx_image_t	*bg;
+	t_data		data;
 
 	(void)argc;
 	(void)argv;
-	mlx = mlx_init(500, 500, "cube3D", false);
-	bg = mlx_new_image(mlx, 500, 500);
-	mlx_image_to_window(mlx, bg, 0, 0);
-	mlx_loop(mlx);
-	while (1)
-		NULL;
+	data.mlx.mlx_handle = mlx_init(500, 500, "cube3D", false);
+	data.mlx.bg = mlx_new_image(data.mlx.mlx_handle, 500, 500);
+	data.mlx.fg = mlx_new_image(data.mlx.mlx_handle, 500, 500);
+	data.mlx.no_texture = mlx_load_png("assets/wood.png");
+	mlx_draw_texture(data.mlx.fg, data.mlx.no_texture, 0, 0);
+	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
+	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
+	mlx_loop(data.mlx.mlx_handle);
 	return (0);
 }

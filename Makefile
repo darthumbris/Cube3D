@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/06 13:25:08 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/07 10:52:02 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LINKING_FLAGS = libmlx42.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC_DIR = src
 OBJ_DIR = obj
-INC_DIR = include
+INC_DIR = includes
 
 SRC =	main.c \
 
