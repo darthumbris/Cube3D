@@ -6,6 +6,8 @@
 
 # define SCREEN_HEIGHT	480
 # define SCREEN_WIDTH	640
+# define TEXTURE_WIDTH	64
+# define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	3
 # define FOV			90
