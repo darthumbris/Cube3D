@@ -41,6 +41,8 @@ Have an fps counter?
 Can use the delta time of mlx_handle for that
 
 Maybe:
+have multiple textures for the floor and ceiling
+have extra textures for the walls
 Keys for the doors
 Reflections
 Portals (see https://www.youtube.com/watch?v=rnWRs_BBgXc)
