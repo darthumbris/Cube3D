@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/13 11:07:49 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/13 13:15:20 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ INC_DIR = includes
 
 SRC =	main.c \
         graphics/init_mlx_struct.c \
+        graphics/raycaster.c \
         parser/parse_input.c \
 
 SRC_EXT = c
