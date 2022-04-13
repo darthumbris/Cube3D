@@ -3,6 +3,8 @@
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <stdlib.h>
+# include <stdbool.h>
+# include "unistd.h"
 
 # define SCREEN_HEIGHT	480
 # define SCREEN_WIDTH	640
@@ -24,6 +26,11 @@ typedef struct s_vector_double
 	double	y;
 }				t_vector_double;
 
+/* 
+ * Player position useful for collision checking and
+ * maybe for enemies etc.
+ * might be better for it to be a double vector?
+ */
 typedef struct s_player
 {
 	t_vector_uint	pos;
@@ -48,6 +55,10 @@ typedef struct s_level
 	t_player		player;
 	unsigned int	map_w;
 	unsigned int	map_h;
+	char			*no_texture_path;
+	char			*we_texture_path;
+	char			*so_texture_path;
+	char			*ea_texture_path;
 }				t_level;
 
 typedef struct s_camera
@@ -63,5 +74,9 @@ typedef struct s_data
 	t_level			level;
 	t_camera		cam;
 }				t_data;
+
+
+bool	parse_input(char **argv, t_data *data);
+bool	init_mlx(t_data *data);
 
 #endif

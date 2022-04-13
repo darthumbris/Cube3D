@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/07 10:52:02 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/13 11:07:49 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ OBJ_DIR = obj
 INC_DIR = includes
 
 SRC =	main.c \
+        graphics/init_mlx_struct.c \
+        parser/parse_input.c \
 
 SRC_EXT = c
 
@@ -67,11 +69,8 @@ $(NAME): $(OBJ)
         rm -f $@.log; \
         exit $$RESULT
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT) | $(OBJ_DIR)
-	
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT)
+	@mkdir -p $(dir $@)
 	@$(CC) $(COMPILE_FLAGS) $(INC) -c -o $@ $< 2> $@.log; \
         RESULT=$$?; \
         if [ $$RESULT -ne 0 ]; then \
