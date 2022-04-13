@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 15:38:50 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 15:44:14 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	mapjmptable(char *line, t_data *data)
 
 char	**readmap(int fd, char **temp)
 {
-	char	buf[1000001];
+	char	buf[10001];
 	char	*map;
 	int		bread;
 
@@ -55,7 +55,7 @@ char	**readmap(int fd, char **temp)
 		return (NULL);
 	while (bread > 0)
 	{
-		bread = read(fd, buf, 1000000);
+		bread = read(fd, buf, 10000);
 		buf[bread] = 0;
 		if (bread == 0)
 			break ;
@@ -88,7 +88,7 @@ bool	parse_input(char **argv, t_data *data)
 
 	i = 1;
 	upmap = NULL;
-	if (ft_strlen(argv[1] < 4) || \
+	if (ft_strlen(argv[1]) < 4 || \
 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".ber", 4) != 0)
 		return (false);
 	fd = open(argv[1], O_RDONLY);
