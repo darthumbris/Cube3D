@@ -1,9 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cubed.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
+/*   Updated: 2022/04/13 14:49:40 by pvan-dij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBED_H
 # define CUBED_H
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
+# include "../libs/libft/libft.h"
 # include <stdlib.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include "unistd.h"
 
 # define SCREEN_HEIGHT	480
@@ -155,5 +169,22 @@ bool	init_mlx(t_data *data);
  * @param data 
  */
 void	raycaster(t_data *data);
+
+
+
+
+
+// utility functions //
+
+/*
+	Jump table functions to store values in struct
+*/
+void	no_store(char *line, t_data *data);
+void	so_store(char *line, t_data *data);
+void	we_store(char *line, t_data *data);
+void	ea_store(char *line, t_data *data);
+void	f_store(char *line, t_data *data);
+void	c_store(char *line, t_data *data);
+
 
 #endif
