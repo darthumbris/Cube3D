@@ -6,7 +6,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || !parse_input(argv, &data))
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error\n", 6); //nothings freed for now
 		return (1);
 	}
 	init_mlx(&data);

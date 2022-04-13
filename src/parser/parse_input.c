@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 15:10:09 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 15:38:50 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ bool	parse_types(char **upmap, t_data *data)
 		i++;
 	}
 	return (true);
-	//check bad path/floor-colours
 }
 
 bool	parse_input(char **argv, t_data *data)
@@ -89,16 +88,26 @@ bool	parse_input(char **argv, t_data *data)
 
 	i = 1;
 	upmap = NULL;
+	if (ft_strlen(argv[1] < 4) || \
+		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".ber", 4) != 0)
+		return (false);
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	if (!upmap)
 		return (false);
 	close(fd);
-	if	(parse_types(upmap, data) == false)
+	if (parse_types(upmap, data) == false)
 		return (false);
 
 	for (int i = 0; upmap[i]; i++)
 		printf("%s\n", upmap[i]);
+	printf("-------------------------------------\n");
+	printf("%s\n", data->level.no_texture_path);
+	printf("%s\n", data->level.so_texture_path);
+	printf("%s\n", data->level.we_texture_path);
+	printf("%s\n", data->level.ea_texture_path);
+	printf("%d\n", data->level.floor_color);
+	printf("%d\n", data->level.ceiling_color);
 
 	data->level.no_texture_path = strdup("assets/wood.png");
 	if (data->level.no_texture_path == NULL)
