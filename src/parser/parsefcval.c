@@ -6,11 +6,14 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:07:32 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 15:11:19 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 20:41:01 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+//stores floor and ceiling rgb values, 
+//im not sure this is actually correct though lol
 
 int	*getrgbval(char *line)
 {

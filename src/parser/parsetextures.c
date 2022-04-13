@@ -6,11 +6,13 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:47:17 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 15:07:31 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 20:41:14 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+//stores textures for all directions 
 
 void	no_store(char *line, t_data *data)
 {

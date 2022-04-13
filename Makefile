@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/13 15:09:38 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/13 20:33:40 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC =   main.c \
 		graphics/raycaster.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
-		parser/parsetextures.c
+		parser/parsetextures.c \
+		parser/parsemap.c
 
 SRC_EXT = c
 

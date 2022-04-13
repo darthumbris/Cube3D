@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 14:49:40 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 20:46:54 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ typedef struct s_mlx
 typedef struct s_level
 {
 	char			**map;
-	unsigned int	map_w;
-	unsigned int	map_h;
+	int				map_w;
+	int				map_h;
 	char			*no_texture_path;
 	char			*we_texture_path;
 	char			*so_texture_path;
@@ -155,6 +155,15 @@ typedef struct s_data
 bool	parse_input(char **argv, t_data *data);
 
 /**
+ * @brief does all the error checking for the map
+ * 
+ * @param upmap unparsed map
+ * @param data
+ * @return char** 
+ */
+char	**parse_map(char **upmap, t_data *data);
+
+/**
  * @brief function to init the mlx handle and load all the textures
  * 
  * @param data 
@@ -170,10 +179,6 @@ bool	init_mlx(t_data *data);
  */
 void	raycaster(t_data *data);
 
-
-
-
-
 // utility functions //
 
 /*
@@ -185,6 +190,5 @@ void	we_store(char *line, t_data *data);
 void	ea_store(char *line, t_data *data);
 void	f_store(char *line, t_data *data);
 void	c_store(char *line, t_data *data);
-
 
 #endif

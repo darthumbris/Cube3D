@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 16:28:57 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 20:49:15 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_values
 	t_func	storemapval;
 }	t_values;
 
+//jump table for storing config settings
 bool	mapjmptable(char *line, t_data *data)
 {
 	int						i;
@@ -43,6 +44,7 @@ bool	mapjmptable(char *line, t_data *data)
 	return (false);
 }
 
+//checks for double newlines in map
 bool	checkmap(char *map)
 {
 	while (*map)
@@ -57,6 +59,7 @@ bool	checkmap(char *map)
 	return (false);
 }
 
+//reads in the entire map, copied this from my fdf
 char	**readmap(int fd, char **temp)
 {
 	char	buf[10001];
@@ -82,6 +85,7 @@ char	**readmap(int fd, char **temp)
 	return (temp);
 }
 
+//loops through the 6 configs
 bool	parse_types(char **upmap, t_data *data)
 {
 	int	i;
@@ -112,16 +116,21 @@ bool	parse_input(char **argv, t_data *data)
 	close(fd);
 	if (!upmap || parse_types(upmap, data) == false)
 		return (false);
-
-	for (int i = 0; upmap[i]; i++)
-		printf("%s\n", upmap[i]);
-	printf("-------------------------------------\n");
-	printf("%s\n", data->level.no_texture_path);
-	printf("%s\n", data->level.so_texture_path);
-	printf("%s\n", data->level.we_texture_path);
-	printf("%s\n", data->level.ea_texture_path);
-	printf("%d\n", data->level.floor_color);
-	printf("%d\n", data->level.ceiling_color);
+	data->level.map = parse_map(upmap, data);
+	if (!data->level.map)
+	{
+		printf("not valid\n");
+		exit(1);
+	}
+	//for (int i = 0; upmap[i]; i++)
+	//	printf("%s\n", upmap[i]);
+	//printf("-------------------------------------\n");
+	//printf("%s\n", data->level.no_texture_path);
+	//printf("%s\n", data->level.so_texture_path);
+	//printf("%s\n", data->level.we_texture_path);
+	//printf("%s\n", data->level.ea_texture_path);
+	//printf("%d\n", data->level.floor_color);
+	//printf("%d\n", data->level.ceiling_color);
 
 	data->level.no_texture_path = strdup("assets/wood.png");
 	if (data->level.no_texture_path == NULL)
