@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/13 13:15:20 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/13 14:18:24 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,19 +86,19 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT)
         exit $$RESULT
 
 libmlx42.a:
-	@make -C lib/MLX42
-	@cp lib/MLX42/libmlx42.a .
+	@make -C libs/MLX42
+	@cp libs/MLX42/libmlx42.a .
 
 clean:
 	@printf "%b" "$(ERROR_COLOR)Removing $(OBJ_COLOR)object files\n"
 	@rm -rf $(OBJ_DIR)
-	@make -C lib/MLX42 clean
+	@make -C libs/MLX42 clean
 	@echo "Objects cleaned."
 
 fclean: clean
 	@printf "%b" "$(ERROR_COLOR)Removing $(PRG_COLOR)$(NAME)\n"
 	@rm -f $(NAME)
-	@make -C lib/MLX42 fclean
+	@make -C libs/MLX42 fclean
 	@rm -f libmlx42.a
 	@echo "Binaries cleaned."
 
