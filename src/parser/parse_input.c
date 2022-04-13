@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 15:44:14 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/13 16:28:57 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ bool	mapjmptable(char *line, t_data *data)
 	return (false);
 }
 
+bool	checkmap(char *map)
+{
+	while (*map)
+	{
+		if (*map == 'F' || *map == 'C')
+			while (*map != '\n')
+				map++;
+		if (ft_isdigit(*map) && *(map + 1) == '\n' && *(map + 2) == '\n')
+			return (true);
+		map++;
+	}
+	return (false);
+}
+
 char	**readmap(int fd, char **temp)
 {
 	char	buf[10001];
@@ -61,6 +75,8 @@ char	**readmap(int fd, char **temp)
 			break ;
 		map = ft_strjoin(map, buf);
 	}
+	if (checkmap(map))
+		return (NULL);
 	temp = ft_split(map, '\n');
 	free(map);
 	return (temp);
@@ -89,14 +105,12 @@ bool	parse_input(char **argv, t_data *data)
 	i = 1;
 	upmap = NULL;
 	if (ft_strlen(argv[1]) < 4 || \
-		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".ber", 4) != 0)
+		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
 		return (false);
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
-	if (!upmap)
-		return (false);
 	close(fd);
-	if (parse_types(upmap, data) == false)
+	if (!upmap || parse_types(upmap, data) == false)
 		return (false);
 
 	for (int i = 0; upmap[i]; i++)
