@@ -58,7 +58,7 @@ typedef struct s_mlx
 /**
  * @brief Struct for all the level data
  * 
- * @param map stores the map. (without the texture path and colour data)
+ * @param map stores the map. (without the texture path and colour data) [x][y]
  * @param map_w total width of the map
  * @param map_h total height of the map
  * @param texture_path string of the path where texture is stored.
@@ -113,6 +113,7 @@ typedef struct s_raycaster
 	double			perp_wall_dist;
 	t_vector_uint	step;
 	int				side;
+	int				line_height;
 }			t_raycaster;
 
 /**
@@ -128,6 +129,7 @@ typedef struct s_data
 	t_level			level;
 	t_camera		cam;
 	t_player		player;
+	t_raycaster		caster;
 }				t_data;
 
 /**
