@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 15:53:31 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 16:28:00 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,9 +155,6 @@ bool	parse_input(char **argv, t_data *data)
 	printf("%f-%f\n", data->player.pos.x, data->player.pos.y);
 
 
-	data->level.no_texture_path = strdup("assets/wood.png");
-	if (data->level.no_texture_path == NULL)
-		return (false);
 	return (true);
 }
 

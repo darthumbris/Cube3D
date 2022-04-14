@@ -8,7 +8,7 @@ void	change_camera_angle(t_data *data, int dir)
 	double	rotate_speed;
 	double	cos_rotate;
 	double	sin_rotate;
-	
+
 	rotate_speed = dir * ROTATE_SPEED * data->mlx.mlx_handle->delta_time;
 	cos_rotate = cos(rotate_speed);
 	sin_rotate = sin(rotate_speed);
@@ -46,7 +46,7 @@ void	key_handler(struct mlx_key_data keys,void *param)
 
 void	game_loop(void *v_data)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)v_data;
 	mlx_key_hook(data->mlx.mlx_handle, key_handler, data);

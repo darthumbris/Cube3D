@@ -1,14 +1,12 @@
-NO         ./path_to_the_north_texture
-SO    ./path_to_the_south_texture
+NO         ./assets/greystone.png
+SO    ./assets/wood.png
 
 
-WE ./path_to_the_west_texture
+WE ./assets/purplestone.png
 
 
 
-EA                    ./path_to_the_east_texture
-
-
+EA                    ./assets/redbrick.png
 
 
 F 220,100,0
@@ -24,7 +22,7 @@ C 225,30,0
 11110111111111011101010010001
 11000000110101011100000010001
 10000000000000001100000010001
-10000000000000001101010010001
-11000001110101011111011110N0111
+1000N000000000001101010010001
+1100000111010101111101111000111
 11110111 1110101 101111010001
 11111111 1111111 111111111111

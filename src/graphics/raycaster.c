@@ -2,23 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 
-const char	*worldMap[15] = {
-	"000000001111111111111111111111111",
-	"000000001000000000110000000000001",
-	"000000001011000001110000000000001",
-	"000000001001000000000000000000001",
-	"111111111011000001110000000000001",
-	"100000000011000001110111111111111",
-	"111101111111110111000000100010000",
-	"111101111111110111010100100010000",
-	"110000001101010111000000100010000",
-	"100000000000000011000000100010000",
-	"100000000000000011010100100010000",
-	"110000011101010111110111100011100",
-	"111101110111010101011110100010000",
-	"111111110111111101111111111110000",
-	NULL};
-
 // Because the map is always surrounded by walls
 // it should always hit a wall before it can go outside
 // the map and overflow.
@@ -59,6 +42,7 @@ void	raycaster(t_data *data)
 			data->caster.step.y = 1;
 			data->caster.side_dist.y = (1.0 + data->caster.map_pos.y - data->cam.pos.y) * data->caster.delta_dist.y;
 		}
+
 		while (!data->caster.hit)
 		{
 			if(data->caster.side_dist.x < data->caster.side_dist.y)
@@ -74,23 +58,25 @@ void	raycaster(t_data *data)
 				data->caster.side = 1;
 			}
 		//Check if ray has hit a wall
-			if(worldMap[data->caster.map_pos.x][data->caster.map_pos.y] > '0')
+			if(data->level.map[data->caster.map_pos.y][data->caster.map_pos.x] > '0')
 				data->caster.hit = true;
 		}
+
 		if(data->caster.side == 0) 
 			data->caster.perp_wall_dist = (data->caster.side_dist.x - data->caster.delta_dist.x);
 		else
 			data->caster.perp_wall_dist = (data->caster.side_dist.y - data->caster.delta_dist.y);
 
-		data->caster.line_height = (int)(SCREEN_HEIGHT / data->caster.perp_wall_dist);
-
+		if (data->caster.perp_wall_dist != 0.0)
+			data->caster.line_height = (int)(SCREEN_HEIGHT / data->caster.perp_wall_dist);
+		else
+			data->caster.line_height = SCREEN_HEIGHT;
 		draw_start = -data->caster.line_height / 2 + SCREEN_HEIGHT / 2;
 		if(draw_start < 0)
 			draw_start = 0;
 		draw_end = data->caster.line_height / 2 + SCREEN_HEIGHT / 2;
 		if(draw_end >= SCREEN_HEIGHT)
 			draw_end = SCREEN_HEIGHT - 1;
-
 		if(data->caster.side == 0)
 			data->caster.wall_x = data->cam.pos.y + data->caster.perp_wall_dist * data->caster.ray_dir.y;
 		else
@@ -123,10 +109,13 @@ void	raycaster(t_data *data)
 				data->mlx.no_texture->pixels[(texY * TEXTURE_WIDTH + texX) * sizeof(unsigned int)])
 			mlx_put_pixel(data->mlx.fg, x, y, color);
 		}
+
 		for (int y = draw_end; y < SCREEN_HEIGHT; y++)
 		{
 			if (data->mlx.fg->pixels[(y * SCREEN_WIDTH + x) * sizeof(unsigned int)])
 				mlx_put_pixel(data->mlx.fg, x, y, 0x00000000);
 		}
+
+
 	}
 }
