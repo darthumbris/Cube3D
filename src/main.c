@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 13:48:37 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 14:55:43 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@ void	hook(void *param)
 
 	mlx = param;
 	if (mlx_is_key_down(param, MLX_KEY_ESCAPE))
-		mlx_close_window(param);
+		mlx_close_window(param); //free shit afterwards
+	if (mlx_is_key_down(param, MLX_KEY_W))
+		;//change player pos
+	if (mlx_is_key_down(param, MLX_KEY_S))
+		;//change player pos
+	if (mlx_is_key_down(param, MLX_KEY_A))
+		;//change player pos
+	if (mlx_is_key_down(param, MLX_KEY_D))
+		;//change player pos
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 14:38:25 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 15:03:33 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ bool	mapjmptable(char *line, t_data *data)
 //checks for double newlines in map
 bool	checkmap(char *map)
 {
+	if (!map)
+		return (true);
 	while (*map)
 	{
 		if (*map == 'F' || *map == 'C')
@@ -100,6 +102,7 @@ bool	parse_types(char **upmap, t_data *data)
 	return (true);
 }
 
+//name
 t_vector_double	getplayerpos(char **map)
 {
 	int	i;
@@ -126,9 +129,9 @@ t_vector_double	getplayerpos(char **map)
 
 bool	parse_input(char **argv, t_data *data)
 {
+	char	**upmap; //unparsed map, free later
 	int		fd;
 	int		i;
-	char	**upmap; //unparsed map
 
 	i = 1;
 	upmap = NULL;
@@ -165,7 +168,6 @@ bool	parse_input(char **argv, t_data *data)
 		return (false);
 	return (true);
 }
-
 
 //typedef union u_IVec2
 //{

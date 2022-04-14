@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 13:53:47 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 15:02:36 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	validchar(char c)
 bool	verifyzero(char **upmap, int i, int j, t_data *data)
 {
 	if (i + 1 > data->level.map_h || i - 1 < 0 \
-		|| j + 1 > data->level.map_w || j - 1 < 0)
+		|| j + 1 > (int)ft_strlen(upmap[i]) || j - 1 < 0)
 		return (false);
 	if (!validchar(upmap[i][j + 1]) || !validchar(upmap[i][j - 1]) || \
 		!validchar(upmap[i + 1][j]) || !validchar(upmap[i - 1][j]))

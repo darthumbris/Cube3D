@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 14:10:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 14:41:42 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ typedef struct s_data
 }				t_data;
 
 /**
- * @brief function to parse the input and then the map data
+ * @brief function to parse the input and then the map data.
+ * Populates the data.level and data.player structs
  * 
  * @param argv 
  * @param data the function will store its result in the data struct
