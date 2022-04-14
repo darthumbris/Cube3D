@@ -1,4 +1,5 @@
 #include "cubed.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -10,9 +11,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_mlx(&data);
-	mlx_draw_texture(data.mlx.fg, data.mlx.no_texture, 64, 64);
-	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
+	draw_background(&data);
+	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0 , 0);
+	raycaster(&data);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
+	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_loop(data.mlx.mlx_handle);
 	return (0);
 }

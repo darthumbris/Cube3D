@@ -5,13 +5,14 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include "unistd.h"
+# include <math.h>
 
 # define SCREEN_HEIGHT	480
 # define SCREEN_WIDTH	640
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		5
-# define ROTATE_SPEED	3
+# define ROTATE_SPEED	20
 # define FOV			90
 
 typedef struct s_vector_uint
@@ -33,7 +34,7 @@ typedef struct s_vector_double
  */
 typedef struct s_player
 {
-	t_vector_uint	pos;
+	t_vector_double	pos;
 }			t_player;
 
 /**
@@ -107,6 +108,7 @@ typedef struct s_raycaster
 {
 	bool			hit;
 	t_vector_uint	map_pos;
+	t_vector_double	ray_pos;
 	t_vector_double	ray_dir;
 	t_vector_double	side_dist;
 	t_vector_double	delta_dist;
@@ -114,6 +116,9 @@ typedef struct s_raycaster
 	t_vector_uint	step;
 	int				side;
 	int				line_height;
+	double			wall_x;
+	double			camera_x;
+	//unsigned int	buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
 }			t_raycaster;
 
 /**
@@ -157,5 +162,20 @@ bool	init_mlx(t_data *data);
  * @param data 
  */
 void	raycaster(t_data *data);
+
+/**
+ * @brief Simple function that fills half the screen with the ceiling color
+ * and the other half with the floor color.
+ * 
+ * @param data 
+ */
+void	draw_background(t_data *data);
+
+/**
+ * @brief This is the function where all the drawcalls and movement is called
+ * 
+ * @param data 
+ */
+void	game_loop(void *data);
 
 #endif
