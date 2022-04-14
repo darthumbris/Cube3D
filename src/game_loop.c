@@ -30,6 +30,18 @@ void	change_camera_angle(t_data *data, int dir)
 	printf("\r%ld\n", ms_after - ms_before);
 }
 
+void	move_camera_pos(t_data *data, int x_dir, int y_dir)
+{
+	double	move_speed;
+
+	move_speed = MOVE_SPEED * data->mlx.mlx_handle->delta_time;
+	if (x_dir)
+		data->cam.pos.x += data->cam.dir.x * move_speed * x_dir;
+	if (y_dir)
+		data->cam.pos.y += data->cam.dir.y * move_speed * y_dir;
+	raycaster(data);
+}
+
 void	key_handler(struct mlx_key_data keys,void *param)
 {
 	t_data *data;
@@ -37,19 +49,19 @@ void	key_handler(struct mlx_key_data keys,void *param)
 	data = (t_data *)param;
 	(void)keys;
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx.mlx_handle); //free shit afterwards
+		mlx_close_window(data->mlx.mlx_handle);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))
 		change_camera_angle(data, 1);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_RIGHT))
 		change_camera_angle(data, -1);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_W))
-		;//change player pos
+		move_camera_pos(data, 0, +1);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S))
-		;//change player pos
+		move_camera_pos(data, 0, -1);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_A))
-		;//change player pos
+		move_camera_pos(data, +1, 0);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
-		;//change player pos
+		move_camera_pos(data, -1, 0);
 }
 
 
@@ -59,5 +71,5 @@ void	game_loop(void *v_data)
 
 	data = (t_data *)v_data;
 	
-	mlx_key_hook(data->mlx.mlx_handle, key_handler, data);
+	
 }

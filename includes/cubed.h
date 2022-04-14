@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 15:59:58 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 17:22:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,8 @@ void	draw_background(t_data *data);
  * @param data 
  */
 void	game_loop(void *data);
+
+void	key_handler(struct mlx_key_data keys,void *param);
 
 // utility functions //
 
