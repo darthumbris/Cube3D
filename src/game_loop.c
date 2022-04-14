@@ -21,25 +21,24 @@ void	change_camera_angle(t_data *data, int dir)
 	raycaster(data);
 }
 
-void	key_handler(struct mlx_key_data keys,void *param)
+void	key_handler(struct mlx_key_data keys, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data *)param;
-	(void)keys;
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_ESCAPE))
+	if (keys.key == MLX_KEY_ESCAPE)
 		mlx_close_window(data->mlx.mlx_handle); //free shit afterwards
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))
+	if (keys.key == MLX_KEY_LEFT)
 		change_camera_angle(data, 1);
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_RIGHT))
+	if (keys.key == MLX_KEY_RIGHT)
 		change_camera_angle(data, -1);
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_W))
+	if (keys.key == MLX_KEY_W)
 		;//change player pos
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S))
+	if (keys.key == MLX_KEY_S)
 		;//change player pos
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_A))
+	if (keys.key == MLX_KEY_A)
 		;//change player pos
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
+	if (keys.key == MLX_KEY_D)
 		;//change player pos
 }
 
