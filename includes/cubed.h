@@ -1,9 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cubed.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
+/*   Updated: 2022/04/14 15:59:58 by pvan-dij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBED_H
 # define CUBED_H
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
+# include "../libs/libft/libft.h"
 # include <stdlib.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include "unistd.h"
 # include <math.h>
 
@@ -30,7 +44,6 @@ typedef struct s_vector_double
 /* 
  * Player position useful for collision checking and
  * maybe for enemies etc.
- * might be better for it to be a double vector?
  */
 typedef struct s_player
 {
@@ -69,15 +82,15 @@ typedef struct s_mlx
 typedef struct s_level
 {
 	char			**map;
-	unsigned int	map_w;
-	unsigned int	map_h;
+	int				map_w;
+	int				map_h;
 	char			*no_texture_path;
 	char			*we_texture_path;
 	char			*so_texture_path;
 	char			*ea_texture_path;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
-}				t_level;
+}	t_level;
 
 /**
  * Struct for the camera of the player.
@@ -138,7 +151,8 @@ typedef struct s_data
 }				t_data;
 
 /**
- * @brief function to parse the input and then the map data
+ * @brief function to parse the input and then the map data.
+ * Populates the data.level and data.player structs
  * 
  * @param argv 
  * @param data the function will store its result in the data struct
@@ -146,6 +160,15 @@ typedef struct s_data
  * @return false 
  */
 bool	parse_input(char **argv, t_data *data);
+
+/**
+ * @brief does all the error checking for the map
+ * 
+ * @param upmap unparsed map
+ * @param data
+ * @return char** 
+ */
+char	**parse_map(char **upmap, t_data *data);
 
 /**
  * @brief function to init the mlx handle and load all the textures
@@ -177,5 +200,25 @@ void	draw_background(t_data *data);
  * @param data 
  */
 void	game_loop(void *data);
+
+// utility functions //
+
+/*
+	Jump table functions to store values in struct
+*/
+void	no_store(char *line, t_data *data);
+void	so_store(char *line, t_data *data);
+void	we_store(char *line, t_data *data);
+void	ea_store(char *line, t_data *data);
+void	f_store(char *line, t_data *data);
+void	c_store(char *line, t_data *data);
+
+typedef void	(*t_func)(char *line, t_data *data);
+
+typedef struct s_values
+{
+	char	*str;
+	t_func	storemapval;
+}	t_values;
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
+/*   Updated: 2022/04/14 16:02:16 by pvan-dij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed.h"
 #include <stdio.h>
 
@@ -7,7 +19,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || !parse_input(argv, &data))
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error\n", 6); //nothings freed for now
 		return (1);
 	}
 	init_mlx(&data);

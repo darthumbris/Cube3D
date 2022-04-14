@@ -6,15 +6,15 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/14 14:32:02 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/14 16:04:55 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cube3D
 
-CC 	:= gcc
+CC  := gcc
 COMPILE_FLAGS = -Wall -Wextra -Werror
-LINKING_FLAGS = libmlx42.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+LINKING_FLAGS = libmlx42.a libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -24,8 +24,11 @@ SRC =	main.c \
         graphics/init_mlx_struct.c \
         graphics/raycaster.c \
         graphics/draw_background.c \
-        parser/parse_input.c \
         game_loop.c \
+		parser/parse_input.c \
+		parser/parsefcval.c \
+		parser/parsetextures.c \
+		parser/parsemap.c
 
 SRC_EXT = c
 
@@ -40,7 +43,7 @@ OK_COLOR    = \033[0;32m
 ERROR_COLOR = \033[0;31m
 WARN_COLOR  = \033[0;33m
 NO_COLOR    = \033[m
-PRG_COLOR	= \033[0;35m
+PRG_COLOR   = \033[0;35m
 
 OK_STRING    = "[OK]"
 ERROR_STRING = "[ERROR]"
@@ -49,52 +52,57 @@ COM_STRING   = "Compiling"
 
 ifeq ($(DEBUG),1)
 	COMPILE_FLAGS += -g3
-    COM_STRING = "Compiling[DEBUG]"
+	COM_STRING = "Compiling[DEBUG]"
 endif
 ifeq ($(DEBUG),2)
 	COMPILE_FLAGS += -g3 -fsanitize=address
-    COM_STRING = "Compiling[LEAKS]"
+	COM_STRING = "Compiling[LEAKS]"
 endif
 
-all: libmlx42.a $(NAME)
+all: libmlx42.a libft.a $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(COMPILE_FLAGS) $(OBJ) -o $(NAME) $(LINKING_FLAGS) 2> $@.log; \
-        RESULT=$$?; \
-        if [ $$RESULT -ne 0 ]; then \
-            printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(PRG_COLOR) $@" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
-        elif [ -s $@.log ]; then \
-            printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(PRG_COLOR) $@" "$(WARN_COLOR)$(WARN_STRING)$(NO_COLOR)\n"; \
-        else  \
-            printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(PRG_COLOR) $(@F)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; \
-        fi; \
-        cat $@.log; \
-        rm -f $@.log; \
-        exit $$RESULT
+		RESULT=$$?; \
+		if [ $$RESULT -ne 0 ]; then \
+			printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(PRG_COLOR) $@" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
+		elif [ -s $@.log ]; then \
+			printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(PRG_COLOR) $@" "$(WARN_COLOR)$(WARN_STRING)$(NO_COLOR)\n"; \
+		else  \
+			printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(PRG_COLOR) $(@F)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; \
+		fi; \
+		cat $@.log; \
+		rm -f $@.log; \
+		exit $$RESULT
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT)
 	@mkdir -p $(dir $@)
 	@$(CC) $(COMPILE_FLAGS) $(INC) -c -o $@ $< 2> $@.log; \
-        RESULT=$$?; \
-        if [ $$RESULT -ne 0 ]; then \
-            printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
-        elif [ -s $@.log ]; then \
-            printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(WARN_COLOR)$(WARN_STRING)$(NO_COLOR)\n"; \
-        else  \
-            printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $(@F)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; \
-        fi; \
-        cat $@.log; \
-        rm -f $@.log; \
-        exit $$RESULT
+		RESULT=$$?; \
+		if [ $$RESULT -ne 0 ]; then \
+			printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(ERROR_COLOR)$(ERROR_STRING)$(NO_COLOR)\n"; \
+		elif [ -s $@.log ]; then \
+			printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $@" "$(WARN_COLOR)$(WARN_STRING)$(NO_COLOR)\n"; \
+		else  \
+			printf "%-60b%b" "$(COM_COLOR)$(COM_STRING)$(OBJ_COLOR) $(@F)" "$(OK_COLOR)$(OK_STRING)$(NO_COLOR)\n"; \
+		fi; \
+		cat $@.log; \
+		rm -f $@.log; \
+		exit $$RESULT
 
 libmlx42.a:
 	@make -C libs/MLX42
 	@cp libs/MLX42/libmlx42.a .
 
+libft.a:
+	@make -C libs/libft
+	@cp libs/libft/libft.a .
+
 clean:
 	@printf "%b" "$(ERROR_COLOR)Removing $(OBJ_COLOR)object files\n"
 	@rm -rf $(OBJ_DIR)
 	@make -C libs/MLX42 clean
+	@make -C libs/libft clean
 	@echo "Objects cleaned."
 
 fclean: clean
@@ -102,8 +110,10 @@ fclean: clean
 	@rm -f $(NAME)
 	@make -C libs/MLX42 fclean
 	@rm -f libmlx42.a
+	@rm -f libft.a
 	@echo "Binaries cleaned."
 
 re: fclean all
 
 .PHONY: all clean fclean re
+

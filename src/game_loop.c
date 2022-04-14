@@ -35,21 +35,29 @@ void	key_handler(struct mlx_key_data keys,void *param)
 	t_data *data;
 
 	data = (t_data *)param;
-	if (keys.key == MLX_KEY_LEFT)
+	(void)keys;
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_ESCAPE))
+		mlx_close_window(data->mlx.mlx_handle); //free shit afterwards
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))
 		change_camera_angle(data, 1);
-	if (keys.key == MLX_KEY_RIGHT)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_RIGHT))
 		change_camera_angle(data, -1);
-	if (keys.key == MLX_KEY_ESCAPE)
-		exit(0);
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_W))
+		;//change player pos
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S))
+		;//change player pos
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_A))
+		;//change player pos
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
+		;//change player pos
 }
+
 
 void	game_loop(void *v_data)
 {
-	t_data *data;
-	
+	t_data	*data;
 
 	data = (t_data *)v_data;
 	
 	mlx_key_hook(data->mlx.mlx_handle, key_handler, data);
-	//printf("\rfps: %f", 1 / data->mlx.mlx_handle->delta_time);
 }
