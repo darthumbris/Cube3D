@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 20:46:54 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 14:10:49 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ typedef struct s_vector_double
 /* 
  * Player position useful for collision checking and
  * maybe for enemies etc.
- * might be better for it to be a double vector?
  */
 typedef struct s_player
 {
-	t_vector_uint	pos;
+	t_vector_double	pos;
 }			t_player;
 
 /**
@@ -90,7 +89,7 @@ typedef struct s_level
 	char			*ea_texture_path;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
-}				t_level;
+}	t_level;
 
 /**
  * Struct for the camera of the player.

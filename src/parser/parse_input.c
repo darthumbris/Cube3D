@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 20:49:15 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 14:07:16 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,30 @@ bool	parse_types(char **upmap, t_data *data)
 	return (true);
 }
 
+t_vector_double	getplayerpos(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == 'N' || map[i][j] == 'S' || \
+				map[i][j] == 'W' || map[i][j] == 'E')
+			{
+				map[i][j] = '0';
+				return ((t_vector_double){.x = j, .y = i});
+			}	
+			j++;
+		}
+		i++;
+	}
+	return ((t_vector_double){.x = -1, .y = -1});
+}
+
 bool	parse_input(char **argv, t_data *data)
 {
 	int		fd;
@@ -117,23 +141,38 @@ bool	parse_input(char **argv, t_data *data)
 	if (!upmap || parse_types(upmap, data) == false)
 		return (false);
 	data->level.map = parse_map(upmap, data);
-	if (!data->level.map)
+	data->player.pos = getplayerpos(data->level.map);
+	if (!data->level.map || \
+		data->player.pos.x == -1 || data->player.pos.y == -1)
 	{
 		printf("not valid\n");
 		exit(1);
 	}
-	//for (int i = 0; upmap[i]; i++)
-	//	printf("%s\n", upmap[i]);
-	//printf("-------------------------------------\n");
-	//printf("%s\n", data->level.no_texture_path);
-	//printf("%s\n", data->level.so_texture_path);
-	//printf("%s\n", data->level.we_texture_path);
-	//printf("%s\n", data->level.ea_texture_path);
-	//printf("%d\n", data->level.floor_color);
-	//printf("%d\n", data->level.ceiling_color);
+	for (int i = 0; data->level.map[i]; i++)
+		printf("%s\n", data->level.map[i]);
+	printf("-------------------------------------\n");
+	printf("%s\n", data->level.no_texture_path);
+	printf("%s\n", data->level.so_texture_path);
+	printf("%s\n", data->level.we_texture_path);
+	printf("%s\n", data->level.ea_texture_path);
+	printf("%d\n", data->level.floor_color);
+	printf("%d\n", data->level.ceiling_color);
+	printf("%f-%f\n", data->player.pos.x, data->player.pos.y);
+
 
 	data->level.no_texture_path = strdup("assets/wood.png");
 	if (data->level.no_texture_path == NULL)
 		return (false);
 	return (true);
 }
+
+
+//typedef union u_IVec2
+//{
+//	struct
+//	{
+//		int32_t	x;
+//		int32_t	y;
+//	};
+//	int32_t	raw[2];
+//}	t_IVec2;
