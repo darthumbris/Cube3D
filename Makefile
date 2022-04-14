@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/14 15:59:37 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/14 16:04:55 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRC =	main.c \
         graphics/init_mlx_struct.c \
         graphics/raycaster.c \
         graphics/draw_background.c \
-        parser/parse_input.c \
         game_loop.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
