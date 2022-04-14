@@ -57,7 +57,6 @@ void	raycaster(t_data *data)
 				data->caster.map_pos.y += data->caster.step.y;
 				data->caster.side = 1;
 			}
-		//Check if ray has hit a wall
 			if(data->level.map[data->caster.map_pos.y][data->caster.map_pos.x] > '0')
 				data->caster.hit = true;
 		}
