@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-void	change_camera_angle(t_data *data, int dir)
+void	change_camera_angle(t_data *data, double dir)
 {
 	double	old_dir_x;
 	double	old_plane_x;
@@ -49,19 +49,18 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE)
 		mlx_close_window(data->mlx.mlx_handle); //free shit afterwards
-	if (keys.key == MLX_KEY_LEFT)
+	if (keys.key == MLX_KEY_LEFT && keys.action != MLX_RELEASE)
 		change_camera_angle(data, 1);
-	if (keys.key == MLX_KEY_RIGHT)
+	if (keys.key == MLX_KEY_RIGHT && keys.action != MLX_RELEASE)
 		change_camera_angle(data, -1);
-	if (keys.key == MLX_KEY_W)
+	if (keys.key == MLX_KEY_W && keys.action != MLX_RELEASE)
 		move_camera_pos(data, 0, +1);
-	if (keys.key == MLX_KEY_S)
+	if (keys.key == MLX_KEY_S && keys.action != MLX_RELEASE)
 		move_camera_pos(data, 0, -1);
-	if (keys.key == MLX_KEY_A)
+	if (keys.key == MLX_KEY_A && keys.action != MLX_RELEASE)
 		move_camera_pos(data, +1, 0);
-	if (keys.key == MLX_KEY_D)
+	if (keys.key == MLX_KEY_D && keys.action != MLX_RELEASE)
 		move_camera_pos(data, -1, 0);
-
 }
 
 

@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/14 16:04:55 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/14 17:41:02 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -113,7 +113,7 @@ fclean: clean
 	@rm -f libft.a
 	@echo "Binaries cleaned."
 
-re: fclean all
+re: clean all #TODO:re fclean rule
 
 .PHONY: all clean fclean re
 
