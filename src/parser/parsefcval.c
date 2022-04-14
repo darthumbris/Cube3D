@@ -6,14 +6,13 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:07:32 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 17:12:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 17:14:56 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
 //stores floor and ceiling rgb values, 
-//im not sure this is actually correct though lol
 
 int	*getrgbval(char *line)
 {
@@ -31,7 +30,6 @@ int	*getrgbval(char *line)
 	while (*line && *(line - 1) != ',')
 		line++;
 	b = ft_atoi(line);
-	printf("%d-%d-%d\n", r, g, b);
 	return ((int []){r, g, b});
 }
 
