@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 15:02:36 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 15:56:13 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ bool	validchar(char c)
 	return (true);
 }
 
+bool	validchar_space(char c)
+{
+	if (c != '1' && c != '0' \
+		&& c != 'N' && c != 'S' && c != 'W' && c != 'E' && c != ' ')
+		return (false);
+	return (true);
+}
+
 //checks wether 0 is valid. if there are non digits around it, it is not
 bool	verifyzero(char **upmap, int i, int j, t_data *data)
 {
@@ -84,7 +92,8 @@ char	**parse_map(char **upmap, t_data *data)
 		j = 0;
 		while (upmap[i][j])
 		{
-			if (upmap[i][j] == '0' && verifyzero(upmap, i, j, data) == false)
+			if (validchar_space(upmap[i][j]) == false || \
+				(upmap[i][j] == '0' && verifyzero(upmap, i, j, data) == false))
 			{
 				return (NULL); //free shit
 			}

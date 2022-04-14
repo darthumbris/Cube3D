@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 14:41:42 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 15:52:16 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,5 +192,14 @@ void	we_store(char *line, t_data *data);
 void	ea_store(char *line, t_data *data);
 void	f_store(char *line, t_data *data);
 void	c_store(char *line, t_data *data);
+
+typedef void	(*t_func)(char *line, t_data *data);
+
+typedef struct s_values
+{
+	char	*str;
+	t_func	storemapval;
+}	t_values;
+
 
 #endif

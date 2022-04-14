@@ -6,20 +6,12 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 15:03:33 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 15:53:31 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
-
-typedef void	(*t_func)(char *line, t_data *data);
-
-typedef struct s_values
-{
-	char	*str;
-	t_func	storemapval;
-}	t_values;
 
 //jump table for storing config settings
 bool	mapjmptable(char *line, t_data *data)
@@ -109,7 +101,7 @@ t_vector_double	getplayerpos(char **map)
 	int	j;
 
 	i = 0;
-	while (map[i])
+	while (map && map[i])
 	{
 		j = 0;
 		while (map[i][j])
