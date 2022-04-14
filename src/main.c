@@ -6,11 +6,12 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 14:55:43 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/14 16:00:17 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <stdio.h>
 
 void	hook(void *param)
 {
@@ -39,10 +40,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_mlx(&data);
-	mlx_draw_texture(data.mlx.fg, data.mlx.no_texture, 64, 64);
-	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
+	draw_background(&data);
+	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0 , 0);
+	raycaster(&data);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
-	mlx_loop_hook(data.mlx.mlx_handle, &hook, data.mlx.mlx_handle);
+	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_loop(data.mlx.mlx_handle);
 	return (0);
 }

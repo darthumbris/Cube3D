@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/13 20:33:40 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/14 15:59:37 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,12 @@ SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
 
-SRC =   main.c \
-		graphics/init_mlx_struct.c \
-		graphics/raycaster.c \
+SRC =	main.c \
+        graphics/init_mlx_struct.c \
+        graphics/raycaster.c \
+        graphics/draw_background.c \
+        parser/parse_input.c \
+        game_loop.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \
