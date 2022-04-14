@@ -7,8 +7,8 @@
 # include "unistd.h"
 # include <math.h>
 
-# define SCREEN_HEIGHT	480
-# define SCREEN_WIDTH	640
+# define SCREEN_HEIGHT	720
+# define SCREEN_WIDTH	1280
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		5
