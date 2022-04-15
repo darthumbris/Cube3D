@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 13:23:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/15 15:01:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define SCREEN_WIDTH	1280
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
-# define MOVE_SPEED		5
+# define MOVE_SPEED		10
 # define ROTATE_SPEED	20
 # define FOV			90
 # define TRANSPARENT	0x00000000
@@ -42,6 +42,15 @@ typedef struct s_vector_double
 	double	x;
 	double	y;
 }				t_vector_double;
+
+typedef struct s_rgba
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+}			t_rgba;
+
 
 /* 
  * Player position useful for collision checking and
@@ -144,6 +153,7 @@ typedef struct s_raycaster
 	int				draw_start;
 	int				draw_end;
 	t_vector_uint	tex;
+	t_rgba			color_rgba;
 }			t_raycaster;
 
 /**
