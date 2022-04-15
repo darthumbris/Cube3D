@@ -11,6 +11,7 @@ static bool	init_textures(t_data *data)
 		return (false);
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;
+	ft_bzero(data->keyque, 6);
 	return (true);
 }
 

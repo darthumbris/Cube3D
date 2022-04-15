@@ -33,3 +33,5 @@ void	raycaster(t_data *data)
 	printf("\r%ld\n", ms_after - ms_before);
 	data->caster.framedone = true;
 }
+
+//TODO: would fixed point be faster?

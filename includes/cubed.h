@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 17:42:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 20:39:27 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define SCREEN_WIDTH	1080
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
-# define MOVE_SPEED		10
+# define MOVE_SPEED		20
 # define ROTATE_SPEED	20
 # define FOV			90
 # define TRANSPARENT	0x00000000
@@ -37,11 +37,23 @@ typedef struct s_vector_uint
 	unsigned int	y;
 }				t_vector_uint;
 
+typedef struct s_vector_uint8
+{
+	uint8_t	x;
+	uint8_t	y;
+}				t_vector_uint8;
+
 typedef struct s_vector_double
 {
 	double	x;
 	double	y;
 }				t_vector_double;
+
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}				t_vector_int;
 
 typedef struct s_rgba
 {
@@ -171,6 +183,7 @@ typedef struct s_data
 	t_camera		cam;
 	t_player		player;
 	t_raycaster		caster;
+	int				keyque[6];
 }				t_data;
 
 /**
@@ -234,8 +247,27 @@ void	draw_walls(t_data *data, int x);
  */
 void	game_loop(void *data);
 
+/**
+ * @brief leftkey / rightkey movement
+ * 
+ * @param data 
+ * @param dir 
+ */
+void	change_camera_angle(t_data *data, double dir);
+
+/**
+ * @brief wasd movement
+ * 
+ * @param data 
+ * @param dir 
+ * @param strafe 
+ */
+void	move_camera_pos(t_data *data, int dir, bool strafe);
+
 void	key_handler(struct mlx_key_data keys, void *param);
-void	mouse_events(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+void	mouse_events(mouse_key_t button, action_t action, \
+	modifier_key_t mods, void *param);
+void	cursor_movement(double xpos, double ypos, void *param);
 
 // utility functions //
 
