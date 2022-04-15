@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/15 10:42:34 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/15 15:20:23 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ SRC :=  $(addprefix $(SRC_DIR)/, $(SRC))
 
 INC = -I $(INC_DIR)
 
+HEADERS = cubed.h
+HEADERS :=  $(addprefix $(INC_DIR)/, $(HEADERS))
+
 COM_COLOR   = \033[0;33m
 OBJ_COLOR   = \033[0;36m
 OK_COLOR    = \033[0;32m
@@ -63,7 +66,7 @@ endif
 
 all: libmlx42.a libft.a $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADERS)
 	@$(CC) $(COMPILE_FLAGS) $(OBJ) -o $(NAME) $(LINKING_FLAGS) 2> $@.log; \
 		RESULT=$$?; \
 		if [ $$RESULT -ne 0 ]; then \
@@ -77,7 +80,7 @@ $(NAME): $(OBJ)
 		rm -f $@.log; \
 		exit $$RESULT
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT) $(HEADERS)
 	@mkdir -p $(dir $@)
 	@$(CC) $(COMPILE_FLAGS) $(INC) -c -o $@ $< 2> $@.log; \
 		RESULT=$$?; \
