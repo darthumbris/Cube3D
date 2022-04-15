@@ -2,8 +2,8 @@
 
 unsigned int	get_pixel(mlx_texture_t *data, int x, int y)
 {
-	//write(1, (data->pixels + ((y * data->width + x) * (data->bytes_per_pixel))), 8);
-	return (*(unsigned int*)(data->pixels + ((y * data->width + x) * (data->bytes_per_pixel))));
+	return (*(unsigned int*)\
+		(data->pixels + ((y * data->width + x) * (data->bytes_per_pixel))));
 }
 
 void draw_skybox(t_data *data)

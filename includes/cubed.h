@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 21:00:27 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 21:15:00 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,6 @@ typedef struct s_data
 	t_camera		cam;
 	t_player		player;
 	t_raycaster		caster;
-	int				keyque[6];
 }				t_data;
 
 /**
