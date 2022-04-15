@@ -12,7 +12,7 @@ void	draw_transparency(t_data *data, int x)
 		ft_bzero(pixel, 4);
 		y++;
 	}
-	y = data->caster.draw_end;
+	y = data->caster.draw_end + 1;
 	while (y < SCREEN_HEIGHT)
 	{
 		pixel = &data->mlx.fg->pixels[(y * data->mlx.fg->width + x) * 4];

@@ -8,7 +8,7 @@ void	change_camera_angle(t_data *data, double dir)
 	double	cos_rotate;
 	double	sin_rotate;
 	
-	rotate_speed = dir * ROTATE_SPEED * data->mlx.mlx_handle->delta_time;
+	rotate_speed = dir * ROTATE_SPEED * 0.01;
 	cos_rotate = cos(rotate_speed);
 	sin_rotate = sin(rotate_speed);
 	old_dir_x = data->cam.dir.x;
@@ -22,23 +22,26 @@ void	change_camera_angle(t_data *data, double dir)
 
 void	move_camera_pos(t_data *data, int dir, bool strafe)
 {
-	const double	move_speed = dir * MOVE_SPEED * data->mlx.mlx_handle->delta_time;
+	const double	move_speed = dir * MOVE_SPEED * 0.01;
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
 	//TODO:its possible to jam yourself stuck inside a wall
-	if (data->level.map[(int)(data->cam.pos.y + temp_dir_y)][(int)(data->cam.pos.x + temp_dir_x)] == '1' ||
-		data->level.map[(int)(data->cam.pos.y + temp_dir_x)][(int)(data->cam.pos.x - temp_dir_y)] == '1')
-		return ;
-	if (!strafe)
+	//TODO:holding w toward wall
+	//printf("tempdir:%f-%f\n", temp_dir_x, temp_dir_y);
+	if (!strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_y)][(int)(data->cam.pos.x + temp_dir_x)] == '0')
 	{
 		data->cam.pos.x += temp_dir_x;
 		data->cam.pos.y += temp_dir_y;
 	}
-	else if (strafe)
+	else if (strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_x)][(int)(data->cam.pos.x - temp_dir_y)] == '0')
 	{
 		data->cam.pos.x -= temp_dir_y;
 		data->cam.pos.y += temp_dir_x;
 	}
+	else 
+		return ;
+	//printf("dir:%f-%f\n", data->cam.dir.x, data->cam.dir.y);
+	//printf("pos:%f-%f\n", data->cam.pos.x, data->cam.pos.y);
 	raycaster(data);
 }
 
