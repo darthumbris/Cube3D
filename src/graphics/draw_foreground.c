@@ -7,15 +7,13 @@ void	draw_transparency(t_data *data, int x)
 	y = 0;
 	while (y < data->caster.draw_start)
 	{
-		if (data->mlx.fg->pixels[(y * SCREEN_WIDTH + x) * sizeof(unsigned int)])
-			mlx_put_pixel(data->mlx.fg, x, y, TRANSPARENT);
+		mlx_put_pixel(data->mlx.fg, x, y, TRANSPARENT);
 		y++;
 	}
 	y = data->caster.draw_end;
 	while (y < SCREEN_HEIGHT)
 	{
-		if (data->mlx.fg->pixels[(y * SCREEN_WIDTH + x) * sizeof(unsigned int)])
-			mlx_put_pixel(data->mlx.fg, x, y, TRANSPARENT);
+		mlx_put_pixel(data->mlx.fg, x, y, TRANSPARENT);
 		y++;
 	}
 }

@@ -9,12 +9,8 @@ static bool	init_textures(t_data *data)
 	if (data->mlx.no_texture == NULL || data->mlx.ea_texture == NULL || \
 		data->mlx.so_texture == NULL || data->mlx.we_texture == NULL)
 		return (false);
-	data->cam.pos.x = data->player.pos.x;
-	data->cam.pos.y = data->player.pos.y;
-	//data->cam.dir.x = -1.0;
-	//data->cam.dir.y = 0;
-	//data->cam.plane.x = 0.0;
-	//data->cam.plane.y = tan(PI * FOV);
+	data->cam.pos.x = data->player.pos.x + 0.5;
+	data->cam.pos.y = data->player.pos.y + 0.5;
 	return (true);
 }
 
