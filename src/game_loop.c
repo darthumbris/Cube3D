@@ -31,13 +31,13 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 		return ;
 	if (!strafe)
 	{
-		data->cam.pos.x += data->cam.dir.x * move_speed;
-		data->cam.pos.y += data->cam.dir.y * move_speed;
+		data->cam.pos.x += temp_dir_x;
+		data->cam.pos.y += temp_dir_y;
 	}
 	else if (strafe)
 	{
-		data->cam.pos.x -= data->cam.dir.y * move_speed;
-		data->cam.pos.y += data->cam.dir.x * move_speed;
+		data->cam.pos.x -= temp_dir_y;
+		data->cam.pos.y += temp_dir_x;
 	}
 	raycaster(data);
 }
