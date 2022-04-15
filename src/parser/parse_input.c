@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 17:41:45 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 23:46:24 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ bool	mapjmptable(char *line, t_data *data)
 //checks for double newlines in map
 bool	checkmap(char *map)
 {
-	if (!map)
+	if (!map || !*map)
 		return (true);
 	while (*map)
 	{
 		if (*map == 'F' || *map == 'C')
-			while (*map != '\n')
+			while (*map != '\n' && *(map + 1))
 				map++;
 		if (ft_isdigit(*map) && *(map + 1) == '\n' && *(map + 2) == '\n')
 			return (true);
@@ -120,6 +120,8 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 {
 	char	c;
 
+	if (!map || !*map)
+		return ;
 	c = map[(int)pos.y][(int)pos.x];
 	map[(int)pos.y][(int)pos.x] = '0';
 	if (c == 'N')
@@ -155,10 +157,7 @@ bool	parse_input(char **argv, t_data *data)
 	setplayerdir(data->level.map, data->player.pos, data);
 	if (!data->level.map || \
 		data->player.pos.x == -1 || data->player.pos.y == -1)
-	{
-		printf("not valid\n");
-		exit(1);
-	}
+		return (false);
 	for (int i = 0; data->level.map[i]; i++)
 		printf("%s\n", data->level.map[i]);
 	data->caster.framedone = true;

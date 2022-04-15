@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 15:56:13 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 23:44:01 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	**parse_map(char **upmap, t_data *data)
 	int	j;
 
 	i = 0;
-	while (ft_isalpha(*(*upmap)))
+	while (*upmap && ft_isalpha(*(*upmap)))
 		upmap++;
 	getwidtheight(upmap, data);
 	while (upmap[i])
