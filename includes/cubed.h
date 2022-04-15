@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 17:22:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/15 13:23:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	20
 # define FOV			90
+# define TRANSPARENT	0x00000000
+# define PI				0.008726646259971647884618453842443063567
 
 typedef struct s_vector_uint
 {
@@ -68,6 +70,14 @@ typedef struct s_mlx
 	mlx_texture_t	*so_texture;
 	mlx_texture_t	*ea_texture;
 }			t_mlx;
+
+typedef enum e_textures
+{
+	WEST = 0,
+	EAST = 1,
+	NORTH = 2,
+	SOUTH = 3
+}	t_textures;
 
 /**
  * @brief Struct for all the level data
@@ -131,7 +141,9 @@ typedef struct s_raycaster
 	int				line_height;
 	double			wall_x;
 	double			camera_x;
-	//unsigned int	buffer[SCREEN_HEIGHT][SCREEN_WIDTH];
+	int				draw_start;
+	int				draw_end;
+	t_vector_uint	tex;
 }			t_raycaster;
 
 /**
@@ -186,6 +198,12 @@ bool	init_mlx(t_data *data);
  */
 void	raycaster(t_data *data);
 
+void	check_wall_collision(t_data *data);
+void	set_caster_variables(t_data *data, int x);
+void	set_step_direction(t_data *data);
+void	calculate_perpendicular_wall_distance(t_data *data);
+void	set_draw_values(t_data *data);
+
 /**
  * @brief Simple function that fills half the screen with the ceiling color
  * and the other half with the floor color.
@@ -194,6 +212,10 @@ void	raycaster(t_data *data);
  */
 void	draw_background(t_data *data);
 
+void	draw_transparency(t_data *data, int x);
+
+void	draw_walls(t_data *data, int x);
+
 /**
  * @brief This is the function where all the drawcalls and movement is called
  * 
@@ -201,7 +223,7 @@ void	draw_background(t_data *data);
  */
 void	game_loop(void *data);
 
-void	key_handler(struct mlx_key_data keys,void *param);
+void	key_handler(struct mlx_key_data keys, void *param);
 
 // utility functions //
 
