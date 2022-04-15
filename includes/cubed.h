@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 20:39:27 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 21:00:27 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,7 @@ typedef struct s_mlx
 	mlx_t			*mlx_handle;
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
-	mlx_texture_t	*no_texture;
-	mlx_texture_t	*we_texture;
-	mlx_texture_t	*so_texture;
-	mlx_texture_t	*ea_texture;
+	mlx_texture_t	*tex[4];
 }			t_mlx;
 
 typedef enum e_textures

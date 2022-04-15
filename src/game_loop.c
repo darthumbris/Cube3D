@@ -1,7 +1,5 @@
 #include "cubed.h"
 
-
-
 void	key_handler(struct mlx_key_data keys, void *param)
 {
 	t_data	*data;
@@ -38,7 +36,9 @@ void	cursor_movement(double xpos, double ypos, void *param)
 	t_data			*data;
 
 	data = (t_data *)param;
-	printf("%f-%f\n", xpos, ypos);
+	(void)xpos;
+	(void)ypos;
+	//printf("%f-%f\n", xpos, ypos);
 }
 
 void	game_loop(void *v_data)
@@ -46,8 +46,9 @@ void	game_loop(void *v_data)
 	t_data	*data;
 
 	data = (t_data *)v_data;
+	//raycaster(data);
 }
 
 //TODO: fix slowdown near walls
 //TODO: mouse movement
-//TODO: floor ceiling colour gradient is nice
+//TODO: floor ceiling colour gradient is nice/skybox/textures

@@ -2,12 +2,12 @@
 
 static bool	init_textures(t_data *data)
 {
-	data->mlx.no_texture = mlx_load_png(data->level.no_texture_path);
-	data->mlx.ea_texture = mlx_load_png(data->level.ea_texture_path);
-	data->mlx.so_texture = mlx_load_png(data->level.so_texture_path);
-	data->mlx.we_texture = mlx_load_png(data->level.we_texture_path);
-	if (data->mlx.no_texture == NULL || data->mlx.ea_texture == NULL || \
-		data->mlx.so_texture == NULL || data->mlx.we_texture == NULL)
+	data->mlx.tex[NORTH] = mlx_load_png(data->level.no_texture_path);
+	data->mlx.tex[EAST] = mlx_load_png(data->level.ea_texture_path);
+	data->mlx.tex[SOUTH] = mlx_load_png(data->level.so_texture_path);
+	data->mlx.tex[WEST] = mlx_load_png(data->level.we_texture_path);
+	if (data->mlx.tex[NORTH] == NULL || data->mlx.tex[EAST] == NULL || \
+		data->mlx.tex[SOUTH] == NULL || data->mlx.tex[WEST] == NULL)
 		return (false);
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;
