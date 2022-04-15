@@ -13,6 +13,7 @@ void	raycaster(t_data *data)
 	long			ms_after;
 
 	x = 0;
+	data->caster.framedone = false;
 	gettimeofday(&timev, NULL);
 	ms_before = timev.tv_sec * 1000 + timev.tv_usec / 1000;
 	while (x < SCREEN_WIDTH)
@@ -30,4 +31,5 @@ void	raycaster(t_data *data)
 	gettimeofday(&timev, NULL);
 	ms_after = timev.tv_sec * 1000 + timev.tv_usec / 1000;
 	printf("\r%ld\n", ms_after - ms_before);
+	data->caster.framedone = true;
 }

@@ -26,7 +26,6 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
 	//TODO:its possible to jam yourself stuck inside a wall
-	//TODO:holding w toward wall
 	if (!strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_y)][(int)(data->cam.pos.x + temp_dir_x)] == '0')
 	{
 		data->cam.pos.x += temp_dir_x;
@@ -42,7 +41,8 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 	//printf("tempdir:%f-%f\n", temp_dir_x, temp_dir_y);
 	//printf("dir:%f-%f\n", data->cam.dir.x, data->cam.dir.y);
 	//printf("pos:%f-%f\n", data->cam.pos.x, data->cam.pos.y);
-	raycaster(data);
+	if (data->caster.framedone)
+		raycaster(data);
 }
 
 void	key_handler(struct mlx_key_data keys, void *param)
@@ -73,7 +73,6 @@ void mouse_events(mouse_key_t button, action_t action, modifier_key_t mods, void
 	(void)param;
 	if (button == MLX_MOUSE_BUTTON_LEFT)
 		write(1, "lol\n", 4);
-	action
 }
 
 //typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
@@ -84,3 +83,7 @@ void	game_loop(void *v_data)
 
 	data = (t_data *)v_data;
 }
+
+//TODO: fix slowdown near walls
+//TODO: mouse movement
+//TODO: floor ceiling colour gradient is nice

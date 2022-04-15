@@ -36,7 +36,6 @@ Want:
 Ceiling and floor have textures
 Enemies
 Rotating camera up down.
-Transparency
 Have an fps counter? 
 Can use the delta time of mlx_handle for that
 

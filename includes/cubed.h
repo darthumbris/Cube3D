@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 17:04:18 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 17:42:49 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 # include <math.h>
 
 # define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	1280
+# define SCREEN_WIDTH	1080
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		10
 # define ROTATE_SPEED	20
-# define FOV			60
+# define FOV			90
 # define TRANSPARENT	0x00000000
 # define PI				0.008726646259971647884618453842443063567
 
@@ -139,6 +139,7 @@ typedef struct s_camera
 typedef struct s_raycaster
 {
 	bool			hit;
+	bool			framedone;
 	t_vector_uint	map_pos;
 	t_vector_double	ray_pos;
 	t_vector_double	ray_dir;
