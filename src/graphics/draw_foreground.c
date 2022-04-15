@@ -7,21 +7,21 @@ void	draw_transparency(t_data *data, int x)
 	y = 0;
 	while (y < data->caster.draw_start)
 	{
-		data->mlx.fg->pixels[((y * data->mlx.fg->width + x) * 4) + 3] = 0;
+		*(data->mlx.fg->pixels + ((y * data->mlx.fg->width + x) * 4) + 3) = 0;
 		y++;
 	}
 	y = data->caster.draw_end + 1;
 	while (y < SCREEN_HEIGHT)
 	{
-		data->mlx.fg->pixels[((y * data->mlx.fg->width + x) * 4) + 3] = 0;
+		*(data->mlx.fg->pixels + ((y * data->mlx.fg->width + x) * 4) + 3) = 0;
 		y++;
 	}
 }
 
 static void	set_color(t_data *data, t_vector_uint	tex, int x, int y)
 {
-	int				pixel_pos;
-	int				fg_pos;
+	int	pixel_pos;
+	int	fg_pos;
 
 	pixel_pos = (tex.y * TEXTURE_WIDTH + tex.x) * 4;
 	fg_pos = (y * data->mlx.fg->width + x) * 4;
