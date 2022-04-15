@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 21:15:00 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 23:21:00 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,19 @@ typedef struct s_player
 	t_vector_double	pos;
 }			t_player;
 
+typedef union u_lodtex
+{
+	mlx_texture_t	*texarr[6];
+	struct {
+		mlx_texture_t	*no_texture;
+		mlx_texture_t	*ea_texture;
+		mlx_texture_t	*so_texture;
+		mlx_texture_t	*we_texture;
+		mlx_texture_t	*fl_texture;
+		mlx_texture_t	*ce_texture;
+	};
+}	t_lodtex;
+
 /**
  * @brief Struct for all the mlx data
  * 
@@ -86,7 +99,7 @@ typedef struct s_mlx
 	mlx_t			*mlx_handle;
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
-	mlx_texture_t	*tex[4];
+	t_lodtex		tex;
 }			t_mlx;
 
 typedef enum e_textures
@@ -94,7 +107,9 @@ typedef enum e_textures
 	WEST = 0,
 	EAST = 1,
 	NORTH = 2,
-	SOUTH = 3
+	SOUTH = 3,
+	FLOOR = 4,
+	CEILING = 5
 }	t_textures;
 
 /**

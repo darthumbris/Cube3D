@@ -32,7 +32,6 @@ void	raycaster(t_data *data)
 	ms_after = timev.tv_sec * 1000 + timev.tv_usec / 1000;
 	//printf("\r%ld\n", ms_after - ms_before);
 	printf("\r%ld\n", 1000 / (ms_after - ms_before)); //fps
-
 	data->caster.framedone = true;
 }
 
