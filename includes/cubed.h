@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 15:01:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/15 16:14:47 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,7 @@ void	draw_walls(t_data *data, int x);
 void	game_loop(void *data);
 
 void	key_handler(struct mlx_key_data keys, void *param);
+void	mouse_events(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
 
 // utility functions //
 
