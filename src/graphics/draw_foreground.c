@@ -2,18 +2,21 @@
 
 void	draw_transparency(t_data *data, int x)
 {
-	int	y;
+	int		y;
+	uint8_t	*pixel;
 
 	y = 0;
 	while (y < data->caster.draw_start)
 	{
-		mlx_put_pixel(data->mlx.fg, x, y, TRANSPARENT);
+		pixel = &data->mlx.fg->pixels[(y * data->mlx.fg->width + x) * 4];
+		ft_bzero(pixel, 4);
 		y++;
 	}
 	y = data->caster.draw_end;
 	while (y < SCREEN_HEIGHT)
 	{
-		mlx_put_pixel(data->mlx.fg, x, y, TRANSPARENT);
+		pixel = &data->mlx.fg->pixels[(y * data->mlx.fg->width + x) * 4];
+		ft_bzero(pixel, 4);
 		y++;
 	}
 }
@@ -38,6 +41,17 @@ static unsigned int	get_color(t_data *data, t_vector_uint	tex)
 	return (color);
 }
 
+void	set_color(mlx_image_t *img, int x, int y, unsigned int color)
+{
+	uint8_t	*pixels;
+
+	pixels = &img->pixels[(y * img->width + x) * 4];
+	*(pixels) = (uint8_t)(color >> 24);
+	*(pixels + 1) = (uint8_t)(color >> 16);
+	*(pixels + 2) = (uint8_t)(color >> 8);
+	*(pixels + 3) = (uint8_t)(color & 0xFF);
+}
+
 void	draw_walls(t_data *data, int x)
 {
 	unsigned int	color;
@@ -59,7 +73,8 @@ void	draw_walls(t_data *data, int x)
 		data->caster.tex.y = (int)tex_pos & (TEXTURE_HEIGHT - 1);
 		tex_pos += step;
 		color = get_color(data, data->caster.tex);
-		mlx_put_pixel(data->mlx.fg, x, y, color);
+		set_color(data->mlx.fg, x, y, color);
+		//mlx_put_pixel(data->mlx.fg, x, y, color);
 		y++;
 	}
 }
