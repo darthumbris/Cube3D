@@ -33,14 +33,8 @@ void	set_caster_variables(t_data *data, int x)
 		data->cam.plane.y * data->caster.camera_x;
 	data->caster.map_pos.x = (int)(data->cam.pos.x);
 	data->caster.map_pos.y = (int)(data->cam.pos.y);
-	if (data->caster.ray_dir.x == 0)
-		data->caster.delta_dist.x = 1e30;
-	else
-		data->caster.delta_dist.x = fabs(1 / data->caster.ray_dir.x);
-	if (data->caster.ray_dir.y == 0)
-		data->caster.delta_dist.y = 1e30;
-	else
-		data->caster.delta_dist.y = fabs(1 / data->caster.ray_dir.y);
+	data->caster.delta_dist.x = fabs(1 / data->caster.ray_dir.x);
+	data->caster.delta_dist.y = fabs(1 / data->caster.ray_dir.y);
 	data->caster.hit = false;
 }
 

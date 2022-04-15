@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 15:01:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/15 15:20:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		10
 # define ROTATE_SPEED	20
-# define FOV			90
+# define FOV			60
 # define TRANSPARENT	0x00000000
 # define PI				0.008726646259971647884618453842443063567
 
