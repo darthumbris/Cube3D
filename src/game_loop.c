@@ -22,12 +22,12 @@ void	change_camera_angle(t_data *data, double dir)
 
 void	move_camera_pos(t_data *data, int dir, bool strafe)
 {
-	double	move_speed;
-
-	move_speed = dir * MOVE_SPEED * data->mlx.mlx_handle->delta_time;
+	const double	move_speed = dir * MOVE_SPEED * data->mlx.mlx_handle->delta_time;
+	const double	temp_dir_x = data->cam.dir.x * move_speed;
+	const double	temp_dir_y = data->cam.dir.y * move_speed;
 	//TODO:its possible to jam yourself stuck inside a wall
-	if (data->level.map[(int)(data->cam.pos.y + data->cam.dir.y * move_speed)][(int)(data->cam.pos.x + data->cam.dir.x * move_speed)] == '1' ||
-		data->level.map[(int)(data->cam.pos.y + data->cam.dir.x * move_speed)][(int)(data->cam.pos.x - data->cam.dir.y * move_speed)] == '1')
+	if (data->level.map[(int)(data->cam.pos.y + temp_dir_y)][(int)(data->cam.pos.x + temp_dir_x)] == '1' ||
+		data->level.map[(int)(data->cam.pos.y + temp_dir_x)][(int)(data->cam.pos.x - temp_dir_y)] == '1')
 		return ;
 	if (!strafe)
 	{
