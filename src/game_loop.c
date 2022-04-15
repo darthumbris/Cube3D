@@ -25,12 +25,16 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 	double	move_speed;
 
 	move_speed = dir * MOVE_SPEED * data->mlx.mlx_handle->delta_time;
+	//TODO:its possible to jam yourself stuck inside a wall
+	if (data->level.map[(int)(data->cam.pos.y + data->cam.dir.y * move_speed)][(int)(data->cam.pos.x + data->cam.dir.x * move_speed)] == '1' ||
+		data->level.map[(int)(data->cam.pos.y + data->cam.dir.x * move_speed)][(int)(data->cam.pos.x - data->cam.dir.y * move_speed)] == '1')
+		return ;
 	if (!strafe)
 	{
 		data->cam.pos.x += data->cam.dir.x * move_speed;
 		data->cam.pos.y += data->cam.dir.y * move_speed;
 	}
-	else
+	else if (strafe)
 	{
 		data->cam.pos.x -= data->cam.dir.y * move_speed;
 		data->cam.pos.y += data->cam.dir.x * move_speed;
