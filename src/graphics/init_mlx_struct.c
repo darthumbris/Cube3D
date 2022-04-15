@@ -1,20 +1,20 @@
 #include "cubed.h"
-#include <string.h>
 
 static bool	init_textures(t_data *data)
 {
 	data->mlx.no_texture = mlx_load_png(data->level.no_texture_path);
-	if (data->mlx.no_texture == NULL)
-		return (false);
 	data->mlx.ea_texture = mlx_load_png(data->level.ea_texture_path);
 	data->mlx.so_texture = mlx_load_png(data->level.so_texture_path);
 	data->mlx.we_texture = mlx_load_png(data->level.we_texture_path);
+	if (data->mlx.no_texture == NULL || data->mlx.ea_texture == NULL || \
+		data->mlx.so_texture == NULL || data->mlx.we_texture == NULL)
+		return (false);
 	data->cam.pos.x = data->player.pos.x;
 	data->cam.pos.y = data->player.pos.y;
-	data->cam.dir.x = -1.0;
-	data->cam.dir.y = 0;
-	data->cam.plane.x = 0.0;
-	data->cam.plane.y = 0.66;
+	//data->cam.dir.x = -1.0;
+	//data->cam.dir.y = 0;
+	//data->cam.plane.x = 0.0;
+	//data->cam.plane.y = tan(PI * FOV);
 	return (true);
 }
 

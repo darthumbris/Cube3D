@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 16:28:00 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/15 14:13:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,30 @@ t_vector_double	getplayerpos(char **map)
 		{
 			if (map[i][j] == 'N' || map[i][j] == 'S' || \
 				map[i][j] == 'W' || map[i][j] == 'E')
-			{
-				map[i][j] = '0';
 				return ((t_vector_double){.x = j, .y = i});
-			}	
 			j++;
 		}
 		i++;
 	}
 	return ((t_vector_double){.x = -1, .y = -1});
+}
+
+void	setplayerdir(char **map, t_vector_double pos, t_data *data)
+{
+	char	c;
+
+	c = map[(int)pos.y][(int)pos.x];
+	map[(int)pos.y][(int)pos.x] = '0';
+	if (c == 'N')
+		data->cam.dir.y = -1.0;
+	else if (c == 'S')
+		data->cam.dir.y = +1.0;
+	data->cam.plane.x = tan(PI * FOV) * -data->cam.dir.y;
+	if (c == 'W')
+		data->cam.dir.x = -1.0;
+	else if (c == 'E')
+		data->cam.dir.x = +1.0;
+	data->cam.plane.y = tan(PI * FOV) * data->cam.dir.x;
 }
 
 bool	parse_input(char **argv, t_data *data)
@@ -137,6 +152,7 @@ bool	parse_input(char **argv, t_data *data)
 		return (false);
 	data->level.map = parse_map(upmap, data);
 	data->player.pos = getplayerpos(data->level.map);
+	setplayerdir(data->level.map, data->player.pos, data);
 	if (!data->level.map || \
 		data->player.pos.x == -1 || data->player.pos.y == -1)
 	{

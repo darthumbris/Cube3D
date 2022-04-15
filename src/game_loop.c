@@ -46,17 +46,17 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	if (keys.key == MLX_KEY_ESCAPE)
 		mlx_close_window(data->mlx.mlx_handle);
 	if (keys.key == MLX_KEY_LEFT)
-		change_camera_angle(data, 1);
-	if (keys.key == MLX_KEY_RIGHT)
 		change_camera_angle(data, -1);
+	if (keys.key == MLX_KEY_RIGHT)
+		change_camera_angle(data, +1);
 	if (keys.key == MLX_KEY_W)
 		move_camera_pos(data, +1, false);
 	if (keys.key == MLX_KEY_S)
 		move_camera_pos(data, -1, false);
 	if (keys.key == MLX_KEY_A)
-		move_camera_pos(data, +1, true);
-	if (keys.key == MLX_KEY_D)
 		move_camera_pos(data, -1, true);
+	if (keys.key == MLX_KEY_D)
+		move_camera_pos(data, +1, true);
 }
 
 
