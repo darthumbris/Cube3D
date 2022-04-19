@@ -17,7 +17,6 @@ void	change_camera_angle(t_data *data, double dir)
 	old_plane_x = data->cam.plane.x;
 	data->cam.plane.x = data->cam.plane.x * cos_rotate - data->cam.plane.y * sin_rotate;
 	data->cam.plane.y = old_plane_x * sin_rotate + data->cam.plane.y * cos_rotate;
-	raycaster(data);
 }
 
 void	move_camera_pos(t_data *data, int dir, bool strafe)
@@ -42,7 +41,6 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 	//printf("tempdir:%f-%f\n", temp_dir_x, temp_dir_y);
 	//printf("dir:%f-%f\n", data->cam.dir.x, data->cam.dir.y);
 	//printf("pos:%f-%f\n", data->cam.pos.x, data->cam.pos.y);
-	raycaster(data);
 }
 
 void	key_handler(struct mlx_key_data keys, void *param)
@@ -52,17 +50,17 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
 		mlx_close_window(data->mlx.mlx_handle);
-	if (keys.key == MLX_KEY_LEFT && keys.action != MLX_RELEASE)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))
 		change_camera_angle(data, -1);
-	if (keys.key == MLX_KEY_RIGHT && keys.action != MLX_RELEASE)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_RIGHT))
 		change_camera_angle(data, +1);
-	if (keys.key == MLX_KEY_W && keys.action != MLX_RELEASE)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_W))
 		move_camera_pos(data, +1, false);
-	if (keys.key == MLX_KEY_S && keys.action != MLX_RELEASE)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S))
 		move_camera_pos(data, -1, false);
-	if (keys.key == MLX_KEY_A && keys.action != MLX_RELEASE)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_A))
 		move_camera_pos(data, -1, true);
-	if (keys.key == MLX_KEY_D && keys.action != MLX_RELEASE)
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
 }
 
@@ -83,4 +81,5 @@ void	game_loop(void *v_data)
 	t_data	*data;
 
 	data = (t_data *)v_data;
+	raycaster(data);
 }
