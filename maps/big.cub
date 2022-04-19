@@ -1,7 +1,7 @@
 NO ./assets/greystone.png
-SO ./assets/wood.png
+SO ./assets/bluestone.png
 WE ./assets/purplestone.png
-EA ./assets/redbrick.png
+EA ./assets/colorstone.png
 F 130,125,130
 C 90,200,220 
   
