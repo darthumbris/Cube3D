@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 13:50:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 15:03:09 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define SCREEN_WIDTH	1920
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
-# define MOVE_SPEED		20
-# define ROTATE_SPEED	20
+# define MOVE_SPEED		8
+# define ROTATE_SPEED	8
 # define FOV			60
 # define TRANSPARENT	0x00000000
 # define PI				0.008726646259971647884618453842443063567
@@ -100,7 +100,7 @@ typedef enum e_textures
  */
 typedef struct s_level
 {
-	char			**map;
+	char			**map; //TODO:change data->level.map to one dimensional array;
 	int				map_w;
 	int				map_h;
 	char			*no_texture_path;

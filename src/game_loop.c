@@ -12,11 +12,14 @@ void	change_camera_angle(t_data *data, double dir)
 	cos_rotate = cos(rotate_speed);
 	sin_rotate = sin(rotate_speed);
 	old_dir_x = data->cam.dir.x;
-	data->cam.dir.x = data->cam.dir.x * cos_rotate - data->cam.dir.y * sin_rotate;
+	data->cam.dir.x = data->cam.dir.x * \
+		cos_rotate - data->cam.dir.y * sin_rotate;
 	data->cam.dir.y = old_dir_x * sin_rotate + data->cam.dir.y * cos_rotate;
 	old_plane_x = data->cam.plane.x;
-	data->cam.plane.x = data->cam.plane.x * cos_rotate - data->cam.plane.y * sin_rotate;
-	data->cam.plane.y = old_plane_x * sin_rotate + data->cam.plane.y * cos_rotate;
+	data->cam.plane.x = data->cam.plane.x * \
+		cos_rotate - data->cam.plane.y * sin_rotate;
+	data->cam.plane.y = old_plane_x * \
+		sin_rotate + data->cam.plane.y * cos_rotate;
 }
 
 void	move_camera_pos(t_data *data, int dir, bool strafe)
@@ -25,17 +28,19 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
 
-	if (!strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_y)][(int)(data->cam.pos.x + temp_dir_x)] == '0')
+	if (!strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_y)] \
+		[(int)(data->cam.pos.x + temp_dir_x)] == '0')
 	{
 		data->cam.pos.x += temp_dir_x;
 		data->cam.pos.y += temp_dir_y;
 	}
-	else if (strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_x)][(int)(data->cam.pos.x - temp_dir_y)] == '0')
+	else if (strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_x)] \
+		[(int)(data->cam.pos.x - temp_dir_y)] == '0')
 	{
 		data->cam.pos.x -= temp_dir_y;
 		data->cam.pos.y += temp_dir_x;
 	}
-	else 
+	else
 		return ;
 }
 
