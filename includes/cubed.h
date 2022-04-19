@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 15:03:09 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 15:10:25 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,23 @@ typedef struct s_vector_uint
 	unsigned int	y;
 }				t_vector_uint;
 
+typedef struct s_vector_uint8
+{
+	uint8_t	x;
+	uint8_t	y;
+}				t_vector_uint8;
+
 typedef struct s_vector_double
 {
 	double	x;
 	double	y;
 }				t_vector_double;
+
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}				t_vector_int;
 
 typedef struct s_rgba
 {
@@ -61,6 +73,19 @@ typedef struct s_player
 	t_vector_double	pos;
 }			t_player;
 
+typedef union u_lodtex
+{
+	mlx_texture_t	*texarr[6];
+	struct {
+		mlx_texture_t	*no_texture;
+		mlx_texture_t	*ea_texture;
+		mlx_texture_t	*so_texture;
+		mlx_texture_t	*we_texture;
+		mlx_texture_t	*fl_texture;
+		mlx_texture_t	*ce_texture;
+	};
+}	t_lodtex;
+
 /**
  * @brief Struct for all the mlx data
  * 
@@ -74,10 +99,7 @@ typedef struct s_mlx
 	mlx_t			*mlx_handle;
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
-	mlx_texture_t	*no_texture;
-	mlx_texture_t	*we_texture;
-	mlx_texture_t	*so_texture;
-	mlx_texture_t	*ea_texture;
+	t_lodtex		tex;
 }			t_mlx;
 
 typedef enum e_textures
@@ -85,7 +107,9 @@ typedef enum e_textures
 	WEST = 0,
 	EAST = 1,
 	NORTH = 2,
-	SOUTH = 3
+	SOUTH = 3,
+	FLOOR = 4,
+	CEILING = 5
 }	t_textures;
 
 /**
@@ -139,6 +163,7 @@ typedef struct s_camera
 typedef struct s_raycaster
 {
 	bool			hit;
+	bool			framedone;
 	t_vector_uint	map_pos;
 	t_vector_double	ray_pos;
 	t_vector_double	ray_dir;
@@ -234,8 +259,27 @@ void	draw_walls(t_data *data, int x);
  */
 void	game_loop(void *data);
 
+/**
+ * @brief leftkey / rightkey movement
+ * 
+ * @param data 
+ * @param dir 
+ */
+void	change_camera_angle(t_data *data, double dir);
+
+/**
+ * @brief wasd movement
+ * 
+ * @param data 
+ * @param dir 
+ * @param strafe 
+ */
+void	move_camera_pos(t_data *data, int dir, bool strafe);
+
 void	key_handler(struct mlx_key_data keys, void *param);
-void	mouse_events(mouse_key_t button, action_t action, modifier_key_t mods, void* param);
+void	mouse_events(mouse_key_t button, action_t action, \
+	modifier_key_t mods, void *param);
+void	cursor_movement(double xpos, double ypos, void *param);
 
 // utility functions //
 

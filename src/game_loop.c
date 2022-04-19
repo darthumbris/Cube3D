@@ -72,3 +72,7 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, +1, true);
 	raycaster(data);
 }
+
+//TODO: fix slowdown near walls
+//TODO: mouse movement
+//TODO: floor ceiling colour gradient is nice/skybox/textures

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 14:37:21 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 15:08:57 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ bool	parse_input(char **argv, t_data *data)
 	}
 	for (int i = 0; data->level.map[i]; i++)
 		printf("%s\n", data->level.map[i]);
+	data->caster.framedone = true;
 	printf("-------------------------------------\n");
 	printf("%s\n", data->level.no_texture_path);
 	printf("%s\n", data->level.so_texture_path);
