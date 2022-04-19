@@ -14,6 +14,7 @@ static bool	init_textures(t_data *data)
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;
 	data->caster.ray_dist = 0;
+	printf("int cast: %d\n", (int)(977.731481));
 	return (true);
 }
 

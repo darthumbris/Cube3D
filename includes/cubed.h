@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 15:51:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 16:52:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@
 # define SCREEN_WIDTH	1920
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
-# define MOVE_SPEED		8
-# define ROTATE_SPEED	8
+# define MOVE_SPEED		5
+# define ROTATE_SPEED	4
 # define FOV			90
-# define TRANSPARENT	0x00000000
-# define PI				0.008726646259971647884618453842443063567
 # define RENDER_DIST	5
 
 typedef struct s_vector_uint

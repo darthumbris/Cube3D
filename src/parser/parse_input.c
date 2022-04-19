@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 15:50:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 16:54:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,19 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 		data->cam.dir.y = -1.0;
 	else if (c == 'S')
 		data->cam.dir.y = +1.0;
-	data->cam.plane.x = tan(PI * FOV) * -data->cam.dir.y;
+	data->cam.plane.x = tan(M_PI_2 * FOV / 180.0) * -data->cam.dir.y;
 	if (c == 'W')
 		data->cam.dir.x = -1.0;
 	else if (c == 'E')
 		data->cam.dir.x = +1.0;
-	data->cam.plane.y = tan(PI * FOV) * data->cam.dir.x;
+	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
 bool	parse_input(char **argv, t_data *data)
 {
 	char	**upmap; //unparsed map, free later
 	int		fd;
-	int		i;
 
-	i = 1;
 	upmap = NULL;
 	if (ft_strlen(argv[1]) < 4 || \
 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)

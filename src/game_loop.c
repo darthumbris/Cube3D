@@ -8,7 +8,7 @@ void	change_camera_angle(t_data *data, double dir)
 	double	cos_rotate;
 	double	sin_rotate;
 
-	rotate_speed = dir * ROTATE_SPEED * 0.01;
+	rotate_speed = dir * ROTATE_SPEED * data->mlx.mlx_handle->delta_time;
 	cos_rotate = cos(rotate_speed);
 	sin_rotate = sin(rotate_speed);
 	old_dir_x = data->cam.dir.x;
@@ -24,7 +24,7 @@ void	change_camera_angle(t_data *data, double dir)
 
 void	move_camera_pos(t_data *data, int dir, bool strafe)
 {
-	const double	move_speed = dir * MOVE_SPEED * 0.01;
+	const double	move_speed = dir * MOVE_SPEED * data->mlx.mlx_handle->delta_time;
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
 
