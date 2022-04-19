@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   get_next_line.c                                    :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/19 16:59:30 by pvan-dij      #+#    #+#                 */
+/*   Updated: 2022/04/19 16:59:31 by pvan-dij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 static char	*stringcircumcise(char *files, char *out)
@@ -40,28 +52,28 @@ static char	*helper(char **files, char *out, char *buf)
 
 char	*get_next_line(int fd)
 {
+	static char	*files[MAX_FD];
+	static char	buf[BUFFER_SIZE + 1];
 	int			bread;
 	char		*out;
 
 	out = NULL;
-	if (fd < 0 || fd > MAX_FD || read(fd, s_var.buf, 0) < 0)
+	if (fd < 0 || fd > MAX_FD || read(fd, buf, 0) < 0)
 		return (NULL);
-	if (checknl(s_var.files[fd]))
-		return (stringcircumcise(s_var.files[fd], out));
+	if (checknl(files[fd]))
+		return (stringcircumcise(files[fd], out));
 	bread = 1;
 	while (bread > 0)
 	{
-		bread = read(fd, s_var.buf, BUFFER_SIZE);
-		s_var.buf[bread] = 0;
+		bread = read(fd, buf, BUFFER_SIZE);
+		buf[bread] = 0;
 		if (bread == 0)
 			break ;
-		s_var.files[fd] = ft_strjoin(s_var.files[fd], s_var.buf);
-		if (checknl(s_var.files[fd]))
-			return (stringcircumcise(s_var.files[fd], out));
+		files[fd] = ft_strjoin(files[fd], buf);
+		if (checknl(files[fd]))
+			return (stringcircumcise(files[fd], out));
 	}
-	if (s_var.files[fd])
-	{
-		return (helper(&s_var.files[fd], out, s_var.buf));
-	}
+	if (files[fd])
+		return (helper(&files[fd], out, buf));
 	return (NULL);
 }
