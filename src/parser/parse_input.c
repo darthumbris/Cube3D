@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 16:54:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:26:04 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	parse_types(char **upmap, t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (upmap[i] && i < 6)
 	{
 		if (mapjmptable(upmap[i], data) == false)
 			return (false);
@@ -72,7 +72,7 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 
 bool	parse_input(char **argv, t_data *data)
 {
-	char	**upmap; //unparsed map, free later
+	char	**upmap;
 	int		fd;
 
 	upmap = NULL;
@@ -82,16 +82,13 @@ bool	parse_input(char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	close(fd);
-	if (!upmap || parse_types(upmap, data) == false)
+	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
 	data->level.map = parse_map(upmap, data);
 	data->player.pos = getplayerpos(data->level.map);
 	setplayerdir(data->level.map, data->player.pos, data);
 	if (!data->level.map || \
 		data->player.pos.x == -1 || data->player.pos.y == -1)
-	{
-		printf("not valid\n");
-		exit(1);
-	}
+		return (false);
 	return (true);
 }

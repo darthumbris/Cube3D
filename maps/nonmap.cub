@@ -1,6 +1,6 @@
 NO ./assets/greystone.png
 SO ./assets/wood.png
-WE ./assets/purplestone.png
 EA ./assets/eagle.png
+WE ./assets/barrel.png
 F 52,53,60
-C 4,28,181
+C 0,0,0
