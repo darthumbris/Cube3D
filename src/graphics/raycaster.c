@@ -8,15 +8,14 @@
 void	raycaster(t_data *data)
 {
 	int				x;
-	struct timeval	timev;
-	long			ms_before;
-	long			ms_after;
+	//struct timeval	timev;
+	//long			ms_before;
+	//long			ms_after;
 
 	x = 0;
-	data->caster.framedone = false;
-	gettimeofday(&timev, NULL);
-	ms_before = timev.tv_sec * 1000 + timev.tv_usec / 1000;
-	while (x < SCREEN_WIDTH)
+	//gettimeofday(&timev, NULL);
+	//ms_before = timev.tv_sec * 1000 + timev.tv_usec / 1000;
+	while (x < data->mlx.mlx_handle->width)
 	{
 		set_caster_variables(data, x);
 		set_step_direction(data);
@@ -28,11 +27,9 @@ void	raycaster(t_data *data)
 		draw_transparency(data, x);
 		x++;
 	}
-	gettimeofday(&timev, NULL);
-	ms_after = timev.tv_sec * 1000 + timev.tv_usec / 1000;
+	//gettimeofday(&timev, NULL);
+	//ms_after = timev.tv_sec * 1000 + timev.tv_usec / 1000;
 	//printf("\r%ld\n", ms_after - ms_before);
-	printf("\r%ld\n", 1000 / (ms_after - ms_before)); //fps
-	data->caster.framedone = true;
 }
 
 //TODO: would fixed point be faster?
