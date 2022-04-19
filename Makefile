@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/19 14:29:14 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/19 15:51:18 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	main.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \
 		parser/parsemap.c \
+		parser/parser_utils.c
 		
 
 SRC_EXT = c
