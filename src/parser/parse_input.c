@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 12:33:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 14:33:27 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 {
 	char	c;
 
+	if (!map || !*map)
+		return ;
 	c = map[(int)pos.y][(int)pos.x];
 	map[(int)pos.y][(int)pos.x] = '0';
 	if (c == 'N')
