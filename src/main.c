@@ -6,12 +6,27 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 15:09:59 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 15:23:19 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <stdio.h>
+
+void	printfunc(t_data *data)
+{
+	for (int i = 0; data->level.map[i]; i++)
+		printf("%s\n", data->level.map[i]);
+	data->caster.framedone = true;
+	printf("-------------------------------------\n");
+	printf("%s\n", data->level.no_texture_path);
+	printf("%s\n", data->level.so_texture_path);
+	printf("%s\n", data->level.we_texture_path);
+	printf("%s\n", data->level.ea_texture_path);
+	printf("%x\n", data->level.floor_color);
+	printf("%x\n", data->level.ceiling_color);
+	printf("%f-%f\n", data->player.pos.x, data->player.pos.y);
+}
 
 int	main(int argc, char **argv)
 {
@@ -22,6 +37,7 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6); //nothings freed for now
 		return (1);
 	}
+	printfunc(&data); //TODO: remove;
 	draw_background(&data);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
 	raycaster(&data);

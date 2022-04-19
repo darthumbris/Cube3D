@@ -44,10 +44,10 @@ void	draw_walls(t_data *data, int x)
 	dst = data->mlx.fg->pixels + ((y * data->mlx.fg->width + x) * 4);
 	while (y <= data->caster.draw_end)
 	{
+		data->caster.tex.y = (int)tex_pos & (data->mlx.tex.texarr[side]->height - 1);
 		*(unsigned int *)dst = (*(int *)(pixels + \
 			(data->caster.tex.y * data->mlx.tex.texarr[side]->width + data->caster.tex.x) * 4));
 		dst += data->mlx.mlx_handle->width * 4;
-		data->caster.tex.y = (int)tex_pos & (data->mlx.tex.texarr[side]->height - 1);
 		tex_pos += step;
 		y++;
 	}

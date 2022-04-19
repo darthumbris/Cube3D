@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 15:10:25 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 15:47:37 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		8
 # define ROTATE_SPEED	8
-# define FOV			60
+# define FOV			90
 # define TRANSPARENT	0x00000000
 # define PI				0.008726646259971647884618453842443063567
 # define RENDER_DIST	5
@@ -282,6 +282,10 @@ void	mouse_events(mouse_key_t button, action_t action, \
 void	cursor_movement(double xpos, double ypos, void *param);
 
 // utility functions //
+
+bool	mapjmptable(char *line, t_data *data);
+bool	checkmap(char *map);
+char	**readmap(int fd, char **temp);
 
 /*
 	Jump table functions to store values in struct
