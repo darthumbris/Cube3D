@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:31:24 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:40:37 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
+bool	checks(char **upmap, int i, int j, t_data *data)
+{
+	return (validchar_space(upmap[i][j]) == false || \
+		(upmap[i][j] == '0' && verifyzero(upmap, i, j, data) == false));
+}
+
+bool	playerposcheck(char c)
+{
+	return (c == 'N' || c == 'E' || c == 'S' || c == 'W');
+}
+
 char	**parse_map(char **upmap, t_data *data)
 {
 	int	i;
@@ -69,9 +80,9 @@ char	**parse_map(char **upmap, t_data *data)
 		j = -1;
 		while (upmap[i][++j])
 		{
-			if (validchar_space(upmap[i][j]) == false || (upmap[i][j] == '0' && verifyzero(upmap, i, j, data) == false))
+			if (checks(upmap, i, j, data))
 				return (NULL);
-			if (upmap[i][j] == 'N' || upmap[i][j] == 'E' || upmap[i][j] == 'S' || upmap[i][j] == 'W')
+			if (playerposcheck(upmap[i][j]))
 				count++;
 		}
 	}

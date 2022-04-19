@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   raycaster.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
+/*   Updated: 2022/04/19 17:37:24 by pvan-dij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed.h"
 #include <stdio.h>
 #include <sys/time.h>
 
-// Because the map is always surrounded by walls
-// it should always hit a wall before it can go outside
-// the map and overflow.
 void	raycaster(t_data *data)
 {
 	int				x;
@@ -23,5 +32,3 @@ void	raycaster(t_data *data)
 		x++;
 	}
 }
-
-//TODO: would fixed point be faster?

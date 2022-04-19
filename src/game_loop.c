@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   game_loop.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
+/*   Updated: 2022/04/19 17:33:38 by pvan-dij      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed.h"
 
 void	change_camera_angle(t_data *data, double dir)
@@ -73,7 +85,3 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, +1, true);
 	raycaster(data);
 }
-
-//TODO: fix slowdown near walls
-//TODO: mouse movement
-//TODO: floor ceiling colour gradient is nice/skybox/textures
