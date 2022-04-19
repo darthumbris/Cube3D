@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:02:20 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:26:04 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	parse_types(char **upmap, t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < 6)
+	while (upmap[i] && i < 6)
 	{
 		if (mapjmptable(upmap[i], data) == false)
 			return (false);
@@ -82,7 +82,7 @@ bool	parse_input(char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	close(fd);
-	if (!upmap || parse_types(upmap, data) == false)
+	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
 	data->level.map = parse_map(upmap, data);
 	data->player.pos = getplayerpos(data->level.map);

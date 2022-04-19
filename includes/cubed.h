@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 16:52:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:15:10 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,7 @@ void	cursor_movement(double xpos, double ypos, void *param);
 bool	mapjmptable(char *line, t_data *data);
 bool	checkmap(char *map);
 char	**readmap(int fd, char **temp);
+bool	checktypes(t_data *data);
 
 /*
 	Jump table functions to store values in struct

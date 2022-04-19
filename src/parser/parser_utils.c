@@ -6,11 +6,25 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:02:15 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:25:24 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+//checks if types were parsed correctly
+bool	checktypes(t_data *data)
+{
+	if (data->level.no_texture_path == NULL)
+		return (true);
+	if (data->level.we_texture_path == NULL)
+		return (true);
+	if (data->level.ea_texture_path == NULL)
+		return (true);
+	if (data->level.so_texture_path == NULL)
+		return (true);
+	return (false);
+}
 
 //jump table for storing config settings
 bool	mapjmptable(char *line, t_data *data)
@@ -43,7 +57,7 @@ bool	checkmap(char *map)
 	while (*map)
 	{
 		if (*map == 'F' || *map == 'C')
-			while (*map != '\n')
+			while (*(map + 1) && *map != '\n')
 				map++;
 		if (ft_isdigit(*map) && *(map + 1) == '\n' && *(map + 2) == '\n')
 			return (true);
@@ -66,6 +80,8 @@ char	**readmap(int fd, char **temp)
 	while (bread > 0)
 	{
 		bread = read(fd, buf, 10000);
+		if (bread == -1)
+			return (NULL);
 		buf[bread] = 0;
 		if (bread == 0)
 			break ;
