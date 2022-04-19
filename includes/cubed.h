@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:31:40 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:33:06 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,8 @@ typedef struct s_raycaster
 	double			camera_x;
 	int				draw_start;
 	int				draw_end;
-	t_vector_uint	tex;
+	int				tex_x;
+	double			tex_y;
 	t_rgba			color_rgba;
 	int				ray_dist;
 }			t_raycaster;

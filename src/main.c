@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 15:51:11 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:02:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 void	printfunc(t_data *data)
 {
-	for (int i = 0; data->level.map[i]; i++)
-		printf("%s\n", data->level.map[i]);
+	int	i;
+
+	i = 0;
+	while (data->level.map[i])
+		printf("%s\n", data->level.map[i++]);
 	data->caster.framedone = true;
 	printf("-------------------------------------\n");
 	printf("%s\n", data->level.no_texture_path);
