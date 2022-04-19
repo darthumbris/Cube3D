@@ -26,17 +26,16 @@ void	draw_transparency(t_data *data, int x)
 uint8_t	*get_texture(t_data *data)
 {
 	if (data->caster.side == NORTH)
-		return (data->mlx.no_texture->pixels);
+		return (data->mlx.tex.no_texture->pixels);
 	else if (data->caster.side == WEST)
-		return (data->mlx.we_texture->pixels);
+		return (data->mlx.tex.we_texture->pixels);
 	else if (data->caster.side == EAST)
-		return (data->mlx.ea_texture->pixels);
-	return (data->mlx.so_texture->pixels);
+		return (data->mlx.tex.ea_texture->pixels);
+	return (data->mlx.tex.so_texture->pixels);
 }
 
 void	draw_walls(t_data *data, int x)
 {
-	const int		side = data->caster.side;
 	double			step;
 	double			tex_pos;
 	int				y;
