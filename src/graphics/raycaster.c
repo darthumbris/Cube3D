@@ -15,7 +15,7 @@ void	raycaster(t_data *data)
 	x = 0;
 	gettimeofday(&timev, NULL);
 	ms_before = timev.tv_sec * 1000 + timev.tv_usec / 1000;
-	while (x < SCREEN_WIDTH)
+	while (x < data->mlx.mlx_handle->width)
 	{
 		set_caster_variables(data, x);
 		set_step_direction(data);

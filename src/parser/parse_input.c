@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 14:13:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/19 12:33:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,8 @@ bool	parse_input(char **argv, t_data *data)
 	printf("%s\n", data->level.so_texture_path);
 	printf("%s\n", data->level.we_texture_path);
 	printf("%s\n", data->level.ea_texture_path);
-	printf("%d\n", data->level.floor_color);
-	printf("%d\n", data->level.ceiling_color);
+	printf("%x\n", data->level.floor_color);
+	printf("%x\n", data->level.ceiling_color);
 	printf("%f-%f\n", data->player.pos.x, data->player.pos.y);
 
 

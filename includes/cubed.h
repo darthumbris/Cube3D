@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/15 17:04:18 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 13:50:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,16 @@
 # include "unistd.h"
 # include <math.h>
 
-# define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	1280
+# define SCREEN_HEIGHT	1080
+# define SCREEN_WIDTH	1920
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
-# define MOVE_SPEED		10
+# define MOVE_SPEED		20
 # define ROTATE_SPEED	20
 # define FOV			60
 # define TRANSPARENT	0x00000000
 # define PI				0.008726646259971647884618453842443063567
+# define RENDER_DIST	5
 
 typedef struct s_vector_uint
 {
@@ -50,7 +51,6 @@ typedef struct s_rgba
 	uint8_t	b;
 	uint8_t	a;
 }			t_rgba;
-
 
 /* 
  * Player position useful for collision checking and
@@ -154,6 +154,7 @@ typedef struct s_raycaster
 	int				draw_end;
 	t_vector_uint	tex;
 	t_rgba			color_rgba;
+	int				ray_dist;
 }			t_raycaster;
 
 /**

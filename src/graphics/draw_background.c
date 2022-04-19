@@ -2,11 +2,23 @@
 
 void	draw_background(t_data *data)
 {
-	for (int x = 0; x < SCREEN_WIDTH; x++)
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < SCREEN_WIDTH)
 	{
-		for (int y = 0; y < SCREEN_HEIGHT / 2; y++)
+		y = 0;
+		while (y < SCREEN_HEIGHT / 2)
+		{
 			mlx_put_pixel(data->mlx.bg, x, y, data->level.ceiling_color);
-		for (int y = SCREEN_HEIGHT / 2; y < SCREEN_HEIGHT; y++)
+			y++;
+		}
+		while (y < SCREEN_HEIGHT)
+		{
 			mlx_put_pixel(data->mlx.bg, x, y, data->level.floor_color);
+			y++;
+		}
+		x++;
 	}
 }

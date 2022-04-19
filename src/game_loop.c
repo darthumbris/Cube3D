@@ -7,7 +7,7 @@ void	change_camera_angle(t_data *data, double dir)
 	double	rotate_speed;
 	double	cos_rotate;
 	double	sin_rotate;
-	
+
 	rotate_speed = dir * ROTATE_SPEED * 0.01;
 	cos_rotate = cos(rotate_speed);
 	sin_rotate = sin(rotate_speed);
@@ -73,7 +73,7 @@ void mouse_events(mouse_key_t button, action_t action, modifier_key_t mods, void
 	(void)param;
 	if (button == MLX_MOUSE_BUTTON_LEFT)
 		write(1, "lol\n", 4);
-	action
+	//action
 }
 
 //typedef void (*mlx_cursorfunc)(double xpos, double ypos, void* param);
