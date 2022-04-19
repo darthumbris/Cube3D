@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:33:06 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 17:41:53 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef enum e_textures
  */
 typedef struct s_level
 {
-	char			**map; //TODO:change data->level.map to one dimensional array;
+	char			**map;
 	int				map_w;
 	int				map_h;
 	char			*no_texture_path;
