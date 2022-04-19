@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 14:33:27 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 14:37:21 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,13 +175,3 @@ bool	parse_input(char **argv, t_data *data)
 
 	return (true);
 }
-
-//typedef union u_IVec2
-//{
-//	struct
-//	{
-//		int32_t	x;
-//		int32_t	y;
-//	};
-//	int32_t	raw[2];
-//}	t_IVec2;

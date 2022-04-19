@@ -46,6 +46,13 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
 		mlx_close_window(data->mlx.mlx_handle);
+}
+
+void	game_loop(void *v_data)
+{
+	t_data	*data;
+
+	data = (t_data *)v_data;
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))
 		change_camera_angle(data, -1);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_RIGHT))
@@ -58,12 +65,5 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		move_camera_pos(data, -1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
-}
-
-void	game_loop(void *v_data)
-{
-	t_data	*data;
-
-	data = (t_data *)v_data;
 	raycaster(data);
 }
