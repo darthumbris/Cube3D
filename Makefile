@@ -6,14 +6,14 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/15 15:25:38 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/19 14:12:21 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cube3D
 
 CC  := gcc
-COMPILE_FLAGS = -Wall -Wextra -Werror
+COMPILE_FLAGS = -Wall -Wextra -Werror -o3
 LINKING_FLAGS = libmlx42.a libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC_DIR = src

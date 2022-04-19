@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/14 15:56:13 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/19 14:20:22 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,3 +103,5 @@ char	**parse_map(char **upmap, t_data *data)
 	}
 	return (upmap);
 }
+
+//TODO: check multiple start
