@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:38:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 16:26:46 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	raycaster(t_data *data)
 
 	x = 0;
 	set_start_draw_variables(data);
+	draw_background(data);
 	while (x < data->mlx.mlx_handle->width)
 	{
 		set_caster_variables(data, x);
@@ -37,8 +38,8 @@ void	raycaster(t_data *data)
 			check_wall_collision(data);
 		calculate_perpendicular_wall_distance(data);
 		set_draw_values(data);
-		draw_walls(data, x);
 		draw_transparency(data, x);
+		draw_walls(data, x);
 		x++;
 	}
 }

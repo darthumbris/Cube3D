@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:39:40 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 15:52:05 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ static bool	init_textures(t_data *data)
 	data->mlx.tex.texarr[EAST] = mlx_load_png(data->level.ea_texture_path);
 	data->mlx.tex.texarr[SOUTH] = mlx_load_png(data->level.so_texture_path);
 	data->mlx.tex.texarr[WEST] = mlx_load_png(data->level.we_texture_path);
+	data->mlx.tex.ce_texture = mlx_load_png("assets/skybox.png");
 	if (data->mlx.tex.texarr[NORTH] == NULL || \
 		data->mlx.tex.texarr[EAST] == NULL || \
 		data->mlx.tex.texarr[SOUTH] == NULL || \
-		data->mlx.tex.texarr[WEST] == NULL)
+		data->mlx.tex.texarr[WEST] == NULL || \
+		data->mlx.tex.ce_texture == NULL)
 		return (false);
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;

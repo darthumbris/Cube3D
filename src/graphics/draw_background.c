@@ -6,75 +6,44 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:59:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 20:22:07 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+#include "stdio.h"
+#include <math.h>
+
 void	draw_background(t_data *data)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
+	uint8_t	*dst;
+	uint8_t	*pix;
+	t_vector_double bg;
 
-	x = 0;
-	while (x < data->mlx.mlx_handle->width)
+	y = 0;
+	dst = data->mlx.bg->pixels;
+	pix = data->mlx.tex.ce_texture->pixels;
+	bg.x = 0.5 + atan(data->cam.dir.x)/(M_PI*2);
+    bg.y = 0.5 - asin(data->cam.dir.y)/M_PI;
+	int offset = (int)((bg.y * data->mlx.tex.ce_texture->height) * data->mlx.tex.ce_texture->width) + (int)(bg.x * data->mlx.tex.ce_texture->width);
+	printf("%d\n", offset);
+	while (y < data->mlx.mlx_handle->height)
 	{
-		y = 0;
-		while (y < data->mlx.mlx_handle->height / 2)
+		x = 0;
+		while (x < data->mlx.mlx_handle->width)
 		{
-			mlx_put_pixel(data->mlx.bg, x, y, data->level.ceiling_color);
-			y++;
+			*dst = *(pix + offset + 0);
+			*(dst + 1) = *(pix + offset + 1);
+			*(dst + 2) = *(pix + offset + 2);
+			*(dst + 3) = 0xFF;
+			dst += 4;
+			pix += 4;
+			x++;
 		}
-		while (y < data->mlx.mlx_handle->height)
-		{
-			mlx_put_pixel(data->mlx.bg, x, y, data->level.floor_color);
-			y++;
-		}
-		x++;
+		y++;
 	}
 }
 
-// static void	set_new_pos(t_data *data, int x)
-// {
-// 	data->floor.pos_d.x = (data->cam.pos.x + data->floor.row_dist * \
-// 		data->floor.ray_dir0.x) + (data->floor.step.x * x);
-// 	data->floor.pos_d.y = (data->cam.pos.y + data->floor.row_dist * \
-// 		data->floor.ray_dir0.y) + (data->floor.step.y * x);
-// }
-
-// #include <stdio.h>
-// //put this in the draw walls part?
-// void	draw_floor(t_data *data)
-// {
-// 	int				x;
-// 	int				y;
-// 	uint8_t			*bg;
-// 	uint8_t			*floor;
-// 	uint8_t			*ceiling;
-
-// 	floor = data->mlx.tex.texarr[3]->pixels;
-// 	ceiling = data->mlx.tex.texarr[2]->pixels;
-// 	bg = data->mlx.fg->pixels;
-// 	set_start_draw_variables(data);
-// 	y = 0;
-// 	while (y < data->mlx.mlx_handle->height)
-// 	{
-// 		set_draw_variables(data, y);
-// 		x = 0;
-// 		while (x < data->mlx.mlx_handle->width)
-// 		{
-// 			set_new_pos(data, x);
-// 			//data->floor.pos_int.x = (int)data->floor.pos_d.x;
-// 			//data->floor.pos_int.y = (int)data->floor.pos_d.y;
-// 			data->floor.tex.x = (int)(data->mlx.tex.no_texture->width * (data->floor.pos_d.x - (int)data->floor.pos_d.x)) & (data->mlx.tex.no_texture->width -1);
-// 			data->floor.tex.y = (int)(data->mlx.tex.no_texture->height * (data->floor.pos_d.y - (int)data->floor.pos_d.y)) & (data->mlx.tex.no_texture->height -1);
-// 			*(uint32_t *)(bg + ((y * data->mlx.fg->width + x) * 4)) = (*(int *)(floor + (data->floor.tex.y * data->\
-// 			mlx.tex.no_texture->width + data->floor.tex.x) * 4));
-// 			*(uint32_t *)(bg + (((data->mlx.mlx_handle->height - y - 1) * data->mlx.fg->width + x) * 4)) = (*(int *)(ceiling + (data->floor.tex.y * data->\
-// 			mlx.tex.no_texture->width + data->floor.tex.x) * 4));
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }

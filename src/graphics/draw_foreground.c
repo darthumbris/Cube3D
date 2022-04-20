@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 15:20:15 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 15:45:06 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	set_draw_variables(t_data *data, int y)
 {
-	data->floor.pos_y = y - data->mlx.mlx_handle->height / 2;
+	data->floor.pos_y = y - data->mlx.mlx_handle->height / 2 - data->cam.pitch;
 	data->floor.row_dist = data->floor.pos_z / data->floor.pos_y;
 	data->floor.step.x = data->floor.row_dist * \
 		(data->floor.ray_dir1.x - data->floor.ray_dir0.x) / \
@@ -58,15 +58,8 @@ void	draw_transparency(t_data *data, int x)
 	bg_floor = data->mlx.fg->pixels + ((data->mlx.mlx_handle->height - 1) * width4 + simple);
 	while (y < data->caster.draw_start)
 	{
-		set_draw_variables(data, y);
-		set_new_pos(data, x);
-		set_tex(data);
-		simpler = (data->floor.tex.y * data->mlx.tex.no_texture->width + \
-					data->floor.tex.x) * 4;
-		*(uint32_t *)bg_ceiling = (*(int *)(floor + simpler));
-		*(uint32_t *)bg_floor = (*(int *)(ceiling + simpler));
+		*(uint32_t *)bg_ceiling = 0;
 		bg_ceiling += width4;
-		bg_floor -= width4;
 		y++;
 	}
 	y = data->caster.draw_end;
@@ -80,7 +73,7 @@ void	draw_transparency(t_data *data, int x)
 		simpler = (data->floor.tex.y * data->mlx.tex.no_texture->width + \
 					data->floor.tex.x) * 4;
 		*(uint32_t *)bg_ceiling = (*(int *)(floor + simpler));
-		*(uint32_t *)bg_floor = (*(int *)(ceiling + simpler));
+		//*(uint32_t *)bg_floor = (*(int *)(ceiling + simpler));
 		bg_ceiling += width4;
 		bg_floor -= width4;
 		y++;
