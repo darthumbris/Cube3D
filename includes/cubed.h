@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:39:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 15:03:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "unistd.h"
 # include <math.h>
 
-# define SCREEN_HEIGHT	1080
-# define SCREEN_WIDTH	1920
+# define SCREEN_HEIGHT	720
+# define SCREEN_WIDTH	1280
 # define TEXTURE_WIDTH	64
 # define TEXTURE_HEIGHT	64
 # define MOVE_SPEED		5
