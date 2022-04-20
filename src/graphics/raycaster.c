@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:38:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 15:49:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	set_start_draw_variables(t_data *data)
 	data->floor.ray_dir0.y = data->cam.dir.y - data->cam.plane.y;
 	data->floor.ray_dir1.x = data->cam.dir.x + data->cam.plane.x;
 	data->floor.ray_dir1.y = data->cam.dir.y + data->cam.plane.y;
-	data->floor.pos_z = 0.5 * data->mlx.mlx_handle->height;
 }
 
 void	raycaster(t_data *data)

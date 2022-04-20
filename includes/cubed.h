@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 15:03:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 16:13:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,11 @@
 # include <math.h>
 
 # define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	1280
-# define TEXTURE_WIDTH	64
-# define TEXTURE_HEIGHT	64
+# define SCREEN_WIDTH	960
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
-# define FOV			90
+# define FOV			70
 # define RENDER_DIST	5
-
-typedef struct s_vector_uint
-{
-	unsigned int	x;
-	unsigned int	y;
-}				t_vector_uint;
-
-typedef struct s_vector_uint8
-{
-	uint8_t	x;
-	uint8_t	y;
-}				t_vector_uint8;
 
 typedef struct s_vector_double
 {
@@ -53,14 +39,6 @@ typedef struct s_vector_int
 	int	x;
 	int	y;
 }				t_vector_int;
-
-typedef struct s_rgba
-{
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-	uint8_t	a;
-}			t_rgba;
 
 /* 
  * Player position useful for collision checking and
@@ -157,6 +135,9 @@ typedef struct s_floor_raycaster
 	int				pos_y;
 	double			pos_z;
 	double			row_dist;
+	double			inverse_width;
+	int				halve_height;
+	int				width4;
 }			t_floor_raycaster;
 
 
@@ -176,13 +157,13 @@ typedef struct s_raycaster
 {
 	bool			hit;
 	bool			framedone;
-	t_vector_uint	map_pos;
+	t_vector_int	map_pos;
 	t_vector_double	ray_pos;
 	t_vector_double	ray_dir;
 	t_vector_double	side_dist;
 	t_vector_double	delta_dist;
 	double			perp_wall_dist;
-	t_vector_uint	step;
+	t_vector_int	step;
 	int				side;
 	int				line_height;
 	double			wall_x;
@@ -191,7 +172,6 @@ typedef struct s_raycaster
 	int				draw_end;
 	int				tex_x;
 	double			tex_y;
-	t_rgba			color_rgba;
 	int				ray_dist;
 }			t_raycaster;
 
