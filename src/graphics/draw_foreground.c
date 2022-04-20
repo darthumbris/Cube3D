@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:47:20 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 15:20:15 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,48 @@ static void	set_tex(t_data *data)
 void	draw_transparency(t_data *data, int x)
 {
 	int				y;
-	uint8_t			*fg;
 	uint8_t			*floor;
 	uint8_t			*ceiling;
-	uint8_t			*bg;
+	uint8_t			*bg_ceiling;
+	uint8_t			*bg_floor;
 	int				simple;
+	int				width4;
+	int				simpler;
 
 	y = 0;
-	bg = data->mlx.fg->pixels;
 	floor = data->mlx.tex.texarr[3]->pixels;
 	ceiling = data->mlx.tex.texarr[2]->pixels;
-	simple = (data->mlx.fg->width + x) * 4;
+	simple = x * 4;
+	width4 = data->mlx.mlx_handle->width * 4;
+	bg_ceiling = data->mlx.fg->pixels + simple;
+	bg_floor = data->mlx.fg->pixels + ((data->mlx.mlx_handle->height - 1) * width4 + simple);
 	while (y < data->caster.draw_start)
 	{
 		set_draw_variables(data, y);
 		set_new_pos(data, x);
 		set_tex(data);
-		*(uint32_t *)(bg + ((y * data->mlx.fg->width + x) * 4)) = (*(int *)(floor + (data->floor.tex.y * data->\
-			mlx.tex.no_texture->width + data->floor.tex.x) * 4));
-		*(uint32_t *)(bg + (((data->mlx.mlx_handle->height - y - 1) * data->mlx.fg->width + x) * 4)) = (*(int *)(ceiling + (data->floor.tex.y * data->\
-			mlx.tex.no_texture->width + data->floor.tex.x) * 4));
+		simpler = (data->floor.tex.y * data->mlx.tex.no_texture->width + \
+					data->floor.tex.x) * 4;
+		*(uint32_t *)bg_ceiling = (*(int *)(floor + simpler));
+		*(uint32_t *)bg_floor = (*(int *)(ceiling + simpler));
+		bg_ceiling += width4;
+		bg_floor -= width4;
 		y++;
 	}
-	y = data->caster.draw_end + 1;
-	fg = data->mlx.fg->pixels + ((y * data->mlx.fg->width + x) * 4);
+	y = data->caster.draw_end;
+	bg_ceiling = data->mlx.fg->pixels + simple + (y * width4);
+	bg_floor = data->mlx.fg->pixels + ((data->mlx.mlx_handle->height - y - 1) * width4 + simple);
 	while (y < data->mlx.mlx_handle->height)
 	{
 		set_draw_variables(data, y);
 		set_new_pos(data, x);
 		set_tex(data);
-		*(uint32_t *)(bg + ((y * data->mlx.fg->width + x) * 4)) = (*(int *)(floor + (data->floor.tex.y * data->\
-			mlx.tex.no_texture->width + data->floor.tex.x) * 4));
-		*(uint32_t *)(bg + (((data->mlx.mlx_handle->height - y - 1) * data->mlx.fg->width + x) * 4)) = (*(int *)(ceiling + (data->floor.tex.y * data->\
-			mlx.tex.no_texture->width + data->floor.tex.x) * 4));
+		simpler = (data->floor.tex.y * data->mlx.tex.no_texture->width + \
+					data->floor.tex.x) * 4;
+		*(uint32_t *)bg_ceiling = (*(int *)(floor + simpler));
+		*(uint32_t *)bg_floor = (*(int *)(ceiling + simpler));
+		bg_ceiling += width4;
+		bg_floor -= width4;
 		y++;
 	}
 }
