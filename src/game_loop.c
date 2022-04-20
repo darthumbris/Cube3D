@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:33:38 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:45:26 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,15 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 		return ;
 }
 
+void change_pitch(t_data *data, int pitchchange)
+{
+	data->cam.pitch += pitchchange;
+	if (data->cam.pitch >= 700)
+		data->cam.pitch = 700;
+	if (data->cam.pitch <= -700)
+		data->cam.pitch = -700;
+}
+
 void	key_handler(struct mlx_key_data keys, void *param)
 {
 	t_data	*data;
@@ -83,5 +92,9 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, -1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_UP))
+		change_pitch(data, +10);
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_DOWN))
+		change_pitch(data, -10);
 	raycaster(data);
 }

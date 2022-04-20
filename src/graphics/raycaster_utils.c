@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:37:17 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:36:22 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ void	calculate_perpendicular_wall_distance(t_data *data)
 void	set_draw_values(t_data *data)
 {
 	data->caster.draw_start = -data->caster.line_height / 2 + \
-		data->mlx.mlx_handle->height / 2;
+		data->mlx.mlx_handle->height / 2 + data->cam.pitch;
 	if (data->caster.draw_start < 0)
 		data->caster.draw_start = 0;
 	if (data->caster.draw_start >= data->mlx.mlx_handle->height)
 		data->caster.draw_start = data->mlx.mlx_handle->height - 1;
 	data->caster.draw_end = data->caster.line_height / 2 + \
-	data->mlx.mlx_handle->height / 2;
+	data->mlx.mlx_handle->height / 2 + data->cam.pitch;
 	if (data->caster.draw_end >= data->mlx.mlx_handle->height)
 		data->caster.draw_end = data->mlx.mlx_handle->height - 1;
 	if (data->caster.draw_end < 0)

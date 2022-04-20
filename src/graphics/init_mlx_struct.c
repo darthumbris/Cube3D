@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:41:06 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:39:40 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static bool	init_textures(t_data *data)
 		return (false);
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;
+	data->cam.pitch = 0;
 	data->caster.ray_dist = 0;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:41:53 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:35:30 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_camera
 	t_vector_double	pos;
 	t_vector_double	dir;
 	t_vector_double	plane;
+	int				pitch;
 }			t_camera;
 
 /**
