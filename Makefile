@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/19 17:32:13 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/20 11:14:20 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,13 @@ NAME = cube3D
 
 CC  := gcc
 COMPILE_FLAGS = -Wall -Wextra -Werror -o3
-LINKING_FLAGS = libmlx42.a libft.a -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+LINKING_FLAGS = libmlx42.a $(LIBFT) -lm -ldl -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
+LIBFT_DIR = ./libs/libft
+MLX_DIR = ./libs/MLX42
 
 SRC =	main.c \
         graphics/init_mlx_struct.c \
@@ -45,6 +47,9 @@ INC = -I $(INC_DIR)
 HEADERS = cubed.h
 HEADERS :=  $(addprefix $(INC_DIR)/, $(HEADERS))
 
+LIBFT = $(LIBFT_DIR)/libft.a
+MLX = $(MLX_DIR)/libmlx42.a
+
 COM_COLOR   = \033[0;33m
 OBJ_COLOR   = \033[0;36m
 OK_COLOR    = \033[0;32m
@@ -67,9 +72,9 @@ ifeq ($(DEBUG),2)
 	COM_STRING = "Compiling[LEAKS]"
 endif
 
-all: libmlx42.a libft.a $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADERS)
+$(NAME): $(LIBFT) $(MLX) $(OBJ) $(HEADERS)
 	@$(CC) $(COMPILE_FLAGS) $(OBJ) -o $(NAME) $(LINKING_FLAGS) 2> $@.log; \
 		RESULT=$$?; \
 		if [ $$RESULT -ne 0 ]; then \
@@ -98,27 +103,26 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT) $(HEADERS)
 		rm -f $@.log; \
 		exit $$RESULT
 
-libmlx42.a:
-	@make -C libs/MLX42
-	@cp libs/MLX42/libmlx42.a .
+$(MLX):
+	@make -C $(MLX_DIR)
+	@cp $(MLX_DIR)/libmlx42.a .
 
-libft.a:
-	@make -C libs/libft
-	@cp libs/libft/libft.a .
+$(LIBFT):
+	@make -C $(LIBFT_DIR)
 
 clean:
 	@printf "%b" "$(ERROR_COLOR)Removing $(OBJ_COLOR)object files\n"
 	@rm -rf $(OBJ_DIR)
-	@make -C libs/MLX42 clean
-	@make -C libs/libft clean
+	@make -C $(MLX_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 	@echo "Objects cleaned."
 
 fclean: clean
 	@printf "%b" "$(ERROR_COLOR)Removing $(PRG_COLOR)$(NAME)\n"
-	@rm -f $(NAME)
-	@make -C libs/MLX42 fclean
+	@rm -f $(NAME) libmlx42.a
+	@make -C $(LIBFT_DIR) fclean
+	@make -C $(MLX_DIR) fclean
 	@rm -f libmlx42.a
-	@rm -f libft.a
 	@echo "Binaries cleaned."
 
 re: clean all #TODO:re fclean rule

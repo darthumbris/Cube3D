@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/08 12:18:39 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2021/10/13 15:59:31 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 11:13:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char		*dest;
-	int					i;
 
-	i = 0;
 	if (dst == src)
 		return (dst);
 	dest = dst;

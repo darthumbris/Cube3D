@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 15:37:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/13 14:32:27 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 11:17:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <stdlib.h>
-# include "gnl/get_next_line.h"
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
 void	*ft_memset(void *dest, int c, size_t len);
 void	ft_bzero(void *s, size_t n);

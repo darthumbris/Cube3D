@@ -46,8 +46,7 @@ SRC = ft_atoi.c \
 		ft_swap.c \
 		ft_arrjoin.c \
 		ft_strcmp.c \
-		./gnl/get_next_line.c \
-		./gnl/get_next_line_utils.c
+		get_next_line.c \
 
 BONUS = ft_lstnew_bonus.c \
 			ft_lstadd_front_bonus.c \
