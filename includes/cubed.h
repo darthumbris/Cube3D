@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:41:53 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:39:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,20 @@ typedef struct s_camera
 	t_vector_double	plane;
 }			t_camera;
 
+typedef struct s_floor_raycaster
+{
+	t_vector_double	ray_dir0;
+	t_vector_double	ray_dir1;
+	t_vector_double	pos_d;
+	t_vector_int	pos_int;
+	t_vector_int	tex;
+	t_vector_double	step;
+	int				pos_y;
+	double			pos_z;
+	double			row_dist;
+}			t_floor_raycaster;
+
+
 /**
  * Struct for the raycaster
  * @param hit if the raycaster has hit something.
@@ -190,11 +204,12 @@ typedef struct s_raycaster
  */
 typedef struct s_data
 {
-	t_mlx			mlx;
-	t_level			level;
-	t_camera		cam;
-	t_player		player;
-	t_raycaster		caster;
+	t_mlx				mlx;
+	t_level				level;
+	t_camera			cam;
+	t_player			player;
+	t_raycaster			caster;
+	t_floor_raycaster	floor;
 }				t_data;
 
 /**
@@ -250,6 +265,8 @@ void	draw_background(t_data *data);
 void	draw_transparency(t_data *data, int x);
 
 void	draw_walls(t_data *data, int x);
+
+void	draw_floor(t_data *data);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
