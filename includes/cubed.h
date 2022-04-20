@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:13:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 16:47:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "unistd.h"
 # include <math.h>
 
-# define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	960
+# define SCREEN_HEIGHT	1080
+# define SCREEN_WIDTH	1440
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			70
@@ -138,6 +138,8 @@ typedef struct s_floor_raycaster
 	double			inverse_width;
 	int				halve_height;
 	int				width4;
+	int				x4;
+	int				color_pos;
 }			t_floor_raycaster;
 
 
@@ -244,7 +246,7 @@ void	draw_background(t_data *data);
 
 void	draw_transparency(t_data *data, int x);
 
-void	draw_walls(t_data *data, int x);
+void	draw_walls(t_data *data);
 
 void	draw_floor(t_data *data);
 

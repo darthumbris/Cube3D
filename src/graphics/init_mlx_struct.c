@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:26:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 16:49:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static bool	init_textures(t_data *data)
 	return (true);
 }
 
-#include <stdio.h>
 bool	init_mlx(t_data *data)
 {
 	data->mlx.mlx_handle = mlx_init

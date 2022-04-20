@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:26:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/20 16:45:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	set_caster_variables(t_data *data, int x)
 	data->caster.delta_dist.x = fabs(1 / data->caster.ray_dir.x);
 	data->caster.delta_dist.y = fabs(1 / data->caster.ray_dir.y);
 	data->caster.hit = false;
+	data->floor.x4 = x * 4;
 }
 
 void	set_step_direction(t_data *data)
