@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/20 11:14:20 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/21 13:48:21 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,9 @@ SRC =	main.c \
 		graphics/raycaster_utils.c \
         graphics/draw_background.c \
 		graphics/draw_foreground.c \
+		graphics/draw_sprites.c \
+		graphics/sprite_lst_functions.c \
+		graphics/sprite_utils.c \
         game_loop.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
@@ -44,7 +47,7 @@ SRC :=  $(addprefix $(SRC_DIR)/, $(SRC))
 
 INC = -I $(INC_DIR)
 
-HEADERS = cubed.h
+HEADERS = cubed.h sprites.h vectors.h
 HEADERS :=  $(addprefix $(INC_DIR)/, $(HEADERS))
 
 LIBFT = $(LIBFT_DIR)/libft.a

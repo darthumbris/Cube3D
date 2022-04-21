@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:25:24 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/21 17:01:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 //checks if types were parsed correctly
 bool	checktypes(t_data *data)
 {
-	if (data->level.no_texture_path == NULL)
-		return (true);
-	if (data->level.we_texture_path == NULL)
-		return (true);
-	if (data->level.ea_texture_path == NULL)
-		return (true);
-	if (data->level.so_texture_path == NULL)
-		return (true);
+	int	i;
+
+	i = 0;
+	while (i <= SPRITE_1)
+	{
+		if (data->level.paths.path[i] == NULL)
+			return (true);
+		i++;
+	}
 	return (false);
 }
 
@@ -31,19 +32,22 @@ bool	mapjmptable(char *line, t_data *data)
 {
 	int						i;
 	static const t_values	jmpt[] = {
-	{.str = "NO", .storemapval = no_store},
-	{.str = "SO", .storemapval = so_store},
-	{.str = "WE", .storemapval = we_store},
-	{.str = "EA", .storemapval = ea_store},
-	{.str = "F ", .storemapval = f_store},
-	{.str = "C ", .storemapval = c_store}
+	{.str = "NO", .kind = NORTH},
+	{.str = "SO", .kind = SOUTH},
+	{.str = "WE", .kind = WEST},
+	{.str = "EA", .kind = EAST},
+	{.str = "FL", .kind = FLOOR},
+	{.str = "CL", .kind = CEILING},
+	{.str = "DO", .kind = DOOR},
+	{.str = "S0", .kind = SPRITE_0},
+	{.str = "S1", .kind = SPRITE_1},
 	};
 
 	i = 0;
 	while ((i < (int)(sizeof(jmpt) / sizeof(t_values))))
 	{
 		if (ft_strncmp(line, jmpt[i].str, 2) == 0)
-			return (jmpt[i].storemapval(line, data), true);
+			return (store_path(line, data, jmpt[i].kind), true);
 		i++;
 	}
 	return (false);

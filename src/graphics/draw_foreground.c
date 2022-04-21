@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:48:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/21 09:53:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	set_tex(t_data *data)
 		(data->mlx.tex.no_texture->height -1);
 }
 
-void	draw_transparency(t_data *data, int x)
+void	draw_floor_ceiling(t_data *data, int x)
 {
 	int				y;
 	uint8_t			*floor;

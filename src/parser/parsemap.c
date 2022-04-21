@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:40:37 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/21 17:12:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,15 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
+//TODO: check if player start on edge of map if this fails
 bool	checks(char **upmap, int i, int j, t_data *data)
 {
 	return (validchar_space(upmap[i][j]) == false || \
-		(upmap[i][j] == '0' && verifyzero(upmap, i, j, data) == false));
+		((upmap[i][j] == '0' || upmap[i][j] == 'L' || \
+		upmap[i][j] == 'B' || upmap[i][j] == 'N' || \
+		upmap[i][j] == 'W' || upmap[i][j] == 'W' || \
+		upmap[i][j] == 'S') \
+		&& verifyzero(upmap, i, j, data) == false));
 }
 
 bool	playerposcheck(char c)
@@ -62,13 +67,20 @@ bool	playerposcheck(char c)
 	return (c == 'N' || c == 'E' || c == 'S' || c == 'W');
 }
 
+bool	sprite_check(char c)
+{
+	return (c == 'L' || c == 'B');
+}
+
 char	**parse_map(char **upmap, t_data *data)
 {
 	int	i;
 	int	j;
 	int	count;
+	int	sprites;
 
 	count = 0;
+	sprites = 0;
 	if (!upmap || !*upmap)
 		return (NULL);
 	while (*upmap && ft_isalpha(*(*upmap)))
@@ -84,10 +96,13 @@ char	**parse_map(char **upmap, t_data *data)
 				return (NULL);
 			if (playerposcheck(upmap[i][j]))
 				count++;
+			if (sprite_check(upmap[i][j]))
+				sprites++;
 		}
 	}
 	if (count > 1)
 		return (NULL);
+	data->level.number_of_sprites = sprites;
 	return (upmap);
 }
 

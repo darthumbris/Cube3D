@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:26:04 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/21 17:01:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	parse_types(char **upmap, t_data *data)
 	int	i;
 
 	i = 0;
-	while (upmap[i] && i < 6)
+	while (upmap[i] && i <= SPRITE_1)
 	{
 		if (mapjmptable(upmap[i], data) == false)
 			return (false);

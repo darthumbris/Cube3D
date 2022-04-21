@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:47:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/21 16:45:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,16 @@
 # include <fcntl.h>
 # include "unistd.h"
 # include <math.h>
+# include "sprites.h"
+# include <stdio.h>
 
-# define SCREEN_HEIGHT	1080
-# define SCREEN_WIDTH	1440
+# define SCREEN_HEIGHT	720
+# define SCREEN_WIDTH	960
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			70
 # define RENDER_DIST	5
-
-typedef struct s_vector_double
-{
-	double	x;
-	double	y;
-}				t_vector_double;
-
-typedef struct s_vector_int
-{
-	int	x;
-	int	y;
-}				t_vector_int;
+# define INVERSE_256	0.00390625
 
 /* 
  * Player position useful for collision checking and
@@ -51,7 +42,7 @@ typedef struct s_player
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[6];
+	mlx_texture_t	*texarr[8];
 	struct {
 		mlx_texture_t	*no_texture;
 		mlx_texture_t	*ea_texture;
@@ -59,8 +50,26 @@ typedef union u_lodtex
 		mlx_texture_t	*we_texture;
 		mlx_texture_t	*fl_texture;
 		mlx_texture_t	*ce_texture;
+		mlx_texture_t	*door0_texture;
+		mlx_texture_t	*door1_texture;
 	};
 }	t_lodtex;
+
+typedef union u_tex_path
+{
+	char	*path[9];
+	struct {
+		char	*no_texture_path;
+		char	*we_texture_path;
+		char	*so_texture_path;
+		char	*ea_texture_path;
+		char	*ce_texture_path;
+		char	*fl_texture_path;
+		char	*do_texture_path;
+		char	*sprite0_path;
+		char	*sprite1_path;
+	};
+}			t_tex_path;
 
 /**
  * @brief Struct for all the mlx data
@@ -76,6 +85,7 @@ typedef struct s_mlx
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
 	t_lodtex		tex;
+	t_lodsprites	sprites;
 }			t_mlx;
 
 typedef enum e_textures
@@ -85,7 +95,10 @@ typedef enum e_textures
 	NORTH = 2,
 	SOUTH = 3,
 	FLOOR = 4,
-	CEILING = 5
+	CEILING = 5,
+	DOOR = 6,
+	SPRITE_0 = 7,
+	SPRITE_1 = 8
 }	t_textures;
 
 /**
@@ -103,12 +116,20 @@ typedef struct s_level
 	char			**map;
 	int				map_w;
 	int				map_h;
+	t_tex_path		paths;
 	char			*no_texture_path;
 	char			*we_texture_path;
 	char			*so_texture_path;
 	char			*ea_texture_path;
+	char			*ce_texture_path;
+	char			*fl_texture_path;
+	char			*do_texture_path;
+	char			*sprite1_path;
+	char			*sprite2_path;
+	char			*sprite3_path;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
+	unsigned int	number_of_sprites;
 }	t_level;
 
 /**
@@ -137,11 +158,11 @@ typedef struct s_floor_raycaster
 	double			row_dist;
 	double			inverse_width;
 	int				halve_height;
+	int				halve_width;
 	int				width4;
 	int				x4;
 	int				color_pos;
 }			t_floor_raycaster;
-
 
 /**
  * Struct for the raycaster
@@ -192,6 +213,9 @@ typedef struct s_data
 	t_player			player;
 	t_raycaster			caster;
 	t_floor_raycaster	floor;
+	t_sprite_raycaster	spr_cast;
+	t_sprite			*sprite;
+	t_sprite_lst		*sprite_lst;
 }				t_data;
 
 /**
@@ -244,7 +268,7 @@ void	set_draw_values(t_data *data);
  */
 void	draw_background(t_data *data);
 
-void	draw_transparency(t_data *data, int x);
+void	draw_floor_ceiling(t_data *data, int x);
 
 void	draw_walls(t_data *data);
 
@@ -292,19 +316,24 @@ bool	verifyzero(char **upmap, int i, int j, t_data *data);
 /*
 	Jump table functions to store values in struct
 */
-void	no_store(char *line, t_data *data);
-void	so_store(char *line, t_data *data);
-void	we_store(char *line, t_data *data);
-void	ea_store(char *line, t_data *data);
-void	f_store(char *line, t_data *data);
-void	c_store(char *line, t_data *data);
+void	store_path(char *line, t_data *data, int kind);
+// void	so_store(char *line, t_data *data);
+// void	we_store(char *line, t_data *data);
+// void	ea_store(char *line, t_data *data);
+// void	f_store(char *line, t_data *data);
+// void	c_store(char *line, t_data *data);
 
-typedef void	(*t_func)(char *line, t_data *data);
+typedef void	(*t_func)(char *line, t_data *data, int kind);
 
 typedef struct s_values
 {
 	char	*str;
-	t_func	storemapval;
+	//t_func	storemapval;
+	int		kind;
 }	t_values;
+
+void	sort_sprites(t_data *data, t_sprite_lst **begin);
+void	set_sprites(t_data *data);
+void	draw_sprites(t_data *data);
 
 #endif

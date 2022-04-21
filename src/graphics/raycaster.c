@@ -6,13 +6,11 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:47:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/21 13:52:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-#include <stdio.h>
-#include <sys/time.h>
 
 static void	set_start_draw_variables(t_data *data)
 {
@@ -37,7 +35,8 @@ void	raycaster(t_data *data)
 		calculate_perpendicular_wall_distance(data);
 		set_draw_values(data);
 		draw_walls(data);
-		draw_transparency(data, x);
+		draw_floor_ceiling(data, x);
+		data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
 		x++;
 	}
 }

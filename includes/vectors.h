@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parsetextures.c                                    :+:    :+:            */
+/*   vectors.h                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/13 14:47:17 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:02:20 by shoogenb      ########   odam.nl         */
+/*   Created: 2022/04/21 13:47:30 by shoogenb      #+#    #+#                 */
+/*   Updated: 2022/04/21 13:47:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#ifndef VECTORS_H
+# define VECTORS_H
 
-//stores textures for all directions 
-
-void	store_path(char *line, t_data *data, int kind)
+typedef struct s_vector_double
 {
-	line += 2;
-	while (*line == ' ')
-		line++;
-	data->level.paths.path[kind] = line;
-}
+	double	x;
+	double	y;
+}				t_vector_double;
+
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}				t_vector_int;
+
+#endif

@@ -2,6 +2,11 @@ NO ./assets/greystone.png
 SO ./assets/wood.png
 WE ./assets/bluestone.png
 EA ./assets/eagle.png
+FL ./assets/wood.png
+CL ./assets/greystone.png
+DO ./assets/door.png
+S0 ./assets/greenlight.png
+S1 ./assets/barrel.png
 
 F 130,125,130
 C 90,200,220
@@ -56,10 +61,10 @@ C 90,200,220
          1001              100001000100001
          1001              111111000111111
          1111              100001000100001
-                           10E000000000001
+                           10E0000L0000001
                            100001000100001
                            111111000111111
                            100000000000001
-                           100000000000001
+                           1000000L0000001
                            100000000000001
                            111111111111111
