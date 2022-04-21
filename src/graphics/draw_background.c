@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 20:22:07 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/20 22:42:19 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	draw_background(t_data *data)
 	bg.x = 0.5 + atan(data->cam.dir.x)/(M_PI*2);
     bg.y = 0.5 - asin(data->cam.dir.y)/M_PI;
 	int offset = (int)((bg.y * data->mlx.tex.ce_texture->height) * data->mlx.tex.ce_texture->width) + (int)(bg.x * data->mlx.tex.ce_texture->width);
-	printf("%d\n", offset);
+	float scale = (double)data->mlx.tex.ce_texture->width / (double)data->mlx.mlx_handle->width;
+	offset /= scale;
+	while (offset % 4 > 0)
+		offset++;
+	printf("%f\n", scale);
 	while (y < data->mlx.mlx_handle->height)
 	{
 		x = 0;
@@ -47,3 +51,4 @@ void	draw_background(t_data *data)
 	}
 }
 
+//just scale image to fit into window and then rotate when the camera is turned
