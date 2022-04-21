@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:26:46 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/21 16:00:46 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void	raycaster(t_data *data)
 		draw_walls(data, x);
 		x++;
 	}
+	//mlx_image_to_window(data->mlx.mlx_handle, data->mlx.fg, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 22:42:19 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/21 16:26:15 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,7 @@
 
 void	draw_background(t_data *data)
 {
-	int x;
-	int y;
-	uint8_t	*dst;
-	uint8_t	*pix;
-	t_vector_double bg;
-
-	y = 0;
-	dst = data->mlx.bg->pixels;
-	pix = data->mlx.tex.ce_texture->pixels;
-	bg.x = 0.5 + atan(data->cam.dir.x)/(M_PI*2);
-    bg.y = 0.5 - asin(data->cam.dir.y)/M_PI;
-	int offset = (int)((bg.y * data->mlx.tex.ce_texture->height) * data->mlx.tex.ce_texture->width) + (int)(bg.x * data->mlx.tex.ce_texture->width);
-	float scale = (double)data->mlx.tex.ce_texture->width / (double)data->mlx.mlx_handle->width;
-	offset /= scale;
-	while (offset % 4 > 0)
-		offset++;
-	printf("%f\n", scale);
-	while (y < data->mlx.mlx_handle->height)
-	{
-		x = 0;
-		while (x < data->mlx.mlx_handle->width)
-		{
-			*dst = *(pix + offset + 0);
-			*(dst + 1) = *(pix + offset + 1);
-			*(dst + 2) = *(pix + offset + 2);
-			*(dst + 3) = 0xFF;
-			dst += 4;
-			pix += 4;
-			x++;
-		}
-		y++;
-	}
+	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.bg, 0, 0);
 }
 
 //just scale image to fit into window and then rotate when the camera is turned
