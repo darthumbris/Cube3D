@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 16:45:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:21:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef union u_lodtex
 
 typedef union u_tex_path
 {
-	char	*path[9];
+	char	*path[10];
 	struct {
 		char	*no_texture_path;
 		char	*we_texture_path;
@@ -68,6 +68,7 @@ typedef union u_tex_path
 		char	*do_texture_path;
 		char	*sprite0_path;
 		char	*sprite1_path;
+		char	*sprite2_path;
 	};
 }			t_tex_path;
 
@@ -98,7 +99,8 @@ typedef enum e_textures
 	CEILING = 5,
 	DOOR = 6,
 	SPRITE_0 = 7,
-	SPRITE_1 = 8
+	SPRITE_1 = 8,
+	SPRITE_2 = 9
 }	t_textures;
 
 /**
@@ -216,6 +218,7 @@ typedef struct s_data
 	t_sprite_raycaster	spr_cast;
 	t_sprite			*sprite;
 	t_sprite_lst		*sprite_lst;
+	bool				bonus;
 }				t_data;
 
 /**
@@ -272,7 +275,7 @@ void	draw_floor_ceiling(t_data *data, int x);
 
 void	draw_walls(t_data *data);
 
-void	draw_floor(t_data *data);
+void	draw_transparency(t_data *data, int x);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
@@ -308,6 +311,8 @@ void	cursor_movement(double xpos, double ypos, void *param);
 bool	mapjmptable(char *line, t_data *data);
 bool	checkmap(char *map);
 char	**readmap(int fd, char **temp);
+bool	sprite_check(char c);
+bool	playerposcheck(char c);
 bool	checktypes(t_data *data);
 bool	validchar(char c);
 bool	validchar_space(char c);

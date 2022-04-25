@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/21 14:18:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:00:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef enum e_sprites
 {
 	BARREL = 0,
 	PILLAR = 1,
-	LAMP = 2
+	LAMP = 2,
+	DOOR_SPRITE = 3
 }	t_sprite_enum;
 
 typedef struct s_sprite

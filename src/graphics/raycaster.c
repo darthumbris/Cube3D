@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 13:52:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:21:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,13 @@ void	raycaster(t_data *data)
 		calculate_perpendicular_wall_distance(data);
 		set_draw_values(data);
 		draw_walls(data);
-		draw_floor_ceiling(data, x);
-		data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
+		if (data->bonus)
+		{
+			draw_floor_ceiling(data, x);
+			data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
+		}
+		else
+			draw_transparency(data, x);
 		x++;
 	}
 }

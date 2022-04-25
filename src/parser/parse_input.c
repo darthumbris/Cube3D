@@ -6,24 +6,36 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:01:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:16:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
 
-//loops through the 6 configs
+//loops through the configs
 bool	parse_types(char **upmap, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (upmap[i] && i <= SPRITE_1)
+	if (data->bonus)
 	{
-		if (mapjmptable(upmap[i], data) == false)
-			return (false);
-		i++;
+		while (upmap[i] && i <= SPRITE_2)
+		{
+			if (mapjmptable(upmap[i], data) == false)
+				return (false);
+			i++;
+		}
+	}
+	else
+	{
+		while (upmap[i] && i <= SOUTH)
+		{
+			if (mapjmptable(upmap[i], data) == false)
+				return (false);
+			i++;
+		}
 	}
 	return (true);
 }
@@ -40,8 +52,7 @@ t_vector_double	getplayerpos(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || \
-				map[i][j] == 'W' || map[i][j] == 'E')
+			if (playerposcheck(map[i][j]))
 				return ((t_vector_double){.x = j, .y = i});
 			j++;
 		}
@@ -70,6 +81,44 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
+int	get_sprite_kind(char c)
+{
+	if (c == 'B')
+		return (0);
+	if (c == 'P')
+		return (1);
+	return (2);
+}
+
+void	set_sprite_positions(char **map, t_data *data)
+{
+	int	i;
+	int	j;
+	int	sprite_cnt;
+
+	data->sprite = malloc(sizeof(t_sprite) * data->level.number_of_sprites);
+	i = 0;
+	sprite_cnt = 0;
+	while (map && map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (sprite_check(map[i][j]))
+			{
+				data->sprite[sprite_cnt].map_pos.x = j + 0.5;
+				data->sprite[sprite_cnt].map_pos.y = i + 0.5;
+				data->sprite[sprite_cnt].kind = get_sprite_kind(map[i][j]);
+				if (data->sprite[sprite_cnt].kind == LAMP) // maybe have a function for this
+					map[i][j] = '0';
+				sprite_cnt++;
+			}	
+			j++;
+		}
+		i++;
+	}
+}
+
 bool	parse_input(char **argv, t_data *data)
 {
 	char	**upmap;
@@ -79,6 +128,11 @@ bool	parse_input(char **argv, t_data *data)
 	if (ft_strlen(argv[1]) < 4 || \
 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
 		return (false);
+	if (ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 10), "_bonus.cub", 10) == 0)
+		data->bonus = true;
+	else
+		data->bonus = false;
+	printf("bonus: %d\n", data->bonus);
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	close(fd);
@@ -87,8 +141,13 @@ bool	parse_input(char **argv, t_data *data)
 	data->level.map = parse_map(upmap, data);
 	data->player.pos = getplayerpos(data->level.map);
 	setplayerdir(data->level.map, data->player.pos, data);
+	printf("player pos: %f,%f\n", data->player.pos.x, data->player.pos.y);
 	if (!data->level.map || \
 		data->player.pos.x == -1 || data->player.pos.y == -1)
 		return (false);
+	printf("hey\n");
+	set_sprite_positions(data->level.map, data);
 	return (true);
 }
+
+//TODO: set a flag if the map loaded in has _bonus.cub as a name

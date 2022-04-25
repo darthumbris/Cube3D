@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:08:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:12:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,31 @@
 static bool	init_sprites(t_data *data)
 {
 	printf("number of sprites: %d\n", data->level.number_of_sprites);
-	data->level.number_of_sprites = 4;
-	data->sprite = malloc(sizeof(t_sprite) * data->level.number_of_sprites);
-	data->sprite[0].map_pos.x = 29 + 5.5; //after setting in the parser make all those places in map 0
-	data->sprite[0].map_pos.y = 50.5;
-	data->sprite[0].kind = LAMP;
-	data->sprite[1].map_pos.x = 29 + 5.5;
-	data->sprite[1].map_pos.y = 45.5;
-	data->sprite[1].kind = LAMP;
-	data->sprite[2].map_pos.x = 29 + 5.5;
-	data->sprite[2].map_pos.y = 54.5;
-	data->sprite[2].kind = LAMP;
-	data->sprite[3].map_pos.x = 29 + 5.5;
-	data->sprite[3].map_pos.y = 54.5;
-	data->sprite[3].kind = BARREL;
+	if (data->level.number_of_sprites == 0)
+	{
+		printf("true\n");
+		return true;
+	}
 	data->sprite_lst = new_sprite(data->sprite[0]);
-	data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[1]);
-	data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[2]);
-	data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[3]);
+	unsigned int i;
+
+	i = 1;
+	while (i < data->level.number_of_sprites)
+	{
+		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i]);
+		i++;
+	}
 	data->spr_cast.sprite_order = malloc(sizeof(int) * data->level.number_of_sprites);
 	data->spr_cast.sprite_distance = malloc(sizeof(double) * data->level.number_of_sprites);
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
-	data->mlx.sprites.texarr[2] = mlx_load_png(data->level.paths.path[SPRITE_0]);
-	if (data->mlx.sprites.texarr[2] == NULL)
+	data->mlx.sprites.texarr[LAMP] = mlx_load_png(data->level.paths.path[SPRITE_0]);
+	if (data->mlx.sprites.texarr[LAMP] == NULL)
 		return (false);
 	data->mlx.sprites.texarr[BARREL] = mlx_load_png(data->level.paths.path[SPRITE_1]);
 	if (data->mlx.sprites.texarr[BARREL] == NULL)
+		return (false);
+	data->mlx.sprites.texarr[PILLAR] = mlx_load_png(data->level.paths.path[SPRITE_2]);
+	if (data->mlx.sprites.texarr[PILLAR] == NULL)
 		return (false);
 	set_sprites(data);
 	sort_sprites(data, &data->sprite_lst);
@@ -59,14 +58,22 @@ static bool	init_textures(t_data *data)
 		data->mlx.tex.texarr[EAST] == NULL || \
 		data->mlx.tex.texarr[SOUTH] == NULL || \
 		data->mlx.tex.texarr[WEST] == NULL)
-		{
-			printf("ok\n");
 		return (false);
-		}
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;
 	data->caster.ray_dist = 0;
-	return (init_sprites(data));
+	if (data->bonus)
+	{
+		data->mlx.tex.texarr[FLOOR] = \
+			mlx_load_png(data->level.paths.path[FLOOR]);
+		data->mlx.tex.texarr[CEILING] = \
+			mlx_load_png(data->level.paths.path[CEILING]);
+		if (data->mlx.tex.texarr[FLOOR] == NULL || \
+		data->mlx.tex.texarr[CEILING] == NULL)
+			return (false);
+		return (init_sprites(data));
+	}
+	return (true);
 }
 
 bool	init_mlx(t_data *data)

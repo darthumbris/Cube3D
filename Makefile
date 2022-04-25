@@ -6,11 +6,11 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/21 13:48:21 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/25 11:21:19 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cube3D
+NAME = cube3D_bonus
 
 CC  := gcc
 COMPILE_FLAGS = -Wall -Wextra -Werror -o3
@@ -28,6 +28,7 @@ SRC =	main.c \
 		graphics/raycaster_utils.c \
         graphics/draw_background.c \
 		graphics/draw_foreground.c \
+		graphics/draw_transparency.c \
 		graphics/draw_sprites.c \
 		graphics/sprite_lst_functions.c \
 		graphics/sprite_utils.c \
