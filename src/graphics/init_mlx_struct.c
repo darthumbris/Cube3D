@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:12:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 16:30:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,33 @@
 //temp for now
 static bool	init_sprites(t_data *data)
 {
-	printf("number of sprites: %d\n", data->level.number_of_sprites);
-	if (data->level.number_of_sprites == 0)
-	{
-		printf("true\n");
-		return true;
-	}
-	data->sprite_lst = new_sprite(data->sprite[0]);
-	unsigned int i;
+	unsigned int	i;
 
+	if (data->level.number_of_sprites == 0)
+		return (true);
+	data->sprite_lst = new_sprite(data->sprite[0]);
 	i = 1;
 	while (i < data->level.number_of_sprites)
-	{
-		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i]);
-		i++;
-	}
-	data->spr_cast.sprite_order = malloc(sizeof(int) * data->level.number_of_sprites);
-	data->spr_cast.sprite_distance = malloc(sizeof(double) * data->level.number_of_sprites);
+		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i++]);
+	data->spr_cast.sprite_order = \
+		malloc(sizeof(int) * data->level.number_of_sprites);
+	data->spr_cast.sprite_distance = \
+		malloc(sizeof(double) * data->level.number_of_sprites);
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
-	data->mlx.sprites.texarr[LAMP] = mlx_load_png(data->level.paths.path[SPRITE_0]);
-	if (data->mlx.sprites.texarr[LAMP] == NULL)
-		return (false);
-	data->mlx.sprites.texarr[BARREL] = mlx_load_png(data->level.paths.path[SPRITE_1]);
-	if (data->mlx.sprites.texarr[BARREL] == NULL)
-		return (false);
-	data->mlx.sprites.texarr[PILLAR] = mlx_load_png(data->level.paths.path[SPRITE_2]);
-	if (data->mlx.sprites.texarr[PILLAR] == NULL)
+	data->mlx.sprites.texarr[LAMP] = \
+		mlx_load_png(data->level.paths.path[SPRITE_0]);
+	data->mlx.sprites.texarr[BARREL] = \
+		mlx_load_png(data->level.paths.path[SPRITE_1]);
+	data->mlx.sprites.texarr[PILLAR] = \
+		mlx_load_png(data->level.paths.path[SPRITE_2]);
+	data->mlx.sprites.texarr[DOOR_SPRITE] = \
+		mlx_load_png(data->level.paths.path[DOOR]);
+	data->mlx.sprites.texarr[BONES] = \
+		mlx_load_png(data->level.paths.path[SPRITE_3]);
+	data->mlx.sprites.texarr[GUARD] = \
+		mlx_load_png(data->level.paths.path[SPRITE_4]);
+	if (!data->mlx.sprites.texarr[PILLAR] || !data->mlx.sprites.texarr[LAMP] || \
+		!data->mlx.sprites.texarr[BARREL])
 		return (false);
 	set_sprites(data);
 	sort_sprites(data, &data->sprite_lst);
@@ -68,8 +69,9 @@ static bool	init_textures(t_data *data)
 			mlx_load_png(data->level.paths.path[FLOOR]);
 		data->mlx.tex.texarr[CEILING] = \
 			mlx_load_png(data->level.paths.path[CEILING]);
+		data->mlx.tex.texarr[DOOR] = mlx_load_png(data->level.paths.path[DOOR]);
 		if (data->mlx.tex.texarr[FLOOR] == NULL || \
-		data->mlx.tex.texarr[CEILING] == NULL)
+		data->mlx.tex.texarr[CEILING] == NULL || !data->mlx.tex.texarr[DOOR])
 			return (false);
 		return (init_sprites(data));
 	}
@@ -91,5 +93,6 @@ bool	init_mlx(t_data *data)
 	data->floor.halve_height = data->mlx.mlx_handle->height / 2;
 	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
+	data->fov = (double)data->mlx.mlx_handle->height / (double)data->mlx.mlx_handle->width;
 	return (init_textures(data));
 }

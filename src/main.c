@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 16:49:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:27:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	main(int argc, char **argv)
 {
 	t_data		data;
 
+	data.bonus = false;
 	if (argc != 2 || !parse_input(argv, &data) || !init_mlx(&data))
 	{
 		write(2, "Error\n", 6);

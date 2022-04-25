@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:21:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 17:02:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define SCREEN_WIDTH	960
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
-# define FOV			70
+# define FOV			60
 # define RENDER_DIST	5
 # define INVERSE_256	0.00390625
 
@@ -57,7 +57,7 @@ typedef union u_lodtex
 
 typedef union u_tex_path
 {
-	char	*path[10];
+	char	*path[12];
 	struct {
 		char	*no_texture_path;
 		char	*we_texture_path;
@@ -69,6 +69,8 @@ typedef union u_tex_path
 		char	*sprite0_path;
 		char	*sprite1_path;
 		char	*sprite2_path;
+		char	*sprite3_path;
+		char	*sprite4_path;
 	};
 }			t_tex_path;
 
@@ -100,7 +102,9 @@ typedef enum e_textures
 	DOOR = 6,
 	SPRITE_0 = 7,
 	SPRITE_1 = 8,
-	SPRITE_2 = 9
+	SPRITE_2 = 9,
+	SPRITE_3 = 10,
+	SPRITE_4 = 11
 }	t_textures;
 
 /**
@@ -219,6 +223,7 @@ typedef struct s_data
 	t_sprite			*sprite;
 	t_sprite_lst		*sprite_lst;
 	bool				bonus;
+	double				fov;
 }				t_data;
 
 /**
@@ -276,6 +281,8 @@ void	draw_floor_ceiling(t_data *data, int x);
 void	draw_walls(t_data *data);
 
 void	draw_transparency(t_data *data, int x);
+
+void	draw_doors(t_data *data, t_sprite_lst *sprite);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called

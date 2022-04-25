@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:16:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 16:29:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ bool	parse_types(char **upmap, t_data *data)
 	i = 0;
 	if (data->bonus)
 	{
-		while (upmap[i] && i <= SPRITE_2)
+		while (upmap[i] && i <= SPRITE_4)
 		{
 			if (mapjmptable(upmap[i], data) == false)
+			{
+				printf("goes wrong here\n");
 				return (false);
+			}
 			i++;
 		}
 	}
@@ -87,7 +90,13 @@ int	get_sprite_kind(char c)
 		return (0);
 	if (c == 'P')
 		return (1);
-	return (2);
+	if (c == 'L')
+		return (2);
+	if (c == 'b')
+		return (4);
+	if (c == 'G')
+		return (5);
+	return (DOOR_SPRITE);
 }
 
 void	set_sprite_positions(char **map, t_data *data)
@@ -130,22 +139,19 @@ bool	parse_input(char **argv, t_data *data)
 		return (false);
 	if (ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 10), "_bonus.cub", 10) == 0)
 		data->bonus = true;
-	else
-		data->bonus = false;
-	printf("bonus: %d\n", data->bonus);
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	close(fd);
+	printf("no\n");
 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
+	printf("hello\n");
 	data->level.map = parse_map(upmap, data);
 	data->player.pos = getplayerpos(data->level.map);
 	setplayerdir(data->level.map, data->player.pos, data);
-	printf("player pos: %f,%f\n", data->player.pos.x, data->player.pos.y);
 	if (!data->level.map || \
 		data->player.pos.x == -1 || data->player.pos.y == -1)
 		return (false);
-	printf("hey\n");
 	set_sprite_positions(data->level.map, data);
 	return (true);
 }

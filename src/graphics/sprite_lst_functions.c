@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 12:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/25 10:58:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:52:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_sprite_lst	*new_sprite(t_sprite data)
 	if (!new)
 		return (NULL);
 	new->sprite_data = data;
+	new->sprite_data.open = false;
 	new->next = NULL;
 	return (new);
 }
@@ -32,6 +33,7 @@ t_sprite_lst	*add_sprite(t_sprite_lst **begin, t_sprite data)
 	if (!first)
 		return (NULL);
 	first->next = *begin;
+	first->sprite_data.open = false;
 	*begin = first;
 	return (first);
 }

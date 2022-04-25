@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:00:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 16:31:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 
 typedef union u_lodsprites
 {
-	mlx_texture_t	*texarr[4];
+	mlx_texture_t	*texarr[6];
 	struct {
 		mlx_texture_t	*sprite0_texture;
 		mlx_texture_t	*sprite1_texture;
 		mlx_texture_t	*sprite2_texture;
+		mlx_texture_t	*door_texture;
 		mlx_texture_t	*sprite3_texture;
+		mlx_texture_t	*sprite4_texture;
 	};
 }	t_lodsprites;
 
@@ -32,13 +34,16 @@ typedef enum e_sprites
 	BARREL = 0,
 	PILLAR = 1,
 	LAMP = 2,
-	DOOR_SPRITE = 3
+	DOOR_SPRITE = 3,
+	BONES = 4,
+	GUARD = 5
 }	t_sprite_enum;
 
 typedef struct s_sprite
 {
 	t_vector_double	map_pos;
 	t_sprite_enum	kind;
+	bool			open;
 }				t_sprite;
 
 typedef struct s_sprite_lst
@@ -66,6 +71,28 @@ typedef struct s_sprite_raycaster
 	t_vector_int	tex;
 	double			inverse_transform_y;
 }				t_sprite_raycaster;
+
+// typedef struct s_door
+// {
+// 	bool			rotated;
+// 	bool			inverted;
+// 	t_vector_double	pos;
+// 	t_vector_double	end_pos;
+// 	double			dist;
+// 	double			end_dist;
+// 	double			angle;
+// 	double			end_angle;
+// 	double			view_distance;
+// 	double			cur_angle;
+// 	int				draw_x;
+// 	int				draw_y;
+// 	int				draw_width;
+// 	int				draw_height;
+// 	double			ratio;
+// 	double			ratio2;
+// 	int				offset_x;
+// 	int				offset_y;
+// }			t_door;
 
 t_sprite_lst	*new_sprite(t_sprite data);
 t_sprite_lst	*add_sprite(t_sprite_lst **begin, t_sprite data);

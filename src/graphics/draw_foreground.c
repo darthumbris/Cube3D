@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:03:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 15:47:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	draw_walls(t_data *data)
 		(double)(data->mlx.tex.texarr[data->caster.side]->width - 1));
 	data->caster.tex_y = (y - data->floor.halve_height + \
 		(data->caster.line_height >> 1)) * step;
-	pixels = data->mlx.tex.texarr[data->caster.side]->pixels;
+	if (data->level.map[data->caster.map_pos.y][data->caster.map_pos.x] == 'D')
+		pixels = data->mlx.tex.texarr[DOOR]->pixels;
+	else
+		pixels = data->mlx.tex.texarr[data->caster.side]->pixels;
 	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + data->floor.x4);
 	while (y < data->caster.draw_end)
 	{

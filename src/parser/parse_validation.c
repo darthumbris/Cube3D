@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:31:50 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 10:44:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 16:32:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	validchar(char c)
 {
 	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'W' && c != 'E' \
-		&& c != 'L' && c != 'B' && c != 'P')
+		&& c != 'L' && c != 'B' && c != 'P' && c != 'D' && c != 'b' && c != 'G')
 		return (false);
 	return (true);
 }
@@ -24,7 +24,7 @@ bool	validchar_space(char c)
 {
 	if (c != '1' && c != '0' \
 		&& c != 'N' && c != 'S' && c != 'W' && c != 'E' && c != ' ' \
-		&& c != 'L' && c != 'B' && c != 'P')
+		&& c != 'L' && c != 'B' && c != 'P' && c != 'D' && c != 'b' && c != 'G')
 		return (false);
 	return (true);
 }

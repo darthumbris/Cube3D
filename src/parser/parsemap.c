@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 10:43:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 16:28:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ bool	playerposcheck(char c)
 
 bool	sprite_check(char c)
 {
-	return (c == 'L' || c == 'B' || c == 'P');
+	return (c == 'L' || c == 'B' || c == 'P' || c == 'D' || c == 'b' \
+			|| c == 'G');
 }
 
 //TODO: check if player start on edge of map if this fails

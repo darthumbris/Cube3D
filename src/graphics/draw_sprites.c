@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/21 15:40:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/25 16:54:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,16 @@ static void	draw_sprite(t_data *data, int kind)
 				data->spr_cast.tex.y = \
 					((d * data->mlx.sprites.texarr[kind]->height) * \
 					data->spr_cast.inverse_sprite_height) / 256;
-				color = 0xff000000;
 				if (data->spr_cast.tex.y < \
 					(int)data->mlx.sprites.texarr[kind]->height)
+				{
 					color = (*(unsigned int *) \
 					(data->mlx.sprites.texarr[kind]->pixels + \
 					(data->mlx.sprites.texarr[kind]->width * \
 					data->spr_cast.tex.y * 4 + data->spr_cast.tex.x * 4)));
-				if (color != 0xff000000)
-					*(uint32_t *)fg = color;
+					if (color != 0xff000000)
+						*(uint32_t *)fg = color;
+				}
 				fg += data->floor.width4;
 				y++;
 			}
@@ -101,18 +102,34 @@ static void	draw_sprite(t_data *data, int kind)
 	}
 }
 
+double	get_distance(t_vector_double pos)
+{
+	return (sqrt(pos.x * pos.x + pos.y * pos.y));
+}
+
 void	draw_sprites(t_data *data)
 {
 	t_sprite_lst	*lst;
 
-	lst = data->sprite_lst;
 	data->spr_cast.inverse_determinant = 1.0 / \
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
+	sort_sprites(data, &data->sprite_lst);
+	lst = data->sprite_lst;
 	while (lst)
 	{
-		set_sprite_variables(data, lst);
-		set_draw_start_end(data);
-		draw_sprite(data, lst->sprite_data.kind);
+		if (lst->sprite_data.kind != DOOR_SPRITE)
+		{
+			set_sprite_variables(data, lst);
+			set_draw_start_end(data);
+			draw_sprite(data, lst->sprite_data.kind);
+		}
+		if (lst->sprite_data.kind == DOOR_SPRITE)
+		{
+			if (fabs(get_distance(data->cam.pos) - get_distance(lst->sprite_data.map_pos)) < 0.75 && mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E))
+				data->level.map[(int)lst->sprite_data.map_pos.y][(int)lst->sprite_data.map_pos.x] = '0'; //TODO make a sliding animation
+			else if (fabs(get_distance(data->cam.pos) - get_distance(lst->sprite_data.map_pos)) > 1.5)
+				data->level.map[(int)lst->sprite_data.map_pos.y][(int)lst->sprite_data.map_pos.x] = 'D';
+		}
 		lst = lst->next;
 	}
 }
