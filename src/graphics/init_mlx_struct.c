@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:21:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 16:18:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static bool	init_sprites(t_data *data)
 		mlx_load_png(data->level.paths.path[SPRITE_3]);
 	data->mlx.sprites.texarr[GUARD] = \
 		mlx_load_png(data->level.paths.path[SPRITE_4]);
+	data->mlx.sprites.texarr[DOG] = \
+		mlx_load_png(data->level.paths.path[DOG_SPRITE]);
 	if (!data->mlx.sprites.texarr[PILLAR] || !data->mlx.sprites.texarr[LAMP] || \
 		!data->mlx.sprites.texarr[BARREL])
 		return (false);
@@ -63,6 +65,10 @@ static bool	init_textures(t_data *data)
 		data->mlx.tex.texarr[CEILING] = \
 			mlx_load_png(data->level.paths.path[CEILING]);
 		data->mlx.tex.texarr[DOOR] = mlx_load_png(data->level.paths.path[DOOR]);
+		data->mlx.tex.texarr[WALL_1] = mlx_load_png(data->level.paths.path[WALL_1]);
+		data->mlx.tex.texarr[WALL_2] = mlx_load_png(data->level.paths.path[WALL_2]);
+		data->mlx.tex.texarr[WALL_3] = mlx_load_png(data->level.paths.path[WALL_3]);
+		data->mlx.tex.texarr[HIDDEN_WALL] = mlx_load_png(data->level.paths.path[HIDDEN_WALL]);
 		if (data->mlx.tex.texarr[FLOOR] == NULL || \
 		data->mlx.tex.texarr[CEILING] == NULL || !data->mlx.tex.texarr[DOOR])
 			return (false);

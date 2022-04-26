@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:06:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 16:16:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ bool	is_player_tile(char c)
 bool	is_sprite_tile(char c)
 {
 	return (c == 'L' || c == 'B' || c == 'P' || c == 'D' \
-			|| c == 'b' || c == 'G' || c == 'h');
+			|| c == 'b' || c == 'G' || c == 'h' || c == 'c');
 }
 
 bool	is_wall_tile(char c)
 {
-	return (c == '1');
+	return (c == '1' || c == '2' || c == '3');
 }
 
 bool	is_empty_tile(char c)

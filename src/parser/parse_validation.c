@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:31:50 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 09:37:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 16:47:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	validchar(char c)
 {
 	return ((is_player_tile(c) || is_sprite_tile(c) || is_wall_tile(c) || \
-			is_empty_tile(c)));
+			is_empty_tile(c)) || is_finish_tile(c));
 }
 
 bool	validchar_space(char c)

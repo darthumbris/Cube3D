@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 16:29:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 16:16:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	checktypes(t_data *data)
 	i = 0;
 	if (data->bonus)
 	{
-		while (i <= SPRITE_4)
+		while (i <= DOG_SPRITE)
 		{
 			if (data->level.paths.path[i] == NULL)
 				return (true);
@@ -56,6 +56,11 @@ bool	mapjmptable(char *line, t_data *data)
 	{.str = "S2", .kind = SPRITE_2},
 	{.str = "S3", .kind = SPRITE_3},
 	{.str = "S4", .kind = SPRITE_4},
+	{.str = "W1", .kind = WALL_1},
+	{.str = "W2", .kind = WALL_2},
+	{.str = "W3", .kind = WALL_3},
+	{.str = "HI", .kind = HIDDEN_WALL},
+	{.str = "DS", .kind = DOG_SPRITE},
 	};
 
 	i = 0;

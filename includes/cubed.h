@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:04:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 17:17:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			80
-# define RENDER_DIST_S	90
+# define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[8];
+	mlx_texture_t	*texarr[17];
 }	t_lodtex;
 
 typedef union u_tex_path
 {
-	char	*path[12];
+	char	*path[17];
 }			t_tex_path;
 
 /**
@@ -71,7 +71,12 @@ typedef enum e_textures
 	SPRITE_1 = 8,
 	SPRITE_2 = 9,
 	SPRITE_3 = 10,
-	SPRITE_4 = 11
+	SPRITE_4 = 11,
+	WALL_1 = 12,
+	WALL_2 = 13,
+	WALL_3 = 14,
+	HIDDEN_WALL = 15,
+	DOG_SPRITE = 16
 }	t_textures;
 
 /**
@@ -283,6 +288,8 @@ bool	is_sprite_tile(char c);
 bool	is_wall_tile(char c);
 bool	is_empty_tile(char c);
 bool	is_door_tile(char c);
+bool	is_finish_tile(char c);
+bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
 void	store_path(char *line, t_data *data, int kind);

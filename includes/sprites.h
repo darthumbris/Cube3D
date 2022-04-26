@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:12:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 16:18:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef union u_lodsprites
 {
-	mlx_texture_t	*texarr[6];
+	mlx_texture_t	*texarr[8];
 }	t_lodsprites;
 
 typedef enum e_sprites
@@ -28,7 +28,8 @@ typedef enum e_sprites
 	DOOR_SPRITE = 3,
 	BONES = 4,
 	GUARD = 5,
-	HIDDEN = 6
+	HIDDEN = 6,
+	DOG = 7
 }	t_sprite_enum;
 
 typedef struct s_sprite

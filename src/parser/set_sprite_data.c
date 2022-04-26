@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:22:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 16:46:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 static int	get_sprite_kind(char c)
 {
 	if (c == 'B')
-		return (0);
+		return (BARREL);
 	if (c == 'P')
-		return (1);
+		return (PILLAR);
 	if (c == 'L')
-		return (2);
+		return (LAMP);
 	if (c == 'b')
-		return (4);
+		return (BONES);
 	if (c == 'G')
-		return (5);
+		return (GUARD);
 	if (c == 'h')
-		return (6);
+		return (HIDDEN);
+	if (c == 'c')
+		return (DOG);
 	return (DOOR_SPRITE);
 }
 
@@ -38,7 +40,7 @@ static t_vector_int	get_transparency_begin(int kind)
 	else if (kind == LAMP)
 		return ((t_vector_int){.x = 22, .y = 11});
 	else if (kind == GUARD)
-		return ((t_vector_int){.x = 16, .y = -1});
+		return ((t_vector_int){.x = 41, .y = -1});
 	return ((t_vector_int){.x = -1, .y = -1});
 }
 
@@ -51,7 +53,7 @@ static t_vector_int	get_transparency_end(int kind)
 	else if (kind == LAMP)
 		return ((t_vector_int){.x = 43, .y = -1});
 	else if (kind == GUARD)
-		return ((t_vector_int){.x = 48, .y = -1});
+		return ((t_vector_int){.x = 87, .y = -1});
 	return ((t_vector_int){.x = 128, .y = -1});
 }
 
@@ -60,7 +62,7 @@ static void	set_sprite_data(t_sprite *sprite, int i, int j, char **map)
 	sprite->map_pos.x = j + 0.5;
 	sprite->map_pos.y = i + 0.5;
 	sprite->kind = get_sprite_kind(map[i][j]);
-	if (sprite->kind == LAMP) // maybe have a function for this
+	if (is_nonblocking_kind(sprite->kind))
 		map[i][j] = '0';
 	if (sprite->kind == HIDDEN)
 		sprite->hidden = true;
