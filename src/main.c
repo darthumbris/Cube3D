@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 11:27:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 15:25:51 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
 	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);
+	mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);
 	mlx_loop(data.mlx.mlx_handle);
 	return (0);
 }
