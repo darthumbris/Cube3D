@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:26:04 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 15:02:01 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ bool	parse_input(char **argv, t_data *data)
 		return (false);
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
+	data->level.unparsed = upmap;
 	close(fd);
 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);

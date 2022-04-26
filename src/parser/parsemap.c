@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 17:21:56 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 15:03:26 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ bool	playerposcheck(char c)
 bool	checks(char **upmap, int i, int j, t_data *data)
 {
 	return (validchar_space(upmap[i][j]) == false || \
-		((upmap[i][j] == '0' ||	playerposcheck(upmap[i][j])) && verifyzero(upmap, i, j, data) == false));
+		((upmap[i][j] == '0' || playerposcheck(upmap[i][j])) && \
+			verifyzero(upmap, i, j, data) == false));
 }
 
 char	**parse_map(char **upmap, t_data *data)

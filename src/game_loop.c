@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:33:38 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 15:02:39 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,30 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 		return ;
 }
 
+void	ft_cleanup(char **out)
+{
+	int	i;
+
+	i = 0;
+	if (!out)
+		return ;
+	while (out[i] != NULL)
+		free(out[i++]);
+	free(out);
+	return ;
+}
+
 void	key_handler(struct mlx_key_data keys, void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
-		mlx_close_window(data->mlx.mlx_handle);
+	{
+		mlx_terminate(data->mlx.mlx_handle);
+		ft_cleanup(data->level.unparsed);
+		exit(0);
+	}
 }
 
 void	game_loop(void *v_data)

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:41:53 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 15:01:50 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef enum e_textures
  */
 typedef struct s_level
 {
+	char			**unparsed;
 	char			**map;
 	int				map_w;
 	int				map_h;
