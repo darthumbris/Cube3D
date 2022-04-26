@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 16:28:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 09:35:12 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,12 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
-bool	playerposcheck(char c)
-{
-	return (c == 'N' || c == 'E' || c == 'S' || c == 'W');
-}
-
-bool	sprite_check(char c)
-{
-	return (c == 'L' || c == 'B' || c == 'P' || c == 'D' || c == 'b' \
-			|| c == 'G');
-}
-
 //TODO: check if player start on edge of map if this fails
 bool	checks(char **upmap, int i, int j, t_data *data)
 {
 	return (validchar_space(upmap[i][j]) == false || \
-		((upmap[i][j] == '0' || playerposcheck(upmap[i][j]) || \
-		sprite_check(upmap[i][j])) \
+		((upmap[i][j] == '0' || is_player_tile(upmap[i][j]) || \
+		is_sprite_tile(upmap[i][j])) \
 		&& verifyzero(upmap, i, j, data) == false));
 }
 
@@ -96,9 +85,9 @@ char	**parse_map(char **upmap, t_data *data)
 				printf("fails this at: %d, %d with char: %c\n", i, j, upmap[i][j]);
 				return (NULL);
 			}
-			if (playerposcheck(upmap[i][j]))
+			if (is_player_tile(upmap[i][j]))
 				count++;
-			if (sprite_check(upmap[i][j]))
+			if (is_sprite_tile(upmap[i][j]))
 				sprites++;
 		}
 	}

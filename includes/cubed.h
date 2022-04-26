@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 17:02:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:04:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,54 +24,21 @@
 # include <stdio.h>
 
 # define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	960
+# define SCREEN_WIDTH	1280
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
-# define FOV			60
-# define RENDER_DIST	5
-# define INVERSE_256	0.00390625
-
-/* 
- * Player position useful for collision checking and
- * maybe for enemies etc.
- */
-typedef struct s_player
-{
-	t_vector_double	pos;
-}			t_player;
+# define FOV			80
+# define RENDER_DIST_S	90
+# define RENDER_DIST_W	50
 
 typedef union u_lodtex
 {
 	mlx_texture_t	*texarr[8];
-	struct {
-		mlx_texture_t	*no_texture;
-		mlx_texture_t	*ea_texture;
-		mlx_texture_t	*so_texture;
-		mlx_texture_t	*we_texture;
-		mlx_texture_t	*fl_texture;
-		mlx_texture_t	*ce_texture;
-		mlx_texture_t	*door0_texture;
-		mlx_texture_t	*door1_texture;
-	};
 }	t_lodtex;
 
 typedef union u_tex_path
 {
 	char	*path[12];
-	struct {
-		char	*no_texture_path;
-		char	*we_texture_path;
-		char	*so_texture_path;
-		char	*ea_texture_path;
-		char	*ce_texture_path;
-		char	*fl_texture_path;
-		char	*do_texture_path;
-		char	*sprite0_path;
-		char	*sprite1_path;
-		char	*sprite2_path;
-		char	*sprite3_path;
-		char	*sprite4_path;
-	};
 }			t_tex_path;
 
 /**
@@ -123,16 +90,6 @@ typedef struct s_level
 	int				map_w;
 	int				map_h;
 	t_tex_path		paths;
-	char			*no_texture_path;
-	char			*we_texture_path;
-	char			*so_texture_path;
-	char			*ea_texture_path;
-	char			*ce_texture_path;
-	char			*fl_texture_path;
-	char			*do_texture_path;
-	char			*sprite1_path;
-	char			*sprite2_path;
-	char			*sprite3_path;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	unsigned int	number_of_sprites;
@@ -216,14 +173,12 @@ typedef struct s_data
 	t_mlx				mlx;
 	t_level				level;
 	t_camera			cam;
-	t_player			player;
 	t_raycaster			caster;
 	t_floor_raycaster	floor;
 	t_sprite_raycaster	spr_cast;
 	t_sprite			*sprite;
 	t_sprite_lst		*sprite_lst;
 	bool				bonus;
-	double				fov;
 }				t_data;
 
 /**
@@ -282,7 +237,7 @@ void	draw_walls(t_data *data);
 
 void	draw_transparency(t_data *data, int x);
 
-void	draw_doors(t_data *data, t_sprite_lst *sprite);
+void	draw_sprites(t_data *data);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
@@ -323,29 +278,24 @@ bool	playerposcheck(char c);
 bool	checktypes(t_data *data);
 bool	validchar(char c);
 bool	validchar_space(char c);
+bool	is_player_tile(char c);
+bool	is_sprite_tile(char c);
+bool	is_wall_tile(char c);
+bool	is_empty_tile(char c);
+bool	is_door_tile(char c);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
-/*
-	Jump table functions to store values in struct
-*/
 void	store_path(char *line, t_data *data, int kind);
-// void	so_store(char *line, t_data *data);
-// void	we_store(char *line, t_data *data);
-// void	ea_store(char *line, t_data *data);
-// void	f_store(char *line, t_data *data);
-// void	c_store(char *line, t_data *data);
 
 typedef void	(*t_func)(char *line, t_data *data, int kind);
 
 typedef struct s_values
 {
 	char	*str;
-	//t_func	storemapval;
 	int		kind;
 }	t_values;
 
+void	set_sprite_positions(char **map, t_data *data);
 void	sort_sprites(t_data *data, t_sprite_lst **begin);
-void	set_sprites(t_data *data);
-void	draw_sprites(t_data *data);
 
 #endif

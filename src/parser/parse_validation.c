@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:31:50 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 16:32:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 09:37:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,13 @@
 
 bool	validchar(char c)
 {
-	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'W' && c != 'E' \
-		&& c != 'L' && c != 'B' && c != 'P' && c != 'D' && c != 'b' && c != 'G')
-		return (false);
-	return (true);
+	return ((is_player_tile(c) || is_sprite_tile(c) || is_wall_tile(c) || \
+			is_empty_tile(c)));
 }
 
 bool	validchar_space(char c)
 {
-	if (c != '1' && c != '0' \
-		&& c != 'N' && c != 'S' && c != 'W' && c != 'E' && c != ' ' \
-		&& c != 'L' && c != 'B' && c != 'P' && c != 'D' && c != 'b' && c != 'G')
-		return (false);
-	return (true);
+	return (!(!validchar(c) && c != ' '));
 }
 
 //checks wether 0 is valid. if there are non digits around it, it is not

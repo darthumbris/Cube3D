@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 15:46:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 09:43:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	check_wall_collision(t_data *data)
 {
+	char	map_tile;
+
 	if (data->caster.side_dist.x < data->caster.side_dist.y)
 	{
 		data->caster.side_dist.x += data->caster.delta_dist.x;
@@ -32,8 +34,8 @@ void	check_wall_collision(t_data *data)
 		else
 			data->caster.side = SOUTH;
 	}
-	if (data->level.map[data->caster.map_pos.y][data->caster.map_pos.x] == '1' || \
-		data->level.map[data->caster.map_pos.y][data->caster.map_pos.x] == 'D')
+	map_tile = data->level.map[data->caster.map_pos.y][data->caster.map_pos.x];
+	if (is_wall_tile(map_tile) || is_door_tile(map_tile))
 		data->caster.hit = true;
 }
 

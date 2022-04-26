@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 16:30:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:21:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ static bool	init_sprites(t_data *data)
 	i = 1;
 	while (i < data->level.number_of_sprites)
 		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i++]);
-	data->spr_cast.sprite_order = \
-		malloc(sizeof(int) * data->level.number_of_sprites);
-	data->spr_cast.sprite_distance = \
-		malloc(sizeof(double) * data->level.number_of_sprites);
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
 	data->mlx.sprites.texarr[LAMP] = \
 		mlx_load_png(data->level.paths.path[SPRITE_0]);
@@ -44,7 +40,6 @@ static bool	init_sprites(t_data *data)
 	if (!data->mlx.sprites.texarr[PILLAR] || !data->mlx.sprites.texarr[LAMP] || \
 		!data->mlx.sprites.texarr[BARREL])
 		return (false);
-	set_sprites(data);
 	sort_sprites(data, &data->sprite_lst);
 	return (true);
 }
@@ -60,8 +55,6 @@ static bool	init_textures(t_data *data)
 		data->mlx.tex.texarr[SOUTH] == NULL || \
 		data->mlx.tex.texarr[WEST] == NULL)
 		return (false);
-	data->cam.pos.x = data->player.pos.x + 0.5;
-	data->cam.pos.y = data->player.pos.y + 0.5;
 	data->caster.ray_dist = 0;
 	if (data->bonus)
 	{
@@ -93,6 +86,5 @@ bool	init_mlx(t_data *data)
 	data->floor.halve_height = data->mlx.mlx_handle->height / 2;
 	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
-	data->fov = (double)data->mlx.mlx_handle->height / (double)data->mlx.mlx_handle->width;
 	return (init_textures(data));
 }

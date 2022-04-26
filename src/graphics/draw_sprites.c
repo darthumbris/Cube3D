@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/25 16:54:47 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:21:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,43 @@ static void	set_draw_start_end(t_data *data)
 		data->spr_cast.draw_end.x = data->mlx.mlx_handle->width - 1;
 }
 
-static void	draw_sprite(t_data *data, int kind)
+static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
+{
+	uint8_t		*fg;
+	int			d;
+	uint32_t	color;
+	const int	kind = sprt->kind;
+
+	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
+	while (y < data->spr_cast.draw_end.y)
+	{
+		d = y * 256 - data->mlx.mlx_handle->height * 128 + \
+			data->spr_cast.sprite_height * 128;
+		data->spr_cast.tex.y = \
+			((d * data->mlx.sprites.texarr[kind]->height) * \
+			data->spr_cast.inverse_sprite_height) / 256;
+		if (data->spr_cast.tex.y < \
+			(int)data->mlx.sprites.texarr[kind]->height && \
+			data->spr_cast.tex.y > sprt->transp_end.y)
+		{
+			if (sprt->transp_begin.y > 0 && \
+				data->spr_cast.tex.y > sprt->transp_begin.y)
+				break ;
+			color = (*(unsigned int *) \
+			(data->mlx.sprites.texarr[kind]->pixels + \
+			(data->mlx.sprites.texarr[kind]->width * \
+			data->spr_cast.tex.y * 4 + data->spr_cast.tex.x * 4)));
+			if (color != 0xff000000)
+				*(uint32_t *)fg = color;
+		}
+		fg += data->floor.width4;
+		y++;
+	}
+}
+
+static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 {
 	int			x;
-	int			y;
-	int			d;
-	uint8_t		*fg;
-	uint32_t	color;
 
 	x = data->spr_cast.draw_start.x;
 	while (x < data->spr_cast.draw_end.x)
@@ -73,38 +103,34 @@ static void	draw_sprite(t_data *data, int kind)
 		data->spr_cast.inverse_sprite_width) / 256;
 		if (data->spr_cast.transform.y > 0 && x > 0 && \
 			x < data->mlx.mlx_handle->width && \
-			data->spr_cast.transform.y < data->spr_cast.zbuffer[x])
-		{
-			y = data->spr_cast.draw_start.y;
-			fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
-			while (y < data->spr_cast.draw_end.y)
-			{
-				d = y * 256 - data->mlx.mlx_handle->height * 128 + \
-					data->spr_cast.sprite_height * 128;
-				data->spr_cast.tex.y = \
-					((d * data->mlx.sprites.texarr[kind]->height) * \
-					data->spr_cast.inverse_sprite_height) / 256;
-				if (data->spr_cast.tex.y < \
-					(int)data->mlx.sprites.texarr[kind]->height)
-				{
-					color = (*(unsigned int *) \
-					(data->mlx.sprites.texarr[kind]->pixels + \
-					(data->mlx.sprites.texarr[kind]->width * \
-					data->spr_cast.tex.y * 4 + data->spr_cast.tex.x * 4)));
-					if (color != 0xff000000)
-						*(uint32_t *)fg = color;
-				}
-				fg += data->floor.width4;
-				y++;
-			}
-		}
+			data->spr_cast.transform.y < data->spr_cast.zbuffer[x] && \
+			data->spr_cast.tex.x > sprt->transp_begin.x && \
+			data->spr_cast.tex.x < sprt->transp_end.x)
+			draw_sprite_line(data, x, data->spr_cast.draw_start.y, sprt);
 		x++;
 	}
 }
 
-double	get_distance(t_vector_double pos)
+//TODO make a sliding animation for opening and closing door
+static void	check_for_door(t_data *data, t_sprite_lst *lst)
 {
-	return (sqrt(pos.x * pos.x + pos.y * pos.y));
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E) && \
+		lst->sprite_data.dist < 10)
+	{
+		data->level.map[(int)lst->sprite_data.map_pos.y] \
+		[(int)lst->sprite_data.map_pos.x] = '0';
+		lst->sprite_data.open = true;
+	}
+	else if (lst->sprite_data.open && lst->sprite_data.dist > 1.5)
+	{
+		if (!lst->sprite_data.hidden)
+			data->level.map[(int)lst->sprite_data.map_pos.y] \
+			[(int)lst->sprite_data.map_pos.x] = 'D';
+		else
+			data->level.map[(int)lst->sprite_data.map_pos.y] \
+			[(int)lst->sprite_data.map_pos.x] = 'h';
+		lst->sprite_data.open = false;
+	}
 }
 
 void	draw_sprites(t_data *data)
@@ -113,23 +139,19 @@ void	draw_sprites(t_data *data)
 
 	data->spr_cast.inverse_determinant = 1.0 / \
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
-	sort_sprites(data, &data->sprite_lst);
+	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
 	while (lst)
 	{
-		if (lst->sprite_data.kind != DOOR_SPRITE)
+		if (lst->sprite_data.kind != DOOR_SPRITE && lst->sprite_data.kind != HIDDEN &&\
+			lst->sprite_data.dist < RENDER_DIST_S)
 		{
 			set_sprite_variables(data, lst);
 			set_draw_start_end(data);
-			draw_sprite(data, lst->sprite_data.kind);
+			draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
 		}
-		if (lst->sprite_data.kind == DOOR_SPRITE)
-		{
-			if (fabs(get_distance(data->cam.pos) - get_distance(lst->sprite_data.map_pos)) < 0.75 && mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E))
-				data->level.map[(int)lst->sprite_data.map_pos.y][(int)lst->sprite_data.map_pos.x] = '0'; //TODO make a sliding animation
-			else if (fabs(get_distance(data->cam.pos) - get_distance(lst->sprite_data.map_pos)) > 1.5)
-				data->level.map[(int)lst->sprite_data.map_pos.y][(int)lst->sprite_data.map_pos.x] = 'D';
-		}
+		if (lst->sprite_data.kind == DOOR_SPRITE || lst->sprite_data.kind == HIDDEN)
+			check_for_door(data, lst);
 		lst = lst->next;
 	}
 }

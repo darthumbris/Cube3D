@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 15:47:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:05:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static void	set_new_pos(t_data *data, int x)
 
 static void	set_tex(t_data *data)
 {
-	data->floor.tex.x = (int)(data->mlx.tex.no_texture->width * \
+	data->floor.tex.x = (int)(data->mlx.tex.texarr[FLOOR]->width * \
 	(data->floor.pos_d.x - (int)data->floor.pos_d.x)) & \
-		(data->mlx.tex.no_texture->width -1);
-	data->floor.tex.y = (int)(data->mlx.tex.no_texture->height * \
+		(data->mlx.tex.texarr[FLOOR]->width -1);
+	data->floor.tex.y = (int)(data->mlx.tex.texarr[FLOOR]->height * \
 	(data->floor.pos_d.y - (int)data->floor.pos_d.y)) & \
-		(data->mlx.tex.no_texture->height -1);
+		(data->mlx.tex.texarr[FLOOR]->height -1);
 }
 
 void	draw_floor_ceiling(t_data *data, int x)
@@ -62,7 +62,7 @@ void	draw_floor_ceiling(t_data *data, int x)
 		set_new_pos(data, x);
 		set_tex(data);
 		data->floor.color_pos = (data->floor.tex.y * \
-			data->mlx.tex.no_texture->width + data->floor.tex.x) * 4;
+			data->mlx.tex.texarr[FLOOR]->width + data->floor.tex.x) * 4;
 		*(uint32_t *)bg_up = (*(int *)(floor + data->floor.color_pos));
 		*(uint32_t *)bg_down = (*(int *)(ceiling + data->floor.color_pos));
 		bg_up += data->floor.width4;

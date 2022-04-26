@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/25 16:29:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:21:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_vector_double	getplayerpos(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (playerposcheck(map[i][j]))
-				return ((t_vector_double){.x = j, .y = i});
+			if (is_player_tile(map[i][j]))
+				return ((t_vector_double){.x = j + 0.5, .y = i + 0.5});
 			j++;
 		}
 		i++;
@@ -84,50 +84,6 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
-int	get_sprite_kind(char c)
-{
-	if (c == 'B')
-		return (0);
-	if (c == 'P')
-		return (1);
-	if (c == 'L')
-		return (2);
-	if (c == 'b')
-		return (4);
-	if (c == 'G')
-		return (5);
-	return (DOOR_SPRITE);
-}
-
-void	set_sprite_positions(char **map, t_data *data)
-{
-	int	i;
-	int	j;
-	int	sprite_cnt;
-
-	data->sprite = malloc(sizeof(t_sprite) * data->level.number_of_sprites);
-	i = 0;
-	sprite_cnt = 0;
-	while (map && map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (sprite_check(map[i][j]))
-			{
-				data->sprite[sprite_cnt].map_pos.x = j + 0.5;
-				data->sprite[sprite_cnt].map_pos.y = i + 0.5;
-				data->sprite[sprite_cnt].kind = get_sprite_kind(map[i][j]);
-				if (data->sprite[sprite_cnt].kind == LAMP) // maybe have a function for this
-					map[i][j] = '0';
-				sprite_cnt++;
-			}	
-			j++;
-		}
-		i++;
-	}
-}
-
 bool	parse_input(char **argv, t_data *data)
 {
 	char	**upmap;
@@ -142,15 +98,13 @@ bool	parse_input(char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	close(fd);
-	printf("no\n");
 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
-	printf("hello\n");
 	data->level.map = parse_map(upmap, data);
-	data->player.pos = getplayerpos(data->level.map);
-	setplayerdir(data->level.map, data->player.pos, data);
+	data->cam.pos = getplayerpos(data->level.map);
+	setplayerdir(data->level.map, data->cam.pos, data);
 	if (!data->level.map || \
-		data->player.pos.x == -1 || data->player.pos.y == -1)
+		data->cam.pos.x == -1 || data->cam.pos.y == -1)
 		return (false);
 	set_sprite_positions(data->level.map, data);
 	return (true);
