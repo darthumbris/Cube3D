@@ -6,24 +6,39 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:26:04 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:21:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
 
-//loops through the 6 configs
+//loops through the configs
 bool	parse_types(char **upmap, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (upmap[i] && i < 6)
+	if (data->bonus)
 	{
-		if (mapjmptable(upmap[i], data) == false)
-			return (false);
-		i++;
+		while (upmap[i] && i <= SPRITE_4)
+		{
+			if (mapjmptable(upmap[i], data) == false)
+			{
+				printf("goes wrong here\n");
+				return (false);
+			}
+			i++;
+		}
+	}
+	else
+	{
+		while (upmap[i] && i <= SOUTH)
+		{
+			if (mapjmptable(upmap[i], data) == false)
+				return (false);
+			i++;
+		}
 	}
 	return (true);
 }
@@ -40,9 +55,8 @@ t_vector_double	getplayerpos(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || \
-				map[i][j] == 'W' || map[i][j] == 'E')
-				return ((t_vector_double){.x = j, .y = i});
+			if (is_player_tile(map[i][j]))
+				return ((t_vector_double){.x = j + 0.5, .y = i + 0.5});
 			j++;
 		}
 		i++;
@@ -79,16 +93,21 @@ bool	parse_input(char **argv, t_data *data)
 	if (ft_strlen(argv[1]) < 4 || \
 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
 		return (false);
+	if (ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 10), "_bonus.cub", 10) == 0)
+		data->bonus = true;
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	close(fd);
 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
 	data->level.map = parse_map(upmap, data);
-	data->player.pos = getplayerpos(data->level.map);
-	setplayerdir(data->level.map, data->player.pos, data);
+	data->cam.pos = getplayerpos(data->level.map);
+	setplayerdir(data->level.map, data->cam.pos, data);
 	if (!data->level.map || \
-		data->player.pos.x == -1 || data->player.pos.y == -1)
+		data->cam.pos.x == -1 || data->cam.pos.y == -1)
 		return (false);
+	set_sprite_positions(data->level.map, data);
 	return (true);
 }
+
+//TODO: set a flag if the map loaded in has _bonus.cub as a name

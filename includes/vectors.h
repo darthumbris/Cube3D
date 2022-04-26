@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   draw_background.c                                  :+:    :+:            */
+/*   vectors.h                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/19 17:37:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:29:39 by pvan-dij      ########   odam.nl         */
+/*   Created: 2022/04/21 13:47:30 by shoogenb      #+#    #+#                 */
+/*   Updated: 2022/04/21 13:47:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cubed.h"
+#ifndef VECTORS_H
+# define VECTORS_H
 
-#include "stdio.h"
-#include <math.h>
-
-void	draw_background(t_data *data)
+typedef struct s_vector_double
 {
-	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.bg, 0, 0);
-}
+	double	x;
+	double	y;
+}				t_vector_double;
 
-//just scale image to fit into window and then rotate when the camera is turned
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}				t_vector_int;
+
+#endif

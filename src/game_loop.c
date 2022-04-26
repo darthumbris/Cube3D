@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 20:15:26 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:29:02 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,7 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, -1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_UP))
-		change_pitch(data, +15);
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_DOWN))
-		change_pitch(data, -15);
 	raycaster(data);
+	if (data->bonus)
+		draw_sprites(data);
 }

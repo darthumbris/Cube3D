@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:40:37 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 09:35:12 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,13 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
+//TODO: check if player start on edge of map if this fails
 bool	checks(char **upmap, int i, int j, t_data *data)
 {
 	return (validchar_space(upmap[i][j]) == false || \
-		(upmap[i][j] == '0' && verifyzero(upmap, i, j, data) == false));
-}
-
-bool	playerposcheck(char c)
-{
-	return (c == 'N' || c == 'E' || c == 'S' || c == 'W');
+		((upmap[i][j] == '0' || is_player_tile(upmap[i][j]) || \
+		is_sprite_tile(upmap[i][j])) \
+		&& verifyzero(upmap, i, j, data) == false));
 }
 
 char	**parse_map(char **upmap, t_data *data)
@@ -67,8 +65,10 @@ char	**parse_map(char **upmap, t_data *data)
 	int	i;
 	int	j;
 	int	count;
+	int	sprites;
 
 	count = 0;
+	sprites = 0;
 	if (!upmap || !*upmap)
 		return (NULL);
 	while (*upmap && ft_isalpha(*(*upmap)))
@@ -81,13 +81,19 @@ char	**parse_map(char **upmap, t_data *data)
 		while (upmap[i][++j])
 		{
 			if (checks(upmap, i, j, data))
+			{
+				printf("fails this at: %d, %d with char: %c\n", i, j, upmap[i][j]);
 				return (NULL);
-			if (playerposcheck(upmap[i][j]))
+			}
+			if (is_player_tile(upmap[i][j]))
 				count++;
+			if (is_sprite_tile(upmap[i][j]))
+				sprites++;
 		}
 	}
 	if (count > 1)
 		return (NULL);
+	data->level.number_of_sprites = sprites;
 	return (upmap);
 }
 

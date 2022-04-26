@@ -6,11 +6,43 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/21 16:31:15 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:29:14 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+#include <stdio.h>
+
+//temp for now
+static bool	init_sprites(t_data *data)
+{
+	unsigned int	i;
+
+	if (data->level.number_of_sprites == 0)
+		return (true);
+	data->sprite_lst = new_sprite(data->sprite[0]);
+	i = 1;
+	while (i < data->level.number_of_sprites)
+		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i++]);
+	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
+	data->mlx.sprites.texarr[LAMP] = \
+		mlx_load_png(data->level.paths.path[SPRITE_0]);
+	data->mlx.sprites.texarr[BARREL] = \
+		mlx_load_png(data->level.paths.path[SPRITE_1]);
+	data->mlx.sprites.texarr[PILLAR] = \
+		mlx_load_png(data->level.paths.path[SPRITE_2]);
+	data->mlx.sprites.texarr[DOOR_SPRITE] = \
+		mlx_load_png(data->level.paths.path[DOOR]);
+	data->mlx.sprites.texarr[BONES] = \
+		mlx_load_png(data->level.paths.path[SPRITE_3]);
+	data->mlx.sprites.texarr[GUARD] = \
+		mlx_load_png(data->level.paths.path[SPRITE_4]);
+	if (!data->mlx.sprites.texarr[PILLAR] || !data->mlx.sprites.texarr[LAMP] || \
+		!data->mlx.sprites.texarr[BARREL])
+		return (false);
+	sort_sprites(data, &data->sprite_lst);
+	return (true);
+}
 
 bool make_skybox(t_data *data, mlx_image_t *dst, mlx_texture_t *src)
 {
@@ -36,22 +68,30 @@ bool make_skybox(t_data *data, mlx_image_t *dst, mlx_texture_t *src)
 
 static bool	init_textures(t_data *data)
 {
-	data->mlx.tex.texarr[NORTH] = mlx_load_png(data->level.no_texture_path);
-	data->mlx.tex.texarr[EAST] = mlx_load_png(data->level.ea_texture_path);
-	data->mlx.tex.texarr[SOUTH] = mlx_load_png(data->level.so_texture_path);
-	data->mlx.tex.texarr[WEST] = mlx_load_png(data->level.we_texture_path);
-	data->mlx.tex.ce_texture = mlx_load_png("assets/skybox.png");
+	data->mlx.tex.texarr[NORTH] = mlx_load_png(data->level.paths.path[NORTH]);
+	data->mlx.tex.texarr[EAST] = mlx_load_png(data->level.paths.path[EAST]);
+	data->mlx.tex.texarr[SOUTH] = mlx_load_png(data->level.paths.path[SOUTH]);
+	data->mlx.tex.texarr[WEST] = mlx_load_png(data->level.paths.path[WEST]);
 	if (data->mlx.tex.texarr[NORTH] == NULL || \
 		data->mlx.tex.texarr[EAST] == NULL || \
 		data->mlx.tex.texarr[SOUTH] == NULL || \
 		data->mlx.tex.texarr[WEST] == NULL || \
 		data->mlx.tex.ce_texture == NULL)
 		return (false);
-	data->cam.pos.x = data->player.pos.x + 0.5;
-	data->cam.pos.y = data->player.pos.y + 0.5;
-	data->cam.pitch = 0;
 	data->caster.ray_dist = 0;
-	return (make_skybox(data, &(data->mlx.bg), &(data->mlx.tex.ce_texture)););
+	if (data->bonus)
+	{
+		data->mlx.tex.texarr[FLOOR] = \
+			mlx_load_png(data->level.paths.path[FLOOR]);
+		data->mlx.tex.texarr[CEILING] = \
+			mlx_load_png(data->level.paths.path[CEILING]);
+		data->mlx.tex.texarr[DOOR] = mlx_load_png(data->level.paths.path[DOOR]);
+		if (data->mlx.tex.texarr[FLOOR] == NULL || \
+		data->mlx.tex.texarr[CEILING] == NULL || !data->mlx.tex.texarr[DOOR])
+			return (false);
+		return (init_sprites(data));
+	}
+	return (true);
 }
 
 bool	init_mlx(t_data *data)
@@ -64,5 +104,10 @@ bool	init_mlx(t_data *data)
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (data->mlx.fg == NULL)
 		return (false);
+	data->floor.inverse_width = 1 / (double)data->mlx.mlx_handle->width;
+	data->floor.pos_z = 0.5 * data->mlx.mlx_handle->height;
+	data->floor.halve_height = data->mlx.mlx_handle->height / 2;
+	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
+	data->floor.width4 = data->mlx.mlx_handle->width * 4;
 	return (init_textures(data));
 }

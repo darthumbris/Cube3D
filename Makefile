@@ -6,11 +6,11 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/21 15:07:23 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/04/26 14:28:53 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cube3D
+NAME = cube3D_bonus
 
 CC  := gcc
 COMPILE_FLAGS = #-Wall -Wextra -Werror -o3
@@ -28,13 +28,19 @@ SRC =	main.c \
 		graphics/raycaster_utils.c \
         graphics/draw_background.c \
 		graphics/draw_foreground.c \
+		graphics/draw_transparency.c \
+		graphics/draw_sprites.c \
+		graphics/sprite_lst_functions.c \
+		graphics/sprite_utils.c \
         game_loop.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \
 		parser/parsemap.c \
 		parser/parser_utils.c \
-		parser/parse_validation.c
+		parser/parse_validation.c \
+		parser/is_what_tile.c \
+		parser/set_sprite_data.c \
 		
 
 SRC_EXT = c
@@ -44,7 +50,7 @@ SRC :=  $(addprefix $(SRC_DIR)/, $(SRC))
 
 INC = -I $(INC_DIR)
 
-HEADERS = cubed.h
+HEADERS = cubed.h sprites.h vectors.h
 HEADERS :=  $(addprefix $(INC_DIR)/, $(HEADERS))
 
 LIBFT = $(LIBFT_DIR)/libft.a

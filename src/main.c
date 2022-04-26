@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:36:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/25 11:27:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ int	main(int argc, char **argv)
 {
 	t_data		data;
 
+	data.bonus = false;
 	if (argc != 2 || !parse_input(argv, &data) || !init_mlx(&data))
 	{
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	draw_background(&data);
-	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
 	raycaster(&data);
 	mlx_set_mouse_pos(data.mlx.mlx_handle, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
