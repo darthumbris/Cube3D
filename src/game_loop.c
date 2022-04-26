@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:29:02 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:36:17 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 		return ;
 }
 
-void change_pitch(t_data *data, int pitchchange)
+void	change_pitch(t_data *data, int pitchchange)
 {
 	data->cam.pitch += pitchchange;
 	if (data->cam.pitch >= 700)

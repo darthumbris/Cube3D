@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:29:23 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:33:32 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	raycaster(t_data *data)
 
 	x = 0;
 	set_start_draw_variables(data);
-	draw_background(data);
+	//draw_background(data);
 	while (x < data->mlx.mlx_handle->width)
 	{
 		set_caster_variables(data, x);

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:29:14 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/26 14:30:43 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,27 @@ static bool	init_sprites(t_data *data)
 	return (true);
 }
 
-bool make_skybox(t_data *data, mlx_image_t *dst, mlx_texture_t *src)
-{
-	t_vector_double	p;
-	t_vector_double	of;
+//bool make_skybox(t_data *data, mlx_image_t *dst, mlx_texture_t *src)
+//{
+//	t_vector_double	p;
+//	t_vector_double	of;
 
-	dst = mlx_new_image(data->mlx.mlx_handle, SCREEN_WIDTH * 3.14, SCREEN_HEIGHT);
-	if (!dst)
-	return (false);
-	p.x = -1;
-	while (++p.x < dst->width)
-	{
-		p.y = -1;
-		of.x = ((double)p.x / dst->width) * src->width;
-		while (++p.y < dst->height)
-		{
-			of.y = ((double)p.y / dst->height) * src->height;
-			set_pixel(&dst, p.x, p.y, get_pixel(&src, of.x, of.y));
-		}
-	}
-	return (true);
-}
+//	dst = mlx_new_image(data->mlx.mlx_handle, SCREEN_WIDTH * 3.14, SCREEN_HEIGHT);
+//	if (!dst)
+//	return (false);
+//	p.x = -1;
+//	while (++p.x < dst->width)
+//	{
+//		p.y = -1;
+//		of.x = ((double)p.x / dst->width) * src->width;
+//		while (++p.y < dst->height)
+//		{
+//			of.y = ((double)p.y / dst->height) * src->height;
+//			set_pixel(&dst, p.x, p.y, get_pixel(&src, of.x, of.y));
+//		}
+//	}
+//	return (true);
+//}
 
 static bool	init_textures(t_data *data)
 {
@@ -75,8 +75,7 @@ static bool	init_textures(t_data *data)
 	if (data->mlx.tex.texarr[NORTH] == NULL || \
 		data->mlx.tex.texarr[EAST] == NULL || \
 		data->mlx.tex.texarr[SOUTH] == NULL || \
-		data->mlx.tex.texarr[WEST] == NULL || \
-		data->mlx.tex.ce_texture == NULL)
+		data->mlx.tex.texarr[WEST] == NULL)
 		return (false);
 	data->caster.ray_dist = 0;
 	if (data->bonus)
