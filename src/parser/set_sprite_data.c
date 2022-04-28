@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/26 16:46:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:21:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_vector_int	get_transparency_begin(int kind)
 	else if (kind == BONES)
 		return ((t_vector_int){.x = -1, .y = 0});
 	else if (kind == LAMP)
-		return ((t_vector_int){.x = 22, .y = 11});
+		return ((t_vector_int){.x = 25, .y = 20});
 	else if (kind == GUARD)
 		return ((t_vector_int){.x = 41, .y = -1});
 	return ((t_vector_int){.x = -1, .y = -1});
@@ -51,7 +51,7 @@ static t_vector_int	get_transparency_end(int kind)
 	else if (kind == BONES)
 		return ((t_vector_int){.x = 128, .y = 45});
 	else if (kind == LAMP)
-		return ((t_vector_int){.x = 43, .y = -1});
+		return ((t_vector_int){.x = 67, .y = -1});
 	else if (kind == GUARD)
 		return ((t_vector_int){.x = 87, .y = -1});
 	return ((t_vector_int){.x = 128, .y = -1});

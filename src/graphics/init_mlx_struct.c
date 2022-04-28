@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 16:18:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:32:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,55 +25,31 @@ static bool	init_sprites(t_data *data)
 	while (i < data->level.number_of_sprites)
 		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i++]);
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
-	data->mlx.sprites.texarr[LAMP] = \
-		mlx_load_png(data->level.paths.path[SPRITE_0]);
-	data->mlx.sprites.texarr[BARREL] = \
-		mlx_load_png(data->level.paths.path[SPRITE_1]);
-	data->mlx.sprites.texarr[PILLAR] = \
-		mlx_load_png(data->level.paths.path[SPRITE_2]);
-	data->mlx.sprites.texarr[DOOR_SPRITE] = \
-		mlx_load_png(data->level.paths.path[DOOR]);
-	data->mlx.sprites.texarr[BONES] = \
-		mlx_load_png(data->level.paths.path[SPRITE_3]);
-	data->mlx.sprites.texarr[GUARD] = \
-		mlx_load_png(data->level.paths.path[SPRITE_4]);
-	data->mlx.sprites.texarr[DOG] = \
-		mlx_load_png(data->level.paths.path[DOG_SPRITE]);
-	if (!data->mlx.sprites.texarr[PILLAR] || !data->mlx.sprites.texarr[LAMP] || \
-		!data->mlx.sprites.texarr[BARREL])
-		return (false);
 	sort_sprites(data, &data->sprite_lst);
 	return (true);
 }
 
+//TODO make a function that checks if the textures that are needed are actually given.
 static bool	init_textures(t_data *data)
 {
-	data->mlx.tex.texarr[NORTH] = mlx_load_png(data->level.paths.path[NORTH]);
-	data->mlx.tex.texarr[EAST] = mlx_load_png(data->level.paths.path[EAST]);
-	data->mlx.tex.texarr[SOUTH] = mlx_load_png(data->level.paths.path[SOUTH]);
-	data->mlx.tex.texarr[WEST] = mlx_load_png(data->level.paths.path[WEST]);
-	if (data->mlx.tex.texarr[NORTH] == NULL || \
-		data->mlx.tex.texarr[EAST] == NULL || \
-		data->mlx.tex.texarr[SOUTH] == NULL || \
-		data->mlx.tex.texarr[WEST] == NULL)
-		return (false);
+	int	i;
+	int	textures_to_load;
+
+	if (data->bonus)
+		textures_to_load = SPRITE_7;
+	else
+		textures_to_load = SOUTH;
+	i = 0;
+	while (i <= textures_to_load)
+	{
+		data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
+		if (data->mlx.tex.texarr[i] == NULL) // have a check here for if it is needed?
+			return (false);
+		i++;
+	}
 	data->caster.ray_dist = 0;
 	if (data->bonus)
-	{
-		data->mlx.tex.texarr[FLOOR] = \
-			mlx_load_png(data->level.paths.path[FLOOR]);
-		data->mlx.tex.texarr[CEILING] = \
-			mlx_load_png(data->level.paths.path[CEILING]);
-		data->mlx.tex.texarr[DOOR] = mlx_load_png(data->level.paths.path[DOOR]);
-		data->mlx.tex.texarr[WALL_1] = mlx_load_png(data->level.paths.path[WALL_1]);
-		data->mlx.tex.texarr[WALL_2] = mlx_load_png(data->level.paths.path[WALL_2]);
-		data->mlx.tex.texarr[WALL_3] = mlx_load_png(data->level.paths.path[WALL_3]);
-		data->mlx.tex.texarr[HIDDEN_WALL] = mlx_load_png(data->level.paths.path[HIDDEN_WALL]);
-		if (data->mlx.tex.texarr[FLOOR] == NULL || \
-		data->mlx.tex.texarr[CEILING] == NULL || !data->mlx.tex.texarr[DOOR])
-			return (false);
 		return (init_sprites(data));
-	}
 	return (true);
 }
 

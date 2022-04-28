@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 17:17:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:11:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[17];
+	mlx_texture_t	*texarr[18];
 }	t_lodtex;
 
 typedef union u_tex_path
 {
-	char	*path[17];
+	char	*path[18];
 }			t_tex_path;
 
 /**
@@ -61,22 +61,23 @@ typedef struct s_mlx
 typedef enum e_textures
 {
 	WEST = 0,
-	EAST = 1,
-	NORTH = 2,
-	SOUTH = 3,
-	FLOOR = 4,
-	CEILING = 5,
-	DOOR = 6,
-	SPRITE_0 = 7,
-	SPRITE_1 = 8,
-	SPRITE_2 = 9,
-	SPRITE_3 = 10,
-	SPRITE_4 = 11,
-	WALL_1 = 12,
-	WALL_2 = 13,
-	WALL_3 = 14,
-	HIDDEN_WALL = 15,
-	DOG_SPRITE = 16
+	EAST,
+	NORTH,
+	SOUTH,
+	FLOOR,
+	CEILING,
+	WALL_1,
+	WALL_2,
+	WALL_3,
+	WALL_4,
+	SPRITE_0,
+	SPRITE_1,
+	SPRITE_2,
+	SPRITE_3,
+	SPRITE_4,
+	SPRITE_5,
+	SPRITE_6,
+	SPRITE_7
 }	t_textures;
 
 /**
@@ -184,6 +185,7 @@ typedef struct s_data
 	t_sprite			*sprite;
 	t_sprite_lst		*sprite_lst;
 	bool				bonus;
+	int					number_of_textures;
 }				t_data;
 
 /**

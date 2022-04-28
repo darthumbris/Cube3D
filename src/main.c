@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 15:23:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:15:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char **argv)
 	t_data		data;
 
 	data.bonus = false;
+	data.number_of_textures = SPRITE_7;
 	if (argc != 2 || !parse_input(argv, &data) || !init_mlx(&data))
 	{
 		write(2, "Error\n", 6);

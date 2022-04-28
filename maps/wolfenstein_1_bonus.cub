@@ -4,17 +4,18 @@ WE ./assets/bluestone.png
 EA ./assets/eagle.png
 FL ./assets/colorstone.png
 CL ./assets/greystone.png
-DO ./assets/door.png
-S0 ./assets/greenlight.png
-S1 ./assets/barrel.png
-S2 ./assets/pillar.png
-S3 ./assets/bones.png
-S4 ./assets/guard_proper.png
 W1 ./assets/bluestone.png
 W2 ./assets/greystone.png
 W3 ./assets/wood.png
-HI ./assets/eagle.png
-DS ./assets/dog_scaled.png
+W4 ./assets/prison2.png
+S0 ./assets/barrel.png
+S1 ./assets/pillar.png
+S2 ./assets/lamp5.png
+S3 ./assets/door.png
+S4 ./assets/bones.png
+S5 ./assets/guard_proper.png
+S6 ./assets/eagle.png
+S7 ./assets/dog_scaled.png
 
 F 130,125,130
 C 90,200,220
@@ -75,4 +76,4 @@ C 90,200,220
                            100000000000001
                            100L000L000LG01
                            1G0000000000001
-                           111111111111111
+                           141141141141141

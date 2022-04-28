@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 16:16:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:11:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	checktypes(t_data *data)
 	i = 0;
 	if (data->bonus)
 	{
-		while (i <= DOG_SPRITE)
+		while (i <= data->number_of_textures)
 		{
 			if (data->level.paths.path[i] == NULL)
 				return (true);
@@ -50,17 +50,18 @@ bool	mapjmptable(char *line, t_data *data)
 	{.str = "EA", .kind = EAST},
 	{.str = "FL", .kind = FLOOR},
 	{.str = "CL", .kind = CEILING},
-	{.str = "DO", .kind = DOOR},
+	{.str = "W1", .kind = WALL_1},
+	{.str = "W2", .kind = WALL_2},
+	{.str = "W3", .kind = WALL_3},
+	{.str = "W4", .kind = WALL_4},
 	{.str = "S0", .kind = SPRITE_0},
 	{.str = "S1", .kind = SPRITE_1},
 	{.str = "S2", .kind = SPRITE_2},
 	{.str = "S3", .kind = SPRITE_3},
 	{.str = "S4", .kind = SPRITE_4},
-	{.str = "W1", .kind = WALL_1},
-	{.str = "W2", .kind = WALL_2},
-	{.str = "W3", .kind = WALL_3},
-	{.str = "HI", .kind = HIDDEN_WALL},
-	{.str = "DS", .kind = DOG_SPRITE},
+	{.str = "S5", .kind = SPRITE_5},
+	{.str = "S6", .kind = SPRITE_6},
+	{.str = "S7", .kind = SPRITE_7},
 	};
 
 	i = 0;

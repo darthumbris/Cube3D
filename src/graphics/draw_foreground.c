@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 15:48:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:14:12 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ uint8_t	*get_pixels(t_data *data, char c)
 	if (!data->bonus)
 		return (data->mlx.tex.texarr[data->caster.side]->pixels);
 	else if (c == 'D')
-		return (data->mlx.tex.texarr[DOOR]->pixels);
+		return (data->mlx.tex.texarr[SPRITE_3]->pixels);
 	else if (c == 'h')
-		return (data->mlx.tex.texarr[HIDDEN_WALL]->pixels);
+		return (data->mlx.tex.texarr[SPRITE_6]->pixels);
 	else
-		return (data->mlx.tex.texarr[c - '0' + 11]->pixels);
+		return (data->mlx.tex.texarr[c - '1' + WALL_1]->pixels);
 }
 
 void	draw_walls(t_data *data)
@@ -96,7 +96,7 @@ void	draw_walls(t_data *data)
 		(double)(data->mlx.tex.texarr[data->caster.side]->width - 1));
 	data->caster.tex_y = (y - data->floor.halve_height + \
 		(data->caster.line_height >> 1)) * step;
-	pixels = get_pixels(data, data->level.map[data->caster.map_pos.y]\
+	pixels = get_pixels(data, data->level.map[data->caster.map_pos.y] \
 		[data->caster.map_pos.x]);
 	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + data->floor.x4);
 	while (y < data->caster.draw_end)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/26 16:18:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:22:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ typedef union u_lodsprites
 
 typedef enum e_sprites
 {
-	BARREL = 0,
-	PILLAR = 1,
-	LAMP = 2,
-	DOOR_SPRITE = 3,
-	BONES = 4,
-	GUARD = 5,
-	HIDDEN = 6,
-	DOG = 7
+	BARREL = 10,
+	PILLAR = 11,
+	LAMP = 12,
+	DOOR_SPRITE = 13,
+	BONES = 14,
+	GUARD = 15,
+	HIDDEN = 16,
+	DOG = 17
 }	t_sprite_enum;
 
 typedef struct s_sprite

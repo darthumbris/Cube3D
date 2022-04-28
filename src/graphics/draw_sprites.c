@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/26 14:21:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 10:31:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,18 @@ static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 		d = y * 256 - data->mlx.mlx_handle->height * 128 + \
 			data->spr_cast.sprite_height * 128;
 		data->spr_cast.tex.y = \
-			((d * data->mlx.sprites.texarr[kind]->height) * \
+			((d * data->mlx.tex.texarr[kind]->height) * \
 			data->spr_cast.inverse_sprite_height) / 256;
 		if (data->spr_cast.tex.y < \
-			(int)data->mlx.sprites.texarr[kind]->height && \
+			(int)data->mlx.tex.texarr[kind]->height && \
 			data->spr_cast.tex.y > sprt->transp_end.y)
 		{
 			if (sprt->transp_begin.y > 0 && \
 				data->spr_cast.tex.y > sprt->transp_begin.y)
 				break ;
 			color = (*(unsigned int *) \
-			(data->mlx.sprites.texarr[kind]->pixels + \
-			(data->mlx.sprites.texarr[kind]->width * \
+			(data->mlx.tex.texarr[kind]->pixels + \
+			(data->mlx.tex.texarr[kind]->width * \
 			data->spr_cast.tex.y * 4 + data->spr_cast.tex.x * 4)));
 			if (color != 0xff000000)
 				*(uint32_t *)fg = color;
@@ -99,7 +99,7 @@ static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 		data->spr_cast.tex.x = (int)(256 * \
 			(x - (-data->spr_cast.sprite_width_halve + \
 			data->spr_cast.sprite_screen_x)) * \
-			data->mlx.sprites.texarr[kind]->width * \
+			data->mlx.tex.texarr[kind]->width * \
 		data->spr_cast.inverse_sprite_width) / 256;
 		if (data->spr_cast.transform.y > 0 && x > 0 && \
 			x < data->mlx.mlx_handle->width && \
