@@ -1,0 +1,31 @@
+S0 : B barrel
+S1 : P pillar
+S2 : L lamp
+S3 : D door
+S4 : b bones
+S5 : G guard
+S6 : h Hidden wall 1
+S7 : c dog
+S8 : t table
+S9 : f well full
+SA : w well well_empty
+SB : C chandelier
+SC : p plant
+SD : T table_chairs
+SE : H hidden wall 2
+SF : s statue
+SG : l lamp lamp_standing
+SH : g tree
+SI : o green barrel
+SJ : a pot
+SK : A flag
+
+I0 : e stimulant
+I1 : F medkit
+I2 : i soul
+I3 : I dogmeal
+I4 : j gun
+I5 : J ammo
+I6 : k treasure0
+I7 : K treasure1
+I8 : m treasure2

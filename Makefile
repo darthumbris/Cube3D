@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/26 16:46:32 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/04/28 16:52:34 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC =	main.c \
 		graphics/draw_sprites.c \
 		graphics/sprite_lst_functions.c \
 		graphics/sprite_utils.c \
+		graphics/draw_hud.c \
         game_loop.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \

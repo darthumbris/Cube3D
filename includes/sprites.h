@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:43:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 16:23:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef enum e_textures
 	SPRITE_4,
 	SPRITE_5,
 	SPRITE_6,
-	SPRITE_7, 
+	SPRITE_7,
 	SPRITE_8,
 	SPRITE_9,
 	SPRITE_10,

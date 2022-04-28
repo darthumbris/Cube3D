@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:26:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 16:58:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define FOV			80
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
+# define HUD_HEIGHT		160
 
 /**
  * @brief Struct for all the mlx data
@@ -44,6 +45,7 @@ typedef struct s_mlx
 	mlx_t			*mlx_handle;
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
+	mlx_image_t		*hud;
 	t_lodtex		tex;
 }			t_mlx;
 
@@ -212,6 +214,8 @@ void	draw_walls(t_data *data);
 void	draw_transparency(t_data *data, int x);
 
 void	draw_sprites(t_data *data);
+
+void	draw_hud(t_data *data);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 14:30:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 16:09:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,4 @@ bool	parse_input(char **argv, t_data *data)
 	return (true);
 }
 
-//TODO: set a flag if the map loaded in has _bonus.cub as a name
+//TODO: check after parsing everything if the map contains the textures needed for the map
