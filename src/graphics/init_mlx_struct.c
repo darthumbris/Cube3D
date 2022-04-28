@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 10:32:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 15:16:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ static bool	init_textures(t_data *data)
 	int	textures_to_load;
 
 	if (data->bonus)
-		textures_to_load = SPRITE_7;
+		textures_to_load = data->number_of_textures;
 	else
 		textures_to_load = SOUTH;
 	i = 0;
 	while (i <= textures_to_load)
 	{
+		//printf("i: %d\n", i);
 		data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
 		if (data->mlx.tex.texarr[i] == NULL) // have a check here for if it is needed?
 			return (false);
@@ -61,7 +62,9 @@ bool	init_mlx(t_data *data)
 		return (false);
 	data->mlx.fg = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (data->mlx.fg == NULL)
+	data->mlx.bg = mlx_new_image
+		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (data->mlx.fg == NULL || data->mlx.bg == NULL)
 		return (false);
 	data->floor.inverse_width = 1 / (double)data->mlx.mlx_handle->width;
 	data->floor.pos_z = 0.5 * data->mlx.mlx_handle->height;

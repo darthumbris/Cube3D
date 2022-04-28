@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 10:22:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 14:43:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,102 @@
 
 # include "vectors.h"
 
-typedef union u_lodsprites
+typedef enum e_textures
 {
-	mlx_texture_t	*texarr[8];
-}	t_lodsprites;
+	WEST = 0,
+	EAST,
+	NORTH,
+	SOUTH,
+	FLOOR,
+	CEILING,
+	WALL_1,
+	WALL_2,
+	WALL_3,
+	WALL_4,
+	WALL_5,
+	WALL_6,
+	WALL_7,
+	WALL_8,
+	WALL_9,
+	SPRITE_0,
+	SPRITE_1,
+	SPRITE_2,
+	SPRITE_3,
+	SPRITE_4,
+	SPRITE_5,
+	SPRITE_6,
+	SPRITE_7, 
+	SPRITE_8,
+	SPRITE_9,
+	SPRITE_10,
+	SPRITE_11,
+	SPRITE_12,
+	SPRITE_13,
+	SPRITE_14,
+	SPRITE_15,
+	SPRITE_16,
+	SPRITE_17,
+	SPRITE_18,
+	SPRITE_19,
+	SPRITE_20,
+	ITEM_0,
+	ITEM_1,
+	ITEM_2,
+	ITEM_3,
+	ITEM_4,
+	ITEM_5,
+	ITEM_6,
+	ITEM_7,
+	ITEM_8,
+}	t_textures;
 
 typedef enum e_sprites
 {
-	BARREL = 10,
-	PILLAR = 11,
-	LAMP = 12,
-	DOOR_SPRITE = 13,
-	BONES = 14,
-	GUARD = 15,
-	HIDDEN = 16,
-	DOG = 17
+	BARREL = SPRITE_0,
+	PILLAR = SPRITE_1,
+	LAMP = SPRITE_2,
+	DOOR_SPRITE = SPRITE_3,
+	BONES = SPRITE_4,
+	GUARD = SPRITE_5,
+	HIDDEN = SPRITE_6,
+	DOG = SPRITE_7,
+	TABLE = SPRITE_8,
+	WELL_EMPTY = SPRITE_9,
+	WELL_FULL = SPRITE_10,
+	CHANDELIER = SPRITE_11,
+	PLANT = SPRITE_12,
+	TABLE_CHAIRS = SPRITE_13,
+	HIDDEN_2 = SPRITE_14,
+	STATUE = SPRITE_15,
+	LAMP_STANDING = SPRITE_16,
+	TREE = SPRITE_17,
+	GREEN_BARREL = SPRITE_18,
+	POT = SPRITE_19,
+	FLAG = SPRITE_20
 }	t_sprite_enum;
+
+typedef enum e_items
+{
+	STIMULANT = ITEM_0,
+	MEDKIT = ITEM_1,
+	SOUL = ITEM_2,
+	DOGMEAL = ITEM_3,
+	GUN = ITEM_4,
+	AMMO = ITEM_5,
+	TREASURE_0 = ITEM_6,
+	TREASURE_1 = ITEM_7,
+	TREASURE_2 = ITEM_8
+}	t_items;
+
+typedef union u_lodtex
+{
+	mlx_texture_t	*texarr[ITEM_8 + 1];
+}	t_lodtex;
+
+typedef union u_tex_path
+{
+	char	*path[ITEM_8 + 1];
+}			t_tex_path;
 
 typedef struct s_sprite
 {

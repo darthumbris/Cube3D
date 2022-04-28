@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 10:31:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 15:39:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,20 @@ void	draw_sprites(t_data *data)
 	lst = data->sprite_lst;
 	while (lst)
 	{
-		if (lst->sprite_data.kind != DOOR_SPRITE && lst->sprite_data.kind != HIDDEN &&\
+		// if (lst->sprite_data.dist < 50)
+		// 	printf("kind: %d, dist: %f\n", lst->sprite_data.kind, lst->sprite_data.dist);
+		if (lst->sprite_data.kind != DOOR_SPRITE && \
+			lst->sprite_data.kind != HIDDEN && \
+			lst->sprite_data.kind != HIDDEN_2 && \
 			lst->sprite_data.dist < RENDER_DIST_S)
 		{
 			set_sprite_variables(data, lst);
 			set_draw_start_end(data);
 			draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
 		}
-		if (lst->sprite_data.kind == DOOR_SPRITE || lst->sprite_data.kind == HIDDEN)
+		else if (lst->sprite_data.kind == DOOR_SPRITE || \
+			lst->sprite_data.kind == HIDDEN || \
+			lst->sprite_data.kind == HIDDEN_2)
 			check_for_door(data, lst);
 		lst = lst->next;
 	}

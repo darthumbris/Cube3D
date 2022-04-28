@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 10:11:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/28 14:26:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
-typedef union u_lodtex
-{
-	mlx_texture_t	*texarr[18];
-}	t_lodtex;
-
-typedef union u_tex_path
-{
-	char	*path[18];
-}			t_tex_path;
-
 /**
  * @brief Struct for all the mlx data
  * 
@@ -55,30 +45,7 @@ typedef struct s_mlx
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
 	t_lodtex		tex;
-	t_lodsprites	sprites;
 }			t_mlx;
-
-typedef enum e_textures
-{
-	WEST = 0,
-	EAST,
-	NORTH,
-	SOUTH,
-	FLOOR,
-	CEILING,
-	WALL_1,
-	WALL_2,
-	WALL_3,
-	WALL_4,
-	SPRITE_0,
-	SPRITE_1,
-	SPRITE_2,
-	SPRITE_3,
-	SPRITE_4,
-	SPRITE_5,
-	SPRITE_6,
-	SPRITE_7
-}	t_textures;
 
 /**
  * @brief Struct for all the level data
@@ -295,6 +262,7 @@ bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
 void	store_path(char *line, t_data *data, int kind);
+void	color_store(char *line, t_data *data, int kind);
 
 typedef void	(*t_func)(char *line, t_data *data, int kind);
 
@@ -302,6 +270,7 @@ typedef struct s_values
 {
 	char	*str;
 	int		kind;
+	t_func	storemapval;
 }	t_values;
 
 void	set_sprite_positions(char **map, t_data *data);
