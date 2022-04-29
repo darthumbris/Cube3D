@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 16:50:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/29 12:00:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 13:20:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	init_hud(t_data *data)
 	data->mlx.numbers = mlx_load_png("assets/hud/numbers.png");
 	data->mlx.hud = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
+	data->mlx.hud_scale = (SCREEN_WIDTH / data->mlx.hud_texture->width);
+	data->mlx.inv_hud_scale = 1.0 / data->mlx.hud_scale;
 }
 
 void	draw_single_nbr(t_data *data, int nbr, int x_pos)
@@ -69,29 +71,29 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos)
 void	draw_score(t_data *data, int nbr)
 {
 	if (nbr > 9999)
-		draw_single_nbr(data, nbr / 10000, 220);
+		draw_single_nbr(data, nbr / 10000, 55 * data->mlx.hud_scale);
 	if (nbr > 999)
-		draw_single_nbr(data, nbr / 1000, 252);
+		draw_single_nbr(data, nbr / 1000, 63 * data->mlx.hud_scale);
 	if (nbr > 99)
-		draw_single_nbr(data, nbr / 100, 284);
+		draw_single_nbr(data, nbr / 100, 71 * data->mlx.hud_scale);
 	if (nbr > 9)
-		draw_single_nbr(data, nbr / 10, 316);
-	draw_single_nbr(data, nbr, 348);
+		draw_single_nbr(data, nbr / 10, 79 * data->mlx.hud_scale);
+	draw_single_nbr(data, nbr, 87 * data->mlx.hud_scale);
 }
 
 void	draw_numbers(t_data *data)
 {
-	draw_single_nbr(data, data->level.level_number, 96);
+	draw_single_nbr(data, data->level.level_number, 24 * data->mlx.hud_scale);
 	draw_score(data, data->player.score);
-	draw_single_nbr(data, data->player.lives, 448);
+	draw_single_nbr(data, data->player.lives, 112 * data->mlx.hud_scale);
 	if (data->player.health > 99)
-		draw_single_nbr(data, data->player.health / 100, 672);
+		draw_single_nbr(data, data->player.health / 100, 168 * data->mlx.hud_scale);
 	if (data->player.health > 9)
-		draw_single_nbr(data, data->player.health / 10, 704);
+		draw_single_nbr(data, data->player.health / 10, 176 * data->mlx.hud_scale);
 	draw_single_nbr(data, data->player.health, 736);
 	if (data->player.ammo > 9)
-		draw_single_nbr(data, data->player.ammo / 10, 864);
-	draw_single_nbr(data, data->player.ammo, 896);
+		draw_single_nbr(data, data->player.ammo / 10, 216 * data->mlx.hud_scale);
+	draw_single_nbr(data, data->player.ammo, 224 * data->mlx.hud_scale);
 }
 
 /*
@@ -111,14 +113,15 @@ void	draw_hud(t_data *data)
 	pixels = data->mlx.hud_texture->pixels;
 	while (pixel.x < data->mlx.mlx_handle->width)
 	{
-		tex.x = pixel.x / 4;
-		hud = data->mlx.hud->pixels + \
-			(((data->mlx.mlx_handle->height - 1) * \
+		tex.x = pixel.x * data->mlx.inv_hud_scale;
+		hud = data->mlx.hud->pixels + (((data->mlx.mlx_handle->height - 1) * \
 			data->mlx.mlx_handle->width * 4 + (pixel.x * 4)));
-		pixel.y = data->mlx.mlx_handle->height - HUD_HEIGHT;
+		pixel.y = data->mlx.mlx_handle->height - \
+			data->mlx.hud_texture->height / data->mlx.inv_hud_scale;
 		while (pixel.y < data->mlx.mlx_handle->height)
 		{
-			tex.y = ((data->mlx.mlx_handle->height - 1) - pixel.y) / 4;
+			tex.y = ((data->mlx.mlx_handle->height - 1) - pixel.y) * \
+				data->mlx.inv_hud_scale;
 			*(uint32_t *)hud = (*(int *)(pixels + \
 				((tex.y * data->mlx.hud_texture->width + tex.x) * 4)));
 			hud -= data->mlx.mlx_handle->width * 4;

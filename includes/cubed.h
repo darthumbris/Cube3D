@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 11:40:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 13:25:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define FOV			80
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
-# define HUD_HEIGHT		160
 
 typedef struct s_player
 {
@@ -61,6 +60,9 @@ typedef struct s_mlx
 	mlx_texture_t	*faces_left[5];
 	mlx_texture_t	*faces_right[5];
 	mlx_texture_t	*hud_texture;
+	double			inv_hud_scale;
+	int				hud_scale;
+
 }			t_mlx;
 
 /**
