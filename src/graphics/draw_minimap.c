@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 19:40:09 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/29 21:17:10 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,10 @@ void	draw_minimap(t_data *data)
 		draw_square(data, (t_vector_int){.y = wh.y + (i * data->cam.dir.y), \
 .x = wh.x + (i * data->cam.dir.x)}, (t_vector_int){.y = 5, .x = 5}, 0xD7FFFFFF);
 	draw_square(data, wh, (t_vector_int){.y = 5, .x = 5}, 0x000000FF);
-	
+
+
 
 
 
 
 }
-
-//1 = E
-//rec: y=6, x=250
-//bottomright:y=36 x=310
