@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:52:03 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/29 14:01:13 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	game_loop(void *v_data)
 {
 	t_data		*data;
 	static int	oldx;
+	int x; //TODO: janky mouse movement, maybe ask patrick
+	int y;
 
 	data = (t_data *)v_data;
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))
@@ -91,8 +93,6 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, -1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
-	int x; //TODO: norm
-	int y;
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
 	if (x > oldx)
 		change_camera_angle(data, +1);
@@ -105,5 +105,6 @@ void	game_loop(void *v_data)
 		draw_hud(data);
 		draw_sprites(data);
 		draw_numbers(data);
+		draw_minimap(data);
 	}
 }

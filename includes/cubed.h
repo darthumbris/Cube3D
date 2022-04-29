@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:51:46 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/04/29 19:50:59 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			80
-# define RENDER_DIST_S	150
+# define RENDER_DIST_S	200
 # define RENDER_DIST_W	50
 
 typedef struct s_player
@@ -54,6 +54,7 @@ typedef struct s_mlx
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
 	mlx_image_t		*hud;
+	mlx_image_t		*minimap;
 	t_lodtex		tex;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces_center[5];
@@ -237,6 +238,7 @@ void	draw_sprites(t_data *data);
 
 void	draw_hud(t_data *data);
 void	draw_numbers(t_data *data);
+void	draw_minimap(t_data *data);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
@@ -269,9 +271,10 @@ void	cursor_movement(double xpos, double ypos, void *param);
 
 // utility functions //
 
+char	**readmap(int fd, char **temp);
+
 bool	mapjmptable(char *line, t_data *data);
 bool	checkmap(char *map);
-char	**readmap(int fd, char **temp);
 bool	sprite_check(char c);
 bool	playerposcheck(char c);
 bool	checktypes(t_data *data);
@@ -285,6 +288,8 @@ bool	is_door_tile(char c);
 bool	is_finish_tile(char c);
 bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
+
+int		get_sprite_kind(char c);
 
 void	store_path(char *line, t_data *data, int kind);
 void	color_store(char *line, t_data *data, int kind);
