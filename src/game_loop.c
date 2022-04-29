@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 16:48:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 12:06:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 		data->cam.pos.x -= temp_dir_y;
 		data->cam.pos.y += temp_dir_x;
 	}
-	else if (data->level.map[(int)(data->cam.pos.y + temp_dir_x)] \
-		[(int)(data->cam.pos.x - temp_dir_y)] == 'w')
-		printf("won the game\n");
 	else
 		return ;
 }
@@ -70,6 +67,10 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		clear_sprite_lst(&data->sprite_lst);
 		mlx_close_window(data->mlx.mlx_handle);
 	}
+	if (keys.key == MLX_KEY_H && keys.action != MLX_RELEASE)
+		data->player.health--;
+	if (keys.key == MLX_KEY_KP_ADD && keys.action != MLX_RELEASE)
+		data->player.score += 10;
 }
 
 void	game_loop(void *v_data)
@@ -91,5 +92,9 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, +1, true);
 	raycaster(data);
 	if (data->bonus)
+	{
+		draw_hud(data);
 		draw_sprites(data);
+		draw_numbers(data);
+	}
 }

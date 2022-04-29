@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 16:01:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 11:17:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,15 @@ static void	check_for_door(t_data *data, t_sprite_lst *lst)
 	}
 	else if (lst->sprite_data.open && lst->sprite_data.dist > 1.5)
 	{
-		if (!lst->sprite_data.hidden)
+		if (lst->sprite_data.kind == DOOR_SPRITE)
 			data->level.map[(int)lst->sprite_data.map_pos.y] \
 			[(int)lst->sprite_data.map_pos.x] = 'D';
-		else
+		else if (lst->sprite_data.kind == HIDDEN)
 			data->level.map[(int)lst->sprite_data.map_pos.y] \
 			[(int)lst->sprite_data.map_pos.x] = 'h';
+		else
+			data->level.map[(int)lst->sprite_data.map_pos.y] \
+			[(int)lst->sprite_data.map_pos.x] = 'H';
 		lst->sprite_data.open = false;
 	}
 }

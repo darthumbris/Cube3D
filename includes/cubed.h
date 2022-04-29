@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 16:58:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 11:40:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@
 # define RENDER_DIST_W	50
 # define HUD_HEIGHT		160
 
+typedef struct s_player
+{
+	int		health;
+	int		score;
+	int		ammo;
+	int		weapon;
+	int		lives;
+}			t_player;
+
 /**
  * @brief Struct for all the mlx data
  * 
@@ -47,6 +56,11 @@ typedef struct s_mlx
 	mlx_image_t		*fg;
 	mlx_image_t		*hud;
 	t_lodtex		tex;
+	mlx_texture_t	*numbers;
+	mlx_texture_t	*faces_center[5];
+	mlx_texture_t	*faces_left[5];
+	mlx_texture_t	*faces_right[5];
+	mlx_texture_t	*hud_texture;
 }			t_mlx;
 
 /**
@@ -68,6 +82,7 @@ typedef struct s_level
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 	unsigned int	number_of_sprites;
+	unsigned int	level_number;
 }	t_level;
 
 /**
@@ -155,6 +170,7 @@ typedef struct s_data
 	t_sprite_lst		*sprite_lst;
 	bool				bonus;
 	int					number_of_textures;
+	t_player			player;
 }				t_data;
 
 /**
@@ -216,6 +232,7 @@ void	draw_transparency(t_data *data, int x);
 void	draw_sprites(t_data *data);
 
 void	draw_hud(t_data *data);
+void	draw_numbers(t_data *data);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
@@ -279,5 +296,6 @@ typedef struct s_values
 
 void	set_sprite_positions(char **map, t_data *data);
 void	sort_sprites(t_data *data, t_sprite_lst **begin);
+void	init_hud(t_data *data);
 
 #endif

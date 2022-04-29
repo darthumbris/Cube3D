@@ -6,12 +6,33 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 17:16:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 12:07:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <stdio.h>
+
+/*
+//TODO make a single texture for all the hurt faces
+ * make the init_textures of the hud be depended on 
+ * the path given in the .cub file.
+ * make the draw hud function scalable and not have a 
+ * fixed value for the textures and
+ * positions of where the numbers will be drawn.
+*/
+static void	draw_hud_test(t_data *data)
+{
+	init_hud(data);
+	data->level.level_number = 1;
+	data->player.ammo = 8;
+	data->player.lives = 3;
+	data->player.health = 100;
+	data->player.score = 0;
+	draw_hud(data);
+	draw_numbers(data);
+	mlx_draw_texture(data->mlx.hud, data->mlx.faces_center[2], 540, 720 - 140);
+}
 
 int	main(int argc, char **argv)
 {
@@ -24,7 +45,7 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	draw_hud(&data);
+	draw_hud_test(&data);
 	draw_background(&data);
 	raycaster(&data);
 	mlx_set_mouse_pos(data.mlx.mlx_handle, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
