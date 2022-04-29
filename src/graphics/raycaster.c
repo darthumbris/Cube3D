@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/28 15:49:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 13:52:15 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	raycaster(t_data *data)
 
 	x = 0;
 	set_start_draw_variables(data);
+	//draw_background(data);
 	while (x < data->mlx.mlx_handle->width)
 	{
 		set_caster_variables(data, x);
@@ -45,4 +46,5 @@ void	raycaster(t_data *data)
 			draw_transparency(data, x);
 		x++;
 	}
+	//mlx_image_to_window(data->mlx.mlx_handle, data->mlx.fg, 0, 0);
 }

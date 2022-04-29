@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:25:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 13:51:46 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_mlx
  */
 typedef struct s_level
 {
+	char			**unparsed;
 	char			**map;
 	int				map_w;
 	int				map_h;
@@ -98,6 +99,7 @@ typedef struct s_camera
 	t_vector_double	pos;
 	t_vector_double	dir;
 	t_vector_double	plane;
+	int				pitch;
 }			t_camera;
 
 typedef struct s_floor_raycaster
