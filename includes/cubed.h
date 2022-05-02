@@ -3,14 +3,10 @@
 /*                                                        ::::::::            */
 /*   cubed.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
+/*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/05/02 10:11:06 by shoogenb      ########   odam.nl         */
-=======
-/*   Updated: 2022/04/29 19:50:59 by pvan-dij      ########   odam.nl         */
->>>>>>> 2f6256cd6e0f2e54b88a805aa161f0919194b92e
+/*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
+/*   Updated: 2022/05/02 11:56:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +156,21 @@ typedef struct s_raycaster
 	int				ray_dist;
 }			t_raycaster;
 
+typedef struct s_config_data
+{
+	char			*key;
+	char			value;
+	int				kind;
+	t_vector_int	transp_begin;
+	t_vector_int	transp_end;
+}			t_config_data;
+
+typedef struct s_config
+{
+	int				size;
+	t_config_data	*dat;
+}			t_config;
+
 /**
  * @brief Main struct for cubed
  * 
@@ -181,6 +192,7 @@ typedef struct s_data
 	int					number_of_textures;
 	t_player			player;
 	bool				update_hud;
+	t_config			config;
 }				t_data;
 
 /**
@@ -193,6 +205,8 @@ typedef struct s_data
  * @return false 
  */
 bool	parse_input(char **argv, t_data *data);
+
+bool	parse_config(t_data *data);
 
 /**
  * @brief does all the error checking for the map
@@ -294,7 +308,7 @@ bool	is_finish_tile(char c);
 bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
-int		get_sprite_kind(char c);
+int		get_sprite_kind(char c, t_data *data);
 
 void	store_path(char *line, t_data *data, int kind);
 void	color_store(char *line, t_data *data, int kind);

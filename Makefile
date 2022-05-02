@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/29 14:01:50 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/02 11:15:21 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC =	main.c \
 		parser/is_what_tile.c \
 		parser/set_sprite_data.c \
 		parser/special_tiles.c \
+		parser/parse_config.c \
 		
 
 SRC_EXT = c

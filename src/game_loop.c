@@ -6,11 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/05/02 10:11:59 by shoogenb      ########   odam.nl         */
-=======
-/*   Updated: 2022/04/29 14:01:13 by pvan-dij      ########   odam.nl         */
->>>>>>> 2f6256cd6e0f2e54b88a805aa161f0919194b92e
+/*   Updated: 2022/05/02 10:19:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +115,6 @@ void	game_loop(void *v_data)
 			draw_numbers(data);
 			data->update_hud = false;
 		}
+		draw_minimap(data);
 	}
 }
