@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 15:17:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 17:07:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ t_vector_int wh, unsigned int c)
 
 	i = rec.y;
 	map = data->mlx.minimap->pixels;
-	while (i < rec.y + wh.y)
+	if (i < 0)
+		i = 0;
+	while (i < rec.y + wh.y && i < (int)data->mlx.minimap->height)
 	{
 		j = rec.x;
 		while (j < rec.x + wh.x)

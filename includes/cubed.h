@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:28:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 16:59:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdio.h>
 
 # define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	960
+# define SCREEN_WIDTH	1280
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			70
