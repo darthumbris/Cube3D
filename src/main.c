@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 12:07:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 10:12:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	draw_hud_test(t_data *data)
 	data->player.score = 0;
 	draw_hud(data);
 	draw_numbers(data);
-	mlx_draw_texture(data->mlx.hud, data->mlx.faces_center[2], 540, 720 - 140);
+	data->update_hud = false;
+	//mlx_draw_texture(data->mlx.hud, data->mlx.faces_center[2], 540, 720 - 140);
 }
 
 int	main(int argc, char **argv)

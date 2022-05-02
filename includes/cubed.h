@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:25:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 10:11:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ typedef struct s_data
 	bool				bonus;
 	int					number_of_textures;
 	t_player			player;
+	bool				update_hud;
 }				t_data;
 
 /**

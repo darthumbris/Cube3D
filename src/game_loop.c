@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 12:06:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 10:11:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,15 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		mlx_close_window(data->mlx.mlx_handle);
 	}
 	if (keys.key == MLX_KEY_H && keys.action != MLX_RELEASE)
+	{
 		data->player.health--;
+		data->update_hud = true;
+	}
 	if (keys.key == MLX_KEY_KP_ADD && keys.action != MLX_RELEASE)
+	{
 		data->player.score += 10;
+		data->update_hud = true;
+	}
 }
 
 void	game_loop(void *v_data)
@@ -93,8 +99,12 @@ void	game_loop(void *v_data)
 	raycaster(data);
 	if (data->bonus)
 	{
-		draw_hud(data);
 		draw_sprites(data);
-		draw_numbers(data);
+		if (data->update_hud)
+		{
+			draw_hud(data);
+			draw_numbers(data);
+			data->update_hud = false;
+		}
 	}
 }
