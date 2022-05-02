@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 11:58:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 16:46:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,18 @@ static void	draw_hud_test(t_data *data)
 	data->update_hud = false;
 }
 
-// static void	check_config_loaded(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < 44)
-// 	{
-// 		printf("configdata: %s,%s,%d,%d,%d,%d,%d\n", data->config_data[i].key, data->config_data[i].value, data->config_data[i].kind, data->config_data[i].transp_begin.x, data->config_data[i].transp_begin.y, data->config_data[i].transp_end.x, data->config_data[i].transp_end.y);
-// 		i++;
-// 	}
-// }
-
 int	main(int argc, char **argv)
 {
 	t_data			data;
 
 	data.bonus = false;
-	data.number_of_textures = ITEM_8;
-	if (argc != 2 || !parse_config(&data) || !parse_input(argv, &data) || !init_mlx(&data))
+	data.number_of_textures = HUD_FACES;
+	if (argc != 2 || !parse_config(&data) || !parse_input(argv, &data) || \
+		!init_mlx(&data))
 	{
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	//check_config_loaded(&data);
 	draw_background(&data);
 	raycaster(&data);
 	mlx_set_mouse_pos(data.mlx.mlx_handle, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
@@ -67,7 +55,11 @@ int	main(int argc, char **argv)
 	{
 		draw_hud_test(&data);
 		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.hud, 0, 0);
-		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.minimap, 996, 580); //TODO: obviously these values should not be hardcoded, idk how to reliable get the exact coordinates of the topleft corner though
+		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.minimap, \
+		data.mlx.minimap->width + data.mlx.mlx_handle->width - \
+		data.mlx.minimap->width - 71 * data.mlx.hud_scale, \
+		data.mlx.mlx_handle->height - data.mlx.minimap->height - 1 - \
+		data.mlx.hud_scale * 4);
 	}
 	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);

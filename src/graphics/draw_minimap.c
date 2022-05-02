@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 11:55:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 15:17:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ t_vector_int wh, unsigned int c)
 void	draw_minimap(t_data *data)
 {
 	int							i;
-	const t_vector_double		playerpos = data->cam.pos;
 	const t_vector_int			wh = {.y = data->mlx.minimap->height \
 		/ 2, .x = data->mlx.minimap->width / 2};
+	//const t_vector_double		playerpos = data->cam.pos;
 
 	i = -1;
 	ft_memset(data->mlx.minimap->pixels, 255, data->mlx.minimap->width \
 		* data->mlx.minimap->height * sizeof(int));
 	while (++i < 20)
 		draw_square(data, (t_vector_int){.y = wh.y + (i * data->cam.dir.y), \
-.x = wh.x + (i * data->cam.dir.x)}, (t_vector_int){.y = 5, .x = 5}, 0xD7FFFFFF);
-	draw_square(data, wh, (t_vector_int){.y = 5, .x = 5}, 0x000000FF);
+.x = wh.x + (i * data->cam.dir.x)}, (t_vector_int){.y = data->mlx.hud_scale, \
+	.x = data->mlx.hud_scale}, 0xD7FFFFFF);
+	draw_square(data, wh, (t_vector_int) \
+	{.y = data->mlx.hud_scale, .x = data->mlx.hud_scale}, 0x000000FF);
 }

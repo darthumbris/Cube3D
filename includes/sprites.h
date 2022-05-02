@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 16:23:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 16:46:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef enum e_textures
 	ITEM_6,
 	ITEM_7,
 	ITEM_8,
+	HUD_MAIN,
+	HUD_NUMBERS,
+	HUD_FACES
 }	t_textures;
 
 typedef enum e_sprites
@@ -104,12 +107,12 @@ typedef enum e_items
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[ITEM_8 + 1];
+	mlx_texture_t	*texarr[HUD_FACES + 1];
 }	t_lodtex;
 
 typedef union u_tex_path
 {
-	char	*path[ITEM_8 + 1];
+	char	*path[HUD_FACES + 1];
 }			t_tex_path;
 
 typedef struct s_sprite

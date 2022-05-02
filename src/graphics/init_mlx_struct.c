@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:52:12 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/02 14:19:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ static bool	init_textures(t_data *data)
 	i = 0;
 	while (i <= textures_to_load)
 	{
-		//printf("i: %d\n", i);
 		data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
-		if (data->mlx.tex.texarr[i] == NULL) // have a check here for if it is needed?
+		if (data->mlx.tex.texarr[i] == NULL)
 			return (false);
 		i++;
 	}

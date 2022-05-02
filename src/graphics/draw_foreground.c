@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:52:08 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/02 15:13:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,44 +67,6 @@ void	draw_floor_ceiling(t_data *data, int x)
 		*(uint32_t *)bg_down = (*(int *)(ceiling + data->floor.color_pos));
 		bg_up += data->floor.width4;
 		bg_down -= data->floor.width4;
-		y++;
-	}
-}
-
-uint8_t	*get_pixels(t_data *data, char c)
-{
-	if (!data->bonus)
-		return (data->mlx.tex.texarr[data->caster.side]->pixels);
-	else if (c == 'D')
-		return (data->mlx.tex.texarr[SPRITE_3]->pixels);
-	else if (c == 'h')
-		return (data->mlx.tex.texarr[SPRITE_6]->pixels);
-	else
-		return (data->mlx.tex.texarr[c - '1' + WALL_1]->pixels);
-}
-
-void	draw_walls(t_data *data)
-{
-	int				y;
-	uint8_t			*pixels;
-	uint8_t			*fg;
-	const double	step = (data->mlx.tex.texarr \
-		[data->caster.side]->height / (double)data->caster.line_height);
-
-	y = data->caster.draw_start;
-	data->caster.tex_x = (int)(data->caster.wall_x * \
-		(double)(data->mlx.tex.texarr[data->caster.side]->width - 1));
-	data->caster.tex_y = (y - data->floor.halve_height + \
-		(data->caster.line_height >> 1)) * step;
-	pixels = get_pixels(data, data->level.map[data->caster.map_pos.y] \
-		[data->caster.map_pos.x]);
-	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + data->floor.x4);
-	while (y < data->caster.draw_end)
-	{
-		*(uint32_t *)fg = (*(int *)(pixels + (((int)data->caster.tex_y * data->\
-		mlx.tex.texarr[data->caster.side]->width + data->caster.tex_x) << 2)));
-		fg += data->floor.width4;
-		data->caster.tex_y += step;
 		y++;
 	}
 }

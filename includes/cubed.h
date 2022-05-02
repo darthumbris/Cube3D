@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 11:56:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 16:28:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include <stdio.h>
 
 # define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	1280
+# define SCREEN_WIDTH	960
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
-# define FOV			80
-# define RENDER_DIST_S	200
+# define FOV			70
+# define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
 typedef struct s_player
@@ -57,9 +57,7 @@ typedef struct s_mlx
 	mlx_image_t		*minimap;
 	t_lodtex		tex;
 	mlx_texture_t	*numbers;
-	mlx_texture_t	*faces_center[5];
-	mlx_texture_t	*faces_left[5];
-	mlx_texture_t	*faces_right[5];
+	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
 	double			inv_hud_scale;
 	int				hud_scale;

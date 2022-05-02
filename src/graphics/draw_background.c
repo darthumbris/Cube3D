@@ -6,14 +6,11 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 10:21:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 12:07:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-#include "stdio.h"
-#include <math.h>
 
 void	draw_background(t_data *data)
 {
@@ -37,5 +34,3 @@ void	draw_background(t_data *data)
 		x++;
 	}
 }
-
-//just scale image to fit into window and then rotate when the camera is turned

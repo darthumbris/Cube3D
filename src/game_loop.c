@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 10:19:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 15:24:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	}
 }
 
+//TODO: janky mouse movement, maybe ask patrick
 void	game_loop(void *v_data)
 {
 	t_data		*data;
 	static int	oldx;
-	int x; //TODO: janky mouse movement, maybe ask patrick
-	int y;
+	int			x;
+	int			y;
 
 	data = (t_data *)v_data;
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT))

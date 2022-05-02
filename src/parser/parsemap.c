@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 15:05:48 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/02 16:33:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ char	**parse_map(char **upmap, t_data *data)
 		while (upmap[i][++j])
 		{
 			if (checks(upmap, i, j, data))
-			{
-				printf("fails this at: %d, %d with char: %c\n", i, j, upmap[i][j]);
 				return (NULL);
-			}
 			if (is_player_tile(upmap[i][j]))
 				count++;
 			if (is_sprite_tile(upmap[i][j]))
