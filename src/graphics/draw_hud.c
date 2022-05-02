@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 16:50:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/29 13:20:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 19:38:56 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	init_hud(t_data *data)
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->mlx.hud_scale = (SCREEN_WIDTH / data->mlx.hud_texture->width);
 	data->mlx.inv_hud_scale = 1.0 / data->mlx.hud_scale;
+	data->mlx.minimap = mlx_new_image(data->mlx.mlx_handle, 240, 122); //TODO:hardcoded values
+	ft_memset(data->mlx.minimap->pixels, 255, data->mlx.minimap->width * data->mlx.minimap->height * sizeof(int));
 }
 
 void	draw_single_nbr(t_data *data, int nbr, int x_pos)
@@ -122,8 +124,7 @@ void	draw_hud(t_data *data)
 		{
 			tex.y = ((data->mlx.mlx_handle->height - 1) - pixel.y) * \
 				data->mlx.inv_hud_scale;
-			*(uint32_t *)hud = (*(int *)(pixels + \
-				((tex.y * data->mlx.hud_texture->width + tex.x) * 4)));
+			*(uint32_t *)hud = (*(int *)(pixels + ((tex.y * data->mlx.hud_texture->width + tex.x) * 4)));
 			hud -= data->mlx.mlx_handle->width * 4;
 			pixel.y++;
 		}

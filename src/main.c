@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 10:12:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/02 10:15:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	main(int argc, char **argv)
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.hud, 0, 0);
+	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.minimap, 996, 580); //TODO: obviously these values should not be hardcoded, idk how to reliable get the exact coordinates of the topleft corner though
 	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);
+	mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);
 	mlx_loop(data.mlx.mlx_handle);
 	return (0);
 }

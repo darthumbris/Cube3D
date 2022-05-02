@@ -6,13 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 15:48:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/04/29 14:18:09 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static int	get_sprite_kind(char c)
+int	get_sprite_kind(char c)
 {
 	if (c == 'B')
 		return (BARREL);
