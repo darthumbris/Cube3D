@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:59:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 09:59:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ typedef struct s_data
 	t_player			player;
 	bool				update_hud;
 	t_config			config;
+	bool				floor_ceiling;
 }				t_data;
 
 /**
@@ -214,6 +215,8 @@ bool	parse_config(t_data *data);
  * @return char** 
  */
 char	**parse_map(char **upmap, t_data *data);
+
+bool	check_needed_textures_loaded(t_data *data);
 
 /**
  * @brief function to init the mlx handle and load all the textures

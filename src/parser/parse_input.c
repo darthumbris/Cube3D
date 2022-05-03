@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:46:47 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 10:50:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ bool	parse_types(char **upmap, t_data *data)
 	i = 0;
 	if (data->bonus)
 	{
-		while (upmap[i] && i <= data->number_of_textures + 1)
+		while (upmap[i] && i < data->number_of_textures + 2)
 		{
 			if (mapjmptable(upmap[i], data) == false)
 			{
-				printf("goes wrong here\n");
-				return (false);
+				//printf("goes wrong here\n");
+				//return (false);
 			}
 			i++;
 		}

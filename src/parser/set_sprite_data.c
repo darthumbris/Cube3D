@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 12:00:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 10:05:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	get_sprite_kind(char c, t_data *data)
 	int	i;
 
 	i = 0;
+	if (data->bonus && data->config.size > 5)
+		i = 4;
 	while (i < data->config.size)
 	{
 		if (c == data->config.dat[i].value)
 			return (i);
 		i++;
 	}
-	return (DOOR_SPRITE);
+	return (0);
 }
 
 static t_vector_int	get_transparency_begin(int kind, t_data *data)

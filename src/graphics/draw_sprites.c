@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/29 19:52:10 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/02 17:17:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,32 +60,27 @@ static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 	uint8_t		*fg;
 	int			d;
 	uint32_t	color;
-	const int	kind = sprt->kind;
 
 	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
-	while (y < data->spr_cast.draw_end.y)
+	while (++y < data->spr_cast.draw_end.y)
 	{
 		d = y * 256 - data->mlx.mlx_handle->height * 128 + \
 			data->spr_cast.sprite_height * 128;
-		data->spr_cast.tex.y = \
-			((d * data->mlx.tex.texarr[kind]->height) * \
-			data->spr_cast.inverse_sprite_height) / 256;
-		if (data->spr_cast.tex.y < \
-			(int)data->mlx.tex.texarr[kind]->height && \
-			data->spr_cast.tex.y > sprt->transp_end.y)
+		data->spr_cast.tex.y = ((d * data->mlx.tex.texarr[sprt->kind]->height) \
+			* data->spr_cast.inverse_sprite_height) / 256;
+		if (data->spr_cast.tex.y < (int)data->mlx.tex.texarr[sprt->kind]->\
+			height && data->spr_cast.tex.y > sprt->transp_end.y)
 		{
-			if (sprt->transp_begin.y > 0 && \
-				data->spr_cast.tex.y > sprt->transp_begin.y)
+			if (sprt->transp_begin.y > 0 && data->spr_cast.tex.y > \
+				sprt->transp_begin.y)
 				break ;
-			color = (*(unsigned int *) \
-			(data->mlx.tex.texarr[kind]->pixels + \
-			(data->mlx.tex.texarr[kind]->width * \
-			data->spr_cast.tex.y * 4 + data->spr_cast.tex.x * 4)));
+			color = (*(unsigned int *)(data->mlx.tex.texarr[sprt->kind]->pixels \
+			+ (data->mlx.tex.texarr[sprt->kind]->width * data->spr_cast.tex.y * \
+			4 + data->spr_cast.tex.x * 4)));
 			if (color != 0xff000000)
 				*(uint32_t *)fg = color;
 		}
 		fg += data->floor.width4;
-		y++;
 	}
 }
 

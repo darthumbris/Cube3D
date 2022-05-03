@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 16:50:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:47:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 10:21:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 //TODO have check for png failing
 void	init_hud(t_data *data)
 {
-	data->mlx.faces = mlx_load_png(data->level.paths.path[HUD_FACES]);
-	data->mlx.hud_texture = mlx_load_png(data->level.paths.path[HUD_MAIN]);
-	data->mlx.numbers = mlx_load_png(data->level.paths.path[HUD_NUMBERS]);
 	data->mlx.hud = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->mlx.hud_scale = (SCREEN_WIDTH / data->mlx.hud_texture->width);
+	data->mlx.hud_scale = (SCREEN_WIDTH / data->mlx.tex.texarr[HUD_MAIN]->width);
 	data->mlx.inv_hud_scale = 1.0 / data->mlx.hud_scale;
 	data->mlx.minimap = mlx_new_image(data->mlx.mlx_handle, 60 * data->mlx.hud_scale, 31 * data->mlx.hud_scale); //TODO:hardcoded values
 	ft_memset(data->mlx.minimap->pixels, 255, data->mlx.minimap->width * data->mlx.minimap->height * sizeof(int));
@@ -35,8 +32,8 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos)
 	int				max;
 
 	pixel.x = 0;
-	pixels = data->mlx.numbers->pixels;
-	max = data->mlx.hud_scale * (data->mlx.numbers->width / 10);
+	pixels = data->mlx.tex.texarr[HUD_NUMBERS]->pixels;
+	max = data->mlx.hud_scale * (data->mlx.tex.texarr[HUD_NUMBERS]->width / 10);
 	while (pixel.x < max)
 	{
 		tex.x = pixel.x * data->mlx.inv_hud_scale + ((nbr % 10) * 8);
@@ -47,7 +44,7 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos)
 		{
 			tex.y = pixel.y * data->mlx.inv_hud_scale;
 			*(uint32_t *)hud = (*(int *)(pixels + \
-				((tex.y * data->mlx.numbers->width + tex.x) * 4)));
+			((tex.y * data->mlx.tex.texarr[HUD_NUMBERS]->width + tex.x) * 4)));
 			hud -= data->floor.width4;
 			pixel.y--;
 		}
@@ -98,24 +95,24 @@ void	draw_hud(t_data *data)
 	t_vector_int	tex;
 	uint8_t			*pixels[2];
 	const int		draw_start = data->mlx.mlx_handle->height - \
-			data->mlx.hud_texture->height * data->mlx.hud_scale;
+			data->mlx.tex.texarr[HUD_MAIN]->height * data->mlx.hud_scale;
 	const int		draw_height = (data->mlx.mlx_handle->height - 1);
 
 	pixel.x = -1;
-	pixels[0] = data->mlx.hud_texture->pixels;
+	pixels[0] = data->mlx.tex.texarr[HUD_MAIN]->pixels;
 	while (++pixel.x < data->mlx.mlx_handle->width)
 	{
 		tex.x = pixel.x * data->mlx.inv_hud_scale;
 		pixels[1] = data->mlx.hud->pixels + (draw_height * \
 			data->floor.width4 + pixel.x * 4);
 		pixel.y = draw_start - 1;
-		if (tex.x >= (int)data->mlx.hud_texture->width)
-			tex.x = data->mlx.hud_texture->width - 1;
+		if (tex.x >= (int)data->mlx.tex.texarr[HUD_MAIN]->width)
+			tex.x = data->mlx.tex.texarr[HUD_MAIN]->width - 1;
 		while (++pixel.y < data->mlx.mlx_handle->height)
 		{
 			tex.y = (draw_height - pixel.y) * data->mlx.inv_hud_scale;
 			*(uint32_t *)pixels[1] = (*(int *)(pixels[0] + \
-			((tex.y * data->mlx.hud_texture->width + tex.x) * 4)));
+			((tex.y * data->mlx.tex.texarr[HUD_MAIN]->width + tex.x) * 4)));
 			pixels[1] -= data->floor.width4;
 		}
 	}

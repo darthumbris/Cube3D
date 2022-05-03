@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 15:13:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 10:01:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	raycaster(t_data *data)
 		draw_walls(data);
 		if (data->bonus)
 		{
-			draw_floor_ceiling(data, x);
-			//draw_transparency(data, x);
+			if (data->floor_ceiling)
+				draw_floor_ceiling(data, x);
+			else
+				draw_transparency(data, x);
 			data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
 		}
 		else

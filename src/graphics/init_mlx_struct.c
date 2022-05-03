@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 14:19:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 10:20:28 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	init_sprites(t_data *data)
 		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i++]);
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
 	sort_sprites(data, &data->sprite_lst);
-	return (true);
+	return (check_needed_textures_loaded(data));
 }
 
 //TODO make a function that checks if the textures that are needed are actually given.
@@ -42,9 +42,10 @@ static bool	init_textures(t_data *data)
 	i = 0;
 	while (i <= textures_to_load)
 	{
-		data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
-		if (data->mlx.tex.texarr[i] == NULL)
-			return (false);
+		if (data->level.paths.path[i])
+			data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
+		else
+			data->mlx.tex.texarr[i] = NULL;
 		i++;
 	}
 	data->caster.ray_dist = 0;
