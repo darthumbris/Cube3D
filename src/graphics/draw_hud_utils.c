@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 12:16:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:01:09 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	init_hud(t_data *data)
 		data->mlx.hud_scale);
 	ft_memset(data->mlx.minimap->pixels, 255, \
 		data->mlx.minimap->width * data->mlx.minimap->height * sizeof(int));
+	data->mlx.minimap_scale = \
+		((float)data->mlx.minimap->height / (float)data->mlx.minimap->width);
+	data->mlx.minimap_zoom = 10;
 	data->delay = 0;
 }
 
