@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 12:20:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 13:16:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	key_handler(struct mlx_key_data keys, void *param)
 void	game_loop(void *v_data)
 {
 	t_data		*data;
-	static int	oldx;
+	static int	oldx = 0;
 	int			x;
 	int			y;
 
@@ -101,6 +101,8 @@ void	game_loop(void *v_data)
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
+	if (oldx == 0)
+		oldx = x;
 	if (x > oldx)
 		change_camera_angle(data, +1);
 	else if (x < oldx)

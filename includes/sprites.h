@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:46:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 12:38:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_sprite
 	t_vector_int	transp_end;
 	double			dist;
 	bool			hidden;
+	uint32_t		timer;
 }				t_sprite;
 
 typedef struct s_sprite_lst

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 10:50:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 13:16:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,17 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 		return ;
 	c = map[(int)pos.y][(int)pos.x];
 	map[(int)pos.y][(int)pos.x] = '0';
+	data->cam.dir.x = 0;
+	data->cam.dir.y = 0;
 	if (c == 'N')
 		data->cam.dir.y = -1.0;
 	else if (c == 'S')
 		data->cam.dir.y = +1.0;
-	data->cam.plane.x = tan(M_PI_2 * FOV / 180.0) * -data->cam.dir.y;
-	if (c == 'W')
+	else if (c == 'W')
 		data->cam.dir.x = -1.0;
-	else if (c == 'E')
+	else
 		data->cam.dir.x = +1.0;
+	data->cam.plane.x = tan(M_PI_2 * FOV / 180.0) * -data->cam.dir.y;
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
