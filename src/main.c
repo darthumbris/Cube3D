@@ -6,12 +6,13 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 09:55:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 11:40:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <stdio.h>
+#include <time.h>
 
 /*
 //TODO make a single texture for all the hurt faces
@@ -38,6 +39,7 @@ int	main(int argc, char **argv)
 {
 	t_data			data;
 
+	srand(time(NULL)); // for the random faces
 	data.bonus = false;
 	data.number_of_textures = HUD_FACES;
 	if (argc != 2 || !parse_config(&data) || !parse_input(argv, &data) || \
@@ -46,7 +48,6 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	//printf("all textures loaded: %d\n", check_needed_textures_loaded(&data));
 	draw_background(&data);
 	raycaster(&data);
 	mlx_set_mouse_pos(data.mlx.mlx_handle, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);

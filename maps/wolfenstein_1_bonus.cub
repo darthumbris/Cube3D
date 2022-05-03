@@ -4,6 +4,7 @@ WE ./assets/bluestone_128.png
 EA ./assets/eagle_128.png
 FL ./assets/wood_128.png
 CL ./assets/greystone_128.png
+S1 ./assets/pillar_final.png
 W1 ./assets/bluestone_128.png
 W2 ./assets/greystone_128.png
 W3 ./assets/wood_128.png
@@ -14,7 +15,6 @@ W7 ./assets/greystone_special3_128.png
 W8 ./assets/wood_special1_128.png
 W9 ./assets/wood_special2_128.png
 S0 ./assets/barrel_final.png
-S1 ./assets/pillar_final.png
 S2 ./assets/lamp_final.png
 S3 ./assets/door_128.png
 S4 ./assets/bones_final.png
@@ -46,7 +46,7 @@ I8 ./assets/treasure2.png
 
 HU ./assets/hud/hud.png
 HN ./assets/hud/numbers.png
-FH ./assets/hud/hud.png
+FH ./assets/hud/hud_faces.png
 
 F 84,84,84
 C 42,42,42

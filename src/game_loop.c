@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 17:08:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 12:05:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,15 @@ void	game_loop(void *v_data)
 		{
 			draw_hud(data);
 			draw_numbers(data);
+			draw_faces(data, 134 * data->mlx.hud_scale);
 			data->update_hud = false;
 		}
+		if (data->delay > 50)
+		{
+			draw_faces(data, 134 * data->mlx.hud_scale);
+			data->delay = 0;
+		}
 		draw_minimap(data);
+		data->delay++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 09:59:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 12:03:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct s_data
 	bool				update_hud;
 	t_config			config;
 	bool				floor_ceiling;
+	uint32_t			delay;
 }				t_data;
 
 /**
@@ -257,7 +258,9 @@ void	draw_transparency(t_data *data, int x);
 void	draw_sprites(t_data *data);
 
 void	draw_hud(t_data *data);
+void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
+void	draw_faces(t_data *data, int x_pos);
 void	draw_minimap(t_data *data);
 
 /**
