@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/04/28 15:01:47 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:09:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ bool	is_player_tile(char c)
 
 bool	is_sprite_tile(char c)
 {
-	return (c == 'L' || c == 'B' || c == 'P' || c == 'D' \
-			|| c == 'b' || c == 'G' || c == 'h' || c == 'c' || \
+	return (c == 'L' || c == 'B' || c == 'P' \
+			|| c == 'b' || c == 'G' || c == 'c' || \
 			c == 't' || c == 'w' || c == 'f' || c == 'C' || \
-			c == 'p' || c == 'T' || c == 'H' || c == 's' || \
+			c == 'p' || c == 'T' || c == 's' || \
 			c == 'l' || c == 'g' || c == 'o' || c == 'a' || \
 			c == 'A' || c == 'e' || c == 'F' || c == 'i' || \
 			c == 'I' || c == 'j' || c == 'J' || c == 'k' || \

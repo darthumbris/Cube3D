@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 13:16:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 15:52:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,3 @@ bool	parse_input(char **argv, t_data *data)
 	set_sprite_positions(data->level.map, data);
 	return (true);
 }
-
-//TODO: check after parsing everything if the map contains the textures needed for the map

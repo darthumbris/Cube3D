@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 15:13:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 15:34:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	draw_walls(t_data *data)
 	pix[0] = get_pixels(data, data->level.map[data->caster.map_pos.y] \
 		[data->caster.map_pos.x]);
 	pix[1] = data->mlx.fg->pixels + ((y * data->floor.width4) + data->floor.x4);
-	while (y < data->caster.draw_end)
+	while (y < data->caster.draw_end && y < data->mlx.mlx_handle->height - 40 * data->hud.scale)
 	{
 		*(uint32_t *)pix[1] = (*(int *)(pix[0] + \
 		(((int)data->caster.tex_y * width + data->caster.tex_x) << 2)));

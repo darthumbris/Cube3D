@@ -44,7 +44,7 @@ I6 ./assets/treasure0.png
 I7 ./assets/treasure1.png
 I8 ./assets/treasure2.png
 
-HU ./assets/hud/hud.png
+HU ./assets/hud/hud_transparent.png
 HN ./assets/hud/numbers.png
 FH ./assets/hud/hud_faces.png
 

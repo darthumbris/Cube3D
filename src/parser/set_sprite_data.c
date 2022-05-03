@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 10:05:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:10:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,11 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	sprite->kind = get_sprite_kind(map[pos.x][pos.y], data);
 	if (is_nonblocking_kind(sprite->kind))
 		map[pos.x][pos.y] = '0';
-	if (sprite->kind == HIDDEN)
-		sprite->hidden = true;
-	else
-		sprite->hidden = false;
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
 	sprite->transp_end = get_transparency_end(sprite->kind, data);
 }
 
+//TODO remove doors and hidden walls from sprites and put them in their own thing?
 void	set_sprite_positions(char **map, t_data *data)
 {
 	int	i;

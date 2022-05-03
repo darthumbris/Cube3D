@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:33:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:28:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ int	getwidth(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ')
-			temp--;
-		else if (ft_isdigit(line[i]))
+		if (ft_isdigit(line[i]) || line[i] == ' ')
 			temp++;
 		i++;
 	}
@@ -65,10 +63,8 @@ char	**parse_map(char **upmap, t_data *data)
 	int	i;
 	int	j;
 	int	count;
-	int	sprites;
 
 	count = 0;
-	sprites = 0;
 	if (!upmap || !*upmap)
 		return (NULL);
 	while (*upmap && ft_isalpha(*(*upmap)))
@@ -84,13 +80,14 @@ char	**parse_map(char **upmap, t_data *data)
 				return (NULL);
 			if (is_player_tile(upmap[i][j]))
 				count++;
-			if (is_sprite_tile(upmap[i][j]))
-				sprites++;
+			else if (is_sprite_tile(upmap[i][j]))
+				data->level.number_of_sprites++;
+			else if (is_door_tile(upmap[i][j]))
+				data->level.door_count++;
 		}
 	}
 	if (count > 1)
 		return (NULL);
-	data->level.number_of_sprites = sprites;
 	return (upmap);
 }
 

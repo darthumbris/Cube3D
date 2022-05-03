@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 13:14:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:29:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define HEALTH_DIGIT_2_POS	184
 # define AMMO_DIGIT_0_POS	216
 # define AMMO_DIGIT_1_POS	224
+# define FACES_POS			134
 
 typedef struct s_player
 {
@@ -75,9 +76,6 @@ typedef struct s_mlx
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
-	double			inv_hud_scale;
-	int				hud_scale;
-
 }			t_mlx;
 
 /**
@@ -94,6 +92,8 @@ typedef struct s_level
 {
 	char			**unparsed;
 	char			**map;
+	int				**doors;
+	int				door_count;
 	int				map_w;
 	int				map_h;
 	t_tex_path		paths;
@@ -185,6 +185,18 @@ typedef struct s_config
 	t_config_data	*dat;
 }			t_config;
 
+typedef struct s_hud
+{
+	int		y_pos_hud;
+	int		max_height;
+	int		max_width;
+	double	inv_scale;
+	int		scale;
+	int		max_size_faces;
+	int		max_size_numbers;
+	int		face_pos_x;
+}	t_hud;
+
 /**
  * @brief Main struct for cubed
  * 
@@ -209,6 +221,8 @@ typedef struct s_data
 	t_config			config;
 	bool				floor_ceiling;
 	uint32_t			delay;
+	uint32_t			color;
+	t_hud				hud;
 }				t_data;
 
 /**
@@ -244,6 +258,12 @@ bool	check_needed_textures_loaded(t_data *data);
  */
 bool	init_mlx(t_data *data);
 
+bool	init_door_map(t_data *data);
+
+void	set_door_map(t_data *data);
+
+bool	is_nearby_door(t_data *data);
+
 /**
  * @brief Main function to handle the raycasting part for cubed
  * 
@@ -276,7 +296,7 @@ void	draw_sprites(t_data *data);
 void	draw_hud(t_data *data);
 void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
-void	draw_faces(t_data *data, int x_pos);
+void	draw_faces(t_data *data);
 void	draw_minimap(t_data *data);
 
 /**

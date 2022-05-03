@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 13:16:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:16:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, -1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E) && is_nearby_door(data))
+		printf("ok\n");
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
 	if (oldx == 0)
 		oldx = x;
@@ -116,12 +118,11 @@ void	game_loop(void *v_data)
 		{
 			draw_hud(data);
 			draw_numbers(data);
-			// draw_faces(data, 134 * data->mlx.hud_scale);
 			data->update_hud = false;
 		}
 		if (data->delay > 50)
 		{
-			draw_faces(data, 134 * data->mlx.hud_scale);
+			draw_faces(data);
 			data->delay = 0;
 		}
 		draw_minimap(data);
