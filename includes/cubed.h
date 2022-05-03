@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 15:47:43 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:28:29 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
+
+#define WALL_COLOUR 0xFF0000FF
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -280,6 +282,10 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
 void	draw_faces(t_data *data, int x_pos);
 void	draw_minimap(t_data *data);
+
+//draws a square, specifically for the minimap
+bool draw_square(t_data *data, t_vector_int rec, \
+t_vector_int wh, unsigned int c); 
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
