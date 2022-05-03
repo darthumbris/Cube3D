@@ -6,30 +6,11 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 16:33:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 14:45:54 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-//name
-int	getwidth(char *line)
-{
-	int	i;
-	int	temp;
-
-	temp = 0;
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == ' ')
-			temp--;
-		else if (ft_isdigit(line[i]))
-			temp++;
-		i++;
-	}
-	return (temp);
-}
 
 //name
 void	getwidtheight(char **upmap, t_data *data)
@@ -42,7 +23,7 @@ void	getwidtheight(char **upmap, t_data *data)
 	width = INT32_MIN;
 	while (upmap[i])
 	{
-		temp = getwidth(upmap[i]);
+		temp = ft_strlen(upmap[i]);
 		if (temp > width)
 			width = temp;
 		i++;
