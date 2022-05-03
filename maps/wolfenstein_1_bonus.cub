@@ -1,10 +1,4 @@
-NO ./assets/mossy_128.png
-SO ./assets/wood_128.png
-WE ./assets/bluestone_128.png
-EA ./assets/eagle_128.png
-FL ./assets/wood_128.png
-CL ./assets/greystone_128.png
-S1 ./assets/pillar_final.png
+
 W1 ./assets/bluestone_128.png
 W2 ./assets/greystone_128.png
 W3 ./assets/wood_128.png

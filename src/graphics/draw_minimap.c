@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/02 17:07:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 12:19:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_minimap(t_data *data)
 	i = -1;
 	ft_memset(data->mlx.minimap->pixels, 255, data->mlx.minimap->width \
 		* data->mlx.minimap->height * sizeof(int));
-	while (++i < 20)
+	while (++i < 5 * data->mlx.hud_scale)
 		draw_square(data, (t_vector_int){.y = wh.y + (i * data->cam.dir.y), \
 .x = wh.x + (i * data->cam.dir.x)}, (t_vector_int){.y = data->mlx.hud_scale, \
 	.x = data->mlx.hud_scale}, 0xD7FFFFFF);

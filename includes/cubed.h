@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 12:03:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 12:22:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
+
+//FIXED VALUES DONT CHANGE
+# define MINIMAP_WIDTH		61
+# define MINIMAP_HEIGHT		31
+# define SCORE_DIGIT_0_POS	55
+# define SCORE_DIGIT_1_POS	63
+# define SCORE_DIGIT_2_POS	71
+# define SCORE_DIGIT_3_POS	79
+# define SCORE_DIGIT_4_POS	87
+# define LEVEL_DIGIT_POS	24
+# define LIVES_DIGIT_POS	112
+# define HEALTH_DIGIT_0_POS	168
+# define HEALTH_DIGIT_1_POS	176
+# define HEALTH_DIGIT_2_POS	184
+# define AMMO_DIGIT_0_POS	216
+# define AMMO_DIGIT_1_POS	224
 
 typedef struct s_player
 {

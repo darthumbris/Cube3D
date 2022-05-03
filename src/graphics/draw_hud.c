@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 16:50:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 11:53:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 12:17:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,6 @@ void	draw_faces(t_data *data, int x_pos)
 		pixel.x++;
 	}
 }
-
-/*
-//TODO make this draw the hud to scale using the hud.png. 
-	Also needs to be updated
-//TODO the minimap can be put in the right corner of the hud
-*/
 
 void	draw_hud(t_data *data)
 {
