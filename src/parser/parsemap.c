@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:28:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:53:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	getwidtheight(char **upmap, t_data *data)
 	width = INT32_MIN;
 	while (upmap[i])
 	{
-		temp = getwidth(upmap[i]);
+		temp = ft_strlen(upmap[i]);
 		if (temp > width)
 			width = temp;
 		i++;
