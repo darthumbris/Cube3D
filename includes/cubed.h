@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:28:29 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/03 21:06:17 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "sprites.h"
 # include <stdio.h>
 
+//TODO: different aspect ratio fucks the hud, this is not something we need to care about however since the subject doesnt mention needing to handle different aspect ratio
 # define SCREEN_HEIGHT	720
 # define SCREEN_WIDTH	1280
 # define MOVE_SPEED		5
@@ -31,7 +32,8 @@
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
-#define WALL_COLOUR 0xFF0000FF
+#define WALL_COLOUR 0xD8D8FCFF
+#define VIEW_LINE_COLOUR 0xD7FFFFFF
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -342,13 +344,6 @@ void	store_path(char *line, t_data *data, int kind);
 void	color_store(char *line, t_data *data, int kind);
 
 typedef void	(*t_func)(char *line, t_data *data, int kind);
-
-typedef struct s_values
-{
-	char	*str;
-	int		kind;
-	t_func	storemapval;
-}	t_values;
 
 void	set_sprite_positions(char **map, t_data *data);
 void	sort_sprites(t_data *data, t_sprite_lst **begin);
