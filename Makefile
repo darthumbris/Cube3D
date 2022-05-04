@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/03 16:54:09 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/04 20:46:24 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cube3D_bonus
 
 CC  := gcc
 COMPILE_FLAGS = -Wall -Wextra -Werror -o3
-LINKING_FLAGS = libmlx42.a $(LIBFT) -lm -ldl -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+LINKING_FLAGS = $(MLX) $(LIBFT) -lm -ldl -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -121,7 +121,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.$(SRC_EXT) $(HEADERS)
 
 $(MLX):
 	@make -C $(MLX_DIR)
-	@cp $(MLX_DIR)/libmlx42.a .
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
@@ -135,7 +134,8 @@ clean:
 
 fclean: clean
 	@printf "%b" "$(ERROR_COLOR)Removing $(PRG_COLOR)$(NAME)\n"
-	@rm -f $(NAME) libmlx42.a
+	@rm -f $(NAME)
+	@rm -f cube3D
 	@make -C $(LIBFT_DIR) fclean
 	@make -C $(MLX_DIR) fclean
 	@rm -f libmlx42.a

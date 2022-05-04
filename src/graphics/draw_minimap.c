@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:26:59 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 20:47:55 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_vector_int *se, t_vector_double square, int i)
 		{
 			draw_square(data, (t_vector_int) \
 			{.y = (int)(square.y * i), .x = (int)(square.x * j)}, \
-			(t_vector_int){.y = (SCREEN_WIDTH/10) / data->mlx.minimap_zoom + 1, \
-				.x = (SCREEN_WIDTH/10) / data->mlx.minimap_zoom + 1}, WALL_COLOUR);
+		(t_vector_int){.y = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom + 1, \
+		.x = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom + 1}, WALL_COLOUR);
 		}	
 		se[0].x++;
 		j++;
