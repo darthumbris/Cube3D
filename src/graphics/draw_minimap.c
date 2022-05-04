@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 15:19:39 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 20:19:22 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	draw_minimap(t_data *data)
 		{.y = wh.y + (i * data->cam.dir.y), .x = wh.x + (i * data->cam.dir.x)}, \
 		(t_vector_int){.y = data->mlx.hud_scale, .x = data->mlx.hud_scale}, \
 		VIEW_LINE_COLOUR);
-
 	draw_square(data, wh, (t_vector_int) \
 		{.y = data->mlx.hud_scale, .x = data->mlx.hud_scale}, 0xFF000000);
 }

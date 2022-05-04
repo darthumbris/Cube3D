@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:57:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 20:19:25 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
-static void make_square_map(t_data *data, char **upmap, int w, int h)
+static void	make_square_map(t_data *data, char **upmap, int w, int h)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	data->level.map = (char **)malloc(sizeof(char *) * (h + 1));
 	while (*upmap)
 	{
@@ -121,7 +122,8 @@ bool	parse_input(char **argv, t_data *data)
 	close(fd);
 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
-	make_square_map(data, parse_map(upmap, data), data->level.map_w, data->level.map_h);
+	make_square_map(data, parse_map(upmap, data), \
+		data->level.map_w, data->level.map_h);
 	data->cam.pos = getplayerpos(data->level.map);
 	setplayerdir(data->level.map, data->cam.pos, data);
 	if (!data->level.map || \
@@ -130,5 +132,3 @@ bool	parse_input(char **argv, t_data *data)
 	set_sprite_positions(data->level.map, data);
 	return (true);
 }
-
-//TODO: check after parsing everything if the map contains the textures needed for the map
