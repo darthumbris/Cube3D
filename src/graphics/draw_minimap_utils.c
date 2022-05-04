@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:26:31 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 20:30:27 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 15:18:29 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ t_vector_int wh, unsigned int c)
 		j = rec.x;
 		while (j < rec.x + wh.x)
 		{
-			if (c == VIEW_LINE_COLOUR && *(uint32_t *)(map + ((i * data->mlx.minimap->width + j) * 4)) == WALL_COLOUR)
-				return(false);
+			if (c == VIEW_LINE_COLOUR && *(uint32_t *) \
+			(map + ((i * data->mlx.minimap->width + j) * 4)) == WALL_COLOUR)
+				return (false);
 			*(uint32_t *)(map + ((i * data->mlx.minimap->width + j) * 4)) = c;
 			j++;
 		}
