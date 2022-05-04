@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 13:16:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 16:01:21 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	main(int argc, char **argv)
 	}
 	draw_background(&data);
 	raycaster(&data);
-	//mlx_set_mouse_pos(data.mlx.mlx_handle, 0, 0);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
 	if (data.bonus)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 21:06:17 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 16:00:30 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
-#define WALL_COLOUR 0xD8D8FCFF
-#define VIEW_LINE_COLOUR 0xD7FFFFFF
+# define WALL_COLOUR 0xD8D8FCFF
+# define VIEW_LINE_COLOUR 0xD7FFFFFF
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -286,8 +286,8 @@ void	draw_faces(t_data *data, int x_pos);
 void	draw_minimap(t_data *data);
 
 //draws a square, specifically for the minimap
-bool draw_square(t_data *data, t_vector_int rec, \
-t_vector_int wh, unsigned int c); 
+bool	draw_square(t_data *data, t_vector_int rec, \
+t_vector_int wh, unsigned int c);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called

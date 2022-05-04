@@ -6,13 +6,13 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:26:31 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 15:18:29 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 16:01:33 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-bool draw_square(t_data *data, t_vector_int rec, \
+bool	draw_square(t_data *data, t_vector_int rec, \
 t_vector_int wh, unsigned int c)
 {
 	uint8_t	*map;
