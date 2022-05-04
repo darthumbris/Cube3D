@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 15:19:44 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 20:18:12 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@
 # include "sprites.h"
 # include <stdio.h>
 
-//TODO: different aspect ratio fucks the hud, this is not something we need to care about however since the subject doesnt mention needing to handle different aspect ratio
-# define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	1280
+# define SCREEN_HEIGHT	480
+# define SCREEN_WIDTH	720
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
-#define WALL_COLOUR 0xD8D8FCFF
-#define VIEW_LINE_COLOUR 0xD7FFFFFF
+# define VIEW_LINE_COLOUR 0xD7FFFFFF
+# define WALL_COLOUR	0xFF0000FF
+# define BORDER_COLOR	4282400768
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -51,6 +51,7 @@
 # define AMMO_DIGIT_0_POS	216
 # define AMMO_DIGIT_1_POS	224
 # define FACES_POS			134
+# define MINIMAP_POS		71
 
 typedef struct s_player
 {
@@ -196,15 +197,30 @@ typedef struct s_config
 
 typedef struct s_hud
 {
-	int		y_pos_hud;
-	int		max_height;
-	int		max_width;
-	double	inv_scale;
-	int		scale;
-	int		max_size_faces;
-	int		max_size_numbers;
-	int		face_pos_x;
+	t_vector_int	pos_hud;
+	int				max_height;
+	int				max_width;
+	double			inv_scale;
+	int				scale;
+	int				max_size_faces;
+	int				max_size_numbers;
+	int				face_pos_x;
+	int				border_width;
+	t_vector_int	pos_map;
 }	t_hud;
+
+enum e_doors
+{
+	DOOR_CLOSED = 1,
+	DOOR_OPENING = 2,
+	DOOR_OPEN = 3,
+	HIDDEN_CLOSED = 4,
+	HIDDEN_OPENING = 5,
+	HIDDEN_OPEN = 6,
+	HIDDEN_2_CLOSED = 7,
+	HIDDEN_2_OPENING = 8,
+	HIDDEN_2_OPEN = 9
+};
 
 /**
  * @brief Main struct for cubed
@@ -272,6 +288,7 @@ bool	init_door_map(t_data *data);
 void	set_door_map(t_data *data);
 
 bool	is_nearby_door(t_data *data);
+bool	is_door_open(t_data *data, int y, int x);
 
 /**
  * @brief Main function to handle the raycasting part for cubed

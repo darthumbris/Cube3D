@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:11:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 10:19:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 	uint32_t	color;
 
 	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
-	while (++y < data->spr_cast.draw_end.y)
+	while (++y < data->spr_cast.draw_end.y && y < data->mlx.mlx_handle->height - 40 * data->hud.scale)
 	{
 		d = y * 256 - data->mlx.mlx_handle->height * 128 + \
 			data->spr_cast.sprite_height * 128;

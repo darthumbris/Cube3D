@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:53:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 10:16:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
 
-	if (!strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_y)] \
-		[(int)(data->cam.pos.x + temp_dir_x)] == '0')
+	if (!strafe && (data->level.map[(int)(data->cam.pos.y + temp_dir_y)] \
+		[(int)(data->cam.pos.x + temp_dir_x)] == '0' || is_door_open(data, (int)(data->cam.pos.y + temp_dir_y), (int)(data->cam.pos.x + temp_dir_x))))
 	{
 		data->cam.pos.x += temp_dir_x;
 		data->cam.pos.y += temp_dir_y;
 	}
-	else if (strafe && data->level.map[(int)(data->cam.pos.y + temp_dir_x)] \
-		[(int)(data->cam.pos.x - temp_dir_y)] == '0')
+	else if (strafe && (data->level.map[(int)(data->cam.pos.y + temp_dir_x)] \
+		[(int)(data->cam.pos.x - temp_dir_y)] == '0' || is_door_open(data, (int)(data->cam.pos.y + temp_dir_x), (int)(data->cam.pos.x - temp_dir_y))))
 	{
 		data->cam.pos.x -= temp_dir_y;
 		data->cam.pos.y += temp_dir_x;

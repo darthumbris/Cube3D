@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:53:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/03 16:57:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ static void make_square_map(t_data *data, char **upmap, int w, int h)
 	while (*upmap)
 	{
 		data->level.map[i] = malloc(sizeof(char) * (w + 1));
-		ft_bzero(data->level.map[i], w + 1);
+		ft_memset(data->level.map[i], 32, w);
+		data->level.map[i][w] = 0;
 		ft_memcpy(data->level.map[i], *upmap, ft_strlen(*upmap));
 		upmap++;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:28:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 09:58:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,6 @@ static void	draw_hud_test(t_data *data)
 	data->update_hud = false;
 }
 
-// static void	check_door_map(t_data *data)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (i < data->level.map_h)
-// 	{
-// 		j = 0;
-// 		while (j < data->level.map_w)
-// 		{
-// 			printf("%d", data->level.doors[i][j][0]);
-// 			j++;
-// 		}
-// 		printf("\n");
-// 		i++;
-// 	}
-// }
-
 int	main(int argc, char **argv)
 {
 	t_data			data;
@@ -78,7 +59,6 @@ int	main(int argc, char **argv)
 	set_door_map(&data);
 	draw_background(&data);
 	raycaster(&data);
-	//mlx_set_mouse_pos(data.mlx.mlx_handle, 0, 0);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.fg, 0, 0);
 	if (data.bonus)
@@ -86,10 +66,7 @@ int	main(int argc, char **argv)
 		draw_hud_test(&data);
 		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.hud, 0, 0);
 		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.minimap, \
-		data.mlx.minimap->width + data.mlx.mlx_handle->width - \
-		data.mlx.minimap->width - 71 * data.hud.scale, \
-		data.mlx.mlx_handle->height - data.mlx.minimap->height - 1 - \
-		data.hud.scale * 4);
+		data.hud.pos_map.x, data.hud.pos_map.y);
 	}
 	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);
