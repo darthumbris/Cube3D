@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:19:22 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/04 20:26:59 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_vector_int *se, t_vector_double square, int i)
 		{
 			draw_square(data, (t_vector_int) \
 			{.y = (int)(square.y * i), .x = (int)(square.x * j)}, \
-			(t_vector_int){.y = 120 / data->mlx.minimap_zoom + 1, \
-				.x = 120 / data->mlx.minimap_zoom + 1}, WALL_COLOUR);
+			(t_vector_int){.y = (SCREEN_WIDTH/10) / data->mlx.minimap_zoom + 1, \
+				.x = (SCREEN_WIDTH/10) / data->mlx.minimap_zoom + 1}, WALL_COLOUR);
 		}	
 		se[0].x++;
 		j++;
@@ -68,9 +68,9 @@ static void	draw_minimap_walls(t_data *data)
 	{
 		j = 0;
 		draw_walls_x(data, start_end, square_loc_calc, i);
-		i++;
 		start_end[0].x = (int)(data->cam.pos.x - data->mlx.minimap_zoom);
 		start_end[0].y++;
+		i++;
 	}
 }
 
@@ -94,4 +94,5 @@ void	draw_minimap(t_data *data)
 		VIEW_LINE_COLOUR);
 	draw_square(data, wh, (t_vector_int) \
 		{.y = data->mlx.hud_scale, .x = data->mlx.hud_scale}, 0xFF000000);
+	//TODO: my viewcone disappeared, solves a lot of problems actually
 }
