@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 16:50:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 15:47:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 09:59:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ void	draw_hud(t_data *data)
 	t_vector_int	tex;
 	uint8_t			*pixs[2];
 
-	pos.x = -1;
+	pos.x = data->hud.border_width - 1;
 	pixs[0] = data->mlx.tex.texarr[HUD_MAIN]->pixels;
-	while (++pos.x < data->mlx.mlx_handle->width)
+	while (++pos.x < data->mlx.mlx_handle->width - data->hud.border_width)
 	{
-		tex.x = pos.x * data->hud.inv_scale;
+		tex.x = (pos.x - data->hud.border_width) * data->hud.inv_scale;
 		pixs[1] = data->mlx.hud->pixels + (data->hud.max_height * \
 			data->floor.width4 + pos.x * 4);
-		pos.y = data->hud.y_pos_hud - 1;
+		pos.y = data->hud.pos_hud.y - 1;
 		if (tex.x >= data->hud.max_width)
 			tex.x = data->hud.max_width - 1;
 		while (++pos.y < data->mlx.mlx_handle->height)

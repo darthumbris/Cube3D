@@ -6,11 +6,21 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 15:52:39 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:40:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 09:20:28 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+int	get_door_type(char c)
+{
+	if (c == 'D')
+		return (DOOR_CLOSED);
+	else if (c == 'h')
+		return (HIDDEN_CLOSED);
+	else
+		return (HIDDEN_2_CLOSED);
+}
 
 void	set_door_map(t_data *data)
 {
@@ -29,7 +39,8 @@ void	set_door_map(t_data *data)
 			{
 				data->level.doors[door_count][0] = i;
 				data->level.doors[door_count][1] = j;
-				data->level.doors[door_count][2] = 1;
+				data->level.doors[door_count][2] = get_door_type \
+					(data->level.map[i][j]);
 				door_count++;
 			}
 			j++;

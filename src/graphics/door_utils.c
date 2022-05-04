@@ -6,36 +6,53 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:49:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 09:21:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+int	get_distance(t_vector_int door_pos, t_vector_double player)
+{
+	const int	diffx = door_pos.x - (int)player.x;
+	const int	diffy = door_pos.y - (int)player.y;
 
+	return (diffx * diffx + diffy * diffy);
+}
 
 bool	is_nearby_door(t_data *data)
 {
 	int				i;
-	t_vector_double	door_pos;
+	t_vector_int	door_pos;
 
 	i = 0;
 	while (i < data->level.door_count)
 	{
 		if (data->level.doors[i][2] == 1)
 		{
-			door_pos.x = data->level.doors[i][0];
-			door_pos.y = data->level.doors[i][1];
-			printf("spritedist: %f\n", sprite_dist(data->cam.pos, door_pos));
-			if (sprite_dist(data->cam.pos, door_pos) < 64)
+			door_pos.x = data->level.doors[i][1];
+			door_pos.y = data->level.doors[i][0];
+			if (get_distance(door_pos, data->cam.pos) < 5)
 			{
-				printf("opening door\n");
-				printf("door at: %d,%d\n", data->level.doors[i][0], data->level.doors[i][1]);
-				printf("player at: %f,%f\n", data->cam.pos.x, data->cam.pos.y);
-				printf("map: %d\n", data->level.map[31][50]);
+				printf("opening normal door\n");
+				data->level.doors[i][2] = 3;
 				return (true);
 			}
 		}
+		i++;
+	}
+	return (false);
+}
+
+bool	is_door_open(t_data *data, int y, int x)
+{
+	int				i;
+
+	i = 0;
+	while (i < data->level.door_count)
+	{
+		if (data->level.doors[i][2] == 3 && data->level.doors[i][0] == y && data->level.doors[i][1] == x)
+			return (true);
 		i++;
 	}
 	return (false);
