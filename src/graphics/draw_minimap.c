@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:15:51 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/06 17:03:25 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,11 @@ static void	draw_minimap_walls(t_data *data)
 	}
 }
 
-//TODO: doors, hidden rooms
 void	draw_minimap(t_data *data)
 {
 	int					i;
 	bool				temp;
-	const int			s_dim = 5.0 * data->mlx.hud_scale;
+	const int			s_dim = data->mlx.minimap_zoom * data->mlx.hud_scale;
 	const t_vector_int	wh = {.y = data->mlx.minimap->height \
 		/ 2, .x = data->mlx.minimap->width / 2};
 
@@ -87,11 +86,13 @@ void	draw_minimap(t_data *data)
 	ft_memset(data->mlx.minimap->pixels, 0, data->mlx.minimap->width \
 		* data->mlx.minimap->height * sizeof(int));
 	draw_minimap_walls(data);
+
+	//TODO: change this
 	temp = true;
-	while (++i < 10 && temp)
+	while (++i < 20 && temp)
 		temp = draw_square(data, (t_vector_int) \
-		{.y = wh.y + (i * data->cam.dir.y), .x = wh.x + (i * data->cam.dir.x)}, \
-		(t_vector_int){.y = s_dim, .x = s_dim}, \
+		{.y = wh.y + (i * data->cam.dir.y) + s_dim/2, .x = wh.x + (i * data->cam.dir.x) + s_dim/2}, \
+		(t_vector_int){.y = s_dim/2+1, .x = s_dim/2+1}, \
 		VIEW_LINE_COLOUR);
-	draw_square(data, wh, (t_vector_int){.y = s_dim + 1, .x = s_dim + 1}, 0xFF000000);
+	draw_square(data, wh, (t_vector_int){.y = s_dim+1, .x = s_dim+1}, 0xFF000000);
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:26:03 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:32:14 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,6 +375,9 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
 void	draw_faces(t_data *data);
 void	draw_minimap(t_data *data);
+
+//find a path
+void	path_find(t_data *data);
 
 //draws a square, specifically for the minimap
 bool	draw_square(t_data *data, t_vector_int rec, \
