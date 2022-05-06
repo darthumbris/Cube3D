@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:20:55 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/06 15:13:22 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ typedef struct s_mlx
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
-	double			inv_hud_scale;
 	double			minimap_scale;
+	double			hud_scale;
 	int				minimap_zoom;
-	int				hud_scale;
 
 }			t_mlx;
 

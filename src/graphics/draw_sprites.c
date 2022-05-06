@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 10:19:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:23:58 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,59 @@ void	check_for_door(t_data *data, t_sprite_lst *lst)
 	}
 }
 
+bool door_check(t_data *data, t_vector_int g_pos)
+{
+	return (is_door_tile(data->level.map[g_pos.y][g_pos.x]) && is_door_open(data, g_pos.y, g_pos.x));
+}
+
+bool view_not_blocked(t_data *data, t_vector_int pc_pos, t_vector_int g_pos)
+{
+	t_vector_int sign;
+	t_vector_int delta;
+	int			 err;
+
+	delta.x = abs(pc_pos.x - g_pos.x);
+	delta.y = abs(pc_pos.y - g_pos.y);
+	sign.x = pc_pos.x > g_pos.x ? 1 : -1;
+	sign.y = pc_pos.y > g_pos.y ? 1 : -1;
+	err = 2 * (delta.y - delta.x);
+	while (1)
+	{
+		if (is_wall_tile(data->level.map[g_pos.y][g_pos.x]) || door_check(data, g_pos))
+			return (false);
+		if (g_pos.x == pc_pos.x && g_pos.y == pc_pos.y)
+			return (true);
+		if (err >= 0)
+		{
+			g_pos.y += sign.y;
+			err = err - 2 * delta.x;
+		}
+		if (err < 0)
+		{
+			g_pos.x += sign.x;
+			err = err + 2 * delta.y;
+		}
+	}	
+}
+
+void path_find(t_data *data)
+{
+	t_sprite_lst *lst = data->sprite_lst;
+
+	while (lst)
+	{
+		if (lst->sprite_data.kind == GUARD && lst->sprite_data.dist < RENDER_DIST_S && \
+			view_not_blocked(data, (t_vector_int){.x = data->cam.pos.x, .y = data->cam.pos.y}, (t_vector_int){.x = lst->sprite_data.map_pos.x, .y = lst->sprite_data.map_pos.y}))
+		{
+			t_vector_double *temp = &(lst->sprite_data.map_pos);
+			t_vector_double move = {.x = temp->x < data->cam.pos.x ? 0.01 : -0.01, .y = temp->y < data->cam.pos.y ? 0.01 : -0.01};
+			temp->x += move.x;
+			temp->y += move.y;
+		}
+		lst = lst->next;
+	}
+}
+
 void	draw_sprites(t_data *data)
 {
 	t_sprite_lst	*lst;
@@ -139,6 +192,7 @@ void	draw_sprites(t_data *data)
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
 	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
+	path_find(data);
 	while (lst)
 	{
 		if (lst->sprite_data.dist < RENDER_DIST_S) //TODO: just use floodfill to check current room bounds and only do those sprites

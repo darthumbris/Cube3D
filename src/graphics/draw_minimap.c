@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:47:55 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/06 15:15:51 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_vector_int *se, t_vector_double square, int i)
 		{
 			draw_square(data, (t_vector_int) \
 			{.y = (int)(square.y * i), .x = (int)(square.x * j)}, \
-		(t_vector_int){.y = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom + 1, \
-		.x = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom + 1}, WALL_COLOUR);
+		(t_vector_int){.y = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom, \
+		.x = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom}, WALL_COLOUR);
 		}	
 		se[0].x++;
 		j++;
@@ -62,8 +62,8 @@ static void	draw_minimap_walls(t_data *data)
 	.y = data->mlx.minimap->height / ((data->mlx.minimap_zoom * 2) * \
 	data->mlx.minimap_scale)};
 
-	set_start_end(data, &(start_end[0]), &(start_end[1]));
 	i = 0;
+	set_start_end(data, &(start_end[0]), &(start_end[1]));
 	while (start_end[0].y < start_end[1].y)
 	{
 		j = 0;
@@ -79,6 +79,7 @@ void	draw_minimap(t_data *data)
 {
 	int					i;
 	bool				temp;
+	const int			s_dim = 5.0 * data->mlx.hud_scale;
 	const t_vector_int	wh = {.y = data->mlx.minimap->height \
 		/ 2, .x = data->mlx.minimap->width / 2};
 
@@ -87,12 +88,10 @@ void	draw_minimap(t_data *data)
 		* data->mlx.minimap->height * sizeof(int));
 	draw_minimap_walls(data);
 	temp = true;
-	while (++i < 5 * data->mlx.hud_scale && temp)
+	while (++i < 10 && temp)
 		temp = draw_square(data, (t_vector_int) \
 		{.y = wh.y + (i * data->cam.dir.y), .x = wh.x + (i * data->cam.dir.x)}, \
-		(t_vector_int){.y = data->mlx.hud_scale, .x = data->mlx.hud_scale}, \
+		(t_vector_int){.y = s_dim, .x = s_dim}, \
 		VIEW_LINE_COLOUR);
-	draw_square(data, wh, (t_vector_int) \
-		{.y = data->mlx.hud_scale, .x = data->mlx.hud_scale}, 0xFF000000);
-	//TODO: my viewcone disappeared, solves a lot of problems actually
+	draw_square(data, wh, (t_vector_int){.y = s_dim + 1, .x = s_dim + 1}, 0xFF000000);
 }
