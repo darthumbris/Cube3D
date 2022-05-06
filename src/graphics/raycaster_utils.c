@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:21:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:58:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	check_wall_collision(t_data *data, t_raycaster *ray, \
 		{
 			ray->hit = true;
 			ray->door_hit = 0;
+			ray->secret_hit = 0;
 			if (is_door_tile(data->level.map[(int)map->y][(int)map->x]))
 				extend_ray(data, ray);
 		}

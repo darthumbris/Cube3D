@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 14:55:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:56:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
 
 	if (data->caster.door_hit)
 		block_id = get_block_id(data->level.map[data->caster.door->y][data->caster.door->x]);
+	else if (data->caster.secret_hit)
+		block_id = get_block_id(data->level.map[data->caster.secret->y][data->caster.secret->x]);
 	else
 		block_id = get_block_id(data->level.map[(int)pos.y][(int)pos.x]);
 	if (data->caster.side == 0)

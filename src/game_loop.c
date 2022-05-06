@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:07:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 17:23:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	attempt_close_door(t_data *data, int i)
 	if (data->doors[i].closing_timer >= 5.0)
 	{
 		data->doors[i].state = CLOSED;
-		if (is_door_open(data, (int)(data->cam.pos.y), (int)(data->cam.pos.x)))
+		if (is_nearby_door(data))
 			data->doors[i].state = OPEN;
 		else
 			data->doors[i].state = CLOSING;
@@ -33,7 +33,7 @@ void	update_doors(t_data *data)
 	i = 0;
 	while (i < data->level.door_count)
 	{
-		if (data->doors[i].state == CLOSING)
+		if (data->doors[i].state == CLOSING && data->doors[i].type == 'D')
 		{
 			data->doors[i].s_timer += data->mlx.mlx_handle->delta_time;
 			if (data->doors[i].s_timer >= 1.0)
@@ -42,7 +42,7 @@ void	update_doors(t_data *data)
 				data->doors[i].state = CLOSED;
 			}
 		}
-		if (data->doors[i].state == OPENING)
+		if (data->doors[i].state == OPENING && data->doors[i].type == 'D')
 		{
 			data->doors[i].s_timer -= 0.03;
 			if (data->doors[i].s_timer <= 0.0)
@@ -52,8 +52,29 @@ void	update_doors(t_data *data)
 				data->doors[i].closing_timer = 0.0;
 			}
 		}
-		else if (data->doors[i].state == OPEN)
+		else if (data->doors[i].state == OPEN && data->doors[i].type == 'D')
 			attempt_close_door(data, i);
+		i++;
+	}
+}
+
+void	update_secret_walls(t_data *data)
+{
+	int				i;
+
+	i = 0;
+	while (i < data->level.door_count)
+	{
+		if ((data->doors[i].type == 'h' || data->doors[i].type == 'H') && \
+			data->doors[i].state == OPENING)
+		{
+			data->doors[i].s_timer += data->mlx.mlx_handle->delta_time;
+			if (data->doors[i].s_timer >= 1.0)
+			{
+				data->doors[i].s_timer = 1.0;
+				data->doors[i].state = OPEN;
+			}
+		}
 		i++;
 	}
 }
@@ -188,4 +209,5 @@ void	game_loop(void *v_data)
 		data->delay++;
 	}
 	update_doors(data);
+	update_secret_walls(data);
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:07:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:54:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,11 +212,13 @@ typedef struct s_raycaster
 	int				draw_end;
 	t_vector_int	tex;
 	int				ray_dist;
-	int				door_hit;
 	t_intersect		dcas;
 	double			step_y;
 	double			tex_pos;
 	t_doors			*door;
+	int				door_hit;
+	t_doors			*secret;
+	int				secret_hit;
 }			t_raycaster;
 
 typedef struct s_config_data
@@ -349,6 +351,8 @@ void	calculate_perpendicular_wall_distance(t_data *data, t_raycaster *ray);
 void	segment_to_line(t_segment *segm, t_line *line);
 bool	do_lines_intersect(t_line *m, t_line *n, t_vector_double *result);
 void	set_segment(t_vector_double *p, double x, double y);
+void	set_new_map_pos(t_vector_double *map, t_vector_double ray, \
+	t_vector_double rd);
 
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
 
