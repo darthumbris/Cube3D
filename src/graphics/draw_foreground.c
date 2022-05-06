@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 10:21:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 13:54:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_floor_ceiling(t_data *data, int x)
 
 	floor = data->mlx.tex.texarr[FLOOR]->pixels;
 	ceiling = data->mlx.tex.texarr[CEILING]->pixels;
-	y = data->caster.draw_end + 1;
+	y = data->caster.draw_end;
 	bg_up = data->mlx.fg->pixels + data->floor.x4 + (y * data->floor.width4);
 	bg_down = data->mlx.fg->pixels + ((data->mlx.mlx_handle->height - y - 1) * \
 		data->floor.width4 + data->floor.x4);

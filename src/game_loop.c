@@ -6,11 +6,57 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:48:14 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:25:41 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+void	attempt_close_door(t_data *data, int i)
+{
+	if (data->doors[i].closing_timer < 5.0)
+		data->doors[i].closing_timer += data->mlx.mlx_handle->delta_time;
+	if (data->doors[i].closing_timer >= 5.0)
+	{
+		data->doors[i].state = CLOSED;
+		if (is_door_open(data, (int)(data->cam.pos.y), (int)(data->cam.pos.x)))
+			data->doors[i].state = OPEN;
+		else
+			data->doors[i].state = CLOSING;
+	}
+}
+
+void	update_doors(t_data *data)
+{
+	int				i;
+
+	i = 0;
+	while (i < data->level.door_count)
+	{
+		if (data->doors[i].state == CLOSING)
+		{
+			data->doors[i].s_timer += data->mlx.mlx_handle->delta_time;
+			if (data->doors[i].s_timer >= 1.0)
+			{
+				data->doors[i].s_timer = 1.0;
+				data->doors[i].state = CLOSED;
+			}
+		}
+		if (data->doors[i].state == OPENING)
+		{
+			data->doors[i].s_timer -= 0.03;
+			if (data->doors[i].s_timer <= 0.0)
+			{
+				data->doors[i].s_timer = 0.0;
+				data->doors[i].state = OPEN;
+				data->doors[i].closing_timer = 0.0;
+			}
+		}
+		else if (data->doors[i].state == OPEN)
+			attempt_close_door(data, i);
+		i++;
+	}
+}
 
 void	change_camera_angle(t_data *data, double dir)
 {
@@ -141,4 +187,5 @@ void	game_loop(void *v_data)
 		draw_minimap(data);
 		data->delay++;
 	}
+	update_doors(data);
 }

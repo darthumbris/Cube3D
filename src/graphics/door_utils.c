@@ -6,11 +6,26 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 09:21:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 15:10:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+t_doors	*get_door_struct(t_data *data, t_vector_int pos)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->level.door_count)
+	{
+		if (data->doors[i].y == pos.y && \
+			data->doors[i].x == pos.x)
+			return (data->doors + i);
+		i++;
+	}
+	return (NULL);
+}
 
 int	get_distance(t_vector_int door_pos, t_vector_double player)
 {
@@ -28,14 +43,13 @@ bool	is_nearby_door(t_data *data)
 	i = 0;
 	while (i < data->level.door_count)
 	{
-		if (data->level.doors[i][2] == 1)
+		if (data->doors[i].state == CLOSED)
 		{
-			door_pos.x = data->level.doors[i][1];
-			door_pos.y = data->level.doors[i][0];
-			if (get_distance(door_pos, data->cam.pos) < 5)
+			door_pos.x = data->doors[i].x;
+			door_pos.y = data->doors[i].y;
+			if (get_distance(door_pos, data->cam.pos) < 4)
 			{
-				printf("opening normal door\n");
-				data->level.doors[i][2] = 3;
+				data->doors[i].state = OPENING;
 				return (true);
 			}
 		}
@@ -51,7 +65,8 @@ bool	is_door_open(t_data *data, int y, int x)
 	i = 0;
 	while (i < data->level.door_count)
 	{
-		if (data->level.doors[i][2] == 3 && data->level.doors[i][0] == y && data->level.doors[i][1] == x)
+		if (data->doors[i].state == OPEN && data->doors[i].y == y && \
+			data->doors[i].x == x)
 			return (true);
 		i++;
 	}
