@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 10:19:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:31:34 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void	draw_sprites(t_data *data)
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
 	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
+	path_find(data);
 	while (lst)
 	{
 		if (lst->sprite_data.dist < RENDER_DIST_S) //TODO: just use floodfill to check current room bounds and only do those sprites

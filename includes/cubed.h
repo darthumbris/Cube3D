@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:54:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 17:31:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,9 @@ typedef struct s_mlx
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
 	mlx_texture_t	*door_frame;
-	double			inv_hud_scale;
 	double			minimap_scale;
+	double			hud_scale;
 	int				minimap_zoom;
-	int				hud_scale;
 
 }			t_mlx;
 
@@ -380,6 +379,9 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
 void	draw_faces(t_data *data);
 void	draw_minimap(t_data *data);
+
+//find a path
+void	path_find(t_data *data);
 
 //draws a square, specifically for the minimap
 bool	draw_square(t_data *data, t_vector_int rec, \

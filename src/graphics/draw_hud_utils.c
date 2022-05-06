@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 10:21:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 15:14:30 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static void	init_minimap(t_data *data)
 	data->mlx.minimap_zoom = 10;
 	data->mlx.minimap_scale = \
 		((float)data->mlx.minimap->height / (float)data->mlx.minimap->width);
+	data->mlx.hud_scale = \
+	(double)data->mlx.hud->height / (double)data->mlx.hud->width;
 }
 
 //TODO:hardcoded values for minimap

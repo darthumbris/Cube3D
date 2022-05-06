@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 17:23:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 17:31:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	}
 }
 
-//TODO: janky mouse movement, maybe ask patrick
 void	game_loop(void *v_data)
 {
 	t_data		*data;
@@ -193,6 +192,7 @@ void	game_loop(void *v_data)
 	raycaster(data);
 	if (data->bonus)
 	{
+
 		draw_sprites(data);
 		if (data->update_hud)
 		{
