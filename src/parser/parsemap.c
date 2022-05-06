@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:53:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/04 20:20:41 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,10 @@ bool	checks(char **upmap, int i, int j, t_data *data)
 		&& verifyzero(upmap, i, j, data) == false));
 }
 
-char	**parse_map(char **upmap, t_data *data)
+bool	norm_loop(t_data *data, char **upmap, int *count)
 {
 	int	i;
 	int	j;
-	int	count;
-
-	count = 0;
-	if (!upmap || !*upmap)
-		return (NULL);
-	while (*upmap && ft_isalpha(*(*upmap)))
-		upmap++;
-	getwidtheight(upmap, data);
 	i = -1;
 	while (upmap[++i])
 	{
@@ -77,15 +69,32 @@ char	**parse_map(char **upmap, t_data *data)
 		while (upmap[i][++j])
 		{
 			if (checks(upmap, i, j, data))
-				return (NULL);
+				return (true);
 			if (is_player_tile(upmap[i][j]))
-				count++;
+				(*count)++;
 			else if (is_sprite_tile(upmap[i][j]))
 				data->level.number_of_sprites++;
 			else if (is_door_tile(upmap[i][j]))
 				data->level.door_count++;
 		}
 	}
+	return (false);
+}
+
+char	**parse_map(char **upmap, t_data *data)
+{
+	int	count;
+	int	sprites;
+
+	count = 0;
+	sprites = 0;
+	if (!upmap || !*upmap)
+		return (NULL);
+	while (*upmap && ft_isalpha(*(*upmap)))
+		upmap++;
+	getwidtheight(upmap, data);
+	if (norm_loop(data, upmap, &count))
+		return (NULL);
 	if (count > 1)
 		return (NULL);
 	return (upmap);

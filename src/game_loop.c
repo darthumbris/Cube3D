@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:05:12 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:07:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
 	{
-		clear_sprite_lst(&data->sprite_lst);
+		if (data->bonus)
+			clear_sprite_lst(&data->sprite_lst);
 		mlx_close_window(data->mlx.mlx_handle);
 	}
 	if (keys.key == MLX_KEY_H && keys.action != MLX_RELEASE)

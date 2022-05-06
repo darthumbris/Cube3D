@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:55:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 16:07:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 
-# define WALL_COLOUR	0xFF0000FF
+# define VIEW_LINE_COLOUR 0xD7FFFFFF
+# define WALL_COLOUR 0xD8D8FCFF
 # define BORDER_COLOR	4282400768
 
 //FIXED VALUES DONT CHANGE
@@ -378,7 +379,7 @@ void	draw_minimap(t_data *data);
 
 //draws a square, specifically for the minimap
 bool	draw_square(t_data *data, t_vector_int rec, \
-	t_vector_int wh, unsigned int c);
+t_vector_int wh, unsigned int c);
 
 /**
  * @brief This is the function where all the drawcalls and movement is called
@@ -435,13 +436,6 @@ void	store_path(char *line, t_data *data, int kind);
 void	color_store(char *line, t_data *data, int kind);
 
 typedef void	(*t_func)(char *line, t_data *data, int kind);
-
-typedef struct s_values
-{
-	char	*str;
-	int		kind;
-	t_func	storemapval;
-}	t_values;
 
 void	set_sprite_positions(char **map, t_data *data);
 void	sort_sprites(t_data *data, t_sprite_lst **begin);
