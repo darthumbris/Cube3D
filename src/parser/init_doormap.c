@@ -6,21 +6,11 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 15:52:39 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 09:20:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 09:59:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-int	get_door_type(char c)
-{
-	if (c == 'D')
-		return (DOOR_CLOSED);
-	else if (c == 'h')
-		return (HIDDEN_CLOSED);
-	else
-		return (HIDDEN_2_CLOSED);
-}
 
 void	set_door_map(t_data *data)
 {
@@ -37,10 +27,16 @@ void	set_door_map(t_data *data)
 		{
 			if (is_door_tile(data->level.map[i][j]))
 			{
-				data->level.doors[door_count][0] = i;
-				data->level.doors[door_count][1] = j;
-				data->level.doors[door_count][2] = get_door_type \
-					(data->level.map[i][j]);
+				data->doors[door_count].x = j;
+				data->doors[door_count].y = i;
+				data->doors[door_count].type = data->level.map[i][j];
+				data->doors[door_count].state = CLOSED;
+				data->doors[door_count].s_timer = 1.0;
+				data->doors[door_count].closing_timer = 0.0;
+				if (i > 0 && is_wall_tile(data->level.map[i - 1][j]))
+					data->doors[door_count].direction = EAST_WEST;
+				else
+					data->doors[door_count].direction = NORTH_SOUTH;
 				door_count++;
 			}
 			j++;
@@ -51,18 +47,8 @@ void	set_door_map(t_data *data)
 
 bool	init_door_map(t_data *data)
 {
-	int	i;
-
-	data->level.doors = ft_calloc(sizeof(int *), data->level.door_count);
-	if (data->level.doors == NULL)
+	data->doors = ft_calloc(sizeof(t_doors), data->level.door_count);
+	if (data->doors == NULL)
 		return (false);
-	i = 0;
-	while (i < data->level.door_count)
-	{
-		data->level.doors[i] = ft_calloc(sizeof(int), 4);
-		if (data->level.doors[i] == NULL)
-			return (false);
-		i++;
-	}
 	return (true);
 }

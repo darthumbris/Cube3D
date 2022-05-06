@@ -6,72 +6,75 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 15:34:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 14:55:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-uint8_t	*get_pixels(t_data *data, char c)
+static int	get_block_id(char c)
 {
-	if (!data->bonus)
-		return (data->mlx.tex.texarr[data->caster.side]->pixels);
-	else if (c == 'D')
-		return (data->mlx.tex.texarr[SPRITE_3]->pixels);
-	else if (c == 'h')
-		return (data->mlx.tex.texarr[SPRITE_6]->pixels);
+	if (c == 'D')
+		return (DOOR_SPRITE);
+	if (c == 'h')
+		return (HIDDEN);
+	if (c == 'H')
+		return (HIDDEN_2);
 	else
-		return (data->mlx.tex.texarr[c - '1' + WALL_1]->pixels);
+		return (c - '1' + WALL_1);
 }
 
-int	get_width(t_data *data, char c)
+mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
 {
-	if (!data->bonus)
-		return (data->mlx.tex.texarr[data->caster.side]->width);
-	else if (c == 'D')
-		return (data->mlx.tex.texarr[SPRITE_3]->width);
-	else if (c == 'h')
-		return (data->mlx.tex.texarr[SPRITE_6]->width);
+	int				block_id;
+
+	if (data->caster.door_hit)
+		block_id = get_block_id(data->level.map[data->caster.door->y][data->caster.door->x]);
 	else
-		return (data->mlx.tex.texarr[c - '1' + WALL_1]->width);
+		block_id = get_block_id(data->level.map[(int)pos.y][(int)pos.x]);
+	if (data->caster.side == 0)
+	{
+		if (block_id == DOOR_SPRITE)
+		{
+			if (data->caster.door->direction == EAST_WEST)
+				return (data->mlx.tex.texarr[DOOR_SPRITE]);
+			return (data->mlx.door_frame);
+		}
+		if (data->caster.dir == EAST)
+			return (data->mlx.tex.texarr[block_id]);
+		return (data->mlx.tex.texarr[block_id]);
+	}
+	else
+	{
+		if (block_id == DOOR_SPRITE)
+		{
+			if (data->caster.door->direction == EAST_WEST)
+				return (data->mlx.door_frame);
+			return (data->mlx.tex.texarr[DOOR_SPRITE]);
+		}
+		if (data->caster.dir == SOUTH)
+			return (data->mlx.tex.texarr[block_id]);
+		return (data->mlx.tex.texarr[block_id]);
+	}
 }
 
-int	get_height(t_data *data, char c)
-{
-	if (!data->bonus)
-		return (data->mlx.tex.texarr[data->caster.side]->height);
-	else if (c == 'D')
-		return (data->mlx.tex.texarr[SPRITE_3]->height);
-	else if (c == 'h')
-		return (data->mlx.tex.texarr[SPRITE_6]->height);
-	else
-		return (data->mlx.tex.texarr[c - '1' + WALL_1]->height);
-}
-
-void	draw_walls(t_data *data)
+void	draw_walls(t_data *data, int x, mlx_texture_t *texture)
 {
 	int				y;
 	uint8_t			*pix[2];
-	const char		c = data->level.map[data->caster.map_pos.y] \
-		[data->caster.map_pos.x];
-	const int		width = get_width(data, c);
-	const double	step = (get_height(data, c) / \
-		(double)data->caster.line_height);
+	const int		max = data->mlx.mlx_handle->height - \
+	data->mlx.tex.texarr[HUD_MAIN]->height * data->hud.scale;
 
 	y = data->caster.draw_start;
-	data->caster.tex_x = (int)(data->caster.wall_x * \
-		(double)(width - 1));
-	data->caster.tex_y = (y - data->floor.halve_height + \
-		(data->caster.line_height >> 1)) * step;
-	pix[0] = get_pixels(data, data->level.map[data->caster.map_pos.y] \
-		[data->caster.map_pos.x]);
-	pix[1] = data->mlx.fg->pixels + ((y * data->floor.width4) + data->floor.x4);
-	while (y < data->caster.draw_end && y < data->mlx.mlx_handle->height - 40 * data->hud.scale)
+	pix[0] = texture->pixels;
+	pix[1] = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
+	while (y < data->caster.draw_end && y < max)
 	{
+		data->caster.tex.y = (int)data->caster.tex_pos % texture->height;
+		data->caster.tex_pos += data->caster.step_y;
 		*(uint32_t *)pix[1] = (*(int *)(pix[0] + \
-		(((int)data->caster.tex_y * width + data->caster.tex_x) << 2)));
+		((data->caster.tex.y * texture->width + data->caster.tex.x) * 4)));
 		pix[1] += data->floor.width4;
-		data->caster.tex_y += step;
-		y++;
+		++y;
 	}
 }

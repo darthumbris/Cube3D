@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/04 10:24:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/06 15:55:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "sprites.h"
 # include <stdio.h>
 
-# define SCREEN_HEIGHT	480
-# define SCREEN_WIDTH	720
+# define SCREEN_HEIGHT	720
+# define SCREEN_WIDTH	1280
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	4
 # define FOV			70
@@ -51,6 +51,40 @@
 # define AMMO_DIGIT_1_POS	224
 # define FACES_POS			134
 # define MINIMAP_POS		71
+
+typedef struct s_segment
+{
+	t_vector_double	p_0;
+	t_vector_double	p_1;
+}		t_segment;
+
+typedef struct s_line
+{
+	double	a;
+	double	b;
+	double	c;
+}	t_line;
+
+typedef struct s_segment_intersect
+{
+	t_segment	s1;
+	t_segment	s2;
+	t_segment	s3;
+	t_segment	ray;
+	t_line		l1;
+	t_line		l2;
+}			t_intersect;
+
+typedef struct s_doors
+{
+	int		x;
+	int		y;
+	int		state;
+	double	s_timer;
+	double	closing_timer;
+	char	type;
+	int		direction;
+}		t_doors;
 
 typedef struct s_player
 {
@@ -80,6 +114,7 @@ typedef struct s_mlx
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
+	mlx_texture_t	*door_frame;
 	double			inv_hud_scale;
 	double			minimap_scale;
 	int				minimap_zoom;
@@ -101,7 +136,6 @@ typedef struct s_level
 {
 	char			**unparsed;
 	char			**map;
-	int				**doors;
 	int				door_count;
 	int				map_w;
 	int				map_h;
@@ -160,23 +194,28 @@ typedef struct s_floor_raycaster
 typedef struct s_raycaster
 {
 	bool			hit;
-	bool			framedone;
-	t_vector_int	map_pos;
-	t_vector_double	ray_pos;
+	t_vector_double	map_pos;
 	t_vector_double	ray_dir;
 	t_vector_double	side_dist;
 	t_vector_double	delta_dist;
 	double			perp_wall_dist;
 	t_vector_int	step;
 	int				side;
+	int				dir;
 	int				line_height;
+	int				halve_line_height;
+	double			inv_line_height;
 	double			wall_x;
 	double			camera_x;
 	int				draw_start;
 	int				draw_end;
-	int				tex_x;
-	double			tex_y;
+	t_vector_int	tex;
 	int				ray_dist;
+	int				door_hit;
+	t_intersect		dcas;
+	double			step_y;
+	double			tex_pos;
+	t_doors			*door;
 }			t_raycaster;
 
 typedef struct s_config_data
@@ -208,17 +247,18 @@ typedef struct s_hud
 	t_vector_int	pos_map;
 }	t_hud;
 
-enum e_doors
+enum e_door_states
 {
-	DOOR_CLOSED = 1,
-	DOOR_OPENING = 2,
-	DOOR_OPEN = 3,
-	HIDDEN_CLOSED = 4,
-	HIDDEN_OPENING = 5,
-	HIDDEN_OPEN = 6,
-	HIDDEN_2_CLOSED = 7,
-	HIDDEN_2_OPENING = 8,
-	HIDDEN_2_OPEN = 9
+	CLOSED,
+	OPENING,
+	OPEN,
+	CLOSING
+};
+
+enum e_door_directions
+{
+	NORTH_SOUTH,
+	EAST_WEST
 };
 
 /**
@@ -247,6 +287,7 @@ typedef struct s_data
 	uint32_t			delay;
 	uint32_t			color;
 	t_hud				hud;
+	t_doors				*doors;
 }				t_data;
 
 /**
@@ -288,6 +329,9 @@ void	set_door_map(t_data *data);
 
 bool	is_nearby_door(t_data *data);
 bool	is_door_open(t_data *data, int y, int x);
+int		get_door(t_data *data, t_vector_int pos);
+t_doors	*get_door_struct(t_data *data, t_vector_int pos);
+double	get_floored(double f);
 
 /**
  * @brief Main function to handle the raycasting part for cubed
@@ -296,11 +340,16 @@ bool	is_door_open(t_data *data, int y, int x);
  */
 void	raycaster(t_data *data);
 
-void	check_wall_collision(t_data *data);
+void	check_wall_collision(t_data *data, t_raycaster *ray, \
+		t_vector_double *map);
 void	set_caster_variables(t_data *data, int x);
-void	set_step_direction(t_data *data);
-void	calculate_perpendicular_wall_distance(t_data *data);
-void	set_draw_values(t_data *data);
+void	set_step_direction(t_data *data, t_raycaster *ray);
+void	calculate_perpendicular_wall_distance(t_data *data, t_raycaster *ray);
+void	segment_to_line(t_segment *segm, t_line *line);
+bool	do_lines_intersect(t_line *m, t_line *n, t_vector_double *result);
+void	set_segment(t_vector_double *p, double x, double y);
+
+mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
 
 /**
  * @brief Simple function that fills half the screen with the ceiling color
@@ -312,7 +361,10 @@ void	draw_background(t_data *data);
 
 void	draw_floor_ceiling(t_data *data, int x);
 
-void	draw_walls(t_data *data);
+void	draw_walls(t_data *data, int x, mlx_texture_t *texture);
+//void	draw_walls(t_data *data, int x);
+bool	draw_door(t_data *data);
+void	extend_ray(t_data *data, t_raycaster *ray);
 
 void	draw_transparency(t_data *data, int x);
 
