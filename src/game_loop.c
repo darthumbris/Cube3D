@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 11:48:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 12:30:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_doors(t_data *data)
 	i = 0;
 	while (i < data->level.door_count)
 	{
-		if (data->doors[i].state == CLOSING && data->doors[i].type == 'D')
+		if (data->doors[i].state == CLOSING)
 		{
 			data->doors[i].s_timer += data->mlx.mlx_handle->delta_time;
 			if (data->doors[i].s_timer >= 1.0)
@@ -42,7 +42,7 @@ void	update_doors(t_data *data)
 				data->doors[i].state = CLOSED;
 			}
 		}
-		if (data->doors[i].state == OPENING && data->doors[i].type == 'D')
+		if (data->doors[i].state == OPENING)
 		{
 			data->doors[i].s_timer -= 0.03;
 			if (data->doors[i].s_timer <= 0.0)
@@ -52,7 +52,7 @@ void	update_doors(t_data *data)
 				data->doors[i].closing_timer = 0.0;
 			}
 		}
-		else if (data->doors[i].state == OPEN && data->doors[i].type == 'D')
+		else if (data->doors[i].state == OPEN)
 			attempt_close_door(data, i);
 		i++;
 	}

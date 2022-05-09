@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/04 15:51:47 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 11:45:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 12:11:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ static bool	secret_hit(t_data *dat, t_intersect *seg)
 
 void	extend_ray(t_data *data, t_raycaster *ray)
 {
-	if (data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x] == 'D')
+	if (is_door_tile(data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x]))
 	{
 		ray->door = get_door_struct
 			(data, (t_vector_int){ray->map_pos.x, ray->map_pos.y});

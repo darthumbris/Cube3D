@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 11:31:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 12:34:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	get_block_id(char c)
 {
 	if (c == 'D')
 		return (DOOR_WALL_1);
+	else if (c == 'd')
+		return (DOOR_WALL_2);
 	else if (c == '<')
 		return (HIDDEN_WALL_1);
 	else if (c == '{')
@@ -24,8 +26,14 @@ static int	get_block_id(char c)
 		return (HIDDEN_WALL_3);
 	else if (c == '_')
 		return (HIDDEN_WALL_4);
-	else
+	else if (ft_isdigit(c))
 		return (c - '1' + WALL_1);
+	else if (c == '*')
+		return (FINISH_WALL);
+	else if (c == '-')
+		return (WALL_10);
+	else
+		return (WALL_1);
 }
 
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
@@ -41,21 +49,21 @@ mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
 	data->caster.secret = NULL;
 	if (data->caster.side == 0)
 	{
-		if (block_id == DOOR_WALL_1)
+		if (block_id == DOOR_WALL_1 || block_id == DOOR_WALL_2)
 		{
 			if (data->caster.door->direction == EAST_WEST)
-				return (data->mlx.tex.texarr[DOOR_WALL_1]);
+				return (data->mlx.tex.texarr[block_id]);
 			return (data->mlx.door_frame);
 		}
 		return (data->mlx.tex.texarr[block_id]);
 	}
 	else
 	{
-		if (block_id == DOOR_WALL_1)
+		if (block_id == DOOR_WALL_1 || block_id == DOOR_WALL_2)
 		{
 			if (data->caster.door->direction == EAST_WEST)
 				return (data->mlx.door_frame);
-			return (data->mlx.tex.texarr[DOOR_WALL_1]);
+			return (data->mlx.tex.texarr[block_id]);
 		}
 		return (data->mlx.tex.texarr[block_id]);
 	}
