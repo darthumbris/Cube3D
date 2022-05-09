@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 17:31:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 11:48:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,49 @@ void	update_doors(t_data *data)
 	}
 }
 
+void	set_new_secret_pos(t_data *data, int i)
+{
+	const int	x = data->secrets[i].x;
+	const int	y = data->secrets[i].y;
+
+	if (data->secrets[i].direction == S_WEST)
+	{
+		if (data->secrets[i].type == '<')
+			data->level.map[y][x - 2] = '8';
+		else
+			data->level.map[y][x - 2] = '2';
+	}
+	else if (data->secrets[i].direction == S_EAST)
+	{
+		data->level.map[y][x + 2] = '1';
+	}
+	else if (data->secrets[i].direction == S_NORTH)
+	{
+		data->level.map[y - 2][x] = '5';
+	}
+	else if (data->secrets[i].direction == S_SOUTH)
+	{
+		data->level.map[y + 2][x] = '2';
+	}
+	data->level.map[y][x] = '0';
+}
+
 void	update_secret_walls(t_data *data)
 {
 	int				i;
 
 	i = 0;
-	while (i < data->level.door_count)
+	while (i < data->level.secret_count)
 	{
-		if ((data->doors[i].type == 'h' || data->doors[i].type == 'H') && \
-			data->doors[i].state == OPENING)
+		if ((is_secret_tile(data->secrets[i].type)) && \
+			data->secrets[i].state == OPENING)
 		{
-			data->doors[i].s_timer += data->mlx.mlx_handle->delta_time;
-			if (data->doors[i].s_timer >= 1.0)
+			data->secrets[i].s_timer += data->mlx.mlx_handle->delta_time;
+			if (data->secrets[i].s_timer >= 2.0)
 			{
-				data->doors[i].s_timer = 1.0;
-				data->doors[i].state = OPEN;
+				data->secrets[i].s_timer = 2.0;
+				set_new_secret_pos(data, i);
+				data->secrets[i].state = OPEN;
 			}
 		}
 		i++;
@@ -179,8 +207,8 @@ void	game_loop(void *v_data)
 		move_camera_pos(data, -1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E) && is_nearby_door(data))
-		printf("ok\n");
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E))
+		is_nearby_door(data);
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
 	if (oldx == 0)
 		oldx = x;
@@ -192,7 +220,6 @@ void	game_loop(void *v_data)
 	raycaster(data);
 	if (data->bonus)
 	{
-
 		draw_sprites(data);
 		if (data->update_hud)
 		{

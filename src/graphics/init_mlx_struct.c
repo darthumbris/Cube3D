@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 09:30:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 10:19:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	init_textures(t_data *data)
 		if (data->level.paths.path[i])
 		{
 			data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
-			if (i == DOOR_SPRITE)
+			if (i == DOOR_WALL_1)
 				data->mlx.door_frame = mlx_load_png("assets/doorframe_128.png");
 		}
 		else

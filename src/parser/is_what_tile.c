@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:09:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 10:13:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ bool	is_empty_tile(char c)
 
 bool	is_door_tile(char c)
 {
-	return (c == 'D' || c == 'h' || c == 'H');
+	return (c == 'D');
 }

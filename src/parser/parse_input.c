@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:19:25 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/09 11:50:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,11 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
-static void	make_square_map(t_data *data, char **upmap, int w, int h)
+static void	make_square_map(t_data *data, char **upmap)
 {
-	int	i;
+	int			i;
+	const int	h = data->level.map_h;
+	const int	w = data->level.map_w;
 
 	i = 0;
 	data->level.map = (char **)malloc(sizeof(char *) * (h + 1));
@@ -103,7 +105,6 @@ static void	make_square_map(t_data *data, char **upmap, int w, int h)
 	}
 	data->level.map[i] = NULL;
 }
-
 
 bool	parse_input(char **argv, t_data *data)
 {
@@ -122,8 +123,7 @@ bool	parse_input(char **argv, t_data *data)
 	close(fd);
 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
 		return (false);
-	make_square_map(data, parse_map(upmap, data), \
-		data->level.map_w, data->level.map_h);
+	make_square_map(data, parse_map(upmap, data));
 	data->cam.pos = getplayerpos(data->level.map);
 	setplayerdir(data->level.map, data->cam.pos, data);
 	if (!data->level.map || \

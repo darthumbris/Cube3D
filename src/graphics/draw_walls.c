@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:56:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 11:31:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,15 @@
 static int	get_block_id(char c)
 {
 	if (c == 'D')
-		return (DOOR_SPRITE);
-	if (c == 'h')
-		return (HIDDEN);
-	if (c == 'H')
-		return (HIDDEN_2);
+		return (DOOR_WALL_1);
+	else if (c == '<')
+		return (HIDDEN_WALL_1);
+	else if (c == '{')
+		return (HIDDEN_WALL_2);
+	else if (c == '^')
+		return (HIDDEN_WALL_3);
+	else if (c == '_')
+		return (HIDDEN_WALL_4);
 	else
 		return (c - '1' + WALL_1);
 }
@@ -34,28 +38,25 @@ mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
 		block_id = get_block_id(data->level.map[data->caster.secret->y][data->caster.secret->x]);
 	else
 		block_id = get_block_id(data->level.map[(int)pos.y][(int)pos.x]);
+	data->caster.secret = NULL;
 	if (data->caster.side == 0)
 	{
-		if (block_id == DOOR_SPRITE)
+		if (block_id == DOOR_WALL_1)
 		{
 			if (data->caster.door->direction == EAST_WEST)
-				return (data->mlx.tex.texarr[DOOR_SPRITE]);
+				return (data->mlx.tex.texarr[DOOR_WALL_1]);
 			return (data->mlx.door_frame);
 		}
-		if (data->caster.dir == EAST)
-			return (data->mlx.tex.texarr[block_id]);
 		return (data->mlx.tex.texarr[block_id]);
 	}
 	else
 	{
-		if (block_id == DOOR_SPRITE)
+		if (block_id == DOOR_WALL_1)
 		{
 			if (data->caster.door->direction == EAST_WEST)
 				return (data->mlx.door_frame);
-			return (data->mlx.tex.texarr[DOOR_SPRITE]);
+			return (data->mlx.tex.texarr[DOOR_WALL_1]);
 		}
-		if (data->caster.dir == SOUTH)
-			return (data->mlx.tex.texarr[block_id]);
 		return (data->mlx.tex.texarr[block_id]);
 	}
 }

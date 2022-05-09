@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:31:34 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/09 10:21:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,31 +106,6 @@ static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 	}
 }
 
-//TODO make a sliding animation for opening and closing door
-void	check_for_door(t_data *data, t_sprite_lst *lst)
-{
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E) && \
-		lst->sprite_data.dist < 10)
-	{
-		data->level.map[(int)lst->sprite_data.map_pos.y] \
-		[(int)lst->sprite_data.map_pos.x] = '0';
-		lst->sprite_data.open = true;
-	}
-	else if (lst->sprite_data.open && lst->sprite_data.dist > 1.5)
-	{
-		if (lst->sprite_data.kind == DOOR_SPRITE)
-			data->level.map[(int)lst->sprite_data.map_pos.y] \
-			[(int)lst->sprite_data.map_pos.x] = 'D';
-		else if (lst->sprite_data.kind == HIDDEN)
-			data->level.map[(int)lst->sprite_data.map_pos.y] \
-			[(int)lst->sprite_data.map_pos.x] = 'h';
-		else
-			data->level.map[(int)lst->sprite_data.map_pos.y] \
-			[(int)lst->sprite_data.map_pos.x] = 'H';
-		lst->sprite_data.open = false;
-	}
-}
-
 void	draw_sprites(t_data *data)
 {
 	t_sprite_lst	*lst;
@@ -148,10 +123,6 @@ void	draw_sprites(t_data *data)
 			set_draw_start_end(data);
 			draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
 		}
-		// else if (lst->sprite_data.kind == DOOR_SPRITE || \
-		// 	lst->sprite_data.kind == HIDDEN || \
-		// 	lst->sprite_data.kind == HIDDEN_2)
-		// 	check_for_door(data, lst);
 		lst = lst->next;
 	}
 }
