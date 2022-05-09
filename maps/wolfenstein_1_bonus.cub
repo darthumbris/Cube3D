@@ -53,6 +53,7 @@ I8 ./assets/treasure2.png
 HU ./assets/hud/hud_transparent.png
 HN ./assets/hud/numbers.png
 FH ./assets/hud/hud_faces.png
+DF ./assets/doorframe_128.png
 
 F 84,84,84
 C 42,42,42

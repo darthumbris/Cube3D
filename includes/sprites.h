@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 12:25:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:40:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef enum e_textures
 	HIDDEN_WALL_4,
 	DOOR_WALL_1,
 	DOOR_WALL_2,
+	DOOR_FRAME,
 	SPRITE_0,
 	SPRITE_1,
 	SPRITE_2,
