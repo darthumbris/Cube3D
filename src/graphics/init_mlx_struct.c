@@ -6,12 +6,11 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 10:19:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 14:38:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-#include <stdio.h>
 
 //temp for now
 static bool	init_sprites(t_data *data)
@@ -23,7 +22,10 @@ static bool	init_sprites(t_data *data)
 	data->sprite_lst = new_sprite(data->sprite[0]);
 	i = 1;
 	while (i < data->level.number_of_sprites)
-		data->sprite_lst = add_sprite(&(data->sprite_lst), data->sprite[i++]);
+	{
+		add_sprite(&(data->sprite_lst), data->sprite[i]);
+		i++;
+	}
 	sort_sprites(data, &data->sprite_lst);
 	return (check_needed_textures_loaded(data));
 }

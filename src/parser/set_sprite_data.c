@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 16:10:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 14:38:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	sprite->transp_end = get_transparency_end(sprite->kind, data);
 }
 
-//TODO remove doors and hidden walls from sprites and put them in their own thing?
 void	set_sprite_positions(char **map, t_data *data)
 {
 	int	i;
@@ -72,8 +71,10 @@ void	set_sprite_positions(char **map, t_data *data)
 		while (map[i][j])
 		{
 			if (is_sprite_tile(map[i][j]))
+			{
 				set_sprite_data(&data->sprite[sprite_cnt++], \
 					(t_vector_int){.x = i, .y = j}, map, data);
+			}
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 10:21:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 14:06:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	draw_sprites(t_data *data)
 	path_find(data);
 	while (lst)
 	{
-		if (lst->sprite_data.dist < RENDER_DIST_S) //TODO: just use floodfill to check current room bounds and only do those sprites
+		if (lst->sprite_data.dist < RENDER_DIST_S && lst->sprite_data.kind) //TODO: just use floodfill to check current room bounds and only do those sprites
 		{
 			set_sprite_variables(data, lst);
 			set_draw_start_end(data);

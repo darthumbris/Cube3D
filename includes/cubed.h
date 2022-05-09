@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 11:48:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 13:43:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
+# define PICKUP_DIST	0.7
 
 # define VIEW_LINE_COLOUR 0xD7FFFFFF
 # define WALL_COLOUR 0xD8D8FCFF
@@ -421,6 +422,11 @@ t_vector_int wh, unsigned int c);
  * @param data 
  */
 void	game_loop(void *data);
+
+void	update_doors(t_data *data, int i);
+void	update_secret_walls(t_data *data);
+void	update_objects(t_data *data);
+void	update_items(t_data *data);
 
 /**
  * @brief leftkey / rightkey movement
