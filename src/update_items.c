@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 14:37:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 14:42:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	treasure_item(t_data *data, t_sprite_lst *item)
 	//Need to remove the item from the list.
 }
 
+//TODO make sure to delete the item from the itemlist after pickup
 void	update_items(t_data *data)
 {
 	t_sprite_lst	*lst;

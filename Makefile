@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/09 14:01:38 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/09 14:44:36 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ SRC =	main.c \
 		parser/set_sprite_data.c \
 		parser/special_tiles.c \
 		parser/parse_config.c \
-		parser/check_needed_textures_loaded.c \
+		parser/check_textures.c \
 		parser/init_doormap.c \
 		
 
