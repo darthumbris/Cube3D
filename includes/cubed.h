@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 13:43:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:30:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,8 @@ enum e_door_states
 	CLOSED,
 	OPENING,
 	OPEN,
-	CLOSING
+	CLOSING,
+	PERMA_CLOSED
 };
 
 enum	e_secret_states
@@ -424,6 +425,7 @@ t_vector_int wh, unsigned int c);
 void	game_loop(void *data);
 
 void	update_doors(t_data *data, int i);
+int		get_distance(t_vector_int door_pos, t_vector_double player);
 void	update_secret_walls(t_data *data);
 void	update_objects(t_data *data);
 void	update_items(t_data *data);

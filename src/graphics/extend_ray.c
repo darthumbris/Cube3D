@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/04 15:51:47 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 12:11:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:29:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,13 @@ void	extend_ray(t_data *data, t_raycaster *ray)
 		if (door_hit(ray, &ray->dcas))
 			return ;
 	}
-	else if (is_secret_tile(data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x]))
+	else if (is_secret_tile(data->level.map[(int)ray->map_pos.y] \
+		[(int)ray->map_pos.x]))
 	{
 		ray->secret = get_secret(data, \
 		(t_vector_int){ray->map_pos.x, ray->map_pos.y});
-		init_secret_segments(data, &data->caster, &data->caster.dcas, data->caster.map_pos);
+		init_secret_segments(data, &data->caster, &data->caster.dcas, \
+			data->caster.map_pos);
 		if (secret_hit(data, &data->caster.dcas))
 			return ;
 	}

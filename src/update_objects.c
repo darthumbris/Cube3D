@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:25:12 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 14:01:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:29:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,19 @@ static void	attempt_close_door(t_data *data, int i)
 	if (data->doors[i].closing_timer >= 5.0)
 	{
 		data->doors[i].state = CLOSED;
-		if (is_nearby_door(data))
+		if (get_distance((t_vector_int) \
+		{data->doors[i].x, data->doors[i].y}, data->cam.pos) < 1)
 			data->doors[i].state = OPEN;
 		else
 			data->doors[i].state = CLOSING;
 	}
+}
+
+static void	check_perma_closed(t_data *data, int i)
+{
+	if (is_finish_tile(data->level.map[(int)data->cam.pos.y] \
+		[(int)data->cam.pos.x]))
+		data->doors[i].state = PERMA_CLOSED;
 }
 
 void	update_doors(t_data *data, int i)
@@ -37,6 +45,7 @@ void	update_doors(t_data *data, int i)
 			{
 				data->doors[i].s_timer = 1.0;
 				data->doors[i].state = CLOSED;
+				check_perma_closed(data, i);
 			}
 		}
 		if (data->doors[i].state == OPENING)

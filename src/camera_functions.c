@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:33:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 13:34:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:18:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,40 @@ void	change_camera_angle(t_data *data, double dir)
 		sin_rotate + data->cam.plane.y * cos_rotate;
 }
 
+void	get_new_pos(t_data *data, t_vector_int *pos, \
+	t_vector_double temp, bool strafe)
+{
+	if (strafe)
+	{
+		pos->y = (int)(data->cam.pos.y + temp.x);
+		pos->x = (int)(data->cam.pos.x - temp.y);
+	}
+	else
+	{
+		pos->x = (int)(data->cam.pos.x + temp.x);
+		pos->y = (int)(data->cam.pos.y + temp.y);
+	}
+}
+
 void	move_camera_pos(t_data *data, int dir, bool strafe)
 {
 	const double	move_speed = dir * MOVE_SPEED * \
 		data->mlx.mlx_handle->delta_time;
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
+	t_vector_int	pos;
 
-	if (!strafe && (data->level.map[(int)(data->cam.pos.y + temp_dir_y)] \
-		[(int)(data->cam.pos.x + temp_dir_x)] == '0' || \
-		is_door_open(data, (int)(data->cam.pos.y + temp_dir_y), \
-							(int)(data->cam.pos.x + temp_dir_x))))
+	get_new_pos(data, &pos, (t_vector_double){temp_dir_x, temp_dir_y}, strafe);
+	if (!strafe && (data->level.map[pos.y][pos.x] == '0' || \
+		is_door_open(data, pos.y, pos.x) || \
+		data->level.map[pos.y][pos.x] == '?'))
 	{
 		data->cam.pos.x += temp_dir_x;
 		data->cam.pos.y += temp_dir_y;
 	}
-	else if (strafe && (data->level.map[(int)(data->cam.pos.y + temp_dir_x)] \
-		[(int)(data->cam.pos.x - temp_dir_y)] == '0' || \
-		is_door_open(data, (int)(data->cam.pos.y + temp_dir_x), \
-							(int)(data->cam.pos.x - temp_dir_y))))
+	else if (strafe && (data->level.map[pos.y][pos.x] == '0' || \
+		is_door_open(data, pos.y, pos.x) || \
+		data->level.map[pos.y][pos.x] == '?'))
 	{
 		data->cam.pos.x -= temp_dir_y;
 		data->cam.pos.y += temp_dir_x;
