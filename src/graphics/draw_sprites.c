@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 14:06:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:31:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,14 @@ static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 void	draw_sprites(t_data *data)
 {
 	t_sprite_lst	*lst;
+	int				i;
 
 	data->spr_cast.inverse_determinant = 1.0 / \
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
 	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
 	path_find(data);
+	i = 0;
 	while (lst)
 	{
 		if (lst->sprite_data.dist < RENDER_DIST_S && lst->sprite_data.kind) //TODO: just use floodfill to check current room bounds and only do those sprites
@@ -123,6 +125,7 @@ void	draw_sprites(t_data *data)
 			set_draw_start_end(data);
 			draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
 		}
+		i++;
 		lst = lst->next;
 	}
 }

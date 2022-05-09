@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 15:40:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:10:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef enum e_textures
 	HIDDEN_WALL_4,
 	DOOR_WALL_1,
 	DOOR_WALL_2,
-	DOOR_FRAME,
 	SPRITE_0,
 	SPRITE_1,
 	SPRITE_2,
@@ -59,6 +58,9 @@ typedef enum e_textures
 	SPRITE_15,
 	SPRITE_16,
 	SPRITE_17,
+	SPRITE_18,
+	SPRITE_19,
+	SPRITE_20,
 	ITEM_0,
 	ITEM_1,
 	ITEM_2,
@@ -68,6 +70,7 @@ typedef enum e_textures
 	ITEM_6,
 	ITEM_7,
 	ITEM_8,
+	DOOR_FRAME,
 	HUD_MAIN,
 	HUD_NUMBERS,
 	HUD_FACES
@@ -92,7 +95,10 @@ typedef enum e_sprites
 	TREE = SPRITE_14,
 	GREEN_BARREL = SPRITE_15,
 	POT = SPRITE_16,
-	FLAG = SPRITE_17
+	FLAG = SPRITE_17,
+	BONES_2 = SPRITE_18,
+	DEAD_GUARD = SPRITE_19,
+	PUDDLE = SPRITE_20
 }	t_sprite_enum;
 
 typedef enum e_items

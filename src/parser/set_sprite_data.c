@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 15:53:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:01:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	sprite->map_pos.x = pos.x + 0.5;
 	sprite->map_pos.y = pos.y + 0.5;
 	sprite->kind = get_sprite_kind(map[pos.y][pos.x], data);
-	if (is_nonblocking_kind(sprite->kind + 1))
+	if (is_nonblocking_kind(sprite->kind))
 		map[pos.y][pos.x] = '0';
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
 	sprite->transp_end = get_transparency_end(sprite->kind, data);

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 15:41:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:52:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,8 @@ static int	get_block_id(char c)
 		return (WALL_1);
 }
 
-mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
+static mlx_texture_t	*select_correct_side(t_data *data, int block_id)
 {
-	int				block_id;
-
-	if (data->caster.door_hit)
-		block_id = get_block_id(data->level.map[data->caster.door->y][data->caster.door->x]);
-	else if (data->caster.secret_hit)
-		block_id = get_block_id(data->level.map[data->caster.secret->y][data->caster.secret->x]);
-	else
-		block_id = get_block_id(data->level.map[(int)pos.y][(int)pos.x]);
-	data->caster.secret = NULL;
 	if (data->caster.side == 0)
 	{
 		if (block_id == DOOR_WALL_1 || block_id == DOOR_WALL_2)
@@ -69,13 +60,33 @@ mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
 	}
 }
 
+mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
+{
+	int				block_id;
+
+	if (!data->bonus)
+		block_id = data->caster.dir;
+	else if (data->caster.door_hit)
+		block_id = get_block_id(data->level.map[data->caster.door->y] \
+								[data->caster.door->x]);
+	else if (data->caster.secret_hit)
+		block_id = get_block_id(data->level.map[data->caster.secret->y] \
+								[data->caster.secret->x]);
+	else
+		block_id = get_block_id(data->level.map[(int)pos.y][(int)pos.x]);
+	return (select_correct_side(data, block_id));
+}
+
 void	draw_walls(t_data *data, int x, mlx_texture_t *texture)
 {
 	int				y;
 	uint8_t			*pix[2];
-	const int		max = data->mlx.mlx_handle->height - \
-	data->mlx.tex.texarr[HUD_MAIN]->height * data->hud.scale;
+	int				max;
 
+	max = data->mlx.mlx_handle->height;
+	if (data->bonus)
+		max = data->mlx.mlx_handle->height - \
+		data->mlx.tex.texarr[HUD_MAIN]->height * data->hud.scale;
 	y = data->caster.draw_start;
 	pix[0] = texture->pixels;
 	pix[1] = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
