@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/03 09:51:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:43:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ bool	mapjmptable(char *line, t_data *data)
 		return (store_path(line, data, HUD_NUMBERS), true);
 	else if (ft_strncmp(line, "FH", 2) == 0)
 		return (store_path(line, data, HUD_FACES), true);
+	else if (ft_strncmp(line, "DF", 2) == 0)
+		return (store_path(line, data, DOOR_FRAME), true);
 	return (false);
 }
 

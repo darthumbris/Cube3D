@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   check_needed_textures_loaded.c                     :+:    :+:            */
+/*   check_textures.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/03 10:12:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:42:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static bool	check_bonus_textures(t_data *data)
 {
 	if (data->bonus && (data->mlx.tex.texarr[HUD_MAIN] == NULL || \
 		data->mlx.tex.texarr[HUD_NUMBERS] == NULL || \
-		data->mlx.tex.texarr[HUD_FACES] == NULL))
+		data->mlx.tex.texarr[HUD_FACES] == NULL || \
+		data->mlx.tex.texarr[DOOR_FRAME] == NULL))
 	{
 		printf("error here?\n");
 		return (false);

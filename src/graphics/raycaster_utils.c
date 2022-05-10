@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:58:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 11:48:12 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ void	check_wall_collision(t_data *data, t_raycaster *ray, \
 			ray->side = 1;
 		}
 		set_direction(ray);
-		if (is_wall_tile(data->level.map[(int)map->y][(int)map->x]) || \
-			is_door_tile(data->level.map[(int)map->y][(int)map->x]))
+		if (is_wall_kind_tile(data->level.map[(int)map->y][(int)map->x]))
 		{
 			ray->hit = true;
 			ray->door_hit = 0;
 			ray->secret_hit = 0;
-			if (is_door_tile(data->level.map[(int)map->y][(int)map->x]))
+			if (is_door_tile(data->level.map[(int)map->y][(int)map->x]) || \
+			is_secret_tile(data->level.map[(int)map->y][(int)map->x]))
 				extend_ray(data, ray);
 		}
 	}
@@ -121,4 +121,6 @@ void	calculate_perpendicular_wall_distance(t_data *data, t_raycaster *ray)
 	ray->draw_end = (ray->halve_line_height) + data->floor.halve_height;
 	if (ray->draw_end >= data->mlx.mlx_handle->height)
 		ray->draw_end = data->mlx.mlx_handle->height - 1;
+	if (ray->draw_end < 0)
+		ray->draw_end = 0;
 }

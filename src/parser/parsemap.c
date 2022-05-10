@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:20:41 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/09 10:39:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 {
 	int	i;
 	int	j;
+
 	i = -1;
 	while (upmap[++i])
 	{
@@ -76,6 +77,8 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 				data->level.number_of_sprites++;
 			else if (is_door_tile(upmap[i][j]))
 				data->level.door_count++;
+			else if (is_secret_tile(upmap[i][j]))
+				data->level.secret_count++;
 		}
 	}
 	return (false);
@@ -84,10 +87,8 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 char	**parse_map(char **upmap, t_data *data)
 {
 	int	count;
-	int	sprites;
 
 	count = 0;
-	sprites = 0;
 	if (!upmap || !*upmap)
 		return (NULL);
 	while (*upmap && ft_isalpha(*(*upmap)))

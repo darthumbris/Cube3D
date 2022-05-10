@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:08:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:44:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv)
 	data.number_of_textures = HUD_FACES;
 	data.level.number_of_sprites = 0;
 	data.level.door_count = 0;
+	data.level.secret_count = 0;
 	if (argc != 2 || !parse_config(&data) || !parse_input(argv, &data) || \
 		!init_mlx(&data))
 	{
@@ -56,7 +57,8 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	set_door_map(&data);
+	init_doors(&data);
+	init_secrets(&data);
 	draw_background(&data);
 	raycaster(&data);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);

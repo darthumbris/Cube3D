@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:31:34 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:31:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,52 +106,26 @@ static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 	}
 }
 
-//TODO make a sliding animation for opening and closing door
-void	check_for_door(t_data *data, t_sprite_lst *lst)
-{
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E) && \
-		lst->sprite_data.dist < 10)
-	{
-		data->level.map[(int)lst->sprite_data.map_pos.y] \
-		[(int)lst->sprite_data.map_pos.x] = '0';
-		lst->sprite_data.open = true;
-	}
-	else if (lst->sprite_data.open && lst->sprite_data.dist > 1.5)
-	{
-		if (lst->sprite_data.kind == DOOR_SPRITE)
-			data->level.map[(int)lst->sprite_data.map_pos.y] \
-			[(int)lst->sprite_data.map_pos.x] = 'D';
-		else if (lst->sprite_data.kind == HIDDEN)
-			data->level.map[(int)lst->sprite_data.map_pos.y] \
-			[(int)lst->sprite_data.map_pos.x] = 'h';
-		else
-			data->level.map[(int)lst->sprite_data.map_pos.y] \
-			[(int)lst->sprite_data.map_pos.x] = 'H';
-		lst->sprite_data.open = false;
-	}
-}
-
 void	draw_sprites(t_data *data)
 {
 	t_sprite_lst	*lst;
+	int				i;
 
 	data->spr_cast.inverse_determinant = 1.0 / \
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
 	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
 	path_find(data);
+	i = 0;
 	while (lst)
 	{
-		if (lst->sprite_data.dist < RENDER_DIST_S) //TODO: just use floodfill to check current room bounds and only do those sprites
+		if (lst->sprite_data.dist < RENDER_DIST_S && lst->sprite_data.kind) //TODO: just use floodfill to check current room bounds and only do those sprites
 		{
 			set_sprite_variables(data, lst);
 			set_draw_start_end(data);
 			draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
 		}
-		// else if (lst->sprite_data.kind == DOOR_SPRITE || \
-		// 	lst->sprite_data.kind == HIDDEN || \
-		// 	lst->sprite_data.kind == HIDDEN_2)
-		// 	check_for_door(data, lst);
+		i++;
 		lst = lst->next;
 	}
 }

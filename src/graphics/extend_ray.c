@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/04 15:51:47 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 17:30:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 15:29:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,22 @@ static bool	door_hit(t_raycaster *r, t_intersect *seg)
 static void	init_secret_segments(t_data *data, t_raycaster *r, \
 			t_intersect *door, t_vector_double map)
 {
-	if (r->door->direction == NORTH)
+	if (r->secret->direction == S_NORTH)
 	{
 		set_segment(&door->s1.p_0, map.x, map.y + 1 - r->secret->s_timer);
 		set_segment(&door->s1.p_1, map.x + 1, map.y + 1 - r->secret->s_timer);
 	}
-	else if (r->door->direction == SOUTH)
+	else if (r->secret->direction == S_SOUTH)
 	{
 		set_segment(&door->s1.p_0, map.x, map.y + r->secret->s_timer);
 		set_segment(&door->s1.p_1, map.x + 1, map.y + r->secret->s_timer);
 	}
-	else if (r->door->direction == EAST)
+	else if (r->secret->direction == S_EAST)
 	{
 		set_segment(&door->s1.p_0, map.x + r->secret->s_timer, map.y);
 		set_segment(&door->s1.p_1, map.x + r->secret->s_timer, map.y + 1);
 	}
-	else if (r->door->direction == WEST)
+	else if (r->secret->direction == S_WEST)
 	{
 		set_segment(&door->s1.p_0, map.x + 1 - r->secret->s_timer, map.y);
 		set_segment(&door->s1.p_1, map.x + 1 - r->secret->s_timer, map.y + 1);
@@ -121,21 +121,20 @@ static bool	secret_hit(t_data *dat, t_intersect *seg)
 	segment_to_line(&seg->ray, &seg->l1);
 	segment_to_line(&seg->s1, &seg->l2);
 	if (do_lines_intersect(&seg->l1, &seg->l2, &res) && \
-		(((dat->caster.secret->direction == SOUTH || \
-			dat->caster.secret->direction == NORTH) && \
+		(((dat->caster.secret->direction == S_SOUTH || \
+			dat->caster.secret->direction == S_NORTH) && \
 		res.x >= seg->s1.p_0.x && res.x <= seg->s1.p_1.x) || \
-		(((dat->caster.secret->direction == EAST || \
-			dat->caster.secret->direction == WEST)) && \
+		(((dat->caster.secret->direction == S_EAST || \
+			dat->caster.secret->direction == S_WEST)) && \
 		res.y >= seg->s1.p_0.y && res.y <= seg->s1.p_1.y)))
 	{
 		dat->caster.secret_hit = 1;
 		set_new_map_pos(&dat->caster.map_pos, dat->caster.ray_dir, res);
-		if (dat->caster.secret->direction == SOUTH || \
-			dat->caster.secret->direction == NORTH)
+		if (dat->caster.secret->direction == S_SOUTH || \
+			dat->caster.secret->direction == S_NORTH)
 			dat->caster.side = 1;
 		else
 			dat->caster.side = 0;
-		printf("dir: %d\n", dat->caster.secret->direction);
 		return (true);
 	}
 	return (false);
@@ -143,7 +142,7 @@ static bool	secret_hit(t_data *dat, t_intersect *seg)
 
 void	extend_ray(t_data *data, t_raycaster *ray)
 {
-	if (data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x] == 'D')
+	if (is_door_tile(data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x]))
 	{
 		ray->door = get_door_struct
 			(data, (t_vector_int){ray->map_pos.x, ray->map_pos.y});
@@ -151,12 +150,13 @@ void	extend_ray(t_data *data, t_raycaster *ray)
 		if (door_hit(ray, &ray->dcas))
 			return ;
 	}
-	else if (data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x] == 'h' \
-		|| data->level.map[(int)ray->map_pos.y][(int)ray->map_pos.x] == 'H')
+	else if (is_secret_tile(data->level.map[(int)ray->map_pos.y] \
+		[(int)ray->map_pos.x]))
 	{
-		ray->secret = get_door_struct(data, \
+		ray->secret = get_secret(data, \
 		(t_vector_int){ray->map_pos.x, ray->map_pos.y});
-		init_secret_segments(data, &data->caster, &data->caster.dcas, data->caster.map_pos);
+		init_secret_segments(data, &data->caster, &data->caster.dcas, \
+			data->caster.map_pos);
 		if (secret_hit(data, &data->caster.dcas))
 			return ;
 	}

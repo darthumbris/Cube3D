@@ -14,12 +14,19 @@ W6 ./assets/greystone_special2_128.png
 W7 ./assets/greystone_special3_128.png
 W8 ./assets/wood_special1_128.png
 W9 ./assets/wood_special2_128.png
+WA ./assets/end_room_128.png
+H1 ./assets/wood_special1_128.png
+H2 ./assets/greystone_128.png
+H3 ./assets/greystone_special1_128.png
+H4 ./assets/greystone_128.png
+D1 ./assets/door_128.png
+D2 ./assets/door_2_128.png
+F1 ./assets/elevator_down_128.png
 S0 ./assets/barrel_final.png
 S2 ./assets/lamp_final.png
-S3 ./assets/door_128.png
 S4 ./assets/bones_final.png
 S5 ./assets/guard_final.png
-S6 ./assets/greystone_special1.png
+S6 ./assets/greystone_special1_128.png
 S7 ./assets/dog_final.png
 S8 ./assets/table_final.png
 S9 ./assets/well_full_final.png
@@ -27,13 +34,15 @@ SA ./assets/well_empty_final.png
 SB ./assets/chandelier_final.png
 SC ./assets/plant_final.png
 SD ./assets/table_chairs_final.png
-SE ./assets/wood_special1.png
 SF ./assets/statue_final.png
 SG ./assets/lamp_standing_final.png
 SH ./assets/tree_final.png
 SI ./assets/barrel_green_final.png
 SJ ./assets/pot_final.png
 SK ./assets/flag_final.png
+SL ./assets/bones_2_final.png
+SM ./assets/dead_guard_final.png
+SN ./assets/puddle_final.png
 I0 ./assets/stimulant.png
 I1 ./assets/medkit.png
 I2 ./assets/soul.png
@@ -47,6 +56,7 @@ I8 ./assets/treasure2.png
 HU ./assets/hud/hud_transparent.png
 HN ./assets/hud/numbers.png
 FH ./assets/hud/hud_faces.png
+DF ./assets/doorframe_128.png
 
 F 84,84,84
 C 42,42,42
@@ -57,7 +67,7 @@ C 42,42,42
      2JJmk22     200000000003000000000003kkK3
      2JJmm02     20L0000L000D00000C0000GD0Gk8
      2JJm002     200000000003000000000003KKK3
-     22622h22622 2000222722290000000000093333
+     22622^22622 2000222722290000000000093333
      20kKg0gK002 20002      3000000000003
      70l000k0lG722000222    333833D338333
      200G0000002000G0002        30003
@@ -66,14 +76,14 @@ C 42,42,42
 222227mlG0000l0722262222        30003
 20FB22mm000000G2                30003
 20L0222622D22622           333333000333
-20002   20002              300HG00L00s3
+20002   20002              300<G00L00s3
 22D22   70L07              3J0333000333
 2000222220002              3JF3330003
 20L0200e20002              3jF3330003
 200000LG70L07              3333380L08
 2000200K20G02                   30003
 2000222222D22222               238D832               1111111111
-70L072G000000002          22227200000272222          1e0000BBB1
+70L072G000000002          22227200000272222          1e000$BBB1
 2000220p00000p07          2p0G00000000000p2          10000000B1
 20002200L000L002          600000000000000061111111111100000G001
 2000020000000002          2000000000000000010000000001000000001
@@ -89,19 +99,19 @@ C 42,42,42
 200000L070L07                   10001         100111010101I11
 20002e0020002                   10001         1000100000c0001
 20L0222220002                   10G01         1000D00000000c4
-20G0222220G02222272262222       10L01         10G010c00000001
-200000000000000002000007222     10001         111111010101011
-200000L000000L000D000G00222     10001             1111111111
-200000000000000002000007222     10L01
-222222222522222222h262222       10001
-        22700200h0F2       1111111D1111111
-        222002002022       1be001000100001
-        22700000222        10000D0L0D0b001
-          22h2222          100001000100001
-           2002            100001000100001
-           20i2            111111000111111
-           2222            100001000100001
-                           10E0bD0L0De00b1
+20G0222220G02222272226222       10L01         10G010c00000001
+2000000000000000020000007-2     10001         111111010101011
+200000L000000L000D000G00d?*     10001             1111111111
+2000000000000000020000007-2     10L01
+222222222252222222_226222       10001
+         2-700200{0F2      1111111D1111111
+         *?d002002022      1+e001000100001
+         2-700000222       10000D0L0D0+001
+           22_2222         100001000100001
+            2002           100001000100001
+            20i2           111111000111111
+            2222           100001000100001
+                           10E0&D0L0De00+1
                            100001000100001
                            111111000111111
                            100000000000001

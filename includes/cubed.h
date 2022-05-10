@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 17:31:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:24:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
+# define PICKUP_DIST	0.7
 
 # define VIEW_LINE_COLOUR 0xD7FFFFFF
 # define WALL_COLOUR 0xD8D8FCFF
@@ -87,6 +88,16 @@ typedef struct s_doors
 	int		direction;
 }		t_doors;
 
+typedef struct s_secrets
+{
+	int		x;
+	int		y;
+	int		state;
+	double	s_timer;
+	char	type;
+	int		direction;
+}				t_secrets;
+
 typedef struct s_player
 {
 	int		health;
@@ -115,7 +126,6 @@ typedef struct s_mlx
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
-	mlx_texture_t	*door_frame;
 	double			minimap_scale;
 	double			hud_scale;
 	int				minimap_zoom;
@@ -137,6 +147,7 @@ typedef struct s_level
 	char			**unparsed;
 	char			**map;
 	int				door_count;
+	int				secret_count;
 	int				map_w;
 	int				map_h;
 	t_tex_path		paths;
@@ -216,7 +227,7 @@ typedef struct s_raycaster
 	double			tex_pos;
 	t_doors			*door;
 	int				door_hit;
-	t_doors			*secret;
+	t_secrets		*secret;
 	int				secret_hit;
 }			t_raycaster;
 
@@ -254,7 +265,22 @@ enum e_door_states
 	CLOSED,
 	OPENING,
 	OPEN,
-	CLOSING
+	CLOSING,
+	PERMA_CLOSED
+};
+
+enum	e_secret_states
+{
+	ACTIVE,
+	INACTIVE
+};
+
+enum	e_secret_directions
+{
+	S_NORTH = 42,
+	S_WEST = 43,
+	S_EAST = 44,
+	S_SOUTH = 45
 };
 
 enum e_door_directions
@@ -290,6 +316,7 @@ typedef struct s_data
 	uint32_t			color;
 	t_hud				hud;
 	t_doors				*doors;
+	t_secrets			*secrets;
 }				t_data;
 
 /**
@@ -326,13 +353,15 @@ bool	check_needed_textures_loaded(t_data *data);
 bool	init_mlx(t_data *data);
 
 bool	init_door_map(t_data *data);
+void	init_secrets(t_data *data);
 
-void	set_door_map(t_data *data);
+void	init_doors(t_data *data);
 
 bool	is_nearby_door(t_data *data);
 bool	is_door_open(t_data *data, int y, int x);
 int		get_door(t_data *data, t_vector_int pos);
 t_doors	*get_door_struct(t_data *data, t_vector_int pos);
+t_secrets	*get_secret(t_data *data, t_vector_int pos);
 double	get_floored(double f);
 
 /**
@@ -394,6 +423,12 @@ t_vector_int wh, unsigned int c);
  */
 void	game_loop(void *data);
 
+void	update_doors(t_data *data, int i);
+int		get_distance(t_vector_int door_pos, t_vector_double player);
+void	update_secret_walls(t_data *data);
+void	update_objects(t_data *data);
+void	update_items(t_data *data);
+
 /**
  * @brief leftkey / rightkey movement
  * 
@@ -433,6 +468,8 @@ bool	is_wall_tile(char c);
 bool	is_empty_tile(char c);
 bool	is_door_tile(char c);
 bool	is_finish_tile(char c);
+bool	is_secret_tile(char c);
+bool	is_wall_kind_tile(char c);
 bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 

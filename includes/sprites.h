@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:19:46 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/09 16:10:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ typedef enum e_textures
 	WALL_7,
 	WALL_8,
 	WALL_9,
+	WALL_10,
+	FINISH_WALL,
+	HIDDEN_WALL_1,
+	HIDDEN_WALL_2,
+	HIDDEN_WALL_3,
+	HIDDEN_WALL_4,
+	DOOR_WALL_1,
+	DOOR_WALL_2,
 	SPRITE_0,
 	SPRITE_1,
 	SPRITE_2,
@@ -62,6 +70,7 @@ typedef enum e_textures
 	ITEM_6,
 	ITEM_7,
 	ITEM_8,
+	DOOR_FRAME,
 	HUD_MAIN,
 	HUD_NUMBERS,
 	HUD_FACES
@@ -72,24 +81,24 @@ typedef enum e_sprites
 	BARREL = SPRITE_0,
 	PILLAR = SPRITE_1,
 	LAMP = SPRITE_2,
-	DOOR_SPRITE = SPRITE_3,
-	BONES = SPRITE_4,
-	GUARD = SPRITE_5,
-	HIDDEN = SPRITE_6,
-	DOG = SPRITE_7,
-	TABLE = SPRITE_8,
-	WELL_EMPTY = SPRITE_9,
-	WELL_FULL = SPRITE_10,
-	CHANDELIER = SPRITE_11,
-	PLANT = SPRITE_12,
-	TABLE_CHAIRS = SPRITE_13,
-	HIDDEN_2 = SPRITE_14,
-	STATUE = SPRITE_15,
-	LAMP_STANDING = SPRITE_16,
-	TREE = SPRITE_17,
-	GREEN_BARREL = SPRITE_18,
-	POT = SPRITE_19,
-	FLAG = SPRITE_20
+	BONES = SPRITE_3,
+	GUARD = SPRITE_4,
+	DOG = SPRITE_5,
+	TABLE = SPRITE_6,
+	WELL_EMPTY = SPRITE_7,
+	WELL_FULL = SPRITE_8,
+	CHANDELIER = SPRITE_9,
+	PLANT = SPRITE_10,
+	TABLE_CHAIRS = SPRITE_11,
+	STATUE = SPRITE_12,
+	LAMP_STANDING = SPRITE_13,
+	TREE = SPRITE_14,
+	GREEN_BARREL = SPRITE_15,
+	POT = SPRITE_16,
+	FLAG = SPRITE_17,
+	BONES_2 = SPRITE_18,
+	DEAD_GUARD = SPRITE_19,
+	PUDDLE = SPRITE_20
 }	t_sprite_enum;
 
 typedef enum e_items
