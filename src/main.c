@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 16:38:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 17:02:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	draw_hud_test(t_data *data)
 	data->level.level_number = 1;
 	data->player.ammo = 8;
 	data->player.lives = 3;
-	data->player.health = 1;
+	data->player.health = 100;
 	data->player.score = 0;
 	data->player.active_weapon = PISTOL;
 	data->player.machine_gun_pickup = false;

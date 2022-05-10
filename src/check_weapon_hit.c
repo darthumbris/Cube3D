@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 16:44:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 17:04:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	check_weapon_hit(t_data *data)
 			enemy->sprite_data.transp_end.x = 110;
 			enemy->sprite_data.transp_end.y = 101;
 		}
+		data->player.score += 100;
 		//TODO add a sprite for ammo to the list when a guard dies.
 	}
 	printf("damage: %d\tdist: %f\n", damage, dist);
