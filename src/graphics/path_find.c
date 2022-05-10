@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 16:58:53 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/06 17:40:48 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ void	path_find(t_data *data)
 				lst->sprite_data.map_pos.x += lst->sprite_data.map_pos.x < data->cam.pos.x ? 0.01 : -0.01;
 			if (fabs(lst->sprite_data.map_pos.y - data->cam.pos.y) > 0.05)
 				lst->sprite_data.map_pos.y += lst->sprite_data.map_pos.y < data->cam.pos.y ? 0.01 : -0.01;
+		}
+		if (lst->sprite_data.kind == DOG && lst->sprite_data.dist > 1  && \
+			lst->sprite_data.dist < RENDER_DIST_S && view_not_blocked(data, \
+			(t_vector_int){.x = data->cam.pos.x, .y = data->cam.pos.y}, \
+			(t_vector_int){.x = lst->sprite_data.map_pos.x, .y = lst->sprite_data.map_pos.y}))
+		{
+			if (fabs(lst->sprite_data.map_pos.x - data->cam.pos.x) > 0.05)
+				lst->sprite_data.map_pos.x += lst->sprite_data.map_pos.x < data->cam.pos.x ? 0.02 : -0.02;
+			if (fabs(lst->sprite_data.map_pos.y - data->cam.pos.y) > 0.05)
+				lst->sprite_data.map_pos.y += lst->sprite_data.map_pos.y < data->cam.pos.y ? 0.02 : -0.02;
 		}
 		lst = lst->next;
 	}
