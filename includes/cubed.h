@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:24:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 13:26:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define SCREEN_HEIGHT	720
 # define SCREEN_WIDTH	1280
 # define MOVE_SPEED		5
-# define ROTATE_SPEED	4
+# define ROTATE_SPEED	3
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
@@ -53,6 +53,10 @@
 # define AMMO_DIGIT_1_POS	224
 # define FACES_POS			134
 # define MINIMAP_POS		71
+
+# define GUN_RANGE			150
+# define KNIFE_RANGE		5
+# define WEAPON_FOV			0.20
 
 typedef struct s_segment
 {
@@ -103,9 +107,28 @@ typedef struct s_player
 	int		health;
 	int		score;
 	int		ammo;
-	int		weapon;
+	int		active_weapon;
+	bool	machine_gun_pickup;
 	int		lives;
 }			t_player;
+
+typedef struct s_weapon_animation
+{
+	mlx_texture_t	*tex0;
+	mlx_texture_t	*tex1;
+	mlx_texture_t	*tex2;
+	mlx_texture_t	*tex3;
+	int				frame;
+	bool			animate;
+	int				range;
+}			t_weapon_anim;
+
+enum e_weapons
+{
+	PISTOL,
+	KNIFE,
+	MACHINEGUN
+};
 
 /**
  * @brief Struct for all the mlx data
@@ -120,12 +143,14 @@ typedef struct s_mlx
 	mlx_t			*mlx_handle;
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
+	mlx_image_t		*weapon;
 	mlx_image_t		*hud;
 	mlx_image_t		*minimap;
 	t_lodtex		tex;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
+	t_weapon_anim	weapon_anim[3];
 	double			minimap_scale;
 	double			hud_scale;
 	int				minimap_zoom;
@@ -356,6 +381,7 @@ bool	init_door_map(t_data *data);
 void	init_secrets(t_data *data);
 
 void	init_doors(t_data *data);
+void	init_weapons(t_data *data);
 
 bool	is_nearby_door(t_data *data);
 bool	is_door_open(t_data *data, int y, int x);
@@ -408,6 +434,9 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
 void	draw_faces(t_data *data);
 void	draw_minimap(t_data *data);
+void	draw_weapons(t_data *data, mlx_texture_t *gun);
+void	animate_weapon(t_data *data);
+void	check_weapon_hit(t_data *data);
 
 //find a path
 void	path_find(t_data *data);

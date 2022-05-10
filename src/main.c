@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:44:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 11:51:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	draw_hud_test(t_data *data)
 	data->player.lives = 3;
 	data->player.health = 100;
 	data->player.score = 0;
+	data->player.active_weapon = PISTOL;
+	data->player.machine_gun_pickup = false;
 	draw_hud(data);
 	draw_numbers(data);
 	draw_faces(data);
@@ -66,6 +68,9 @@ int	main(int argc, char **argv)
 	if (data.bonus)
 	{
 		draw_hud_test(&data);
+		init_weapons(&data);
+		draw_weapons(&data, data.mlx.weapon_anim[PISTOL].tex0);
+		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.weapon, 0, 0);
 		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.hud, 0, 0);
 		mlx_image_to_window(data.mlx.mlx_handle, data.mlx.minimap, \
 		data.hud.pos_map.x, data.hud.pos_map.y);

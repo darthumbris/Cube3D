@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:51:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:45:24 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 14:20:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static void	swap_sprite(t_sprite_lst **prev, t_sprite_lst *last)
 
 	temp = *prev;
 	*prev = last->next;
+	//(*prev)->prev = last;
 	temp->next = last->next->next;
+	//temp->prev = last->next;
 	(*prev)->next = temp;
 }
 

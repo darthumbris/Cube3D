@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:10:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 14:30:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum e_textures
 	SPRITE_18,
 	SPRITE_19,
 	SPRITE_20,
+	SPRITE_21,
 	ITEM_0,
 	ITEM_1,
 	ITEM_2,
@@ -98,7 +99,8 @@ typedef enum e_sprites
 	FLAG = SPRITE_17,
 	BONES_2 = SPRITE_18,
 	DEAD_GUARD = SPRITE_19,
-	PUDDLE = SPRITE_20
+	PUDDLE = SPRITE_20,
+	DEAD_DOG = SPRITE_21
 }	t_sprite_enum;
 
 typedef enum e_items
@@ -116,31 +118,34 @@ typedef enum e_items
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[HUD_FACES + 1];
+	mlx_texture_t	*texarr[HUD_FACES + 2];
 }	t_lodtex;
 
 typedef union u_tex_path
 {
-	char	*path[HUD_FACES + 1];
+	char	*path[HUD_FACES + 2];
 }			t_tex_path;
 
 typedef struct s_sprite
 {
 	t_vector_double	map_pos;
 	t_sprite_enum	kind;
-	bool			open;
+	bool			alive;
 	t_vector_int	transp_begin;
 	t_vector_int	transp_end;
 	double			dist;
 	bool			hidden;
 	uint32_t		timer;
 	bool			in_room;
+	int				health;
+	bool			player_detected;
 }				t_sprite;
 
 typedef struct s_sprite_lst
 {
 	t_sprite			sprite_data;
 	struct s_sprite_lst	*next;
+	struct s_sprite_lst	*prev;
 }			t_sprite_lst;
 
 typedef struct s_sprite_raycaster

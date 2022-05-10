@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 13:35:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 12:07:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,33 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		data->mlx.minimap_zoom -= 1;
 		if (data->mlx.minimap_zoom < 2)
 			data->mlx.minimap_zoom = 2;
+	}
+	if (keys.key == MLX_KEY_LEFT_CONTROL && keys.action != MLX_RELEASE)
+	{
+		data->mlx.weapon_anim[data->player.active_weapon].animate = true;
+		if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
+		{
+			data->player.ammo--;
+			data->update_hud = true;
+		}
+		check_weapon_hit(data);
+	}
+	if (keys.key == MLX_KEY_1 && keys.action != MLX_RELEASE)
+	{
+		data->player.active_weapon = KNIFE;
+		draw_weapons(data, data->mlx.weapon_anim[KNIFE].tex0);
+	}
+	if (keys.key == MLX_KEY_2 && keys.action != MLX_RELEASE && \
+		data->player.ammo)
+	{
+		data->player.active_weapon = PISTOL;
+		draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0);
+	}
+	if (keys.key == MLX_KEY_3 && keys.action != MLX_RELEASE && \
+		data->player.ammo && data->player.machine_gun_pickup)
+	{
+		data->player.active_weapon = MACHINEGUN;
+		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0);
 	}
 }
 
@@ -96,6 +123,8 @@ void	game_loop(void *v_data)
 		}
 		draw_minimap(data);
 		data->delay++;
+		if (data->mlx.weapon_anim[data->player.active_weapon].animate)
+			animate_weapon(data);
 	}
 	update_objects(data);
 }

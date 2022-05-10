@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 14:42:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 12:01:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 	{
 		if (item->sprite_data.kind == AMMO)
 		{
+			if (data->player.active_weapon == KNIFE && data->player.ammo == 0)
+			{
+				if (data->player.machine_gun_pickup)
+					data->player.active_weapon = MACHINEGUN;
+				else
+					data->player.active_weapon = PISTOL;
+				draw_weapons(data, data->mlx.weapon_anim[data->player.active_weapon].tex0);
+			}
 			data->player.ammo += 8;
 			item->sprite_data.kind = 0;
 			data->update_hud = true;
@@ -83,6 +91,22 @@ void	treasure_item(t_data *data, t_sprite_lst *item)
 	//Need to remove the item from the list.
 }
 
+void	weapon_item(t_data *data, t_sprite_lst *item)
+{
+	if (item->sprite_data.kind == GUN)
+	{
+		data->player.active_weapon = MACHINEGUN;
+		data->player.machine_gun_pickup = true;
+		data->player.ammo += 6;
+		data->update_hud = true;
+		if (data->player.ammo > 99)
+			data->player.ammo = 99;
+		item->sprite_data.kind = 0;
+		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0);
+		//Need to remove the item from the list.
+	}
+}
+
 //TODO make sure to delete the item from the itemlist after pickup
 void	update_items(t_data *data)
 {
@@ -99,6 +123,7 @@ void	update_items(t_data *data)
 			health_item(data, lst);
 			ammo_item(data, lst);
 			treasure_item(data, lst);
+			weapon_item(data, lst);
 		}
 		counter++;
 		lst = lst->next;

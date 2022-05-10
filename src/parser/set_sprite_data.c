@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:01:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 13:45:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	sprite->map_pos.x = pos.x + 0.5;
 	sprite->map_pos.y = pos.y + 0.5;
 	sprite->kind = get_sprite_kind(map[pos.y][pos.x], data);
+	sprite->player_detected = false;
+	sprite->alive = true;
+	if (sprite->kind == GUARD)
+		sprite->health = 25;
+	else if (sprite->kind == DOG)
+		sprite->health = 1;
+	else
+		sprite->health = 0;
 	if (is_nonblocking_kind(sprite->kind))
 		map[pos.y][pos.x] = '0';
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
