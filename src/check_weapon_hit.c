@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:04:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 17:38:18 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	check_weapon_hit(t_data *data)
 	}
 	else if (dist < 21 && damage / 12 >= dist)
 		damage = damage / 6;
+	else
+		damage = 0;
 	enemy->sprite_data.health -= damage;
 	if (enemy->sprite_data.health > 0)
 		enemy->sprite_data.player_detected = true;

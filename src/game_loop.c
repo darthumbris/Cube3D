@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:05:44 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 17:17:36 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		if (data->bonus)
 			clear_sprite_lst(&data->sprite_lst);
 		arr_cleanup(data->level.unparsed);
-		arr_cleanup(data->level.map); //TODO: think these were the only mallocs, double check
+		arr_cleanup(data->level.map);
 		mlx_close_window(data->mlx.mlx_handle);
+		//TODO: cleanup callocs
 	}
 	if (keys.key == MLX_KEY_KP_SUBTRACT && keys.action != MLX_RELEASE)
 	{

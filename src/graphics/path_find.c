@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 16:07:24 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 21:40:18 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,29 @@ int dist, t_sprite_enum kind)
 
 static void	move_x(t_data *data, t_sprite_lst *lst, double speed)
 {
+	const double	temp = lst->sprite_data.map_pos.x;
+
 	if (lst->sprite_data.map_pos.x < data->cam.pos.x)
 		lst->sprite_data.map_pos.x += speed;
 	else
 		lst->sprite_data.map_pos.x -= speed;
+	if (is_wall_tile(data->level.map[(int)lst->sprite_data.map_pos.y] \
+	[(int)lst->sprite_data.map_pos.x]))
+		lst->sprite_data.map_pos.x = temp;
+
 }
 
 static void	move_y(t_data *data, t_sprite_lst *lst, double speed)
 {
+	const double	temp = lst->sprite_data.map_pos.y;
+
 	if (lst->sprite_data.map_pos.y < data->cam.pos.y)
 		lst->sprite_data.map_pos.y += speed;
 	else
 		lst->sprite_data.map_pos.y -= speed;
+	if (is_wall_tile(data->level.map[(int)lst->sprite_data.map_pos.y] \
+	[(int)lst->sprite_data.map_pos.x]))
+		lst->sprite_data.map_pos.y = temp;
 }
 
 void	path_find(t_data *data)

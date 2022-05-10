@@ -6,12 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 16:00:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 17:32:35 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//TODO: make this more readable
 static void	set_sprite_variables(t_data *data, t_sprite_lst *sprite)
 {
 	data->spr_cast.pos.x = sprite->sprite_data.map_pos.x - data->cam.pos.x;
