@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 14:48:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 16:44:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,11 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 
 	last = data->sprite_lst;
 	while (last && last->next)
-	{
-		//printf("loop dist: %f\n", last->sprite_data.dist);
 		last = last->next;
-	}
-	//printf("dist after looping: %f\n", last->sprite_data.dist);
 	while (last)
 	{
-		printf("dist: %f\n", last->sprite_data.dist);
 		if (last->sprite_data.dist >= range)
-		{
-			printf("beyond range: %f\n", last->sprite_data.dist);
 			return (NULL);
-		}
 		if ((last->sprite_data.kind == GUARD || last->sprite_data.kind == DOG) \
 			&& last->sprite_data.health)
 		{
@@ -48,7 +40,6 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 		}
 		last = last->prev;
 	}
-	printf("reached end of list\n");
 	return (NULL);
 }
 
@@ -117,8 +108,7 @@ void	check_weapon_hit(t_data *data)
 			enemy->sprite_data.transp_end.x = 110;
 			enemy->sprite_data.transp_end.y = 101;
 		}
-		printf("kind: %d\n", enemy->sprite_data.kind);
-		printf("width of kind: %d\n", data->mlx.tex.texarr[enemy->sprite_data.kind]->width);
+		//TODO add a sprite for ammo to the list when a guard dies.
 	}
 	printf("damage: %d\tdist: %f\n", damage, dist);
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 16:50:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 09:57:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 16:41:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	draw_faces(t_data *data)
 
 	pixel.x = -1;
 	pixels[0] = get_face(data, data->mlx.tex.texarr[HUD_FACES]->width / 3);
-	while (pixel.x++ < data->hud.max_size_faces)
+	while (pixel.x++ < data->hud.max_size_faces - 1)
 	{
 		tex.x = pixel.x * data->hud.inv_scale;
 		pixels[1] = data->mlx.hud->pixels + (((pixel.x + data->hud.face_pos_x) \

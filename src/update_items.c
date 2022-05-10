@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 12:01:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 17:00:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	health_item(t_data *data, t_sprite_lst *item)
 {
-	if (data->player.health < 100)
+	if (data->player.health < 100 && (item->sprite_data.kind == MEDKIT || \
+		item->sprite_data.kind == DOGMEAL || \
+		item->sprite_data.kind == STIMULANT))
 	{
 		if (item->sprite_data.kind == MEDKIT)
 			data->player.health += 25;
@@ -54,17 +56,16 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 					data->player.active_weapon = MACHINEGUN;
 				else
 					data->player.active_weapon = PISTOL;
-				draw_weapons(data, data->mlx.weapon_anim[data->player.active_weapon].tex0);
+				draw_weapons(data, \
+				data->mlx.weapon_anim[data->player.active_weapon].tex0);
 			}
 			data->player.ammo += 8;
 			item->sprite_data.kind = 0;
 			data->update_hud = true;
 		}
-		if (data->player.ammo > 99)
-			data->player.ammo = 99;
 		//Need to remove the item from the list.
 	}
-	else if (data->player.ammo > 99)
+	if (data->player.ammo > 99)
 		data->player.ammo = 99;
 }
 
@@ -111,13 +112,12 @@ void	weapon_item(t_data *data, t_sprite_lst *item)
 void	update_items(t_data *data)
 {
 	t_sprite_lst	*lst;
-	int				counter;
 
 	lst = data->sprite_lst;
-	counter = 0;
 	while (lst)
 	{
-		if (lst->sprite_data.dist < PICKUP_DIST && \
+		if (is_item(lst->sprite_data.kind) && \
+		lst->sprite_data.dist < PICKUP_DIST && \
 		sprite_dist(lst->sprite_data.map_pos, data->cam.pos) < PICKUP_DIST)
 		{
 			health_item(data, lst);
@@ -125,7 +125,6 @@ void	update_items(t_data *data)
 			treasure_item(data, lst);
 			weapon_item(data, lst);
 		}
-		counter++;
 		lst = lst->next;
 	}
 }
