@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 14:50:56 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 15:52:20 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -501,6 +501,12 @@ bool	is_secret_tile(char c);
 bool	is_wall_kind_tile(char c);
 bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
+
+//for the pathfind
+bool	view_not_blocked(t_data *data, t_vector_int pc_pos, t_vector_int g_pos);
+bool	door_check(t_data *data, t_vector_int g_pos);
+void	set_val(t_vector_int *delta, t_vector_int *sign, \
+				t_vector_int pc_pos, t_vector_int g_pos);
 
 int		get_sprite_kind(char c, t_data *data);
 

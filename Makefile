@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/10 12:42:01 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/10 15:50:26 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC =	main.c \
 		graphics/extend_ray_utils.c \
 		graphics/path_find.c \
 		graphics/draw_weapons.c \
+		graphics/path_find_utils.c \
         game_loop.c \
 		update_objects.c \
 		update_items.c \

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   sprite_utils.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
+/*   By: y: shoogenb <shoogenb@student.codam.nl>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:51:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 14:20:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/10 16:08:07 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,22 @@ double	sprite_dist(t_vector_double start, t_vector_double end)
 	return (end.x * end.x + end.y * end.y);
 }
 
-static void	swap_sprite(t_sprite_lst **prev, t_sprite_lst *last)
+//optimize by swapping pointers instead of data
+static void	swap_sprite(t_sprite_lst *lst, t_sprite_lst *lst2)
 {
-	t_sprite_lst	*temp;
+	t_sprite	temp;
 
-	temp = *prev;
-	*prev = last->next;
-	//(*prev)->prev = last;
-	temp->next = last->next->next;
-	//temp->prev = last->next;
-	(*prev)->next = temp;
+	temp = lst->sprite_data;
+	lst->sprite_data = lst2->sprite_data;
+	lst2->sprite_data = temp;
 }
 
 void	sort_sprites(t_data *data, t_sprite_lst **begin)
 {
 	t_sprite_lst	*last;
-	t_sprite_lst	*prev;
 	double			dist1;
 	double			dist2;
 
-	prev = NULL;
 	last = *begin;
 	while (last && last->next)
 	{
@@ -46,19 +42,17 @@ void	sort_sprites(t_data *data, t_sprite_lst **begin)
 		dist2 = sprite_dist(last->next->sprite_data.map_pos, data->cam.pos);
 		if (dist1 < dist2)
 		{
-			if (prev == NULL)
-				swap_sprite(begin, last);
-			else
-				swap_sprite(&(prev->next), last);
+			swap_sprite(last, last->next);
+			last->sprite_data.dist = dist2;
+			last->next->sprite_data.dist = dist1;
 			last = *begin;
-			last->sprite_data.dist = dist1;
-			prev = NULL;
+			continue ;
 		}
 		else
 		{
-			prev = last;
-			last = last->next;
-			last->sprite_data.dist = dist2;
+			last->sprite_data.dist = dist1;
+			last->next->sprite_data.dist = dist2;
 		}
+		last = last->next;
 	}
 }
