@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 15:52:20 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 16:47:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,6 +499,7 @@ bool	is_door_tile(char c);
 bool	is_finish_tile(char c);
 bool	is_secret_tile(char c);
 bool	is_wall_kind_tile(char c);
+bool	is_item(int kind);
 bool	is_nonblocking_kind(int kind);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
