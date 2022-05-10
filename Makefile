@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/09 14:44:36 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/10 12:42:01 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,12 @@ SRC =	main.c \
 		graphics/extend_ray.c \
 		graphics/extend_ray_utils.c \
 		graphics/path_find.c \
+		graphics/draw_weapons.c \
         game_loop.c \
 		update_objects.c \
 		update_items.c \
 		camera_functions.c \
+		check_weapon_hit.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \

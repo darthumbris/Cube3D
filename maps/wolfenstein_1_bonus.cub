@@ -43,6 +43,7 @@ SK ./assets/flag_final.png
 SL ./assets/bones_2_final.png
 SM ./assets/dead_guard_final.png
 SN ./assets/puddle_final.png
+SV ./assets/enemies/dog/dog_dead.png
 I0 ./assets/stimulant.png
 I1 ./assets/medkit.png
 I2 ./assets/soul.png
