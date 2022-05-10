@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/06 17:03:25 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/10 14:47:46 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	draw_minimap(t_data *data)
 	ft_memset(data->mlx.minimap->pixels, 0, data->mlx.minimap->width \
 		* data->mlx.minimap->height * sizeof(int));
 	draw_minimap_walls(data);
-
-	//TODO: change this
 	temp = true;
 	while (++i < 20 && temp)
 		temp = draw_square(data, (t_vector_int) \
-		{.y = wh.y + (i * data->cam.dir.y) + s_dim/2, .x = wh.x + (i * data->cam.dir.x) + s_dim/2}, \
-		(t_vector_int){.y = s_dim/2+1, .x = s_dim/2+1}, \
+		{.y = wh.y + (i * data->cam.dir.y) + s_dim / 2, \
+		.x = wh.x + (i * data->cam.dir.x) + s_dim / 2}, \
+		(t_vector_int){.y = s_dim / 2 + 1, .x = s_dim / 2 + 1}, \
 		VIEW_LINE_COLOUR);
-	draw_square(data, wh, (t_vector_int){.y = s_dim+1, .x = s_dim+1}, 0xFF000000);
+	draw_square(data, wh, (t_vector_int){.y = s_dim + 1, .x = s_dim + 1}, \
+	0xFF000000);
 }
