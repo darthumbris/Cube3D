@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 11:23:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:32:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,6 +425,9 @@ void	draw_walls(t_data *data, int x, mlx_texture_t *texture);
 //void	draw_walls(t_data *data, int x);
 bool	draw_door(t_data *data);
 void	extend_ray(t_data *data, t_raycaster *ray);
+bool	secret_hit(t_data *dat, t_intersect *seg);
+void	init_secret_segments(t_data *data, t_raycaster *r, \
+			t_intersect *door, t_vector_double map);
 
 void	draw_transparency(t_data *data, int x);
 
@@ -456,7 +459,6 @@ void	game_loop(void *data);
 void	update_doors(t_data *data, int i);
 int		get_distance(t_vector_int door_pos, t_vector_double player);
 void	update_secret_walls(t_data *data);
-void	update_objects(t_data *data);
 void	update_items(t_data *data);
 
 /**
@@ -523,5 +525,8 @@ typedef void	(*t_func)(char *line, t_data *data, int kind);
 void	set_sprite_positions(char **map, t_data *data);
 void	sort_sprites(t_data *data, t_sprite_lst **begin);
 void	init_hud(t_data *data);
+
+void	arr_cleanup(char **arr);
+void	cleanup_data(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 11:42:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:11:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,35 +53,26 @@ int	get_distance(t_vector_int door_pos, t_vector_double player)
 bool	is_nearby_door(t_data *data)
 {
 	int				i;
-	t_vector_int	door_pos;
 
 	i = 0;
 	while (i < data->level.door_count)
 	{
-		if (data->doors[i].state == CLOSED)
+		if (data->doors[i].state == CLOSED && get_distance((t_vector_int) \
+		{data->doors[i].x, data->doors[i].y}, data->cam.pos) < 4)
 		{
-			door_pos.x = data->doors[i].x;
-			door_pos.y = data->doors[i].y;
-			if (get_distance(door_pos, data->cam.pos) < 4)
-			{
-				data->doors[i].state = OPENING;
-				return (true);
-			}
+			data->doors[i].state = OPENING;
+			return (true);
 		}
 		i++;
 	}
 	i = 0;
 	while (i < data->level.secret_count)
 	{
-		if (data->secrets[i].state == CLOSED)
+		if (data->secrets[i].state == CLOSED && get_distance((t_vector_int) \
+		{data->secrets[i].x, data->secrets[i].y}, data->cam.pos) < 4)
 		{
-			door_pos.x = data->secrets[i].x;
-			door_pos.y = data->secrets[i].y;
-			if (get_distance(door_pos, data->cam.pos) < 4)
-			{
-				data->secrets[i].state = OPENING;
-				return (true);
-			}
+			data->secrets[i].state = OPENING;
+			return (true);
 		}
 		i++;
 	}

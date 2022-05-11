@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 11:54:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:24:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static int	calculate_damage(t_data *data, double dist)
 	return (damage);
 }
 
+//TODO fix this so it uses spritesheet?
 void	check_weapon_hit(t_data *data)
 {
 	t_sprite_lst	*enemy;
@@ -94,22 +95,20 @@ void	check_weapon_hit(t_data *data)
 
 	enemy = get_enemie_hit(data);
 	if (!enemy)
-	{
-		printf("miss\n");
 		return ;
-	}
 	damage = calculate_damage(data, round(sqrt(enemy->sprite_data.dist)));
 	enemy->sprite_data.health -= damage;
-	printf("damage: %d\tenemy health: %d\n", damage, enemy->sprite_data.health);
 	if (enemy->sprite_data.health > 0)
 		enemy->sprite_data.player_detected = true;
 	else
 	{
-		printf("killing enemy\n");
 		enemy->sprite_data.alive = false;
 		if (enemy->sprite_data.kind == GUARD)
 		{
 			enemy->sprite_data.kind = DEAD_GUARD;
+			enemy->sprite_data.transp_begin.x = 21;
+			enemy->sprite_data.transp_end.x = 107;
+			enemy->sprite_data.transp_end.y = 100;
 			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
 		}
 		else
@@ -118,7 +117,6 @@ void	check_weapon_hit(t_data *data)
 			enemy->sprite_data.transp_begin.x = 8;
 			enemy->sprite_data.transp_end.x = 110;
 			enemy->sprite_data.transp_end.y = 101;
-			//TODO fix this so it uses spritesheet?
 		}
 		data->player.score += 100;
 	}

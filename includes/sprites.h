@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 11:53:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:03:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ typedef struct s_sprite
 	bool			in_room;
 	int				health;
 	bool			player_detected;
+	bool			dropped;
 }				t_sprite;
 
 typedef struct s_sprite_lst

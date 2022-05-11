@@ -6,12 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 09:26:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 09:41:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:19:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//TODO load the textures properly instead of hardcoded.
 void	init_weapons(t_data *data)
 {
 	data->mlx.weapon = mlx_new_image

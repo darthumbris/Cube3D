@@ -6,31 +6,29 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:00:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:04:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-void	health_item(t_data *data, t_sprite_lst *item)
+void	health_item(t_data *data, t_sprite_lst *item, int kind)
 {
-	if (data->player.health < 100 && (item->sprite_data.kind == MEDKIT || \
-		item->sprite_data.kind == DOGMEAL || \
-		item->sprite_data.kind == STIMULANT))
+	if (data->player.health < 100 && (kind == MEDKIT || \
+		kind == DOGMEAL || kind == STIMULANT))
 	{
-		if (item->sprite_data.kind == MEDKIT)
+		if (kind == MEDKIT)
 			data->player.health += 25;
-		else if (item->sprite_data.kind == DOGMEAL)
+		else if (kind == DOGMEAL)
 			data->player.health += 4;
-		else if (item->sprite_data.kind == STIMULANT)
+		else if (kind == STIMULANT)
 			data->player.health += 10;
 		if (data->player.health > 100)
 			data->player.health = 100;
-		//Need to remove the item from the list.
 		data->update_hud = true;
 		item->sprite_data.kind = 0;
 	}
-	if (item->sprite_data.kind == SOUL)
+	if (kind == SOUL)
 	{
 		data->player.health = 100;
 		data->player.lives++;
@@ -40,7 +38,6 @@ void	health_item(t_data *data, t_sprite_lst *item)
 		data->player.score += 10000;
 		data->update_hud = true;
 		item->sprite_data.kind = 0;
-		//Need to remove the item.
 	}
 }
 
@@ -59,11 +56,13 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 				draw_weapons(data, \
 				data->mlx.weapon_anim[data->player.active_weapon].tex0);
 			}
-			data->player.ammo += 8;
+			if (!item->sprite_data.dropped)
+				data->player.ammo += 8;
+			else
+				data->player.ammo += 4;
 			item->sprite_data.kind = 0;
 			data->update_hud = true;
 		}
-		//Need to remove the item from the list.
 	}
 	if (data->player.ammo > 99)
 		data->player.ammo = 99;
@@ -89,7 +88,6 @@ void	treasure_item(t_data *data, t_sprite_lst *item)
 		data->update_hud = true;
 		item->sprite_data.kind = 0;
 	}
-	//Need to remove the item from the list.
 }
 
 void	weapon_item(t_data *data, t_sprite_lst *item)
@@ -104,7 +102,6 @@ void	weapon_item(t_data *data, t_sprite_lst *item)
 			data->player.ammo = 99;
 		item->sprite_data.kind = 0;
 		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0);
-		//Need to remove the item from the list.
 	}
 }
 
@@ -120,7 +117,7 @@ void	update_items(t_data *data)
 		lst->sprite_data.dist < PICKUP_DIST && \
 		sprite_dist(lst->sprite_data.map_pos, data->cam.pos) < PICKUP_DIST)
 		{
-			health_item(data, lst);
+			health_item(data, lst, lst->sprite_data.kind);
 			ammo_item(data, lst);
 			treasure_item(data, lst);
 			weapon_item(data, lst);

@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/11 11:28:45 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/11 12:34:50 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,14 @@ SRC =	main.c \
 		graphics/path_find.c \
 		graphics/draw_weapons.c \
 		graphics/path_find_utils.c \
+		graphics/extend_ray_secret.c \
         game_loop.c \
 		mouse_functions.c \
 		key_functions.c \
 		update_objects.c \
 		update_items.c \
 		camera_functions.c \
+		cleunup_functions.c \
 		check_weapon_hit.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \

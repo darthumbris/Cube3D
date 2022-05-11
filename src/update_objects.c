@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:25:12 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:35:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:05:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	check_perma_closed(t_data *data, int i)
 
 void	update_doors(t_data *data, int i)
 {
-	while (i < data->level.door_count)
+	while (++i < data->level.door_count)
 	{
 		if (data->doors[i].state == CLOSING)
 		{
@@ -60,7 +60,6 @@ void	update_doors(t_data *data, int i)
 		}
 		else if (data->doors[i].state == OPEN)
 			attempt_close_door(data, i);
-		i++;
 	}
 }
 
@@ -111,11 +110,4 @@ void	update_secret_walls(t_data *data)
 		}
 		i++;
 	}
-}
-
-void	update_objects(t_data *data)
-{
-	update_doors(data, 0);
-	update_secret_walls(data);
-	update_items(data);
 }

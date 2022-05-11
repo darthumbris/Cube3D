@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:30:45 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:19:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static bool	x_conditions(t_data *data, t_vector_int start)
 		is_wall_tile(data->level.map[start.y][start.x]));
 }
 
+//TODO: weird line
 static void	draw_walls_x(t_data *data, \
 t_vector_int *se, t_vector_double square, int i)
 {
@@ -34,7 +35,7 @@ t_vector_int *se, t_vector_double square, int i)
 			draw_square(data, (t_vector_int) \
 			{.y = (int)(square.y * i), .x = (int)(square.x * j)}, \
 		(t_vector_int){.y = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom, \
-		.x = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom}, WALL_COLOUR); //TODO: weird line
+		.x = (SCREEN_WIDTH / 10) / data->mlx.minimap_zoom}, WALL_COLOUR);
 		}	
 		se[0].x++;
 		j++;
@@ -51,7 +52,8 @@ static void	set_start_end(t_data *data, t_vector_int *start, t_vector_int *end)
 	end->x = (int)(data->cam.pos.x + data->mlx.minimap_zoom);
 }
 
-//TODO: map is very jumpy when changing zoom and player doesnt collide well on some zoom levels
+//TODO: map is very jumpy when changing zoom and player doesnt collide 
+//well on some zoom levels
 static void	draw_minimap_walls(t_data *data)
 {	
 	int						i;
