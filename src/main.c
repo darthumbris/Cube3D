@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:43:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 20:20:37 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int argc, char **argv)
 	draw_background(&data);
 	raycaster(&data);
 	images_to_window(&data);
+	check_for_walls(&data, (t_vector_int){.x = (int)data.cam.pos.x, .y = (int)data.cam.pos.y});
 	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
 	mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);
 	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);

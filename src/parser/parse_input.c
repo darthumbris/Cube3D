@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:37:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 20:21:18 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
+//TODO: protect fucking mallocs cunt
 static void	make_square_map(t_data *data, char **upmap)
 {
 	int			i;
@@ -92,9 +93,11 @@ static void	make_square_map(t_data *data, char **upmap)
 	if (!upmap)
 		return ;
 	data->level.map = (char **)malloc(sizeof(char *) * (h + 1));
+	data->level.wall_map = (int **)malloc(sizeof(int *) * (h + 1));
 	while (*upmap)
 	{
 		data->level.map[i] = malloc(sizeof(char) * (w + 1));
+		data->level.wall_map[i] = ft_calloc(sizeof(int), (w + 1));
 		ft_memset(data->level.map[i], 32, w);
 		data->level.map[i][w] = 0;
 		ft_memcpy(data->level.map[i], *upmap, ft_strlen(*upmap));
@@ -102,6 +105,7 @@ static void	make_square_map(t_data *data, char **upmap)
 		i++;
 	}
 	data->level.map[i] = NULL;
+	data->level.wall_map[i] = NULL;
 }
 
 bool	parse_input(char **argv, t_data *data)

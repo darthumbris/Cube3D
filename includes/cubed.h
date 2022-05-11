@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 15:56:52 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 20:41:57 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct s_level
 {
 	char			**unparsed;
 	char			**map;
+	int				**wall_map;
 	int				door_count;
 	int				secret_count;
 	int				map_w;
@@ -444,6 +445,9 @@ void	check_weapon_hit(t_data *data);
 
 //find a path
 void	path_find(t_data *data);
+
+void	check_for_walls(t_data *data, t_vector_int c);
+void	clean_wall_map(t_data *data);
 
 //draws a square, specifically for the minimap
 bool	draw_square(t_data *data, t_vector_int rec, \
