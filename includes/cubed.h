@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:23:51 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:32:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define SCREEN_WIDTH	1280
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	3
+# define MOUSE_SENSITIV 0.020
 # define FOV			70
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
@@ -465,6 +466,8 @@ void	update_items(t_data *data);
  * @param dir 
  */
 void	change_camera_angle(t_data *data, double dir);
+
+void	change_camera_angle_mouse(t_data *data, double rotate_speed);
 
 /**
  * @brief wasd movement

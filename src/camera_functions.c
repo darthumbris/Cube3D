@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:33:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 15:18:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:31:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,28 @@ void	change_camera_angle(t_data *data, double dir)
 	double	sin_rotate;
 
 	rotate_speed = dir * ROTATE_SPEED * data->mlx.mlx_handle->delta_time;
+	cos_rotate = cos(rotate_speed);
+	sin_rotate = sin(rotate_speed);
+	old_dir_x = data->cam.dir.x;
+	data->cam.dir.x = data->cam.dir.x * \
+		cos_rotate - data->cam.dir.y * sin_rotate;
+	data->cam.dir.y = old_dir_x * sin_rotate + data->cam.dir.y * cos_rotate;
+	old_plane_x = data->cam.plane.x;
+	data->cam.plane.x = data->cam.plane.x * \
+		cos_rotate - data->cam.plane.y * sin_rotate;
+	data->cam.plane.y = old_plane_x * \
+		sin_rotate + data->cam.plane.y * cos_rotate;
+}
+
+void	change_camera_angle_mouse(t_data *data, double rotate_speed)
+{
+	double	old_dir_x;
+	double	old_plane_x;
+	//double	rotate_speed;
+	double	cos_rotate;
+	double	sin_rotate;
+
+	//rotate_speed = dir * ROTATE_SPEED * data->mlx.mlx_handle->delta_time;
 	cos_rotate = cos(rotate_speed);
 	sin_rotate = sin(rotate_speed);
 	old_dir_x = data->cam.dir.x;

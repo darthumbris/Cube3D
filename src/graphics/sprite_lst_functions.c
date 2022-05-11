@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 12:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 13:46:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:22:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ void	clear_sprite_lst(t_sprite_lst **begin)
 	}
 	*begin = NULL;
 }
-//TODO call the clear sprite lst to free the sprite lst.

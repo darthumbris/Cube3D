@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 14:41:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:22:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static bool	init_sprites(t_data *data)
 	return (check_needed_textures_loaded(data));
 }
 
-//TODO make a function that checks if the textures that are needed are actually given.
 static bool	init_textures(t_data *data)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:51:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/02 11:56:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:20:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ bool	set_config_data(t_data *data, char **config)
 		data->config.dat[i].transp_begin.y = ft_atoi(config_data[i][4]);
 		data->config.dat[i].transp_end.x = ft_atoi(config_data[i][5]);
 		data->config.dat[i].transp_end.y = ft_atoi(config_data[i][6]);
+		free(config[i]);
 		i++;
 	}
+	free(config_data);
 	return (true);
 }
 

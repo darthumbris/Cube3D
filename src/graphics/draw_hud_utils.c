@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/06 15:14:30 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:21:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	init_minimap(t_data *data)
 	(double)data->mlx.hud->height / (double)data->mlx.hud->width;
 }
 
-//TODO:hardcoded values for minimap
 void	init_hud(t_data *data)
 {
 	data->mlx.hud = mlx_new_image

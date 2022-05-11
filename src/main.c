@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:02:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 10:51:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #include <stdio.h>
 #include <time.h>
 
-/*
-//TODO make a single texture for all the hurt faces
- * make the init_textures of the hud be depended on 
- * the path given in the .cub file.
- * make the draw hud function scalable and not have a 
- * fixed value for the textures and
- * positions of where the numbers will be drawn.
-*/
 static void	draw_hud_test(t_data *data)
 {
 	init_hud(data);
@@ -76,8 +68,8 @@ int	main(int argc, char **argv)
 		data.hud.pos_map.x, data.hud.pos_map.y);
 	}
 	mlx_loop_hook(data.mlx.mlx_handle, game_loop, &data);
-	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);
 	mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);
+	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);
 	mlx_loop(data.mlx.mlx_handle);
 	return (0);
 }
