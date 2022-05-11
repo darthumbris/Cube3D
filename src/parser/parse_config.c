@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:51:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:31:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 13:24:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ static void	set_dat(t_data *data, int i, char **config, char ***config_data)
 	data->config.dat[i].key = ft_strdup(config_data[i][0]);
 	data->config.dat[i].value = config_data[i][1][0];
 	data->config.dat[i].kind = i;
-	data->config.dat[i].transp_begin.x = ft_atoi(config_data[i][3]);
-	data->config.dat[i].transp_begin.y = ft_atoi(config_data[i][4]);
-	data->config.dat[i].transp_end.x = ft_atoi(config_data[i][5]);
-	data->config.dat[i].transp_end.y = ft_atoi(config_data[i][6]);
+	if (config_data[i][2] && config_data[i][3])
+	{
+		data->config.dat[i].transp_begin.x = ft_atoi(config_data[i][3]);
+		data->config.dat[i].transp_begin.y = ft_atoi(config_data[i][4]);
+		data->config.dat[i].transp_end.x = ft_atoi(config_data[i][5]);
+		data->config.dat[i].transp_end.y = ft_atoi(config_data[i][6]);
+	}
 	arr_cleanup(config_data[i]);
 }
 

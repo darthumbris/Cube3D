@@ -6,11 +6,11 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:17:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 13:58:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
+#include "cubed.h"
 
 bool	is_player_tile(char c)
 {
@@ -27,7 +27,7 @@ bool	is_sprite_tile(char c)
 			c == 'A' || c == 'e' || c == 'F' || c == 'i' || \
 			c == 'I' || c == 'j' || c == 'J' || c == 'k' || \
 			c == 'K' || c == 'm' || c == '+' || c == '&' || \
-			c == '$');
+			c == '$' || is_enemy_tile(c));
 }
 
 bool	is_wall_tile(char c)

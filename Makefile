@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/11 12:34:50 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/11 13:30:01 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC =	main.c \
 		parser/parser_utils.c \
 		parser/parse_validation.c \
 		parser/is_what_tile.c \
+		parser/is_enemy.c \
 		parser/set_sprite_data.c \
 		parser/special_tiles.c \
 		parser/parse_config.c \

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:24:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 13:50:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	check_weapon_hit(t_data *data)
 		}
 		else
 		{
-			enemy->sprite_data.kind = DEAD_DOG;
+			enemy->sprite_data.kind = DEAD_GUARD; //temp
 			enemy->sprite_data.transp_begin.x = 8;
 			enemy->sprite_data.transp_end.x = 110;
 			enemy->sprite_data.transp_end.y = 101;

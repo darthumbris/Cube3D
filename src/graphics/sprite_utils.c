@@ -6,11 +6,31 @@
 /*   By: y: shoogenb <shoogenb@student.codam.nl>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:51:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:13:54 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 13:55:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+int	get_sprite_kind(char c, t_data *data)
+{
+	int	i;
+
+	if (is_guard(c))
+		return (GUARD);
+	else if (is_dog(c))
+		return (DOG);
+	i = 0;
+	if (data->bonus && data->config.size > 5)
+		i = 4;
+	while (i < data->config.size)
+	{
+		if (c == data->config.dat[i].value)
+			return (i);
+		i++;
+	}
+	return (0);
+}
 
 double	sprite_dist(t_vector_double start, t_vector_double end)
 {
