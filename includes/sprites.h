@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 14:30:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 11:53:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,5 +170,6 @@ t_sprite_lst	*new_sprite(t_sprite data);
 t_sprite_lst	*add_sprite(t_sprite_lst **begin, t_sprite data);
 void			clear_sprite_lst(t_sprite_lst **begin);
 double			sprite_dist(t_vector_double start, t_vector_double end);
+t_sprite_lst	*add_ammo_to_lst(t_sprite_lst **begin, t_sprite data);
 
 #endif

@@ -6,11 +6,30 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 12:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 10:22:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 11:54:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+t_sprite_lst	*add_ammo_to_lst(t_sprite_lst **begin, t_sprite data)
+{
+	t_sprite_lst	*first;
+
+	first = new_sprite(data);
+	if (!first)
+		return (NULL);
+	first->sprite_data.kind = 50;
+	first->sprite_data.transp_begin.x = 56;
+	first->sprite_data.transp_begin.y = 0;
+	first->sprite_data.transp_end.x = 72;
+	first->sprite_data.transp_end.y = 108;
+	first->next = *begin;
+	(*begin)->prev = first;
+	first->prev = NULL;
+	*begin = first;
+	return (first);
+}
 
 t_sprite_lst	*new_sprite(t_sprite data)
 {

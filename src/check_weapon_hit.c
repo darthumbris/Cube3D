@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:38:18 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 11:54:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,10 @@ t_sprite_lst	*get_enemie_hit(t_data *data)
 	return (find_enemy(data, weapon_range));
 }
 
-void	check_weapon_hit(t_data *data)
+static int	calculate_damage(t_data *data, double dist)
 {
-	t_sprite_lst	*enemy;
-	int				damage;
-	double			dist;
+	int	damage;
 
-	enemy = get_enemie_hit(data);
-	if (!enemy)
-	{
-		printf("miss\n");
-		return ;
-	}
-	dist = round(sqrt(enemy->sprite_data.dist));
 	damage = rand() % 256;
 	if (data->player.active_weapon == KNIFE)
 	{
@@ -85,33 +76,50 @@ void	check_weapon_hit(t_data *data)
 		if (damage > 63)
 			damage = 63;
 	}
-	else if (dist < 4 || (dist < 20 && damage / 12 >= dist))
-	{
-		damage = damage / 6;
-		if (damage > 42)
-			damage = 42;
-	}
-	else if (dist < 21 && damage / 12 >= dist)
-		damage = damage / 6;
 	else
+		damage = damage / 6;
+	if ((dist < 4 || (dist < 20 && damage / 12 >= dist)) && damage > 42)
+			damage = 42;
+	else if (dist < 21 && damage / 12 >= dist && damage > 39)
+		damage = 39;
+	else if (dist > 21)
 		damage = 0;
+	return (damage);
+}
+
+void	check_weapon_hit(t_data *data)
+{
+	t_sprite_lst	*enemy;
+	int				damage;
+
+	enemy = get_enemie_hit(data);
+	if (!enemy)
+	{
+		printf("miss\n");
+		return ;
+	}
+	damage = calculate_damage(data, round(sqrt(enemy->sprite_data.dist)));
 	enemy->sprite_data.health -= damage;
+	printf("damage: %d\tenemy health: %d\n", damage, enemy->sprite_data.health);
 	if (enemy->sprite_data.health > 0)
 		enemy->sprite_data.player_detected = true;
 	else
 	{
+		printf("killing enemy\n");
 		enemy->sprite_data.alive = false;
 		if (enemy->sprite_data.kind == GUARD)
+		{
 			enemy->sprite_data.kind = DEAD_GUARD;
+			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
+		}
 		else
 		{
 			enemy->sprite_data.kind = DEAD_DOG;
 			enemy->sprite_data.transp_begin.x = 8;
 			enemy->sprite_data.transp_end.x = 110;
 			enemy->sprite_data.transp_end.y = 101;
+			//TODO fix this so it uses spritesheet?
 		}
 		data->player.score += 100;
-		//TODO add a sprite for ammo to the list when a guard dies.
 	}
-	printf("damage: %d\tdist: %f\n", damage, dist);
 }
