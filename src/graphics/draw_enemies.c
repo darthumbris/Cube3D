@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 16:53:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 17:14:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,16 @@ static mlx_texture_t	*get_enemy_texture(t_data *data, int kind)
 	return (data->mlx.tex.texarr[SPRITESHEET_GUARD]);
 }
 
-t_vector_int	get_y_pos_sheet(t_sprite *sprt)
+static int	get_ypos_sheet(t_sprite *sprt)
+{
+	if (sprt->alive)
+		return ((sprt->frame % 5) * 65);
+	else if (sprt->kind == DOG)
+		return (4 * 65);
+	return (5 * 65);
+}
+
+static t_vector_int	get_transp_y(t_sprite *sprt)
 {
 	t_vector_int	y;
 
@@ -58,7 +67,7 @@ static void	draw_sprite_line(t_data *data, t_vector_int pos, t_sprite *sprt, \
 	uint8_t				*fg;
 	int					d;
 	uint32_t			color;
-	const t_vector_int	transp = get_y_pos_sheet(sprt);
+	const t_vector_int	transp = get_transp_y(sprt);
 
 	fg = data->mlx.fg->pixels + ((pos.y * data->floor.width4) + pos.x * 4);
 	while (++pos.y < data->spr_cast.draw_end.y && pos.y < data->hud.pos_hud.y)
@@ -67,12 +76,7 @@ static void	draw_sprite_line(t_data *data, t_vector_int pos, t_sprite *sprt, \
 			data->spr_cast.sprite_height * 128;
 		data->spr_cast.tex.y = ((d * texture->height / 7) \
 			* data->spr_cast.inverse_sprite_height) / 256;
-		if (sprt->alive)
-			data->spr_cast.tex.y += (sprt->frame % 5) * 65;
-		else if (sprt->kind == GUARD)
-			data->spr_cast.tex.y += 5 * 65;
-		else
-			data->spr_cast.tex.y += 4 * 65;
+		data->spr_cast.tex.y += get_ypos_sheet(sprt);
 		if (data->spr_cast.tex.y < (int)texture->height && data->spr_cast.tex.y \
 			> transp.x)
 		{
@@ -113,7 +117,7 @@ static enum e_compas	get_enemy_direction(t_vector_double dir)
 		return (C_EAST);
 }
 
-static t_vector_int	get_texture_x(t_sprite *sprt)
+static t_vector_int	get_transp_x(t_sprite *sprt)
 {
 	enum e_compas	dir;
 	t_vector_int	x;
@@ -148,34 +152,38 @@ static t_vector_int	get_texture_x(t_sprite *sprt)
 	return (x);
 }
 
+static int	get_xpos_sheet(t_sprite *sprt)
+{
+	const int	dir = get_enemy_direction(sprt->dir);
+
+	if (sprt->alive)
+		return (dir % 8 * 65);
+	else if (sprt->kind == DOG)
+		return (3 * 65);
+	return (4 * 65);
+}
+
 void	draw_enemies(t_data *data, t_sprite *sprt)
 {
-	t_vector_int	transp_x;
-	mlx_texture_t	*texture;
-	int				x;
-	enum e_compas	dir;
+	const t_vector_int	transp_x = get_transp_x(sprt);
+	mlx_texture_t		*texture;
+	int					x;
 
-	dir = get_enemy_direction(sprt->dir);
 	x = data->spr_cast.draw_start.x;
-	transp_x = get_texture_x(sprt);
 	texture = get_enemy_texture(data, sprt->kind);
-	while (x < data->spr_cast.draw_end.x)
+	while (++x < data->spr_cast.draw_end.x)
 	{
 		data->spr_cast.tex.x = (int)(256 * \
 			(x - (-data->spr_cast.sprite_width_halve + \
 			data->spr_cast.sprite_screen_x)) * \
 			(texture->width / 8) * \
 		data->spr_cast.inverse_sprite_width) / 256;
-		if (sprt->alive)
-			data->spr_cast.tex.x += (dir % 8) * 65;
-		else if (sprt->kind == DOG)
-			data->spr_cast.tex.x += 3 * 65;
-		else
-			data->spr_cast.tex.x += 4 * 65;
+		data->spr_cast.tex.x += get_xpos_sheet(sprt);
 		if (data->spr_cast.transform.y > 0 && x > 0 && \
-			x < data->mlx.mlx_handle->width && \
-			data->spr_cast.transform.y < data->spr_cast.zbuffer[x])
-			draw_sprite_line(data, (t_vector_int){x, data->spr_cast.draw_start.y}, sprt, texture);
-		x++;
+			x < data->mlx.mlx_handle->width && data->spr_cast.transform.y \
+			< data->spr_cast.zbuffer[x] && data->spr_cast.tex.x > transp_x.x \
+			&& data->spr_cast.tex.x < transp_x.y)
+			draw_sprite_line(data, (t_vector_int){x, \
+				data->spr_cast.draw_start.y}, sprt, texture);
 	}
 }

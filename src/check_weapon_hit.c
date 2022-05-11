@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 16:52:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 17:02:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,7 @@ void	check_weapon_hit(t_data *data)
 	{
 		enemy->sprite_data.alive = false;
 		if (enemy->sprite_data.kind == GUARD)
-		{
-			printf("is the guard alive?: %d\n", enemy->sprite_data.alive);
-			//enemy->sprite_data.kind = DEAD_GUARD;
-			//enemy->sprite_data.transp_begin.x = 21;
-			//enemy->sprite_data.transp_end.x = 107;
-			//enemy->sprite_data.transp_end.y = 100;
 			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
-			printf("is the guard alive?: %d\n", enemy->sprite_data.alive);
-		}
-		// else
-		// {
-		// 	enemy->sprite_data.kind = DEAD_GUARD; //temp
-		// 	enemy->sprite_data.transp_begin.x = 8;
-		// 	enemy->sprite_data.transp_end.x = 110;
-		// 	enemy->sprite_data.transp_end.y = 101;
-		// }
 		data->player.score += 100;
 	}
 }
