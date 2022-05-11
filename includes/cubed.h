@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 10:32:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 11:23:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -468,6 +468,7 @@ void	update_items(t_data *data);
 void	change_camera_angle(t_data *data, double dir);
 
 void	change_camera_angle_mouse(t_data *data, double rotate_speed);
+void	mouse_handler(t_data *data);
 
 /**
  * @brief wasd movement

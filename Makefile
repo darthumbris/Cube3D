@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/10 15:50:26 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/11 11:28:45 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ SRC =	main.c \
 		graphics/draw_weapons.c \
 		graphics/path_find_utils.c \
         game_loop.c \
+		mouse_functions.c \
+		key_functions.c \
 		update_objects.c \
 		update_items.c \
 		camera_functions.c \
