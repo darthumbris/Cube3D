@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:05:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 14:07:37 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	movement_handler(t_data *data)
 
 static void	update_objects(t_data *data)
 {
-	update_doors(data, 0);
+	update_doors(data, -1);
 	update_secret_walls(data);
 	update_items(data);
 }
