@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 15:42:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 14:19:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ static bool	check_bonus_textures(t_data *data)
 	if (data->bonus && (data->mlx.tex.texarr[HUD_MAIN] == NULL || \
 		data->mlx.tex.texarr[HUD_NUMBERS] == NULL || \
 		data->mlx.tex.texarr[HUD_FACES] == NULL || \
-		data->mlx.tex.texarr[DOOR_FRAME] == NULL))
+		data->mlx.tex.texarr[DOOR_FRAME] == NULL || \
+		data->mlx.tex.texarr[SPRITESHEET_DOG] == NULL || \
+		data->mlx.tex.texarr[SPRITESHEET_GUARD] == NULL))
 	{
-		printf("error here?\n");
+		printf("error: bonus texture failed to load\n");
 		return (false);
 	}
 	if (!data->bonus)

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:24:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 16:38:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static bool	conditions(t_data *data, t_sprite_lst *lst, \
 int dist, t_sprite_enum kind)
 {
-	return (lst->sprite_data.kind == kind && lst->sprite_data.dist > dist && \
+	return (lst->sprite_data.kind == kind && lst->sprite_data.alive && \
+			lst->sprite_data.dist > dist && \
 			lst->sprite_data.dist < RENDER_DIST_S && view_not_blocked(data, \
 			(t_vector_int){.x = data->cam.pos.x, .y = data->cam.pos.y}, \
 			(t_vector_int){.x = lst->sprite_data.map_pos.x, \

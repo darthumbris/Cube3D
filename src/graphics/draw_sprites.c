@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 17:32:35 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 15:35:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,10 @@ void	draw_sprites(t_data *data)
 		{
 			set_sprite_variables(data, lst);
 			set_draw_start_end(data);
-			draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
+			if (lst->sprite_data.kind != GUARD && lst->sprite_data.kind != DOG)
+				draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
+			else
+				draw_enemies(data, &lst->sprite_data);
 		}
 		i++;
 		lst = lst->next;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:57:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 15:18:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ typedef enum e_textures
 	DOOR_FRAME,
 	HUD_MAIN,
 	HUD_NUMBERS,
-	HUD_FACES
+	HUD_FACES,
+	SPRITESHEET_GUARD,
+	SPRITESHEET_DOG
 }	t_textures;
 
 typedef enum e_sprites
@@ -114,14 +116,26 @@ typedef enum e_items
 	TREASURE_2 = ITEM_8
 }	t_items;
 
+enum e_compas
+{
+	C_SOUTH,
+	C_SOUTH_EAST,
+	C_EAST,
+	C_NORTH_EAST,
+	C_NORTH,
+	C_NORTH_WEST,
+	C_WEST,
+	C_SOUTH_WEST
+};
+
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[HUD_FACES + 2];
+	mlx_texture_t	*texarr[SPRITESHEET_DOG + 2];
 }	t_lodtex;
 
 typedef union u_tex_path
 {
-	char	*path[HUD_FACES + 2];
+	char	*path[SPRITESHEET_DOG + 2];
 }			t_tex_path;
 
 typedef struct s_sprite
@@ -137,6 +151,7 @@ typedef struct s_sprite
 	int				health;
 	bool			player_detected;
 	bool			dropped;
+	int				frame;
 }				t_sprite;
 
 typedef struct s_sprite_lst

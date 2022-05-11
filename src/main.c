@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:43:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 14:13:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static void	init_data(t_data *data)
 
 	srand(time(NULL));
 	data->bonus = false;
-	data->number_of_textures = HUD_FACES;
+	data->number_of_textures = SPRITESHEET_DOG;
 	data->level.number_of_sprites = 0;
 	data->level.door_count = 0;
 	data->level.secret_count = 0;
 	i = 0;
-	while (i < HUD_FACES + 1)
+	while (i < SPRITESHEET_DOG + 1)
 		data->level.paths.path[i++] = NULL;
 }
 
