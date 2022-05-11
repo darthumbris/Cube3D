@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 11:05:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 13:43:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,17 @@ static void	init_player(t_data *data)
 //srand is for the faces in the hud
 static void	init_data(t_data *data)
 {
+	int	i;
+
 	srand(time(NULL));
 	data->bonus = false;
 	data->number_of_textures = HUD_FACES;
 	data->level.number_of_sprites = 0;
 	data->level.door_count = 0;
 	data->level.secret_count = 0;
+	i = 0;
+	while (i < HUD_FACES + 1)
+		data->level.paths.path[i++] = NULL;
 }
 
 static void	images_to_window(t_data *data)

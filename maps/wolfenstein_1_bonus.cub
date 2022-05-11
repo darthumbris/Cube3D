@@ -43,7 +43,6 @@ SK ./assets/flag_final.png
 SL ./assets/bones_2_final.png
 SM ./assets/dead_guard_final.png
 SN ./assets/puddle_final.png
-SV ./assets/enemies/dog/dog_dead.png
 I0 ./assets/stimulant.png
 I1 ./assets/medkit.png
 I2 ./assets/soul.png
@@ -116,6 +115,6 @@ C 42,42,42
                            100001000100001
                            111111000111111
                            100000000000001
-                           100L000L000LGJ1
-                           1G00000e0000001
+                           100L000L000L[J1
+                           1]00000e0000001
                            141141141141141

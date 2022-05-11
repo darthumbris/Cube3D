@@ -6,26 +6,22 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/10 13:45:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 13:35:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-int	get_sprite_kind(char c, t_data *data)
+static	t_vector_double	get_direction_enemy(char c)
 {
-	int	i;
-
-	i = 0;
-	if (data->bonus && data->config.size > 5)
-		i = 4;
-	while (i < data->config.size)
-	{
-		if (c == data->config.dat[i].value)
-			return (i);
-		i++;
-	}
-	return (0);
+	if (c == '[' || c == 'G' || c == 'c' || c == '(')
+		return ((t_vector_double){-1.0, 0.0});
+	else if (c == ']' || c == ')')
+		return ((t_vector_double){+1.0, 0.0});
+	else if (c == '@' || c == '#')
+		return ((t_vector_double){0.0, +1.0});
+	else
+		return ((t_vector_double){0.0, -1.0});
 }
 
 static t_vector_int	get_transparency_begin(int kind, t_data *data)
@@ -62,6 +58,8 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 		map[pos.y][pos.x] = '0';
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
 	sprite->transp_end = get_transparency_end(sprite->kind, data);
+	if (is_enemy_tile(map[pos.y][pos.x]))
+		sprite->dir = get_direction_enemy(map[pos.y][pos.x]);
 }
 
 void	set_sprite_positions(char **map, t_data *data)

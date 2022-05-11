@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/10 14:39:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 12:38:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,7 @@ bool	checktypes(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->bonus)
-	{
-		while (i <= data->number_of_textures)
-		{
-			//if (data->level.paths.path[i] == NULL)
-				//return (true);
-			i++;
-		}
-	}
-	else
+	if (!data->bonus)
 	{
 		while (i <= SOUTH)
 		{
