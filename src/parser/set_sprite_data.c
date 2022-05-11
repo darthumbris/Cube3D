@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:35:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 15:32:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 		sprite->health = 1;
 	else
 		sprite->health = 0;
+	if (is_enemy_tile(map[pos.y][pos.x]))
+		sprite->dir = get_direction_enemy(map[pos.y][pos.x]);
 	if (is_nonblocking_kind(sprite->kind))
 		map[pos.y][pos.x] = '0';
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
 	sprite->transp_end = get_transparency_end(sprite->kind, data);
-	if (is_enemy_tile(map[pos.y][pos.x]))
-		sprite->dir = get_direction_enemy(map[pos.y][pos.x]);
+	sprite->frame = 0;
 }
 
 void	set_sprite_positions(char **map, t_data *data)

@@ -58,6 +58,9 @@ HN ./assets/hud/numbers.png
 FH ./assets/hud/hud_faces.png
 DF ./assets/doorframe_128.png
 
+TD ./assets/enemies/dog/dogspritesheet.png
+TG ./assets/enemies/guard/guard_spritesheet_int.png
+
 F 84,84,84
 C 42,42,42
 
@@ -115,6 +118,6 @@ C 42,42,42
                            100001000100001
                            111111000111111
                            100000000000001
-                           100L000L000L[J1
+                           100L000L000L!J1
                            1]00000e0000001
                            141141141141141

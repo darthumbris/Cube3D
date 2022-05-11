@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 20:41:57 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/11 20:57:42 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -439,6 +439,7 @@ void	draw_single_nbr(t_data *data, int nbr, int x_pos);
 void	draw_numbers(t_data *data);
 void	draw_faces(t_data *data);
 void	draw_minimap(t_data *data);
+void	draw_enemies(t_data *data, t_sprite *sprt);
 void	draw_weapons(t_data *data, mlx_texture_t *gun);
 void	animate_weapon(t_data *data);
 void	check_weapon_hit(t_data *data);

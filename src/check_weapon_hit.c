@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:50:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/11 17:02:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	check_weapon_hit(t_data *data)
 	enemy = get_enemie_hit(data);
 	if (!enemy)
 		return ;
+	draw_enemies(data, &enemy->sprite_data);
 	damage = calculate_damage(data, round(sqrt(enemy->sprite_data.dist)));
 	enemy->sprite_data.health -= damage;
 	if (enemy->sprite_data.health > 0)
@@ -104,20 +105,7 @@ void	check_weapon_hit(t_data *data)
 	{
 		enemy->sprite_data.alive = false;
 		if (enemy->sprite_data.kind == GUARD)
-		{
-			enemy->sprite_data.kind = DEAD_GUARD;
-			enemy->sprite_data.transp_begin.x = 21;
-			enemy->sprite_data.transp_end.x = 107;
-			enemy->sprite_data.transp_end.y = 100;
 			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
-		}
-		else
-		{
-			enemy->sprite_data.kind = DEAD_GUARD; //temp
-			enemy->sprite_data.transp_begin.x = 8;
-			enemy->sprite_data.transp_end.x = 110;
-			enemy->sprite_data.transp_end.y = 101;
-		}
 		data->player.score += 100;
 	}
 }
