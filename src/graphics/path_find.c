@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 16:38:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 11:59:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void	path_find(t_data *data)
 				move_x(data, lst, 0.02);
 			if (fabs(lst->sprite_data.map_pos.y - data->cam.pos.y) > 0.05)
 				move_y(data, lst, 0.02);
+			lst->sprite_data.frame++;
+			if (lst->sprite_data.frame > 4)
+				lst->sprite_data.frame = 0;
 		}
 		if (conditions(data, lst, 1, DOG))
 		{

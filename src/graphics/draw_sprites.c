@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 15:35:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 10:29:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ static void	set_draw_start_end(t_data *data)
 static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 {
 	uint8_t		*fg;
-	int			d;
+	int			dist;
 	uint32_t	color;
 
 	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
 	while (++y < data->spr_cast.draw_end.y && y < data->hud.pos_hud.y)
 	{
-		d = y * 256 - data->mlx.mlx_handle->height * 128 + \
+		dist = y * 256 - data->mlx.mlx_handle->height * 128 + \
 			data->spr_cast.sprite_height * 128;
-		data->spr_cast.tex.y = ((d * data->mlx.tex.texarr[sprt->kind]->height) \
-			* data->spr_cast.inverse_sprite_height) / 256;
+		data->spr_cast.tex.y = ((dist * data->mlx.tex.texarr[sprt->kind]->\
+			height) * data->spr_cast.inverse_sprite_height) / 256;
 		if (data->spr_cast.tex.y < (int)data->mlx.tex.texarr[sprt->kind]->\
 			height && data->spr_cast.tex.y > sprt->transp_end.y)
 		{

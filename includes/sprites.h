@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 15:18:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 11:06:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define SPRITES_H
 
 # include "vectors.h"
+
+# define M_PI_8 0.392699081698724154807830422909937860
 
 typedef enum e_textures
 {

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 20:57:29 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 10:15:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ bool	is_door_opening(t_data *data, int y, int x)
 	i = 0;
 	while (i < data->level.door_count)
 	{
-		if ((data->doors[i].state == OPENING || data->doors[i].state == OPEN) && data->doors[i].y == y && \
+		if ((data->doors[i].state == OPENING || \
+			data->doors[i].state == OPEN) && data->doors[i].y == y && \
 			data->doors[i].x == x)
 			return (true);
 		i++;
@@ -119,16 +120,20 @@ bool	is_door_opening(t_data *data, int y, int x)
 	i = 0;
 	while (i < data->level.secret_count)
 	{
-		if ((data->secrets[i].state == OPENING || data->doors[i].state == OPEN) && data->secrets[i].y == y && \
+		if ((data->secrets[i].state == OPENING || \
+			data->secrets[i].state == OPEN) && data->secrets[i].y == y && \
 			data->secrets[i].x == x)
 			return (true);
 		i++;
 	}
 	return (false);
 }
+
 void check_for_walls(t_data *data, t_vector_int c)
 {
-	if (is_wall_tile(data->level.map[c.y][c.x]) || (is_door_tile(data->level.map[c.y][c.x]) && !is_door_opening(data, c.y, c.x)))
+	if (is_wall_tile(data->level.map[c.y][c.x]) || ((is_door_tile
+	(data->level.map[c.y][c.x]) || is_secret_tile(data->level.map[c.y][c.x])) \
+	&& !is_door_opening(data, c.y, c.x)))
 		data->level.wall_map[c.y][c.x] = true;
 	else if (data->level.wall_map[c.y][c.x] == 0)
 	{
@@ -142,9 +147,9 @@ void check_for_walls(t_data *data, t_vector_int c)
 		if (c.x + 1 < data->level.map_w)
 			check_for_walls(data, (t_vector_int){.x = c.x + 1, .y = c.y});
 	}
-	if (is_door_tile(data->level.map[c.y][c.x]) && is_door_opening(data, c.y, c.x))
+	if ((is_door_tile(data->level.map[c.y][c.x]) || is_secret_tile
+		(data->level.map[c.y][c.x])) && is_door_opening(data, c.y, c.x))
 		data->level.wall_map[c.y][c.x] = 2;
-
 }
 
 void clean_wall_map(t_data *data)
