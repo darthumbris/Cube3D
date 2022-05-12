@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 13:59:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:13:57 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,10 +457,13 @@ void	check_weapon_hit(t_data *data);
 //find a path
 void	path_find(t_data *data);
 
+//procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);
+void	wall_detection(t_data *data);
 void	clean_wall_map(t_data *data);
-
-//draws a square, specifically for the minimap
+void	fill_corners(t_data *data);
+bool	is_door_opening(t_data *data, int y, int x);
+bool	check_corner(t_data *data, int y, int x);
 bool	draw_square(t_data *data, t_vector_int rec, \
 t_vector_int wh, unsigned int c);
 

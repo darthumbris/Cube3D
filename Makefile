@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/12 14:00:06 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/12 15:13:52 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC =	main.c \
 		graphics/path_find_utils.c \
 		graphics/extend_ray_secret.c \
 		graphics/draw_enemies.c \
+		graphics/minimap_procedural.c \
 		graphics/draw_enemies_utils.c \
         game_loop.c \
 		mouse_functions.c \
