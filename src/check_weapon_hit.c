@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:12:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:11:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static double	get_enemey_dist(t_line *l, t_vector_double pos)
 			sqrt(l->a * l->a + l->b * l->b));
 }
 
-static bool	is_in_front(t_vector_double en_pos, t_camera cam)
+static bool	is_in_front(t_vector_double en_pos, t_camera cam, double dist)
 {
 	bool			x_dir;
 	bool			y_dir;
@@ -33,6 +33,8 @@ static bool	is_in_front(t_vector_double en_pos, t_camera cam)
 		y_dir = true;
 	else if (cam.dir.y < 0 && en_pos.y < cam.pos.y)
 		y_dir = true;
+	if (dist < 1.2 && (x_dir || y_dir))
+		return (true);
 	return (x_dir && y_dir);
 }
 
@@ -54,7 +56,8 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 			fov = get_enemey_dist(&data->caster.dcas.l1, \
 				last->sprite_data.map_pos);
 			if (fov <= WEAPON_FOV && last->sprite_data.state == ALIVE && \
-				is_in_front(last->sprite_data.map_pos, data->cam))
+			is_in_front(last->sprite_data.map_pos, data->cam, \
+				last->sprite_data.dist))
 				return (last);
 		}
 		last = last->prev;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:13:57 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:04:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -528,6 +528,7 @@ bool	is_enemy_tile(char c);
 bool	is_guard(char c);
 bool	is_dog(char c);
 bool	is_nonblocking_kind(int kind);
+bool	is_enemy_collision(t_data *data, t_vector_double new_pos);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
 //for the pathfind
