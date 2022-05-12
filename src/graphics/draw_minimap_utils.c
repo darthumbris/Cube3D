@@ -6,12 +6,22 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:26:31 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/04 20:26:10 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:03:06 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//norm function
+void	wall_detection(t_data *data)
+{
+	clean_wall_map(data);
+	check_for_walls(data, (t_vector_int) \
+	{.x = (int)data->cam.pos.x, .y = (int)data->cam.pos.y});
+	fill_corners(data);
+}
+
+//draws squares on minimap image
 bool	draw_square(t_data *data, t_vector_int rec, \
 t_vector_int wh, unsigned int c)
 {
