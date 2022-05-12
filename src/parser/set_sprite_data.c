@@ -6,12 +6,18 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:47:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:14:44 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+/*
+GW,[,GUARD_WEST
+GE,],GUARD_EAST
+GS,@,GUARD_SOUTH
+GN,!,GUARD_NORTH
+*/
 static	t_vector_double	get_direction_enemy(char c)
 {
 	if (c == '[' || c == 'G' || c == 'c' || c == '(')
