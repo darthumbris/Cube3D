@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:33:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 11:36:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:05:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ void	change_camera_angle_mouse(t_data *data, double rotate_speed)
 		sin_rotate + data->cam.plane.y * cos_rotate;
 }
 
-void	get_new_pos(t_data *data, t_vector_int *pos, \
+void	get_new_pos(t_data *data, t_vector_double *pos, \
 	t_vector_double temp, bool strafe)
 {
 	if (strafe)
 	{
-		pos->y = (int)(data->cam.pos.y + temp.x);
-		pos->x = (int)(data->cam.pos.x - temp.y);
+		pos->y = (data->cam.pos.y + temp.x);
+		pos->x = (data->cam.pos.x - temp.y);
 	}
 	else
 	{
-		pos->x = (int)(data->cam.pos.x + temp.x);
-		pos->y = (int)(data->cam.pos.y + temp.y);
+		pos->x = (data->cam.pos.x + temp.x);
+		pos->y = (data->cam.pos.y + temp.y);
 	}
 }
 
@@ -75,19 +75,19 @@ void	move_camera_pos(t_data *data, int dir, bool strafe)
 		data->mlx.mlx_handle->delta_time;
 	const double	temp_dir_x = data->cam.dir.x * move_speed;
 	const double	temp_dir_y = data->cam.dir.y * move_speed;
-	t_vector_int	pos;
+	t_vector_double	pos;
 
 	get_new_pos(data, &pos, (t_vector_double){temp_dir_x, temp_dir_y}, strafe);
-	if (!strafe && (data->level.map[pos.y][pos.x] == '0' || \
+	if (!strafe && (data->level.map[(int)pos.y][(int)pos.x] == '0' || \
 		is_door_open(data, pos.y, pos.x) || \
-		data->level.map[pos.y][pos.x] == '?'))
+		data->level.map[(int)pos.y][(int)pos.x] == '?') && !is_enemy_collision(data, pos))
 	{
 		data->cam.pos.x += temp_dir_x;
 		data->cam.pos.y += temp_dir_y;
 	}
-	else if (strafe && (data->level.map[pos.y][pos.x] == '0' || \
+	else if (strafe && (data->level.map[(int)pos.y][(int)pos.x] == '0' || \
 		is_door_open(data, pos.y, pos.x) || \
-		data->level.map[pos.y][pos.x] == '?'))
+		data->level.map[(int)pos.y][(int)pos.x] == '?') && !is_enemy_collision(data, pos))
 	{
 		data->cam.pos.x -= temp_dir_y;
 		data->cam.pos.y += temp_dir_x;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 13:56:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:07:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:47:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,13 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir)
 		x.y = 63 + (dir % 8) * 65;
 		if (sprt->state == DYING || sprt->state == DEAD)
 		{
-			x.x = 2 + (sprt->frame % 5) * 65;
-			x.y = 63 + (sprt->frame % 5) * 65;
+			x.x = 2 + (sprt->frame % 4) * 65;
+			x.y = 63 + (sprt->frame % 4) * 65;
+		}
+		else if (sprt->state == ATTACKING)
+		{
+			x.x = 2 + (sprt->frame % 3) * 65;
+			x.y = 63 + (sprt->frame % 3) * 65;
 		}
 	}
 	else
@@ -106,6 +111,11 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir)
 		{
 			x.x = 2 + (sprt->frame % 5) * 65;
 			x.y = 63 + (sprt->frame % 5) * 65;
+		}
+		else if (sprt->state == ATTACKING)
+		{
+			x.x = 2 + (sprt->frame % 3) * 65;
+			x.y = 63 + (sprt->frame % 3) * 65;
 		}
 	}
 	return (x);

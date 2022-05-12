@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:09:38 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:14:40 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	move_x(t_data *data, t_sprite_lst *lst, double speed, int delay)
 	if (is_wall_tile(data->level.map[(int)lst->sprite_data.map_pos.y] \
 	[(int)lst->sprite_data.map_pos.x]))
 		lst->sprite_data.map_pos.x = temp;
-	if (lst->sprite_data.map_pos.x != temp && delay % 8 == 0)
+	if (lst->sprite_data.map_pos.x != temp && delay % 7 == 0)
 		lst->sprite_data.frame++;
 }
 
@@ -61,7 +61,7 @@ static void	move_y(t_data *data, t_sprite_lst *lst, double speed, int delay)
 	if (is_wall_tile(data->level.map[(int)lst->sprite_data.map_pos.y] \
 	[(int)lst->sprite_data.map_pos.x]))
 		lst->sprite_data.map_pos.y = temp;
-	if (lst->sprite_data.map_pos.y != temp && delay % 8 == 0)
+	if (lst->sprite_data.map_pos.y != temp && delay % 7 == 0)
 		lst->sprite_data.frame++;
 }
 

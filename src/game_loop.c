@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:27:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:55:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ static void	movement_handler(t_data *data)
 		is_nearby_door(data);
 }
 
+static void	check_enemies_attack(t_data *data)
+{
+	t_sprite_lst	*lst;
+	static int		delay = 0;
+
+	lst = data->sprite_lst;
+	delay++;
+	while (lst)
+	{
+		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
+			&& lst->sprite_data.state == ATTACKING)
+		{
+			if (delay % 16 == 0)
+				lst->sprite_data.frame++;
+			if (lst->sprite_data.state == ATTACKING && lst->sprite_data.frame > 2)
+			{
+				lst->sprite_data.frame = 0;
+				lst->sprite_data.state = ALIVE;
+			}
+		}
+		lst = lst->next;
+	}
+	if (delay > 48)
+		delay = 0;
+}
+
 static void	check_enemies_dead(t_data *data)
 {
 	t_sprite_lst	*lst;
@@ -44,6 +70,8 @@ static void	check_enemies_dead(t_data *data)
 		{
 			if (delay % 8 == 0)
 				lst->sprite_data.frame++;
+			if (lst->sprite_data.state == ATTACKING && lst->sprite_data.frame > 2)
+				lst->sprite_data.frame = 2;
 			if (lst->sprite_data.kind == GUARD && lst->sprite_data.frame > 4)
 			{
 				lst->sprite_data.state = DEAD;
@@ -88,6 +116,7 @@ static void	bonus_loop(t_data *data)
 		animate_weapon(data);
 	update_objects(data);
 	check_enemies_dead(data);
+	check_enemies_attack(data);
 }
 
 void	game_loop(void *v_data)
