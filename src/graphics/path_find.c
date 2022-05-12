@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:14:40 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:21:39 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ static void	move_y(t_data *data, t_sprite_lst *lst, double speed, int delay)
 		lst->sprite_data.frame++;
 }
 
-//static void	set_state(t_sprite *sprite)
-//{
-//	if (sprite->kind == GUARD && sprite->dist < 10 && sprite->state == ALIVE)
-//		sprite->state = ATTACKING;
-//}
+static void	set_state(t_sprite *sprite)
+{
+	if (sprite->kind == GUARD && sprite->dist < 10 && sprite->state == ALIVE)
+		sprite->state = ATTACKING;
+}
 
 void	path_find(t_data *data)
 {
@@ -93,7 +93,7 @@ void	path_find(t_data *data)
 			if (lst->sprite_data.frame > 4)
 				lst->sprite_data.frame = 0;
 		}
-		if (conditions(data, lst, 2, DOG))
+		else if (conditions(data, lst, 2, DOG))
 		{
 			if (fabs(lst->sprite_data.map_pos.x - data->cam.pos.x) > 0.05)
 				move_x(data, lst, 0.05, delay);
@@ -106,7 +106,8 @@ void	path_find(t_data *data)
 			if (lst->sprite_data.frame > 3)
 				lst->sprite_data.frame = 0;
 		}
-		//set_state(&lst->sprite_data);
+		else
+			set_state(&lst->sprite_data);
 		lst = lst->next;
 	}
 	if (delay > 48)

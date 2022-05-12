@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:11:11 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:24:14 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,13 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 		if (last->sprite_data.dist >= range)
 			return (NULL);
 		if ((last->sprite_data.kind == GUARD || last->sprite_data.kind == DOG) \
-			&& last->sprite_data.state == ALIVE)
+			&& (last->sprite_data.state == ALIVE || \
+			last->sprite_data.state == ATTACKING))
 		{
 			fov = get_enemey_dist(&data->caster.dcas.l1, \
 				last->sprite_data.map_pos);
-			if (fov <= WEAPON_FOV && last->sprite_data.state == ALIVE && \
+			if (fov <= WEAPON_FOV && (last->sprite_data.state == ALIVE || \
+			last->sprite_data.state == ATTACKING) && \
 			is_in_front(last->sprite_data.map_pos, data->cam, \
 				last->sprite_data.dist))
 				return (last);
