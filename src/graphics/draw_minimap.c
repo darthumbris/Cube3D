@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:03:19 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:17:51 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	draw_minimap(t_data *data)
 	i = -1;
 
 	//TODO: this really should not be run every frame
-	wall_detection(data); 
+	wall_detection(data);
 
 	ft_memset(data->mlx.minimap->pixels, 0, data->mlx.minimap->width \
 		* data->mlx.minimap->height * sizeof(int));
