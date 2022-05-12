@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:24:14 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:28:43 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static bool	is_in_front(t_vector_double en_pos, t_camera cam, double dist)
 
 	x_dir = false;
 	y_dir = false;
-	if (cam.dir.x >= 0 && en_pos.x >= cam.pos.x)
+	if (cam.dir.x >= 0 && en_pos.x >= (cam.pos.x - 0.01))
 		x_dir = true;
-	else if (cam.dir.x < 0 && en_pos.x < cam.pos.x)
+	else if (cam.dir.x <= 0 && en_pos.x <= (cam.pos.x + 0.01))
 		x_dir = true;
-	if (cam.dir.y >= 0 && en_pos.y >= cam.pos.y)
+	if (cam.dir.y >= 0 && en_pos.y >= (cam.pos.y - 0.01))
 		y_dir = true;
-	else if (cam.dir.y < 0 && en_pos.y < cam.pos.y)
+	else if (cam.dir.y <= 0 && en_pos.y <= (cam.pos.y + 0.01))
 		y_dir = true;
 	if (dist < 1.2 && (x_dir || y_dir))
 		return (true);
