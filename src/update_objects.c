@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:25:12 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:05:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 14:52:06 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static void	set_new_secret_pos(t_data *data, int i)
 		data->level.map[y + 2][x] = '2';
 	}
 	data->level.map[y][x] = '0';
+	data->level.wall_map[y][x] = 0;
 }
 
 void	update_secret_walls(t_data *data)
