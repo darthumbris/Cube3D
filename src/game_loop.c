@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:02:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:27:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,17 @@ static void	movement_handler(t_data *data)
 static void	check_enemies_dead(t_data *data)
 {
 	t_sprite_lst	*lst;
+	static int		delay = 0;
 
 	lst = data->sprite_lst;
+	delay++;
 	while (lst)
 	{
 		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
 			&& lst->sprite_data.state == DYING)
 		{
-			lst->sprite_data.frame++;
+			if (delay % 8 == 0)
+				lst->sprite_data.frame++;
 			if (lst->sprite_data.kind == GUARD && lst->sprite_data.frame > 4)
 			{
 				lst->sprite_data.state = DEAD;
@@ -54,6 +57,8 @@ static void	check_enemies_dead(t_data *data)
 		}
 		lst = lst->next;
 	}
+	if (delay > 48)
+		delay = 0;
 }
 
 static void	update_objects(t_data *data)
