@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:13:57 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:22:52 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,32 +88,32 @@ typedef struct s_segment_intersect
 
 typedef struct s_doors
 {
-	int		x;
-	int		y;
-	int		state;
 	double	s_timer;
 	double	closing_timer;
 	char	type;
+	int		x;
+	int		y;
+	int		state;
 	int		direction;
 }		t_doors;
 
 typedef struct s_secrets
 {
+	double	s_timer;
+	char	type;
 	int		x;
 	int		y;
 	int		state;
-	double	s_timer;
-	char	type;
 	int		direction;
 }				t_secrets;
 
 typedef struct s_player
 {
+	bool	machine_gun_pickup;
 	int		health;
 	int		score;
 	int		ammo;
 	int		active_weapon;
-	bool	machine_gun_pickup;
 	int		lives;
 }			t_player;
 
@@ -123,8 +123,8 @@ typedef struct s_weapon_animation
 	mlx_texture_t	*tex1;
 	mlx_texture_t	*tex2;
 	mlx_texture_t	*tex3;
-	int				frame;
 	bool			animate;
+	int				frame;
 	int				range;
 }			t_weapon_anim;
 
@@ -207,18 +207,18 @@ typedef struct s_floor_raycaster
 	t_vector_double	ray_dir0;
 	t_vector_double	ray_dir1;
 	t_vector_double	pos_d;
+	t_vector_double	step;
 	t_vector_int	pos_int;
 	t_vector_int	tex;
-	t_vector_double	step;
-	int				pos_y;
-	double			pos_z;
-	double			row_dist;
 	double			inverse_width;
+	double			row_dist;
+	double			pos_z;
+	int				pos_y;
 	int				halve_height;
 	int				halve_width;
+	int				color_pos;
 	int				width4;
 	int				x4;
-	int				color_pos;
 }			t_floor_raycaster;
 
 /**
@@ -408,11 +408,11 @@ void	check_wall_collision(t_data *data, t_raycaster *ray, \
 void	set_caster_variables(t_data *data, int x);
 void	set_step_direction(t_data *data, t_raycaster *ray);
 void	calculate_perpendicular_wall_distance(t_data *data, t_raycaster *ray);
-void	segment_to_line(t_segment *segm, t_line *line);
 bool	do_lines_intersect(t_line *m, t_line *n, t_vector_double *result);
 void	set_segment(t_vector_double *p, double x, double y);
 void	set_new_map_pos(t_vector_double *map, t_vector_double ray, \
 	t_vector_double rd);
+void	segment_to_line(t_segment *segm, t_line *line);
 
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
 
@@ -467,11 +467,7 @@ bool	check_corner(t_data *data, int y, int x);
 bool	draw_square(t_data *data, t_vector_int rec, \
 t_vector_int wh, unsigned int c);
 
-/**
- * @brief This is the function where all the drawcalls and movement is called
- * 
- * @param data 
- */
+//main game loop that calls all handling functions
 void	game_loop(void *data);
 
 void	update_doors(t_data *data, int i);
