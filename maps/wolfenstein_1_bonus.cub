@@ -59,7 +59,7 @@ FH ./assets/hud/hud_faces.png
 DF ./assets/doorframe_128.png
 
 TD ./assets/enemies/dog/dogspritesheet.png
-TG ./assets/enemies/guard/guard_spritesheet_int.png
+TG ./assets/enemies/guard/guardspritesheet.png
 
 F 84,84,84
 C 42,42,42

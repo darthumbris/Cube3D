@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 13:56:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:58:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 17:21:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_vector_int	get_transp_y(t_sprite *sprt)
 			frame = 5;
 		else if (sprt->state == ATTACKING)
 			frame = 6;
-		y.x = 15 + (frame % 7) * 65;
+		y.x = 13 + (frame % 7) * 65;
 		y.y = 63 + (frame % 7) * 65;
 	}
 	else
@@ -90,32 +90,32 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir)
 	dir = get_enemy_direction(cam_dir, sprt->dir);
 	if (sprt->kind == DOG)
 	{
-		x.x = 2 + (dir % 8) * 65;
-		x.y = 63 + (dir % 8) * 65;
+		x.x = 3 + (dir % 8) * 65;
+		x.y = 62 + (dir % 8) * 65;
 		if (sprt->state == DYING || sprt->state == DEAD)
 		{
-			x.x = 2 + (sprt->frame % 4) * 65;
+			x.x = 6 + (sprt->frame % 4) * 65;
 			x.y = 63 + (sprt->frame % 4) * 65;
 		}
 		else if (sprt->state == ATTACKING)
 		{
-			x.x = 2 + (sprt->frame % 3) * 65;
-			x.y = 63 + (sprt->frame % 3) * 65;
+			x.x = 19 + (sprt->frame % 3) * 65;
+			x.y = 59 + (sprt->frame % 3) * 65;
 		}
 	}
 	else
 	{
-		x.x = 13 + (dir % 8) * 65;
-		x.y = 63 + (dir % 8) * 65;
+		x.x = 14 + (dir % 8) * 65;
+		x.y = 49 + (dir % 8) * 65;
 		if (sprt->state == DYING || sprt->state == DEAD)
 		{
-			x.x = 2 + (sprt->frame % 5) * 65;
+			x.x = 13 + (sprt->frame % 5) * 65;
 			x.y = 63 + (sprt->frame % 5) * 65;
 		}
 		else if (sprt->state == ATTACKING)
 		{
-			x.x = 2 + (sprt->frame % 3) * 65;
-			x.y = 63 + (sprt->frame % 3) * 65;
+			x.x = 17 + (sprt->frame % 3) * 65;
+			x.y = 46 + (sprt->frame % 3) * 65;
 		}
 	}
 	return (x);
