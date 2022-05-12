@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:18:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:50:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_hud(t_data *data)
 	data->mlx.hud = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->hud.scale = (SCREEN_WIDTH / \
-		data->mlx.tex.texarr[HUD_MAIN]->width);
+		(double)data->mlx.tex.texarr[HUD_MAIN]->width);
 	data->hud.inv_scale = 1.0 / data->hud.scale;
 	data->delay = 0;
 	data->hud.max_height = data->mlx.mlx_handle->height - 1;

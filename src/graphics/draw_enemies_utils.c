@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 13:56:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:47:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:58:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_vector_int	get_transp_y(t_sprite *sprt)
 			frame = 4;
 		else if (sprt->state == ATTACKING)
 			frame = 5;
-		y.x = 26 + (frame % 6) * 65;
+		y.x = 19 + (frame % 6) * 65;
 		y.y = 63 + (frame % 6) * 65;
 	}
 	return (y);

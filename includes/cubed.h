@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:12:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:51:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "sprites.h"
 # include <stdio.h>
 
-# define SCREEN_HEIGHT	720
-# define SCREEN_WIDTH	1280
+# define SCREEN_HEIGHT	768
+# define SCREEN_WIDTH	1024
 # define MOVE_SPEED		5
 # define ROTATE_SPEED	3
 # define MOUSE_SENSITIV 0.040
@@ -61,7 +61,7 @@
 
 # define GUN_RANGE			150
 # define KNIFE_RANGE		5
-# define WEAPON_FOV			0.20
+# define WEAPON_FOV			0.25
 
 typedef struct s_segment
 {
@@ -283,7 +283,7 @@ typedef struct s_hud
 	int				max_height;
 	int				max_width;
 	double			inv_scale;
-	int				scale;
+	double			scale;
 	int				max_size_faces;
 	int				max_size_numbers;
 	int				face_pos_x;
