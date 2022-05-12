@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:21:39 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:41:42 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static void	move_y(t_data *data, t_sprite_lst *lst, double speed, int delay)
 static void	set_state(t_sprite *sprite)
 {
 	if (sprite->kind == GUARD && sprite->dist < 10 && sprite->state == ALIVE)
+		sprite->state = ATTACKING;
+	if (sprite->kind == DOG && sprite->dist < 2 && sprite->state == ALIVE)
 		sprite->state = ATTACKING;
 }
 
