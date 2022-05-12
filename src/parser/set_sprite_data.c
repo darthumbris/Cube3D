@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 15:32:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 14:42:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	sprite->map_pos.y = pos.y + 0.5;
 	sprite->kind = get_sprite_kind(map[pos.y][pos.x], data);
 	sprite->player_detected = false;
-	sprite->alive = true;
+	sprite->state = ALIVE;
 	if (sprite->kind == GUARD)
 		sprite->health = 25;
 	else if (sprite->kind == DOG)

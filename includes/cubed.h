@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:02:58 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:13:57 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 # define RENDER_DIST_S	150
 # define RENDER_DIST_W	50
 # define PICKUP_DIST	0.7
+
+# ifndef DEBUG_MODE
+#  define DEBUG_MODE		0
+# endif
 
 # define VIEW_LINE_COLOUR 0xD7FFFFFF
 # define WALL_COLOUR 0xD8D8FCFF
@@ -423,7 +427,6 @@ void	draw_background(t_data *data);
 void	draw_floor_ceiling(t_data *data, int x);
 
 void	draw_walls(t_data *data, int x, mlx_texture_t *texture);
-//void	draw_walls(t_data *data, int x);
 bool	draw_door(t_data *data);
 void	extend_ray(t_data *data, t_raycaster *ray);
 bool	secret_hit(t_data *dat, t_intersect *seg);
@@ -440,6 +443,13 @@ void	draw_numbers(t_data *data);
 void	draw_faces(t_data *data);
 void	draw_minimap(t_data *data);
 void	draw_enemies(t_data *data, t_sprite *sprt);
+
+//======Draw enemies Util functions============
+int		get_ypos_sheet(t_sprite *sprt);
+int		get_xpos_sheet(t_sprite *sprt, t_vector_double cam_dir);
+t_vector_int	get_transp_y(t_sprite *sprt);
+t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir);
+
 void	draw_weapons(t_data *data, mlx_texture_t *gun);
 void	animate_weapon(t_data *data);
 void	check_weapon_hit(t_data *data);

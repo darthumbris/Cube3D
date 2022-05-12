@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/12 14:59:49 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/12 15:13:52 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC =	main.c \
 		graphics/extend_ray_secret.c \
 		graphics/draw_enemies.c \
 		graphics/minimap_procedural.c \
+		graphics/draw_enemies_utils.c \
         game_loop.c \
 		mouse_functions.c \
 		key_functions.c \
@@ -96,7 +97,7 @@ WARN_STRING  = "[WARNING]"
 COM_STRING   = "Compiling"
 
 ifeq ($(DEBUG),1)
-	COMPILE_FLAGS += -g3
+	COMPILE_FLAGS += -g3 -D DEBUG_MODE=1
 	COM_STRING = "Compiling[DEBUG]"
 endif
 ifeq ($(DEBUG),2)

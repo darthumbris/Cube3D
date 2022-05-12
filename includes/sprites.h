@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 11:06:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 14:44:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include "vectors.h"
 
-# define M_PI_8 0.392699081698724154807830422909937860
+# define M_PI_8		0.392699081698724154807830422909937860
+# define M_PI32		4.712388980384689857693965074919254326
+# define M_PI15_8	5.890486225480862322117456343649067907
 
 typedef enum e_textures
 {
@@ -140,12 +142,20 @@ typedef union u_tex_path
 	char	*path[SPRITESHEET_DOG + 2];
 }			t_tex_path;
 
+enum	e_state
+{
+	ALIVE,
+	ATTACKING,
+	DYING,
+	DEAD
+};
+
 typedef struct s_sprite
 {
 	t_vector_double	map_pos;
 	t_vector_double	dir;
 	t_sprite_enum	kind;
-	bool			alive;
+	enum e_state	state;
 	t_vector_int	transp_begin;
 	t_vector_int	transp_end;
 	double			dist;
