@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:55:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 16:59:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static bool	is_in_front(t_vector_double en_pos, t_camera cam, double dist)
 		y_dir = true;
 	if (dist < 1.2 && (x_dir || y_dir))
 		return (true);
-	if (!(x_dir && y_dir))
-		printf("missed because of this\n");
 	return (x_dir && y_dir);
 }
 
