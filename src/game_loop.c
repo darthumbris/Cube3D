@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 20:53:25 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/12 15:02:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,32 @@ static void	movement_handler(t_data *data)
 		move_camera_pos(data, +1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E))
 		is_nearby_door(data);
+}
+
+static void	check_enemies_dead(t_data *data)
+{
+	t_sprite_lst	*lst;
+
+	lst = data->sprite_lst;
+	while (lst)
+	{
+		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
+			&& lst->sprite_data.state == DYING)
+		{
+			lst->sprite_data.frame++;
+			if (lst->sprite_data.kind == GUARD && lst->sprite_data.frame > 4)
+			{
+				lst->sprite_data.state = DEAD;
+				lst->sprite_data.frame = 4;
+			}
+			else if (lst->sprite_data.kind == DOG && lst->sprite_data.frame > 3)
+			{
+				lst->sprite_data.state = DEAD;
+				lst->sprite_data.frame = 3;
+			}
+		}
+		lst = lst->next;
+	}
 }
 
 static void	update_objects(t_data *data)
@@ -56,6 +82,7 @@ static void	bonus_loop(t_data *data)
 	if (data->mlx.weapon_anim[data->player.active_weapon].animate)
 		animate_weapon(data);
 	update_objects(data);
+	check_enemies_dead(data);
 }
 
 void	game_loop(void *v_data)

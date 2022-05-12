@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 17:02:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/12 14:56:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ static double	get_enemey_dist(t_line *l, t_vector_double pos)
 {
 	return (fabs(l->a * pos.x + l->b * pos.y + l->c) / \
 			sqrt(l->a * l->a + l->b * l->b));
+}
+
+static bool	is_in_front(t_vector_double en_pos, t_camera cam)
+{
+	bool			x_dir;
+	bool			y_dir;
+
+	x_dir = false;
+	y_dir = false;
+	if (cam.dir.x >= 0 && en_pos.x >= cam.pos.x)
+		x_dir = true;
+	else if (cam.dir.x < 0 && en_pos.x < cam.pos.x)
+		x_dir = true;
+	if (cam.dir.y >= 0 && en_pos.y >= cam.pos.y)
+		y_dir = true;
+	else if (cam.dir.y < 0 && en_pos.y < cam.pos.y)
+		y_dir = true;
+	return (x_dir && y_dir);
 }
 
 t_sprite_lst	*find_enemy(t_data *data, double range)
@@ -35,7 +53,8 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 		{
 			fov = get_enemey_dist(&data->caster.dcas.l1, \
 				last->sprite_data.map_pos);
-			if (fov <= WEAPON_FOV)
+			if (fov <= WEAPON_FOV && last->sprite_data.state == ALIVE && \
+				is_in_front(last->sprite_data.map_pos, data->cam))
 				return (last);
 		}
 		last = last->prev;
@@ -95,17 +114,28 @@ void	check_weapon_hit(t_data *data)
 
 	enemy = get_enemie_hit(data);
 	if (!enemy)
+	{
+		if (DEBUG_MODE)
+			printf("miss\n");
 		return ;
+	}
 	draw_enemies(data, &enemy->sprite_data);
 	damage = calculate_damage(data, round(sqrt(enemy->sprite_data.dist)));
 	enemy->sprite_data.health -= damage;
+	if (DEBUG_MODE)
+		printf("damage: %d, enemy health: %d\n", \
+			damage, enemy->sprite_data.health);
 	if (enemy->sprite_data.health > 0)
 		enemy->sprite_data.player_detected = true;
 	else
 	{
-		enemy->sprite_data.alive = false;
+		enemy->sprite_data.state = DYING;
+		enemy->sprite_data.frame = 0;
 		if (enemy->sprite_data.kind == GUARD)
 			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
-		data->player.score += 100;
+		if (enemy->sprite_data.kind == GUARD)
+			data->player.score += 100;
+		else
+			data->player.score += 200;
 	}
 }
