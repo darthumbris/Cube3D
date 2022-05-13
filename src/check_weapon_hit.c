@@ -6,36 +6,45 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:59:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 09:24:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static double	get_enemey_dist(t_line *l, t_vector_double pos)
-{
-	return (fabs(l->a * pos.x + l->b * pos.y + l->c) / \
-			sqrt(l->a * l->a + l->b * l->b));
-}
+// static double	get_enemey_dist(t_line *l, t_vector_double pos)
+// {
+// 	return (fabs(l->a * pos.x + l->b * pos.y + l->c) / \
+// 			sqrt(l->a * l->a + l->b * l->b));
+// }
 
-static bool	is_in_front(t_vector_double en_pos, t_camera cam, double dist)
-{
-	bool			x_dir;
-	bool			y_dir;
+// static bool	is_in_front(t_vector_double en_pos, t_camera cam, double dist)
+// {
+// 	bool			x_dir;
+// 	bool			y_dir;
 
-	x_dir = false;
-	y_dir = false;
-	if (cam.dir.x >= 0 && en_pos.x >= (cam.pos.x - 0.02))
-		x_dir = true;
-	else if (cam.dir.x <= 0 && en_pos.x <= (cam.pos.x + 0.02))
-		x_dir = true;
-	if (cam.dir.y >= 0 && en_pos.y >= (cam.pos.y - 0.02))
-		y_dir = true;
-	else if (cam.dir.y <= 0 && en_pos.y <= (cam.pos.y + 0.02))
-		y_dir = true;
-	if (dist < 1.2 && (x_dir || y_dir))
-		return (true);
-	return (x_dir && y_dir);
+// 	x_dir = false;
+// 	y_dir = false;
+// 	//printf("angle: %f\n", atan2(cam.dir.y, cam.dir.x));
+// 	//printf("angle enemy: %f\n", atan2(en_pos.y - cam.pos.y, en_pos.x - cam.pos.x));
+// 	//printf("diff: %f\n", fabs(atan2(cam.dir.y, cam.dir.x) - atan2(en_pos.y - cam.pos.y, en_pos.x - cam.pos.x)));
+// 	if (cam.dir.x >= 0 && en_pos.x >= (cam.pos.x - 0.02))
+// 		x_dir = true;
+// 	else if (cam.dir.x <= 0 && en_pos.x <= (cam.pos.x + 0.02))
+// 		x_dir = true;
+// 	if (cam.dir.y >= 0 && en_pos.y >= (cam.pos.y - 0.02))
+// 		y_dir = true;
+// 	else if (cam.dir.y <= 0 && en_pos.y <= (cam.pos.y + 0.02))
+// 		y_dir = true;
+// 	if (dist < 1.2 && (x_dir || y_dir))
+// 		return (true);
+// 	return (x_dir && y_dir);
+// }
+
+static double	get_angle_of_attack(t_vector_double en_pos, t_camera cam)
+{
+	return (fabs(atan2(cam.dir.y, cam.dir.x) - \
+		atan2(en_pos.y - cam.pos.y, en_pos.x - cam.pos.x)));
 }
 
 t_sprite_lst	*find_enemy(t_data *data, double range)
@@ -54,12 +63,8 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 			&& (last->sprite_data.state == ALIVE || \
 			last->sprite_data.state == ATTACKING))
 		{
-			fov = get_enemey_dist(&data->caster.dcas.l1, \
-				last->sprite_data.map_pos);
-			if (fov <= WEAPON_FOV && (last->sprite_data.state == ALIVE || \
-			last->sprite_data.state == ATTACKING) && \
-			is_in_front(last->sprite_data.map_pos, data->cam, \
-				last->sprite_data.dist))
+			fov = get_angle_of_attack(last->sprite_data.map_pos, data->cam);
+			if (fov <= WEAPON_FOV || (last->sprite_data.dist < 2 && fov < MELEE_FOV))
 				return (last);
 		}
 		last = last->prev;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 15:58:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:08:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 09:19:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ bool	is_enemy_collision(t_data *data, t_vector_double new_pos)
 	while (lst)
 	{
 		if (is_enemy_kind(lst->sprite_data.kind) && \
-			lst->sprite_data.state == ALIVE && \
+			(lst->sprite_data.state == ALIVE || \
+			lst->sprite_data.state == ATTACKING) && \
 			sprite_dist(lst->sprite_data.map_pos, new_pos) < 1.0)
 			return (true);
 		lst = lst->next;

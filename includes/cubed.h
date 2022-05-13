@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:51:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 09:23:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@
 
 # define GUN_RANGE			150
 # define KNIFE_RANGE		5
-# define WEAPON_FOV			0.25
+# define WEAPON_FOV			0.025
+# define MELEE_FOV			0.22
 
 typedef struct s_segment
 {
