@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 12:47:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 15:20:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@ double	get_angle_of_attack(t_vector_double target_pos, \
 		atan2(target_pos.y - attacker_pos.y, target_pos.x - attacker_pos.x)));
 }
 
-static bool	is_beyond_target(t_vector_double target_pos, \
-	t_vector_double attacker_dir, t_vector_double	ray_pos)
-{
-	bool	x_dir;
-	bool	y_dir;
+// static bool	is_beyond_target(t_vector_double target_pos, \
+// 	t_vector_double attacker_dir, t_vector_double	ray_pos)
+// {
+// 	bool	x_dir;
+// 	bool	y_dir;
 
-	x_dir = false;
-	y_dir = false;
-	if (attacker_dir.x >= 0 && ray_pos.x >= target_pos.x)
-		x_dir = true;
-	else if (attacker_dir.x <= 0 && ray_pos.x <= target_pos.x)
-		x_dir = true;
-	if (attacker_dir.y >= 0 && ray_pos.y >= target_pos.y)
-		y_dir = true;
-	else if (attacker_dir.y <= 0 && ray_pos.y <= target_pos.y)
-		y_dir = true;
-	return (x_dir && y_dir);
-}
+// 	x_dir = false;
+// 	y_dir = false;
+// 	if (attacker_dir.x >= 0 && ray_pos.x >= target_pos.x)
+// 		x_dir = true;
+// 	else if (attacker_dir.x <= 0 && ray_pos.x <= target_pos.x)
+// 		x_dir = true;
+// 	if (attacker_dir.y >= 0 && ray_pos.y >= target_pos.y)
+// 		y_dir = true;
+// 	else if (attacker_dir.y <= 0 && ray_pos.y <= target_pos.y)
+// 		y_dir = true;
+// 	return (x_dir && y_dir);
+// }
 
 bool	is_target_visible(t_vector_double target_pos, \
 	t_vector_double attacker_pos, t_vector_double attacker_dir, t_data *data)
@@ -52,8 +52,12 @@ bool	is_target_visible(t_vector_double target_pos, \
 		ray_posfloor.x = (ray_pos.x - ((ray_pos.x - floor(ray_pos.x))));
 		ray_posfloor.y = (ray_pos.y - ((ray_pos.y - floor(ray_pos.y))));
 		c = data->level.map[(int)ray_posfloor.y][(int)ray_posfloor.x];
-		if (is_beyond_target(target_pos, attacker_dir, ray_pos))
-			return (true);
+		// if (is_beyond_target(target_pos, attacker_dir, ray_pos))
+		// {
+		// 	printf("beyond target\n");
+		// 	printf("raypos: %f,%f\n", ray_pos.y, ray_pos.x);
+		// 	return (true);
+		// }
 		if ((int)ray_pos.x == (int)target_pos.x && \
 			(int)ray_pos.y == (int)target_pos.y)
 			return (true);

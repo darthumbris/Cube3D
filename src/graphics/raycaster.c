@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 17:09:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 15:01:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ static void	extra_drawing(t_data *data, int x)
 		else
 			draw_transparency(data, x);
 		data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
-		if (data->caster.door_hit || data->caster.secret_hit)
-			data->spr_cast.zbuffer[x] += 0.5;
 	}
 	else
 		draw_transparency(data, x);
