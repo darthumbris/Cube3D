@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:56:36 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/13 19:17:51 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@
 # define KNIFE_RANGE		5
 # define WEAPON_FOV			0.025
 # define MELEE_FOV			0.22
+# define DOG_MOVE_SPEED		0.04
+# define GUARD_MOVE_SPEED	0.02
+# define ENEMY_ROT_SPEED	2
 
 typedef struct s_segment
 {
@@ -111,12 +114,15 @@ typedef struct s_secrets
 
 typedef struct s_player
 {
-	bool	machine_gun_pickup;
-	int		health;
-	int		score;
-	int		ammo;
-	int		active_weapon;
-	int		lives;
+	bool			machine_gun_pickup;
+	int				health;
+	int				score;
+	int				ammo;
+	int				active_weapon;
+	int				lives;
+	t_vector_double	start_pos;
+	t_vector_double	start_dir;
+	t_vector_double	start_plane;
 }			t_player;
 
 typedef struct s_weapon_animation
@@ -471,6 +477,7 @@ void	path_find(t_data *data);
 void	attack_player(t_sprite *sprite, t_data *data);
 bool	is_target_visible(t_vector_double target_pos, \
 	t_vector_double attacker_pos, t_vector_double attacker_dir, t_data *data);
+void	rotate_enemy(t_data *data, t_sprite *enemy);
 
 //procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);

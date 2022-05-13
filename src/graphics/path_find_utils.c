@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 15:48:51 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 10:41:47 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 17:04:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,35 +61,50 @@ bool	view_not_blocked(t_data *data, t_vector_int pc_pos, t_vector_int g_pos)
 	}	
 }
 
-void	attack_player(t_sprite *sprite, t_data *data)
+void	rotate_enemy(t_data *data, t_sprite *enemy)
 {
-	double	dodge_chance;
-	double	player_angle;
-	double	enemy_angle;
+	double			enemy_angle;
+	double			rot_speed;
+	t_vector_double	old_dir;
+	t_vector_double	rotation;
+	t_vector_double	shifted_pos;
 
-	if ((sprite->kind == DOG && sprite->dist >= KNIFE_RANGE) || \
-		(sprite->kind == GUARD && sprite->dist >= GUN_RANGE))
-		return ;
-	dodge_chance = 0;
-	player_angle = get_angle_of_attack
-		(sprite->map_pos, data->cam.pos, data->cam.dir);
-	enemy_angle = get_angle_of_attack
-		(data->cam.pos, sprite->map_pos, sprite->dir);
-	//printf("angle of player to enemie shooting at player: %f\n", 
-		// player_angle);
-	if ((mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_W) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_A) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D)) && \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT_SHIFT))
-		dodge_chance += 0.375; //dodge chance increases when running.
-	if (player_angle < M_PI)
-		dodge_chance += .0625 * sqrt(sprite->dist);
-	else
-		dodge_chance += .03125 * sqrt(sprite->dist);
-	//printf("dist to player: %f\n", sqrt(sprite->dist));
-	if (sprite->dist < 2 && player_angle >= M_PI - M_PI_8 && \
-		player_angle <= M_PI + M_PI_8)
-		dodge_chance = 0; //point blank shot at players back;
-	//printf("dodge chance: %f\n", dodge_chance);
+	enemy_angle = get_angle_of_attack(data->cam.pos, enemy->map_pos, enemy->dir);
+	shifted_pos.x = enemy->map_pos.x - 0.5;
+	shifted_pos.y = enemy->map_pos.y - 0.5;
+	if (!enemy->player_detected && enemy_angle < (M_PI_2 + M_PI_4))
+	{
+		if (!enemy->scanned_for_player)
+		{
+			enemy->player_detected = is_target_visible(data->cam.pos, shifted_pos, enemy->dir, data);
+			enemy->scanned_for_player = true;
+			if (enemy->player_detected)
+				printf("player detected\n");
+		}
+	}
+	if (enemy->player_detected && enemy_angle > WEAPON_FOV)
+	{
+		rot_speed = 0.2;
+		rotation.x = cos(rot_speed);
+		rotation.y = sin(rot_speed);
+		old_dir.x = enemy->dir.x;
+		old_dir.y = enemy->dir.y;
+		enemy->dir.x = enemy->dir.x * rotation.x - enemy->dir.y * rotation.y;
+		enemy->dir.y = old_dir.x * rotation.y + enemy->dir.y * rotation.x;
+		if (get_angle_of_attack(data->cam.pos, enemy->map_pos, enemy->dir) < enemy_angle)
+			return ;
+		else
+		{
+			rotation.x = cos(-rot_speed);
+			rotation.y = sin(-rot_speed);
+			enemy->dir.x = old_dir.x * rotation.x - old_dir.y * rotation.y;
+			enemy->dir.y = old_dir.x * rotation.y + old_dir.y * rotation.x;
+			if (get_angle_of_attack(data->cam.pos, enemy->map_pos, enemy->dir) > enemy_angle)
+			{
+				enemy->dir.x = (data->cam.pos.x - enemy->map_pos.x) / enemy->dist;
+				enemy->dir.y = (data->cam.pos.y - enemy->map_pos.y) / enemy->dist;
+				//printf("overshoot correction\n");
+			}
+		}
+	}
 }

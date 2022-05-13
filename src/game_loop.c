@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 09:37:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 17:05:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ static void	check_enemies_attack(t_data *data)
 {
 	t_sprite_lst	*lst;
 	static int		delay = 0;
+	static int		delay_target = 0;
 
 	lst = data->sprite_lst;
 	delay++;
+	delay_target++;
 	while (lst)
 	{
 		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
@@ -54,13 +56,21 @@ static void	check_enemies_attack(t_data *data)
 			&& lst->sprite_data.state == ALIVE && lst->sprite_data.last_attack)
 		{
 			lst->sprite_data.last_attack++;
-			if (lst->sprite_data.last_attack > 30)
+			if (lst->sprite_data.last_attack > 50)
 				lst->sprite_data.last_attack = 0;
 		}
+		else if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
+			&& lst->sprite_data.state == ALIVE && lst->sprite_data.scanned_for_player)
+			{
+				if (delay_target > 50)
+					lst->sprite_data.scanned_for_player = false;
+			}
 		lst = lst->next;
 	}
 	if (delay > 48)
 		delay = 0;
+	if (delay_target > 50)
+		delay_target = 0;
 }
 
 static void	check_enemies_dead(t_data *data)

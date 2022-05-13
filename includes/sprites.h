@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 09:32:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 17:02:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ typedef struct s_sprite
 	int				last_attack;
 	bool			dropped;
 	bool			player_detected;
+	bool			scanned_for_player;
 	//bool			hidden;
 }				t_sprite;
 

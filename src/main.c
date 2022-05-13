@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 17:00:15 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/13 19:18:07 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	init_player(t_data *data)
 	data->player.score = 0;
 	data->player.active_weapon = PISTOL;
 	data->player.machine_gun_pickup = false;
+	data->player.start_pos.x = data->cam.pos.x;
+	data->player.start_pos.y = data->cam.pos.y;
+	data->player.start_dir.x = data->cam.dir.x;
+	data->player.start_dir.y = data->cam.dir.y;
+	data->player.start_plane.x = data->cam.plane.x;
+	data->player.start_plane.y = data->cam.plane.y;
 	draw_hud(data);
 	draw_numbers(data);
 	draw_faces(data);
