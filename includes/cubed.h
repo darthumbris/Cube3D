@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 09:23:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 10:40:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -454,9 +454,14 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir);
 void	draw_weapons(t_data *data, mlx_texture_t *gun);
 void	animate_weapon(t_data *data);
 void	check_weapon_hit(t_data *data);
+double	get_angle_of_attack(t_vector_double target_pos, \
+	t_vector_double attacker_pos, t_vector_double attacker_dir);
 
 //find a path
 void	path_find(t_data *data);
+void	attack_player(t_sprite *sprite, t_data *data);
+bool	is_target_visible(t_vector_double target_pos, \
+	t_vector_double attacker_pos, t_vector_double attacker_dir, t_data *data);
 
 //procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);

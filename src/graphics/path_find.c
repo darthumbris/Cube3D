@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 17:24:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 10:41:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,18 @@ static void	move_y(t_data *data, t_sprite_lst *lst, double speed, int delay)
 		lst->sprite_data.frame++;
 }
 
-static void	set_state(t_sprite *sprite)
+static void	set_state(t_sprite *sprite, t_data *data)
 {
-	if (sprite->kind == GUARD && sprite->dist < 10 && sprite->state == ALIVE)
+	if (((sprite->kind == DOG && sprite->dist < 2) || \
+		(sprite->kind == GUARD && sprite->dist < 100)) && sprite->state == ALIVE \
+		&& !sprite->last_attack)
+	{
 		sprite->state = ATTACKING;
-	if (sprite->kind == DOG && sprite->dist < 2 && sprite->state == ALIVE)
-		sprite->state = ATTACKING;
+		sprite->last_attack++;
+		sprite->frame = 0;
+		(void)data;
+		//attack_player(sprite, data);
+	}
 }
 
 void	path_find(t_data *data)
@@ -82,7 +88,7 @@ void	path_find(t_data *data)
 	delay++;
 	while (lst)
 	{
-		if (conditions(data, lst, 10, GUARD))
+		if (conditions(data, lst, 100, GUARD))
 		{
 			if (fabs(lst->sprite_data.map_pos.x - data->cam.pos.x) > 0.05)
 				move_x(data, lst, 0.02, delay);
@@ -109,7 +115,7 @@ void	path_find(t_data *data)
 				lst->sprite_data.frame = 0;
 		}
 		else
-			set_state(&lst->sprite_data);
+			set_state(&lst->sprite_data, data);
 		lst = lst->next;
 	}
 	if (delay > 48)

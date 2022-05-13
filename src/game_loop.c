@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:55:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 09:37:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ static void	check_enemies_attack(t_data *data)
 				lst->sprite_data.frame = 0;
 				lst->sprite_data.state = ALIVE;
 			}
+		}
+		else if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
+			&& lst->sprite_data.state == ALIVE && lst->sprite_data.last_attack)
+		{
+			lst->sprite_data.last_attack++;
+			if (lst->sprite_data.last_attack > 30)
+				lst->sprite_data.last_attack = 0;
 		}
 		lst = lst->next;
 	}
