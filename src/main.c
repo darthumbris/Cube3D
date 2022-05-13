@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 19:18:07 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/13 19:20:57 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
         printf("Failed to initialize audio engine.");
         return -1;
     }
-	ma_sound sound;
+	ma_sound	sound;
 	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.music);
 	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.sfx);
 	ma_sound_init_from_file(&data.sound.engine, "./searchn.mp3", 0, &data.sound.music, NULL, &sound);

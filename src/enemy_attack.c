@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/13 13:35:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:24:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 19:24:40 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ static void	damage_player(t_data *data, double dodge_chance, t_sprite *sprite, \
 		printf("player took: %d damage, current health: %d\n", damage, data->player.health);
 	data->player.health -= damage;
 	data->update_hud = true;
+	if (sprite->kind == DOG)
+    	ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx);
+	if (sprite->kind == GUARD)
+    	ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grdatk.wav", &data->sound.sfx);
 	if (data->player.health < 0)
 	{
 		data->player.health = 100;
