@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 15:48:51 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:05:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 17:04:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,19 @@ void	rotate_enemy(t_data *data, t_sprite *enemy)
 	enemy_angle = get_angle_of_attack(data->cam.pos, enemy->map_pos, enemy->dir);
 	shifted_pos.x = enemy->map_pos.x - 0.5;
 	shifted_pos.y = enemy->map_pos.y - 0.5;
-	if (!enemy->player_detected && enemy_angle < (M_PI_2 + M_PI_4) && \
-		is_target_visible(data->cam.pos, shifted_pos, enemy->dir, data))
+	if (!enemy->player_detected && enemy_angle < (M_PI_2 + M_PI_4))
 	{
-		enemy->player_detected = true;
-		printf("player detected\n");
+		if (!enemy->scanned_for_player)
+		{
+			enemy->player_detected = is_target_visible(data->cam.pos, shifted_pos, enemy->dir, data);
+			enemy->scanned_for_player = true;
+			if (enemy->player_detected)
+				printf("player detected\n");
+		}
 	}
 	if (enemy->player_detected && enemy_angle > WEAPON_FOV)
 	{
-		rot_speed = 0.09;
+		rot_speed = 0.2;
 		rotation.x = cos(rot_speed);
 		rotation.y = sin(rot_speed);
 		old_dir.x = enemy->dir.x;

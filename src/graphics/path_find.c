@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:15:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 16:54:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,14 @@ static void	set_state(t_sprite *sprite, t_data *data)
 		sprite->state = ATTACKING;
 		sprite->last_attack++;
 		sprite->frame = 0;
+		printf("here\n");
 		if (is_target_visible(data->cam.pos, sprite->map_pos, sprite->dir, data))
 			attack_player(sprite, data);
 	}
 }
 
+//TODO optimize this and have enemies try to move closer
+//TODO and also check the rotate thing
 void	path_find(t_data *data)
 {
 	t_sprite_lst	*lst;
@@ -94,10 +97,10 @@ void	path_find(t_data *data)
 			if (lst->sprite_data.frame > 3)
 				lst->sprite_data.frame = 0;
 		}
+		else if (delay % 5 == 0 && (lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) && lst->sprite_data.state == ALIVE && lst->sprite_data.dist < 400)
+			rotate_enemy(data, &lst->sprite_data);
 		else
 			set_state(&lst->sprite_data, data);
-		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) && lst->sprite_data.state == ALIVE && lst->sprite_data.dist < 400)
-			rotate_enemy(data, &lst->sprite_data);
 		lst = lst->next;
 	}
 	if (delay > 48)

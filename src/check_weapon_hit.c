@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 15:20:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 17:04:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ bool	is_target_visible(t_vector_double target_pos, \
 	char			c;
 
 	ray_pos = attacker_pos;
+	//printf("checking for target visibility for att: %f,%f\n", attacker_pos.y, attacker_pos.x);
 	while (ray_pos.x < data->level.map_w && ray_pos.x > 0 && \
 			ray_pos.y < data->level.map_h && ray_pos.y > 0)
 	{
