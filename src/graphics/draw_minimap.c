@@ -56,7 +56,6 @@ static void	set_start_end(t_data *data, t_vector_int *start, t_vector_int *end)
 static void	draw_minimap_walls(t_data *data)
 {	
 	int						i;
-	int						j;
 	t_vector_int			start_end[2];
 	const t_vector_double	square_loc_calc = \
 	{.x = data->mlx.minimap->width / (data->mlx.minimap_zoom * 2), \
@@ -67,7 +66,6 @@ static void	draw_minimap_walls(t_data *data)
 	set_start_end(data, &(start_end[0]), &(start_end[1]));
 	while (start_end[0].y < start_end[1].y)
 	{
-		j = 0;
 		draw_walls_x(data, start_end, square_loc_calc, i);
 		start_end[0].x = (int)(data->cam.pos.x - data->mlx.minimap_zoom);
 		start_end[0].y++;

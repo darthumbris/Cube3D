@@ -13,9 +13,9 @@
 NAME = cube3D_bonus
 
 CC  := gcc
-COMPILE_FLAGS = -Wall -Wextra -Werror -o3
-LINKING_FLAGS = $(MLX) $(LIBFT) -lm -ldl -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
-
+COMPILE_FLAGS = -Wall -Wextra -Werror -o3 -Wno-enum-compare #last flag is for linux compilation
+LINKING_FLAGS = $(MLX) $(LIBFT) -pthread -lm -ldl -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+#pthread also linux
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes

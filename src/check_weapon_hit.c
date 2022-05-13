@@ -19,7 +19,7 @@ double	get_angle_of_attack(t_vector_double target_pos, \
 		atan2(target_pos.y - attacker_pos.y, target_pos.x - attacker_pos.x)));
 }
 
-// static bool	is_beyond_target(t_vector_double target_pos, \
+// static bool	is_beyond_target(t_vector_double target_pos, 
 // 	t_vector_double attacker_dir, t_vector_double	ray_pos)
 // {
 // 	bool	x_dir;
