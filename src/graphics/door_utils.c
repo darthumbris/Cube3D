@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 20:51:28 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/13 16:58:48 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ bool	is_nearby_door(t_data *data)
 		{data->doors[i].x, data->doors[i].y}, data->cam.pos) < 4)
 		{
 			data->doors[i].state = OPENING;
+    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dropen.wav", &data->sound.sfx);
 			return (true);
 		}
 		i++;

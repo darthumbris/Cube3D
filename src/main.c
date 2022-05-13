@@ -6,19 +6,21 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:17:41 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/13 17:00:15 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <stdio.h>
 #include <time.h>
+#define MINIAUDIO_IMPLEMENTATION
+#include "../libs/miniaudio/miniaudio.h"
 
 static void	init_player(t_data *data)
 {
 	init_hud(data);
 	data->level.level_number = 1;
-	data->player.ammo = 8;
+	data->player.ammo = 90000000;
 	data->player.lives = 3;
 	data->player.health = 100;
 	data->player.score = 0;
@@ -73,6 +75,18 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
+
+    data.sound.result = ma_engine_init(NULL, &data.sound.engine);
+    if (data.sound.result != MA_SUCCESS) {
+        printf("Failed to initialize audio engine.");
+        return -1;
+    }
+	ma_sound sound;
+	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.music);
+	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.sfx);
+	ma_sound_init_from_file(&data.sound.engine, "./searchn.mp3", 0, &data.sound.music, NULL, &sound);
+	ma_sound_start(&sound);
+    //ma_engine_uninit(&engine);
 	init_doors(&data);
 	init_secrets(&data);
 	draw_background(&data);

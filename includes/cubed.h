@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 10:40:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 16:56:36 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
+# include "../libs/miniaudio/miniaudio.h"
 # include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
@@ -25,12 +26,12 @@
 
 # define SCREEN_HEIGHT	768
 # define SCREEN_WIDTH	1024
-# define MOVE_SPEED		5
+# define MOVE_SPEED		10
 # define ROTATE_SPEED	3
 # define MOUSE_SENSITIV 0.040
 # define FOV			70
 # define RENDER_DIST_S	150
-# define RENDER_DIST_W	50
+# define RENDER_DIST_W	150
 # define PICKUP_DIST	0.7
 
 # ifndef DEBUG_MODE
@@ -292,6 +293,13 @@ typedef struct s_hud
 	t_vector_int	pos_map;
 }	t_hud;
 
+typedef struct s_sound
+{
+	ma_result		result;
+	ma_engine		engine;
+	ma_sound_group	music;
+	ma_sound_group	sfx;
+}	t_sound;
 enum e_door_states
 {
 	CLOSED,
@@ -349,6 +357,7 @@ typedef struct s_data
 	t_hud				hud;
 	t_doors				*doors;
 	t_secrets			*secrets;
+	t_sound				sound;
 }				t_data;
 
 /**
@@ -491,6 +500,7 @@ void	change_camera_angle(t_data *data, double dir);
 
 void	change_camera_angle_mouse(t_data *data, double rotate_speed);
 void	mouse_handler(t_data *data);
+void	gun_actions(t_data *data);
 
 /**
  * @brief wasd movement

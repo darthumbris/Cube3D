@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:32:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/13 16:59:03 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		{
 			data->mlx.weapon_anim[data->player.active_weapon].animate = true;
 			if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
-			{
-				data->player.ammo--;
-				data->update_hud = true;
-			}
+				gun_actions(data);
+			else
+    			ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/knife.wav", &data->sound.sfx);
 			check_weapon_hit(data);
 		}
 		weapon_switch(data, keys);
