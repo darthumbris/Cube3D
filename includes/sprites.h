@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 17:02:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/16 16:20:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SPRITES_H
 
 # include "vectors.h"
+# include "astar.h"
 
 # define M_PI_8		0.392699081698724154807830422909937860
 # define M_PI32		4.712388980384689857693965074919254326
@@ -145,27 +146,37 @@ typedef union u_tex_path
 enum	e_state
 {
 	ALIVE,
+	PATROLLING,
+	TRACKING,
 	ATTACKING,
 	DYING,
 	DEAD
 };
 
-typedef struct s_sprite
+typedef struct s_enemy_data
 {
-	t_vector_double	map_pos;
 	t_vector_double	dir;
-	t_sprite_enum	kind;
 	enum e_state	state;
-	t_vector_int	transp_begin;
-	t_vector_int	transp_end;
-	double			dist;
 	int				health;
 	int				frame;
 	int				last_attack;
-	bool			dropped;
 	bool			player_detected;
-	bool			scanned_for_player;
-	//bool			hidden;
+	bool			played_sound;
+	int				counter;
+	int				move_counter;
+	t_vector_int	*path;
+	int				path_index;
+}				t_enemy_data;
+
+typedef struct s_sprite
+{
+	t_vector_double	map_pos;
+	t_sprite_enum	kind;
+	t_vector_int	transp_begin;
+	t_vector_int	transp_end;
+	double			dist;
+	bool			dropped;
+	t_enemy_data	en_dat;
 }				t_sprite;
 
 typedef struct s_sprite_lst

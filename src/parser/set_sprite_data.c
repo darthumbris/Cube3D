@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 17:02:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/16 15:35:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,35 @@ static t_vector_int	get_transparency_end(int kind, t_data *data)
 		return ((t_vector_int){.x = -1, .y = -1});
 }
 
+static void	set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
+							t_data *data)
+{
+	sprite->en_dat.player_detected = false;
+	sprite->en_dat.state = ALIVE;
+	if (sprite->kind == GUARD)
+		sprite->en_dat.health = 25;
+	else if (sprite->kind == DOG)
+		sprite->en_dat.health = 1;
+	sprite->en_dat.dir = get_direction_enemy(map[pos.y][pos.x]);
+	if (is_enemy_patrol(data, sprite))
+		sprite->en_dat.state = PATROLLING;
+	sprite->en_dat.frame = 0;
+	sprite->en_dat.counter = 0;
+	sprite->en_dat.move_counter = 0;
+}
+
 static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	t_data *data)
 {
 	sprite->map_pos.x = pos.x + 0.5;
 	sprite->map_pos.y = pos.y + 0.5;
 	sprite->kind = get_sprite_kind(map[pos.y][pos.x], data);
-	sprite->player_detected = false;
-	sprite->state = ALIVE;
-	sprite->last_attack = 0;
-	sprite->scanned_for_player = false;
-	if (sprite->kind == GUARD)
-		sprite->health = 25;
-	else if (sprite->kind == DOG)
-		sprite->health = 1;
-	else
-		sprite->health = 0;
-	if (is_enemy_tile(map[pos.y][pos.x]))
-		sprite->dir = get_direction_enemy(map[pos.y][pos.x]);
+	if (sprite->kind == GUARD || sprite->kind == DOG)
+		set_enemy_data(sprite, map, pos, data);
 	if (is_nonblocking_kind(sprite->kind))
 		map[pos.y][pos.x] = '0';
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
 	sprite->transp_end = get_transparency_end(sprite->kind, data);
-	sprite->frame = 0;
 }
 
 void	set_sprite_positions(char **map, t_data *data)

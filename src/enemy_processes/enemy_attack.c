@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/13 13:35:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 19:24:40 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/16 14:05:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,6 @@ static void	damage_player(t_data *data, double dodge_chance, t_sprite *sprite, \
 		printf("player took: %d damage, current health: %d\n", damage, data->player.health);
 	data->player.health -= damage;
 	data->update_hud = true;
-	if (sprite->kind == DOG)
-    	ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx);
-	if (sprite->kind == GUARD)
-    	ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grdatk.wav", &data->sound.sfx);
 	if (data->player.health < 0)
 	{
 		data->player.health = 100;
@@ -113,22 +109,18 @@ void	attack_player(t_sprite *sprite, t_data *data)
 {
 	double	dodge_chance;
 	double	player_angle;
-	double	enemy_angle;
 	bool	running;
 	int		max_dist;
 
-	if ((sprite->kind == DOG && sprite->dist >= KNIFE_RANGE) || \
-		(sprite->kind == GUARD && sprite->dist >= GUN_RANGE))
-		return ;
-	enemy_angle = get_angle_of_attack
-		(data->cam.pos, sprite->map_pos, sprite->dir);
-	if ((enemy_angle > WEAPON_FOV && sprite->dist > 2) || \
-		(enemy_angle > MELEE_FOV && sprite->dist < 2))
+	if (player_oustide_viewing_cone(data, sprite))
 		return ;
 	player_angle = get_angle_of_attack
 		(sprite->map_pos, data->cam.pos, data->cam.dir);
 	running = check_running(data);
 	max_dist = get_max_dist(player_angle, running);
 	dodge_chance = get_dodge_chance(sprite, running, player_angle);
+	sprite->en_dat.state = ATTACKING;
+	sprite->en_dat.frame = 0;
+	sprite->en_dat.played_sound = false;
 	damage_player(data, dodge_chance, sprite, max_dist);
 }

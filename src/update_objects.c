@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:25:12 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 14:52:06 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/16 15:08:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	update_doors(t_data *data, int i)
 			{
 				data->doors[i].s_timer = 1.0;
 				data->doors[i].state = CLOSED;
+				ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/drstop.wav", &data->sound.sfx);
 				check_perma_closed(data, i);
 			}
 		}

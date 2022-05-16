@@ -6,15 +6,20 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 15:58:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 19:17:58 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/16 14:00:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static bool	is_enemy_kind(int kind)
+bool	is_enemy_kind(int kind)
 {
 	return (kind == GUARD || kind == DOG);
+}
+
+bool	is_enemy_movable(int state)
+{
+	return (state == ALIVE || state == TRACKING || state == PATROLLING);
 }
 
 bool	is_enemy_collision(t_data *data, t_vector_double new_pos)
@@ -25,8 +30,8 @@ bool	is_enemy_collision(t_data *data, t_vector_double new_pos)
 	while (lst)
 	{
 		if (is_enemy_kind(lst->sprite_data.kind) && \
-			(lst->sprite_data.state == ALIVE || \
-			lst->sprite_data.state == ATTACKING) && \
+			(lst->sprite_data.en_dat.state == ALIVE || \
+			lst->sprite_data.en_dat.state == ATTACKING) && \
 			sprite_dist(lst->sprite_data.map_pos, new_pos) < 0.1)
 			return (true);
 		lst = lst->next;

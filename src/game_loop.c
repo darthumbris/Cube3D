@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 17:05:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/16 15:13:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,32 @@ static void	check_enemies_attack(t_data *data)
 	while (lst)
 	{
 		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
-			&& lst->sprite_data.state == ATTACKING)
+			&& lst->sprite_data.en_dat.state == ATTACKING)
 		{
+			if (lst->sprite_data.en_dat.frame == 1 && !lst->sprite_data.en_dat.played_sound)
+			{
+				printf("playing sound\n");
+				if (lst->sprite_data.kind == DOG)
+    				ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx);
+				if (lst->sprite_data.kind == GUARD)
+					ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grdatk.wav", &data->sound.sfx);
+				lst->sprite_data.en_dat.played_sound = true;
+			}
 			if (delay % 16 == 0)
-				lst->sprite_data.frame++;
-			if (lst->sprite_data.state == ATTACKING && lst->sprite_data.frame > 2)
+				lst->sprite_data.en_dat.frame++;
+			if (lst->sprite_data.en_dat.frame > 2)
 			{
-				lst->sprite_data.frame = 0;
-				lst->sprite_data.state = ALIVE;
+				lst->sprite_data.en_dat.frame = 0;
+				lst->sprite_data.en_dat.state = TRACKING;
 			}
 		}
 		else if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
-			&& lst->sprite_data.state == ALIVE && lst->sprite_data.last_attack)
+			&& lst->sprite_data.en_dat.state == ALIVE && lst->sprite_data.en_dat.last_attack)
 		{
-			lst->sprite_data.last_attack++;
-			if (lst->sprite_data.last_attack > 50)
-				lst->sprite_data.last_attack = 0;
+			lst->sprite_data.en_dat.last_attack++;
+			if (lst->sprite_data.en_dat.last_attack > 50)
+				lst->sprite_data.en_dat.last_attack = 0;
 		}
-		else if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
-			&& lst->sprite_data.state == ALIVE && lst->sprite_data.scanned_for_player)
-			{
-				if (delay_target > 50)
-					lst->sprite_data.scanned_for_player = false;
-			}
 		lst = lst->next;
 	}
 	if (delay > 48)
@@ -83,21 +86,19 @@ static void	check_enemies_dead(t_data *data)
 	while (lst)
 	{
 		if ((lst->sprite_data.kind == GUARD || lst->sprite_data.kind == DOG) \
-			&& lst->sprite_data.state == DYING)
+			&& lst->sprite_data.en_dat.state == DYING)
 		{
 			if (delay % 8 == 0)
-				lst->sprite_data.frame++;
-			if (lst->sprite_data.state == ATTACKING && lst->sprite_data.frame > 2)
-				lst->sprite_data.frame = 2;
-			if (lst->sprite_data.kind == GUARD && lst->sprite_data.frame > 4)
+				lst->sprite_data.en_dat.frame++;
+			if (lst->sprite_data.kind == GUARD && lst->sprite_data.en_dat.frame > 4)
 			{
-				lst->sprite_data.state = DEAD;
-				lst->sprite_data.frame = 4;
+				lst->sprite_data.en_dat.state = DEAD;
+				lst->sprite_data.en_dat.frame = 4;
 			}
-			else if (lst->sprite_data.kind == DOG && lst->sprite_data.frame > 3)
+			else if (lst->sprite_data.kind == DOG && lst->sprite_data.en_dat.frame > 3)
 			{
-				lst->sprite_data.state = DEAD;
-				lst->sprite_data.frame = 3;
+				lst->sprite_data.en_dat.state = DEAD;
+				lst->sprite_data.en_dat.frame = 3;
 			}
 		}
 		lst = lst->next;

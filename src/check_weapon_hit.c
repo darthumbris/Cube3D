@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 19:18:02 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/16 15:26:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,6 @@ double	get_angle_of_attack(t_vector_double target_pos, \
 		atan2(target_pos.y - attacker_pos.y, target_pos.x - attacker_pos.x)));
 }
 
-// static bool	is_beyond_target(t_vector_double target_pos, 
-// 	t_vector_double attacker_dir, t_vector_double	ray_pos)
-// {
-// 	bool	x_dir;
-// 	bool	y_dir;
-
-// 	x_dir = false;
-// 	y_dir = false;
-// 	if (attacker_dir.x >= 0 && ray_pos.x >= target_pos.x)
-// 		x_dir = true;
-// 	else if (attacker_dir.x <= 0 && ray_pos.x <= target_pos.x)
-// 		x_dir = true;
-// 	if (attacker_dir.y >= 0 && ray_pos.y >= target_pos.y)
-// 		y_dir = true;
-// 	else if (attacker_dir.y <= 0 && ray_pos.y <= target_pos.y)
-// 		y_dir = true;
-// 	return (x_dir && y_dir);
-// }
-
 bool	is_target_visible(t_vector_double target_pos, \
 	t_vector_double attacker_pos, t_vector_double attacker_dir, t_data *data)
 {
@@ -46,19 +27,12 @@ bool	is_target_visible(t_vector_double target_pos, \
 	char			c;
 
 	ray_pos = attacker_pos;
-	//printf("checking for target visibility for att: %f,%f\n", attacker_pos.y, attacker_pos.x);
 	while (ray_pos.x < data->level.map_w && ray_pos.x > 0 && \
 			ray_pos.y < data->level.map_h && ray_pos.y > 0)
 	{
 		ray_posfloor.x = (ray_pos.x - ((ray_pos.x - floor(ray_pos.x))));
 		ray_posfloor.y = (ray_pos.y - ((ray_pos.y - floor(ray_pos.y))));
 		c = data->level.map[(int)ray_posfloor.y][(int)ray_posfloor.x];
-		// if (is_beyond_target(target_pos, attacker_dir, ray_pos))
-		// {
-		// 	printf("beyond target\n");
-		// 	printf("raypos: %f,%f\n", ray_pos.y, ray_pos.x);
-		// 	return (true);
-		// }
 		if ((int)ray_pos.x == (int)target_pos.x && \
 			(int)ray_pos.y == (int)target_pos.y)
 			return (true);
@@ -84,8 +58,7 @@ t_sprite_lst	*find_enemy(t_data *data, double range)
 		if (last->sprite_data.dist >= range)
 			return (NULL);
 		if ((last->sprite_data.kind == GUARD || last->sprite_data.kind == DOG) \
-			&& (last->sprite_data.state == ALIVE || \
-			last->sprite_data.state == ATTACKING))
+			&& last->sprite_data.en_dat.state < DYING)
 		{
 			fov = get_angle_of_attack(last->sprite_data.map_pos, \
 				data->cam.pos, data->cam.dir);
@@ -145,20 +118,21 @@ void	check_weapon_hit(t_data *data)
 	{
 		if (DEBUG_MODE)
 			printf("miss\n");
+		//TODO make enemies near the sound of this shot get alerted
 		return ;
 	}
 	draw_enemies(data, &enemy->sprite_data);
 	damage = calculate_damage(data, round(sqrt(enemy->sprite_data.dist)));
-	enemy->sprite_data.health -= damage;
+	enemy->sprite_data.en_dat.health -= damage;
 	if (DEBUG_MODE)
 		printf("damage: %d, enemy health: %d\n", \
-			damage, enemy->sprite_data.health);
-	if (enemy->sprite_data.health > 0)
-		enemy->sprite_data.player_detected = true;
+			damage, enemy->sprite_data.en_dat.health);
+	if (enemy->sprite_data.en_dat.health > 0)
+		alert_neighbouring_enemies(data, &enemy->sprite_data);
 	else
 	{
-		enemy->sprite_data.state = DYING;
-		enemy->sprite_data.frame = 0;
+		enemy->sprite_data.en_dat.state = DYING;
+		enemy->sprite_data.en_dat.frame = 0;
 		if (enemy->sprite_data.kind == GUARD)
 		{
 			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
@@ -170,6 +144,5 @@ void	check_weapon_hit(t_data *data)
 			data->player.score += 200;
     		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx);	
 		}
-			
 	}
 }

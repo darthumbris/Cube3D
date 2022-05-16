@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/13 19:17:46 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/16 16:53:50 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,16 +40,12 @@ SRC =	main.c \
 		graphics/draw_minimap_utils.c \
 		graphics/extend_ray.c \
 		graphics/extend_ray_utils.c \
-		graphics/path_find.c \
 		graphics/draw_weapons.c \
-		graphics/path_find_utils.c \
 		graphics/extend_ray_secret.c \
 		graphics/draw_enemies.c \
 		graphics/minimap_procedural.c \
 		graphics/draw_enemies_utils.c \
         game_loop.c \
-		check_enemy_collision.c \
-		enemy_attack.c \
 		mouse_functions.c \
 		key_functions.c \
 		update_objects.c \
@@ -70,6 +66,14 @@ SRC =	main.c \
 		parser/parse_config.c \
 		parser/check_textures.c \
 		parser/init_doormap.c \
+		enemy_processes/path_find.c \
+		enemy_processes/path_find_utils.c \
+		enemy_processes/path_find_patrol.c \
+		enemy_processes/enemy_ai_0.c \
+		enemy_processes/enemy_ai_1.c \
+		enemy_processes/check_enemy_collision.c \
+		enemy_processes/enemy_attack.c \
+		#enemy_processes/enemy_ai_astar.c 
 		
 
 SRC_EXT = c
