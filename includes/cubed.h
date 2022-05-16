@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 19:21:07 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/16 10:03:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
-# include "../libs/miniaudio/miniaudio.h"
+# include "miniaudio.h"
 # include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>

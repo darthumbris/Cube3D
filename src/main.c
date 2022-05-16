@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 19:20:57 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/16 10:02:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <time.h>
 #define MINIAUDIO_IMPLEMENTATION
-#include "../libs/miniaudio/miniaudio.h"
+#include "miniaudio.h"
 
 static void	init_player(t_data *data)
 {
