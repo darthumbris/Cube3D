@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 14:36:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:11:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/16 17:08:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	patrol_routine(t_data *data, t_sprite *enemy)
 	temp.y = enemy->map_pos.y + speed * enemy->en_dat.dir.y;
 	c = data->level.map[(int)(temp.y + 0.5 * enemy->en_dat.dir.y)] \
 		[(int)(temp.x + 0.5 * enemy->en_dat.dir.x)];
-	if (is_wall_tile(c) || is_door_tile(c))
+	if (is_wall_tile(c) || is_door_tile(c) || is_secret_tile(c))
 	{
 		enemy->en_dat.dir.x = -enemy->en_dat.dir.x;
 		enemy->en_dat.dir.y = -enemy->en_dat.dir.y;

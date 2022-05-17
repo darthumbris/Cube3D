@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 16:20:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 08:47:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SPRITES_H
 
 # include "vectors.h"
-# include "astar.h"
 
 # define M_PI_8		0.392699081698724154807830422909937860
 # define M_PI32		4.712388980384689857693965074919254326

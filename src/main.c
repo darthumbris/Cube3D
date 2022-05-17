@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/16 10:02:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/16 17:06:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	init_player(t_data *data)
 {
 	init_hud(data);
 	data->level.level_number = 1;
-	data->player.ammo = 90000000;
+	data->player.ammo = 8;
 	data->player.lives = 3;
 	data->player.health = 100;
 	data->player.score = 0;

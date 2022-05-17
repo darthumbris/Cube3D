@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 17:00:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 08:48:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -484,8 +484,6 @@ void	check_for_player(t_data *data, t_sprite *enemy);
 void	track_player(t_data *data, t_sprite *enemy);
 bool	player_oustide_viewing_cone(t_data *data, t_sprite *enemy);
 void	alert_neighbouring_enemies(t_data *data, t_sprite *enemy);
-void	add_neighbours_to_list(t_astar_path *astar, t_node *node, t_data *data);
-void	pathfind_to_player(t_data *data, t_sprite *enemy);
 
 //procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);
