@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:05:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:13:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # include <math.h>
 # include "sprites.h"
 # include <stdio.h>
+# include <time.h>
 
 # define SCREEN_HEIGHT	768
 # define SCREEN_WIDTH	1024
-# define MOVE_SPEED		7
+# define MOVE_SPEED		4
 # define ROTATE_SPEED	3
-# define MOUSE_SENSITIV 0.040
+# define MOUSE_SENSITIV 0.030
 # define FOV			70
 # define RENDER_DIST_S	400
 # define PICKUP_DIST	0.7
@@ -306,9 +307,13 @@ typedef struct s_sound
 {
 	ma_result		result;
 	ma_engine		engine;
-	ma_sound_group	music;
-	ma_sound_group	sfx;
+	ma_sound_group	music_g;
+	ma_sound_group	sfx_g;
+	ma_sound		**soundtrack;
+	int				length;
+	int				cur;
 }	t_sound;
+
 enum e_door_states
 {
 	CLOSED,
@@ -581,6 +586,9 @@ bool	is_enemy_movable(int state);
 bool	is_enemy_patrol(t_data *data, t_sprite *sprite);
 bool	is_block_patrol_tile(char c);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
+
+void	soundtrack(t_data *data);
+bool	sound_init(t_data *data);
 
 //for the pathfind
 bool	view_not_blocked(t_data *data, t_vector_int pc_pos, t_vector_int g_pos);

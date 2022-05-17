@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:30:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:11:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 			else
 				data->player.ammo += 4;
 			ma_engine_play_sound(&data->sound.engine, \
-			"./assets/wav_files/sounds/ammoup.wav", &data->sound.sfx);
+				"./assets/wav_files/sounds/ammoup.wav", &data->sound.sfx_g);
 			item->sprite_data.kind = 0;
 			data->update_hud = true;
 		}
@@ -75,7 +75,7 @@ void	treasure_item(t_data *data, t_sprite_lst *item)
 	if (item->sprite_data.kind == TREASURE_0)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/cross.wav", &data->sound.sfx);
+			"./assets/wav_files/sounds/cross.wav", &data->sound.sfx_g);
 		data->player.score += 100;
 		data->update_hud = true;
 		item->sprite_data.kind = 0;
@@ -83,7 +83,7 @@ void	treasure_item(t_data *data, t_sprite_lst *item)
 	else if (item->sprite_data.kind == TREASURE_1)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/chalice.wav", &data->sound.sfx);
+			"./assets/wav_files/sounds/chalice.wav", &data->sound.sfx_g);
 		data->player.score += 500;
 		data->update_hud = true;
 		item->sprite_data.kind = 0;
@@ -91,7 +91,7 @@ void	treasure_item(t_data *data, t_sprite_lst *item)
 	else if (item->sprite_data.kind == TREASURE_2)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/chest.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/chest.wav", &data->sound.sfx_g);
 		data->player.score += 1000;
 		data->update_hud = true;
 		item->sprite_data.kind = 0;

@@ -6,15 +6,12 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:26:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:09:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "define.h"
 #include "cubed.h"
-#include <stdio.h>
-#include <time.h>
-#define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
 
 static void	init_player(t_data *data)
 {
@@ -76,23 +73,13 @@ int	main(int argc, char **argv)
 
 	init_data(&data);
 	if (argc != 2 || !parse_config(&data) || !parse_input(argv, &data) || \
-		!init_mlx(&data) || !init_door_map(&data))
+		!sound_init(&data) || !init_mlx(&data) || !init_door_map(&data))
 	{
 		write(2, "Error\n", 6);
 		return (1);
 	}
-
-    data.sound.result = ma_engine_init(NULL, &data.sound.engine);
-    if (data.sound.result != MA_SUCCESS) {
-        printf("Failed to initialize audio engine.");
-        return -1;
-    }
-	ma_sound	sound;
-	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.music);
-	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.sfx);
-	ma_sound_init_from_file(&data.sound.engine, "./searchn.mp3", 0, &data.sound.music, NULL, &sound);
-	ma_sound_start(&sound);
-    //ma_engine_uninit(&engine);
+	ma_sound_start(data.sound.soundtrack[0]);
+	data.sound.cur = 0;
 	init_doors(&data);
 	init_secrets(&data);
 	draw_background(&data);

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:19:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:12:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static void	play_death_sound(t_data *data, t_sprite *enemy)
 		volume = 0;
 	if (enemy->kind == GUARD)
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/grddth1.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/grddth1.wav", &data->sound.sfx_g);
 	else
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx_g);
 }
 
 static void	damage_enemy(t_data *data, t_sprite *enemy, int damage)

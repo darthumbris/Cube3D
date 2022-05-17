@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:33:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:07:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:08:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	change_camera_angle(t_data *data, double dir)
 		cos_rotate - data->cam.plane.y * sin_rotate;
 	data->cam.plane.y = old_plane_x * \
 		sin_rotate + data->cam.plane.y * cos_rotate;
-	printf("dir: %f,%f\n", data->cam.dir.y, data->cam.dir.x);
+	if (DEBUG_MODE)
+		printf("dir: %f,%f\n", data->cam.dir.y, data->cam.dir.x);
 }
 
 void	change_camera_angle_mouse(t_data *data, double rotate_speed)

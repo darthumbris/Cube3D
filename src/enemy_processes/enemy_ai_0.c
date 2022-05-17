@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:32:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:13:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	check_for_player(t_data *data, t_sprite *enemy)
 		volume = 0;
 	if (!enemy->en_dat.played_sound && enemy->kind == GUARD)
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/grdsit2.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/grdsit2.wav", &data->sound.sfx_g);
 	else if (!enemy->en_dat.played_sound && enemy->kind == DOG)
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/dogsit.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/dogsit.wav", &data->sound.sfx_g);
 }
