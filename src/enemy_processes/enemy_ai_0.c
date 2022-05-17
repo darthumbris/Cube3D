@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:07:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:17:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_vector_double	get_closest_line_point(t_line *line, \
 	return (res);
 }
 
-static bool	is_vision_blocked(t_vector_double player_pos, \
+bool	is_vision_blocked(t_vector_double player_pos, \
 	t_sprite *enemy, t_data *data)
 {
 	t_vector_double	ray;

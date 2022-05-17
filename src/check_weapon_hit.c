@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:26:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:15:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	check_weapon_hit(t_data *data)
 	int				damage;
 
 	enemy = get_enemie_hit(data);
+	sound_alerts_enemies(data);
 	if (!enemy)
 	{
 		if (DEBUG_MODE)

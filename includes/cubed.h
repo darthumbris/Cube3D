@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 12:48:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:22:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 # define ENEMY_ROT_SPEED	2
 # define ENEMY_RANGE		250
 # define ENEMY_WARN_DIST	5
+# define ENEMY_HEARING_DIST	50
 # define PATROL_DIST		7
 
 typedef struct s_segment
@@ -494,6 +495,9 @@ void	set_new_y_pos(t_vector_double *temp_pos, \
 				t_vector_double *collision, t_sprite *enemy, int dir);
 void	set_new_x_pos(t_vector_double *temp_pos, \
 				t_vector_double *collision, t_sprite *enemy, int dir);
+bool	is_vision_blocked(t_vector_double player_pos, \
+	t_sprite *enemy, t_data *data);
+void	sound_alerts_enemies(t_data *data);
 
 //procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);
