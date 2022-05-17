@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:08:09 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:29:17 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	check_enemies_attack(t_data *data)
 		{
 			if (lst->sprite_data.en_dat.frame == 1 && !lst->sprite_data.en_dat.played_sound)
 			{
-				printf("playing sound\n");
+				//printf("playing sound\n");
 				if (lst->sprite_data.kind == DOG)
     				ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx_g);
 				if (lst->sprite_data.kind == GUARD)

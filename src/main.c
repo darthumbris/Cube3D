@@ -6,15 +6,12 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:19:32 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:39:18 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "define.h"
 #include "cubed.h"
-#include <stdio.h>
-#include <time.h>
-#define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
 
 static void	init_player(t_data *data)
 {

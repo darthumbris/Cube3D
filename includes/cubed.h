@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:09:23 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:37:28 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <math.h>
 # include "sprites.h"
 # include <stdio.h>
+# include <time.h>
 
 # define SCREEN_HEIGHT	768
 # define SCREEN_WIDTH	1024
