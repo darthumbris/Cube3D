@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 13:42:53 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:20:20 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
 	{
 		cleanup_data(data);
+		ma_engine_uninit(&data->sound.engine);
 		mlx_close_window(data->mlx.mlx_handle);
 		exit(EXIT_SUCCESS);
 	}
