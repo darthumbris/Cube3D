@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 12:48:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:22:27 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,13 +301,23 @@ typedef struct s_hud
 	t_vector_int	pos_map;
 }	t_hud;
 
+typedef enum e_soundtrack
+{
+	SEARCHN,
+	WARMARCH,
+	CORNER,
+}	t_soundtrack;
+
 typedef struct s_sound
 {
 	ma_result		result;
 	ma_engine		engine;
-	ma_sound_group	music;
-	ma_sound_group	sfx;
+	ma_sound_group	music_g;
+	ma_sound_group	sfx_g;
+	ma_sound		soundtrack[3];
+	t_soundtrack	curr;
 }	t_sound;
+
 enum e_door_states
 {
 	CLOSED,
@@ -569,6 +579,8 @@ bool	is_enemy_movable(int state);
 bool	is_enemy_patrol(t_data *data, t_sprite *sprite);
 bool	is_block_patrol_tile(char c);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
+
+void	soundtrack(t_data *data);
 
 //for the pathfind
 bool	view_not_blocked(t_data *data, t_vector_int pc_pos, t_vector_int g_pos);

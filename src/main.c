@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/16 17:06:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:16:19 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,19 @@ int	main(int argc, char **argv)
 	}
 
     data.sound.result = ma_engine_init(NULL, &data.sound.engine);
-    if (data.sound.result != MA_SUCCESS) {
+    if (data.sound.result != MA_SUCCESS) 
+	{
         printf("Failed to initialize audio engine.");
-        return -1;
+		return 1;
     }
-	ma_sound	sound;
-	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.music);
-	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.sfx);
-	ma_sound_init_from_file(&data.sound.engine, "./searchn.mp3", 0, &data.sound.music, NULL, &sound);
-	ma_sound_start(&sound);
+	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.music_g);
+	ma_sound_group_init(&data.sound.engine, 0, NULL, &data.sound.sfx_g);
+	ma_sound_init_from_file(&data.sound.engine, "./searchn.mp3", 0, &data.sound.music_g, NULL, &data.sound.soundtrack[SEARCHN]);
+	ma_sound_init_from_file(&data.sound.engine, "./warmarch.mp3", 0, &data.sound.music_g, NULL, &data.sound.soundtrack[WARMARCH]);
+	ma_sound_init_from_file(&data.sound.engine, "./corner.mp3", 0, &data.sound.music_g, NULL, &data.sound.soundtrack[CORNER]);
+
+	data.sound.curr = SEARCHN;
+	ma_sound_start(&data.sound.soundtrack[SEARCHN]);
     //ma_engine_uninit(&engine);
 	init_doors(&data);
 	init_secrets(&data);

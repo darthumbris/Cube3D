@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:13:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:08:09 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	check_enemies_attack(t_data *data)
 			{
 				printf("playing sound\n");
 				if (lst->sprite_data.kind == DOG)
-    				ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx);
+    				ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx_g);
 				if (lst->sprite_data.kind == GUARD)
-					ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grdatk.wav", &data->sound.sfx);
+					ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grdatk.wav", &data->sound.sfx_g);
 				lst->sprite_data.en_dat.played_sound = true;
 			}
 			if (delay % 16 == 0)
@@ -144,6 +144,7 @@ void	game_loop(void *v_data)
 	data = (t_data *)v_data;
 	movement_handler(data);
 	mouse_handler(data);
+	soundtrack(data);
 	raycaster(data);
 	if (data->bonus)
 		bonus_loop(data);

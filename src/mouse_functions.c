@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:19:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:59:01 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 13:42:44 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	gun_actions(t_data *data)
 {
 	if (data->player.active_weapon == MACHINEGUN)
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/biggun.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/biggun.wav", &data->sound.sfx_g);
 	else
 		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/pist.wav", &data->sound.sfx);
+		"./assets/wav_files/sounds/pist.wav", &data->sound.sfx_g);
 	data->player.ammo--;
 	data->update_hud = true;
 }
@@ -33,7 +33,7 @@ static void	mouse_fire(t_data *data, bool *fired, int *old_x)
 		if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
 			gun_actions(data);
 		else
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/knife.wav", &data->sound.sfx);
+    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/knife.wav", &data->sound.sfx_g);
 		check_weapon_hit(data);
 		*fired = true;
 	}

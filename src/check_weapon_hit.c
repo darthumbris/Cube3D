@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:26:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 13:43:43 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,13 @@ void	check_weapon_hit(t_data *data)
 		if (enemy->sprite_data.kind == GUARD)
 		{
 			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grddth1.wav", &data->sound.sfx);
+    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grddth1.wav", &data->sound.sfx_g);
 			data->player.score += 100;
 		}
 		else
 		{
 			data->player.score += 200;
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx);	
+    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx_g);
 		}
 	}
 }
