@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:08:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:15:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,8 @@ void	key_handler(struct mlx_key_data keys, void *param)
 			if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
 				gun_actions(data);
 			else
-<<<<<<< HEAD:src/mouse_and_keyboard/key_functions.c
 				ma_engine_play_sound(&data->sound.engine, \
-				"./assets/wav_files/sounds/knife.wav", &data->sound.sfx);
-=======
-    			ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/knife.wav", &data->sound.sfx_g);
->>>>>>> 3f87067bd842d03051ba1b40ffd15eafb6ae57b3:src/key_functions.c
+				"./assets/wav_files/sounds/knife.wav", &data->sound.sfx_g);
 			check_weapon_hit(data);
 		}
 		weapon_switch(data, keys);

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:13:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:16:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 
 # define SCREEN_HEIGHT	768
 # define SCREEN_WIDTH	1024
-# define MOVE_SPEED		4
+# define MOVE_SPEED		7
 # define ROTATE_SPEED	3
-# define MOUSE_SENSITIV 0.030
+# define MOUSE_SENSITIV 0.040
 # define FOV			70
 # define RENDER_DIST_S	400
 # define PICKUP_DIST	0.7

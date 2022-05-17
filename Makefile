@@ -6,11 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-<<<<<<< HEAD
-#    Updated: 2022/05/17 16:06:13 by shoogenb      ########   odam.nl          #
-=======
-#    Updated: 2022/05/17 13:59:29 by pvan-dij      ########   odam.nl          #
->>>>>>> 3f87067bd842d03051ba1b40ffd15eafb6ae57b3
+#    Updated: 2022/05/17 16:14:33 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +44,6 @@ SRC =	main.c \
 		graphics/draw_enemies.c \
 		graphics/minimap_procedural.c \
 		graphics/draw_enemies_utils.c \
-<<<<<<< HEAD
 		graphics/draw_enemies_transparencies.c \
 		game_loop/door_utils.c \
         game_loop/game_loop.c \
@@ -57,18 +52,10 @@ SRC =	main.c \
 		game_loop/update_items.c \
 		game_loop/check_weapon_hit.c \
 		game_loop/check_weapon_hit_utils.c \
+		game_loop/sound.c \
 		mouse_and_keyboard/mouse_functions.c \
 		mouse_and_keyboard/key_functions.c \
 		mouse_and_keyboard/camera_functions.c \
-=======
-        game_loop.c \
-		sound.c \
-		mouse_functions.c \
-		key_functions.c \
-		update_objects.c \
-		update_items.c \
-		camera_functions.c \
->>>>>>> 3f87067bd842d03051ba1b40ffd15eafb6ae57b3
 		cleunup_functions.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
