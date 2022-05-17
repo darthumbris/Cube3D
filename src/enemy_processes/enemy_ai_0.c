@@ -6,21 +6,48 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 08:52:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:07:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static t_vector_double	get_closest_line_point(t_line *line, double x0, double y0)
+static t_vector_double	get_closest_line_point(t_line *line, \
+			t_vector_double pos)
 {
 	t_vector_double	res;
 
-	res.x = (line->b * (line->b * x0 - line->a * y0) - line->a * line->c) / \
-		(line->a * line->a + line->b * line->b);
-	res.y = (line->a * (-line->b * x0 + line->a * y0) - line->b * line->c) / \
-		(line->a * line->a + line->b * line->b);
+	res.x = (line->b * (line->b * pos.x - line->a * pos.y) - \
+		line->a * line->c) / (line->a * line->a + line->b * line->b);
+	res.y = (line->a * (-line->b * pos.x + line->a * pos.y) - \
+		line->b * line->c) / (line->a * line->a + line->b * line->b);
 	return (res);
+}
+
+static bool	is_vision_blocked(t_vector_double player_pos, \
+	t_sprite *enemy, t_data *data)
+{
+	t_vector_double	ray;
+	t_vector_double	dir;
+	double			dist;
+	char			c;
+
+	ray = enemy->map_pos;
+	dir.x = (player_pos.x - enemy->map_pos.x) / enemy->dist;
+	dir.y = (player_pos.y - enemy->map_pos.y) / enemy->dist;
+	dist = 0;
+	while (dist < enemy->dist)
+	{
+		ray.x = enemy->map_pos.x + dist * dir.x;
+		ray.y = enemy->map_pos.y + dist * dir.y;
+		c = data->level.map[(int)ray.y][(int)ray.x];
+		if (is_wall_tile(c) || door_check(data, \
+			(t_vector_int){(int)ray.x, (int)ray.y}) || \
+			is_enemy_collision(data, ray))
+			return (true);
+		dist += 0.5;
+	}
+	return (false);
 }
 
 bool	player_oustide_viewing_cone(t_data *data, t_sprite *enemy)
@@ -36,14 +63,16 @@ bool	player_oustide_viewing_cone(t_data *data, t_sprite *enemy)
 	data->caster.dcas.ray.p_1.x = enemy->map_pos.x + enemy->en_dat.dir.x;
 	data->caster.dcas.ray.p_1.y = enemy->map_pos.y + enemy->en_dat.dir.y;
 	segment_to_line(&data->caster.dcas.ray, &data->caster.dcas.l1);
-	intersect = get_closest_line_point(&data->caster.dcas.l1, data->cam.pos.x, data->cam.pos.y);
+	intersect = get_closest_line_point(&data->caster.dcas.l1, data->cam.pos);
 	if (enemy->en_dat.dir.x * (intersect.x - enemy->map_pos.x) + \
 		enemy->en_dat.dir.y * (intersect.y - enemy->map_pos.y) < 0)
 		return (true);
-	max_view_fov = sqrt(pow(enemy->map_pos.x - intersect.x, 2) + pow(enemy->map_pos.y - intersect.y, 2));
-	view_fov = \
-		sqrt(pow(intersect.x - data->cam.pos.x, 2) + pow(intersect.y - data->cam.pos.y, 2));
-	return (view_fov > max_view_fov || !is_target_visible(data->cam.pos, enemy->map_pos, enemy->en_dat.dir, data) || \
+	max_view_fov = sqrt(pow(enemy->map_pos.x - intersect.x, 2) + \
+					pow(enemy->map_pos.y - intersect.y, 2));
+	view_fov = sqrt(pow(intersect.x - data->cam.pos.x, 2) + \
+				pow(intersect.y - data->cam.pos.y, 2));
+	return (view_fov > max_view_fov || is_vision_blocked
+		(data->cam.pos, enemy, data) || \
 		enemy->dist > ENEMY_RANGE);
 }
 
