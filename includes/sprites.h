@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 08:47:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 12:17:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,9 +162,8 @@ typedef struct s_enemy_data
 	bool			player_detected;
 	bool			played_sound;
 	int				counter;
-	int				move_counter;
-	t_vector_int	*path;
-	int				path_index;
+	int				path_dir;
+	double			speed;
 }				t_enemy_data;
 
 typedef struct s_sprite
@@ -208,5 +207,6 @@ t_sprite_lst	*add_sprite(t_sprite_lst **begin, t_sprite data);
 void			clear_sprite_lst(t_sprite_lst **begin);
 double			sprite_dist(t_vector_double start, t_vector_double end);
 t_sprite_lst	*add_ammo_to_lst(t_sprite_lst **begin, t_sprite data);
+bool			is_obstacle(char c);
 
 #endif

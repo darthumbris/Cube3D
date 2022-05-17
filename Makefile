@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/16 16:53:50 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/17 12:49:20 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,13 +67,15 @@ SRC =	main.c \
 		parser/check_textures.c \
 		parser/init_doormap.c \
 		enemy_processes/path_find.c \
+		enemy_processes/path_find_2.c \
+		enemy_processes/path_find_3.c \
+		enemy_processes/path_find_directions.c \
 		enemy_processes/path_find_utils.c \
 		enemy_processes/path_find_patrol.c \
 		enemy_processes/enemy_ai_0.c \
 		enemy_processes/enemy_ai_1.c \
 		enemy_processes/check_enemy_collision.c \
 		enemy_processes/enemy_attack.c \
-		#enemy_processes/enemy_ai_astar.c 
 		
 
 SRC_EXT = c

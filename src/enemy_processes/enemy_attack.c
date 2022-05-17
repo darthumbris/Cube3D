@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/13 13:35:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 14:05:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 09:37:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	damage_player(t_data *data, double dodge_chance, t_sprite *sprite, \
 		printf("player took: %d damage, current health: %d\n", damage, data->player.health);
 	data->player.health -= damage;
 	data->update_hud = true;
-	if (data->player.health < 0)
+	if (data->player.health <= 0)
 	{
 		data->player.health = 100;
 		data->player.lives--;

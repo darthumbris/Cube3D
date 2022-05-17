@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 15:24:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 08:52:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static t_vector_double	get_closest_line_point(t_line *line, double x0, double y0
 bool	player_oustide_viewing_cone(t_data *data, t_sprite *enemy)
 {
 	t_vector_double	intersect;
-	t_vector_double	shifted_pos;
 	double			max_view_fov;
 	double			view_fov;
 
@@ -41,12 +40,10 @@ bool	player_oustide_viewing_cone(t_data *data, t_sprite *enemy)
 	if (enemy->en_dat.dir.x * (intersect.x - enemy->map_pos.x) + \
 		enemy->en_dat.dir.y * (intersect.y - enemy->map_pos.y) < 0)
 		return (true);
-	shifted_pos.x = enemy->map_pos.x - 0.5;
-	shifted_pos.y = enemy->map_pos.y - 0.5;
 	max_view_fov = sqrt(pow(enemy->map_pos.x - intersect.x, 2) + pow(enemy->map_pos.y - intersect.y, 2));
 	view_fov = \
 		sqrt(pow(intersect.x - data->cam.pos.x, 2) + pow(intersect.y - data->cam.pos.y, 2));
-	return (view_fov > max_view_fov || !is_target_visible(data->cam.pos, shifted_pos, enemy->en_dat.dir, data) || \
+	return (view_fov > max_view_fov || !is_target_visible(data->cam.pos, enemy->map_pos, enemy->en_dat.dir, data) || \
 		enemy->dist > ENEMY_RANGE);
 }
 
@@ -68,7 +65,6 @@ void	check_for_player(t_data *data, t_sprite *enemy)
 		return ;
 	}
 	enemy->en_dat.state = TRACKING;
-	//printf("set state to tracking\n");
 	volume = 100.0 - sqrt(enemy->dist) * 3.0;
 	if (volume < 0)
 		volume = 0;

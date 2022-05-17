@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 14:09:24 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 14:35:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 09:02:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@ static bool	check_west_dir(char **map, int j, int i)
 {
 	int	end;
 
-	if (j - 3 < 0)
+	if (j - PATROL_DIST < 0)
 		return (false);
-	end = j - 3;
+	end = j - PATROL_DIST;
 	while (j > end)
 	{
-		if (is_wall_tile(map[i][j]) || \
-			is_door_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j]))
 			return (false);
 		j--;
 	}
@@ -33,13 +32,12 @@ static bool	check_east_dir(char **map, int j, int i, int max_w)
 {
 	int	end;
 
-	if (j + 3 >= max_w)
+	if (j + PATROL_DIST >= max_w)
 		return (false);
-	end = j + 3;
+	end = j + PATROL_DIST;
 	while (j < end)
 	{
-		if (is_wall_tile(map[i][j]) || \
-			is_door_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j]))
 			return (false);
 		j++;
 	}
@@ -50,13 +48,12 @@ static bool	check_north_dir(char **map, int j, int i)
 {
 	int	end;
 
-	if (i - 3 < 0)
+	if (i - PATROL_DIST < 0)
 		return (false);
-	end = i - 3;
+	end = i - PATROL_DIST;
 	while (i > end)
 	{
-		if (is_wall_tile(map[i][j]) || \
-			is_door_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j]))
 			return (false);
 		i--;
 	}
@@ -67,13 +64,12 @@ static bool	check_south_dir(char **map, int j, int i, int max_h)
 {
 	int	end;
 
-	if (i + 3 >= max_h)
+	if (i + PATROL_DIST >= max_h)
 		return (false);
-	end = i + 3;
+	end = i + PATROL_DIST;
 	while (i < end)
 	{
-		if (is_wall_tile(map[i][j]) || \
-			is_door_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j]))
 			return (false);
 		i++;
 	}

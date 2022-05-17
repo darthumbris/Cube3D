@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 08:48:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 12:48:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@
 # define ENEMY_ROT_SPEED	2
 # define ENEMY_RANGE		250
 # define ENEMY_WARN_DIST	5
+# define PATROL_DIST		7
 
 typedef struct s_segment
 {
@@ -475,6 +476,10 @@ double	get_angle_of_attack(t_vector_double target_pos, \
 
 //find a path
 void	path_find(t_data *data);
+void	pathfind_in_direction(t_data *data, t_sprite *enemy);
+void	pathfind_to_player(t_data *data, t_sprite *enemy);
+int		try_cardinal(t_data *data, t_sprite *enemy, int cardinal, int dir_to_p);
+int		try_diagonals(t_data *data, t_sprite *enemy);
 void	patrol_routine(t_data *data, t_sprite *enemy);
 void	attack_player(t_sprite *sprite, t_data *data);
 bool	is_target_visible(t_vector_double target_pos, \
@@ -484,6 +489,11 @@ void	check_for_player(t_data *data, t_sprite *enemy);
 void	track_player(t_data *data, t_sprite *enemy);
 bool	player_oustide_viewing_cone(t_data *data, t_sprite *enemy);
 void	alert_neighbouring_enemies(t_data *data, t_sprite *enemy);
+bool	is_out_of_bounds(t_vector_double new_pos, t_data *data);
+void	set_new_y_pos(t_vector_double *temp_pos, \
+				t_vector_double *collision, t_sprite *enemy, int dir);
+void	set_new_x_pos(t_vector_double *temp_pos, \
+				t_vector_double *collision, t_sprite *enemy, int dir);
 
 //procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);
@@ -557,6 +567,7 @@ bool	is_nonblocking_kind(int kind);
 bool	is_enemy_collision(t_data *data, t_vector_double new_pos);
 bool	is_enemy_movable(int state);
 bool	is_enemy_patrol(t_data *data, t_sprite *sprite);
+bool	is_block_patrol_tile(char c);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 
 //for the pathfind
