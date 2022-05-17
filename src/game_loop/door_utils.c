@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:58:48 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:47:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,20 @@ bool	is_nearby_door(t_data *data)
 {
 	int				i;
 
-	i = 0;
-	while (i < data->level.door_count)
+	i = -1;
+	while (i++ < data->level.door_count)
 	{
 		if (data->doors[i].state == CLOSED && get_distance((t_vector_int) \
 		{data->doors[i].x, data->doors[i].y}, data->cam.pos) < 4)
 		{
 			data->doors[i].state = OPENING;
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dropen.wav", &data->sound.sfx);
+			ma_engine_play_sound(&data->sound.engine, \
+				"./assets/wav_files/sounds/dropen.wav", &data->sound.sfx);
 			return (true);
 		}
-		i++;
 	}
-	i = 0;
-	while (i < data->level.secret_count)
+	i = -1;
+	while (i++ < data->level.secret_count)
 	{
 		if (data->secrets[i].state == CLOSED && get_distance((t_vector_int) \
 		{data->secrets[i].x, data->secrets[i].y}, data->cam.pos) < 4)
@@ -75,7 +75,6 @@ bool	is_nearby_door(t_data *data)
 			data->secrets[i].state = OPENING;
 			return (true);
 		}
-		i++;
 	}
 	return (false);
 }

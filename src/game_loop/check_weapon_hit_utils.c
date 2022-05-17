@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   check_weapon_hit.c                                 :+:    :+:            */
+/*   check_weapon_hit_utils.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:15:25 by shoogenb      ########   odam.nl         */
+/*   Created: 2022/05/17 15:09:06 by shoogenb      #+#    #+#                 */
+/*   Updated: 2022/05/17 15:14:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	is_target_visible(t_vector_double target_pos, \
 	return (true);
 }
 
-t_sprite_lst	*find_enemy(t_data *data, double range)
+static t_sprite_lst	*find_enemy(t_data *data, double range)
 {
 	t_sprite_lst	*last;
 	double			fov;
@@ -77,73 +77,4 @@ t_sprite_lst	*get_enemie_hit(t_data *data)
 	if (data->player.active_weapon == KNIFE)
 		return (find_enemy(data, KNIFE_RANGE));
 	return (find_enemy(data, GUN_RANGE));
-}
-
-static int	calculate_damage(t_data *data, double dist)
-{
-	int	damage;
-
-	damage = rand() % 256;
-	if (data->player.active_weapon == KNIFE)
-	{
-		damage = damage / 16;
-		if (damage > 15)
-			damage = 15;
-	}
-	else if (dist < 1.5)
-	{
-		damage = damage / 4;
-		if (damage > 63)
-			damage = 63;
-	}
-	else
-		damage = damage / 6;
-	if ((dist < 4 || (dist < 20 && damage / 12 >= dist)) && damage > 42)
-			damage = 42;
-	else if (dist < 21 && damage / 12 >= dist && damage > 39)
-		damage = 39;
-	else if (dist > 21)
-		damage = 0;
-	return (damage);
-}
-
-//TODO fix this so it uses spritesheet?
-void	check_weapon_hit(t_data *data)
-{
-	t_sprite_lst	*enemy;
-	int				damage;
-
-	enemy = get_enemie_hit(data);
-	sound_alerts_enemies(data);
-	if (!enemy)
-	{
-		if (DEBUG_MODE)
-			printf("miss\n");
-		//TODO make enemies near the sound of this shot get alerted
-		return ;
-	}
-	draw_enemies(data, &enemy->sprite_data);
-	damage = calculate_damage(data, round(sqrt(enemy->sprite_data.dist)));
-	enemy->sprite_data.en_dat.health -= damage;
-	if (DEBUG_MODE)
-		printf("damage: %d, enemy health: %d\n", \
-			damage, enemy->sprite_data.en_dat.health);
-	if (enemy->sprite_data.en_dat.health > 0)
-		alert_neighbouring_enemies(data, &enemy->sprite_data);
-	else
-	{
-		enemy->sprite_data.en_dat.state = DYING;
-		enemy->sprite_data.en_dat.frame = 0;
-		if (enemy->sprite_data.kind == GUARD)
-		{
-			add_ammo_to_lst(&data->sprite_lst, enemy->sprite_data);
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grddth1.wav", &data->sound.sfx);
-			data->player.score += 100;
-		}
-		else
-		{
-			data->player.score += 200;
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx);	
-		}
-	}
 }

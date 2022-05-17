@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:19:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/13 16:59:01 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:29:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	mouse_fire(t_data *data, bool *fired, int *old_x)
 		if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
 			gun_actions(data);
 		else
-    		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/knife.wav", &data->sound.sfx);
+			ma_engine_play_sound(&data->sound.engine, \
+				"./assets/wav_files/sounds/knife.wav", &data->sound.sfx);
 		check_weapon_hit(data);
 		*fired = true;
 	}

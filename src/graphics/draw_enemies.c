@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 14:00:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:55:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,33 @@ static mlx_texture_t	*get_enemy_texture(t_data *data, int kind)
 	return (data->mlx.tex.texarr[SPRITESHEET_GUARD]);
 }
 
-static void	draw_sprite_line(t_data *data, t_vector_int pos, t_sprite *sprt, \
-	mlx_texture_t	*texture)
+static void	draw_sprite_line(t_data *dat, t_vector_int pos, t_sprite *sprt, \
+	mlx_texture_t	*tex)
 {
 	uint8_t				*fg;
 	int					dist;
 	uint32_t			color;
-	const t_vector_int	transp = get_transp_y(sprt);
+	const t_vector_int	t = get_transp_y(sprt);
 	const int			ypos_sheet = get_ypos_sheet(sprt);
 
-	fg = data->mlx.fg->pixels + ((pos.y * data->floor.width4) + pos.x * 4);
-	while (++pos.y < data->spr_cast.draw_end.y && pos.y < data->hud.pos_hud.y)
+	fg = dat->mlx.fg->pixels + ((pos.y * dat->floor.width4) + pos.x * 4);
+	while (++pos.y < dat->spr_cast.draw_end.y && pos.y < dat->hud.pos_hud.y)
 	{
-		dist = pos.y * 256 - data->mlx.mlx_handle->height * 128 + \
-			data->spr_cast.sprite_height * 128;
-		data->spr_cast.tex.y = ((dist * texture->height / 7) \
-			* data->spr_cast.inverse_sprite_height) / 256;
-		data->spr_cast.tex.y += ypos_sheet;
-		if (data->spr_cast.tex.y < (int)texture->height && data->spr_cast.tex.y \
-			> transp.x)
+		dist = pos.y * 256 - dat->mlx.mlx_handle->height * 128 + \
+			dat->spr_cast.sprite_height * 128;
+		dat->spr_cast.tex.y = ((dist * tex->height / 7) \
+			* dat->spr_cast.inverse_sprite_height) / 256;
+		dat->spr_cast.tex.y += ypos_sheet;
+		if (dat->spr_cast.tex.y < (int)tex->height && dat->spr_cast.tex.y > t.x)
 		{
-			if (transp.y > 0 && data->spr_cast.tex.y > transp.y)
+			if (t.y > 0 && dat->spr_cast.tex.y > t.y)
 				break ;
-			color = (*(unsigned int *)(texture->pixels + (texture->width * \
-			data->spr_cast.tex.y * 4 + data->spr_cast.tex.x * 4)));
+			color = (*(unsigned int *)(tex->pixels + (tex->width * \
+			dat->spr_cast.tex.y * 4 + dat->spr_cast.tex.x * 4)));
 			if (color != 4287103128 && color != 0xffffffff)
 				*(uint32_t *)fg = color;
 		}
-		fg += data->floor.width4;
+		fg += dat->floor.width4;
 	}
 }
 

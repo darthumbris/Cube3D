@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:17:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:32:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	rotate_enemy(t_data *data, t_sprite *enemy)
 	enemy->en_dat.dir.y = (data->cam.pos.y - enemy->map_pos.y) / enemy->dist;
 }
 
+//TODO make the sound play at certain volume
 void	check_for_player(t_data *data, t_sprite *enemy)
 {
 	double	volume;
@@ -97,36 +98,10 @@ void	check_for_player(t_data *data, t_sprite *enemy)
 	volume = 100.0 - sqrt(enemy->dist) * 3.0;
 	if (volume < 0)
 		volume = 0;
-	//play sound at cetain volume
 	if (!enemy->en_dat.played_sound && enemy->kind == GUARD)
-		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/grdsit2.wav", &data->sound.sfx);
+		ma_engine_play_sound(&data->sound.engine, \
+		"./assets/wav_files/sounds/grdsit2.wav", &data->sound.sfx);
 	else if (!enemy->en_dat.played_sound && enemy->kind == DOG)
-		ma_engine_play_sound(&data->sound.engine, "./assets/wav_files/sounds/dogsit.wav", &data->sound.sfx);
-}
-
-void	alert_neighbouring_enemies(t_data *data, t_sprite *enemy)
-{
-	t_sprite_lst	*lst;
-
-	lst = data->sprite_lst;
-	while (lst)
-	{
-		if (is_enemy_kind(lst->sprite_data.kind))
-		{
-			if (sqrt(pow(lst->sprite_data.map_pos.x - enemy->map_pos.x, 2) + \
-				pow(lst->sprite_data.map_pos.y - enemy->map_pos.y, 2)) \
-				<= ENEMY_WARN_DIST)
-				track_player(data, &lst->sprite_data);
-		}
-		lst = lst->next;
-	}
-}
-
-void	track_player(t_data *data, t_sprite *enemy)
-{
-	if (enemy->en_dat.player_detected == false)
-	{
-		enemy->en_dat.player_detected = true;
-		alert_neighbouring_enemies(data, enemy);
-	}
+		ma_engine_play_sound(&data->sound.engine, \
+		"./assets/wav_files/sounds/dogsit.wav", &data->sound.sfx);
 }

@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/17 14:21:02 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/17 16:06:13 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRC =	main.c \
 		graphics/draw_hud.c \
 		graphics/draw_hud_utils.c \
 		graphics/draw_minimap.c \
-		graphics/door_utils.c \
 		graphics/draw_minimap_utils.c \
 		graphics/extend_ray.c \
 		graphics/extend_ray_utils.c \
@@ -45,14 +44,18 @@ SRC =	main.c \
 		graphics/draw_enemies.c \
 		graphics/minimap_procedural.c \
 		graphics/draw_enemies_utils.c \
-        game_loop.c \
-		mouse_functions.c \
-		key_functions.c \
-		update_objects.c \
-		update_items.c \
-		camera_functions.c \
+		graphics/draw_enemies_transparencies.c \
+		game_loop/door_utils.c \
+        game_loop/game_loop.c \
+		game_loop/update_secrets.c \
+		game_loop/update_doors.c \
+		game_loop/update_items.c \
+		game_loop/check_weapon_hit.c \
+		game_loop/check_weapon_hit_utils.c \
+		mouse_and_keyboard/mouse_functions.c \
+		mouse_and_keyboard/key_functions.c \
+		mouse_and_keyboard/camera_functions.c \
 		cleunup_functions.c \
-		check_weapon_hit.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \
@@ -62,6 +65,7 @@ SRC =	main.c \
 		parser/is_what_tile.c \
 		parser/is_enemy.c \
 		parser/set_sprite_data.c \
+		parser/set_enemy_data.c \
 		parser/special_tiles.c \
 		parser/parse_config.c \
 		parser/check_textures.c \
@@ -77,6 +81,8 @@ SRC =	main.c \
 		enemy_processes/enemy_ai_2.c \
 		enemy_processes/check_enemy_collision.c \
 		enemy_processes/enemy_attack.c \
+		enemy_processes/enemy_attack_utils.c \
+		enemy_processes/enemy_game_loop.c \
 		
 
 SRC_EXT = c

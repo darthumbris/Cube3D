@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:22:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:05:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -468,6 +468,8 @@ int		get_ypos_sheet(t_sprite *sprt);
 int		get_xpos_sheet(t_sprite *sprt, t_vector_double cam_dir);
 t_vector_int	get_transp_y(t_sprite *sprt);
 t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir);
+enum e_compas	get_enemy_direction(t_vector_double dir_cam, \
+						t_vector_double dir_enemy);
 
 void	draw_weapons(t_data *data, mlx_texture_t *gun);
 void	animate_weapon(t_data *data);
@@ -498,6 +500,10 @@ void	set_new_x_pos(t_vector_double *temp_pos, \
 bool	is_vision_blocked(t_vector_double player_pos, \
 	t_sprite *enemy, t_data *data);
 void	sound_alerts_enemies(t_data *data);
+t_sprite_lst	*get_enemie_hit(t_data *data);
+void	reset_player(t_data *data);
+void	damage_player(t_data *data, double dodge_chance, t_sprite *enemy, \
+							int max_dist);
 
 //procedural minimap stuff
 void	check_for_walls(t_data *data, t_vector_int c);
@@ -511,6 +517,8 @@ t_vector_int wh, unsigned int c);
 
 //main game loop that calls all handling functions
 void	game_loop(void *data);
+
+void	update_enemies(t_data *data);
 
 void	update_doors(t_data *data, int i);
 int		get_distance(t_vector_int door_pos, t_vector_double player);
@@ -588,6 +596,8 @@ void	color_store(char *line, t_data *data, int kind);
 typedef void	(*t_func)(char *line, t_data *data, int kind);
 
 void	set_sprite_positions(char **map, t_data *data);
+void	set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
+							t_data *data);
 void	sort_sprites(t_data *data, t_sprite_lst **begin);
 void	init_hud(t_data *data);
 

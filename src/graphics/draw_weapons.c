@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 09:26:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 16:55:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 16:03:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,19 @@ void	draw_weapons(t_data *data, mlx_texture_t *gun)
 	t_vector_int	pos;
 	t_vector_int	tex;
 	uint8_t			*pixs[2];
-	const int		pos_x = (SCREEN_WIDTH / 2) - (gun->width * data->hud.scale / 2) - 1;
+	const int		pos_x = (SCREEN_WIDTH / 2) - \
+						(gun->width * data->hud.scale / 2) - 1;
 	const int		max = (int)((gun->width - 24) * data->hud.scale);
 
 	pos.x = (int)(22 * data->hud.scale);
 	pixs[0] = gun->pixels;
-	//printf("posx: %d\n", pos.x);
-	// printf("hudscale: %f\n", data->hud.scale);
 	while (++pos.x < max)
 	{
 		tex.x = pos.x * data->hud.inv_scale;
 		pos.y = (int)(gun->height * data->hud.scale);
 		pixs[1] = data->mlx.weapon->pixels + ((pos.x + pos_x) * 4) + \
-		((data->mlx.weapon->height - gun->height) * data->mlx.weapon->width * 4);
+		((data->mlx.weapon->height - gun->height) * \
+			data->mlx.weapon->width * 4);
 		while (--pos.y > (int)(8 * data->hud.scale))
 		{
 			tex.y = pos.y * data->hud.inv_scale;

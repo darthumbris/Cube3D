@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:27:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 15:40:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ static void	set_state(t_sprite *enemy, t_data *data)
 		enemy->en_dat.state == TRACKING)
 	{
 		pathfind_to_player(data, enemy);
-		if (enemy->en_dat.counter % 10 == 0)
+		enemy->en_dat.last_attack++;
+		if (enemy->en_dat.last_attack > 50)
+			enemy->en_dat.last_attack = 0;
+		if (enemy->en_dat.last_attack % 45 == 0)
 			attack_player(enemy, data);
 	}
 	else
 		pathfind_to_player(data, enemy);
 }
 
-//TODO optimize this and have enemies try to move closer
-//TODO and also check the rotate thing
 void	path_find(t_data *data)
 {
 	t_sprite_lst	*lst;

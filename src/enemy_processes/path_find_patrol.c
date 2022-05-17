@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 14:36:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/16 17:08:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/17 14:54:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,13 @@
 void	patrol_routine(t_data *data, t_sprite *enemy)
 {
 	t_vector_double	temp;
-	double			speed;
 	char			c;
 
-	if (enemy->kind == GUARD)
-		speed = GUARD_MOVE_SPEED;
-	else
-		speed = DOG_MOVE_SPEED;
-	temp.x = enemy->map_pos.x + speed * enemy->en_dat.dir.x;
-	temp.y = enemy->map_pos.y + speed * enemy->en_dat.dir.y;
+	temp.x = enemy->map_pos.x + enemy->en_dat.speed * enemy->en_dat.dir.x;
+	temp.y = enemy->map_pos.y + enemy->en_dat.speed * enemy->en_dat.dir.y;
 	c = data->level.map[(int)(temp.y + 0.5 * enemy->en_dat.dir.y)] \
 		[(int)(temp.x + 0.5 * enemy->en_dat.dir.x)];
-	if (is_wall_tile(c) || is_door_tile(c) || is_secret_tile(c))
+	if (is_wall_kind_tile(c))
 	{
 		enemy->en_dat.dir.x = -enemy->en_dat.dir.x;
 		enemy->en_dat.dir.y = -enemy->en_dat.dir.y;
