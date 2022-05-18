@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:22:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:54:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,12 +171,13 @@ void			update_items(t_data *data);
 void			gun_actions(t_data *data);
 
 //==============Door utils function====================
-int				get_distance(t_vector_int door_pos, t_vector_double player);
+int				get_distance(int x, int y, t_vector_double player);
 bool			is_nearby_door(t_data *data);
 bool			is_door_open(t_data *data, int y, int x);
 int				get_door(t_data *data, t_vector_int pos);
 t_doors			*get_door_struct(t_data *data, t_vector_int pos);
 t_secrets		*get_secret(t_data *data, t_vector_int pos);
+bool			is_player_facing_door(t_data *data, int x, int y);
 
 //===============Camera and movement functions===========
 void			change_camera_angle(t_data *data, double dir);
