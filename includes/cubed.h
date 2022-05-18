@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:02:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:45:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -578,8 +578,10 @@ bool	is_wall_kind_tile(char c);
 bool	is_item(int kind);
 bool	is_enemy_tile(char c);
 bool	is_enemy_kind(int kind);
-bool	is_guard(char c);
-bool	is_dog(char c);
+bool	is_guard(int kind);
+bool	is_dog(int kind);
+bool	is_guard_tile(char c);
+bool	is_dog_tile(char c);
 bool	is_nonblocking_kind(int kind);
 bool	is_enemy_collision(t_data *data, t_vector_double new_pos);
 bool	is_enemy_movable(int state);

@@ -6,18 +6,18 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:27:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 09:01:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:44:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-bool	is_dog(char c)
+bool	is_dog_tile(char c)
 {
 	return (c == 'c' || c == '(' || c == ')' || c == '#' || c == '%');
 }
 
-bool	is_guard(char c)
+bool	is_guard_tile(char c)
 {
 	return (c == 'G' || c == '[' || c == ']' || c == '@' || c == '!');
 }

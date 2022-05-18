@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 10:59:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:30:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:41:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,22 @@ static void	change_frame(t_sprite *enemy)
 		enemy->en_dat.frame = 0;
 }
 
+static void	init_temp_coll(t_vector_double *temp_pos, \
+	t_vector_double *collision, t_vector_double map_pos)
+{
+	temp_pos->y = map_pos.y;
+	temp_pos->x = map_pos.x;
+	collision->y = map_pos.y;
+	collision->x = map_pos.x;
+}
+
 void	pathfind_in_direction(t_data *data, t_sprite *enemy)
 {
 	const int		dir = enemy->en_dat.path_dir;
 	t_vector_double	temp_pos;
 	t_vector_double	collision;
 
-	temp_pos.y = enemy->map_pos.y;
-	temp_pos.x = enemy->map_pos.x;
-	collision.y = enemy->map_pos.y;
-	collision.x = enemy->map_pos.x;
+	init_temp_coll(&temp_pos, &collision, enemy->map_pos);
 	if (dir == 1 || dir == 2 || dir == 6 || dir == 9)
 		set_new_y_pos(&temp_pos, &collision, enemy, -1);
 	else if (dir == 3 || dir == 4 || dir == 5 || dir == 10)

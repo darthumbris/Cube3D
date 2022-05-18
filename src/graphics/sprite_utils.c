@@ -6,7 +6,7 @@
 /*   By: y: shoogenb <shoogenb@student.codam.nl>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:51:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:55:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:44:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	get_sprite_kind(char c, t_data *data)
 {
 	int	i;
 
-	if (is_guard(c))
+	if (is_guard_tile(c))
 		return (GUARD);
-	else if (is_dog(c))
+	else if (is_dog_tile(c))
 		return (DOG);
 	i = 0;
 	if (data->bonus && data->config.size > 5)

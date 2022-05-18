@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:27:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:47:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,23 @@ void	set_new_x_pos(t_vector_double *temp_pos, t_vector_double *collision, \
 	collision->x = enemy->map_pos.x + dir * enemy->en_dat.speed + dir * 0.3;
 }
 
-static void	set_state(t_sprite *enemy, t_data *data)
+static void	set_state(t_sprite *enemy, t_data *data, int kind)
 {
 	if (enemy->en_dat.player_detected && \
-		((enemy->kind == DOG && enemy->dist < 2) || \
-		(enemy->kind == GUARD && enemy->dist < 100)))
+		((is_dog(kind) && enemy->dist < 2) || \
+		(is_guard(kind) && enemy->dist < 100)))
 	{
-		if (enemy->en_dat.last_attack % 2 == 0 && enemy->kind == GUARD)
+		if (enemy->en_dat.last_attack % 2 == 0 && is_guard(kind))
 			pathfind_to_player(data, enemy);
 		enemy->en_dat.last_attack++;
 		if (enemy->en_dat.last_attack > 50)
 			enemy->en_dat.last_attack = 0;
-		if (enemy->en_dat.last_attack % 45 == 0)
+		if (enemy->en_dat.last_attack % 45 == 0 && is_guard(kind))
+			attack_player(enemy, data);
+		else if (enemy->en_dat.last_attack % 30 == 0)
 			attack_player(enemy, data);
 	}
-	else if (enemy->kind == GUARD)
+	else if (is_guard(kind))
 		pathfind_to_player(data, enemy);
 	else
 		pathind_dog(data, enemy);
@@ -71,7 +73,7 @@ void	path_find(t_data *data)
 			lst->sprite_data.en_dat.state == TRACKING)
 		{
 			track_player(data, &lst->sprite_data);
-			set_state(&lst->sprite_data, data);
+			set_state(&lst->sprite_data, data, lst->sprite_data.kind);
 		}
 		lst = lst->next;
 		delay++;
