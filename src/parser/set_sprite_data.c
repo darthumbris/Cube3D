@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:05:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:47:15 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	set_sprite_positions(char **map, t_data *data)
 	int	sprite_cnt;
 
 	data->sprite = malloc(sizeof(t_sprite) * data->level.number_of_sprites);
+	if (!data->sprite)
+		exit(1);
 	i = 0;
 	sprite_cnt = 0;
 	while (map && map[i])

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:54:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:59:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ bool			is_block_patrol_tile(char c);
 //===============Sound Functions============================
 void			soundtrack(t_data *data);
 bool			sound_init(t_data *data);
+void			play_sound_vol(t_data *data, char *fpath, float vol);
 
 //==============Cleanup Functions===========================
 void			arr_cleanup(char **arr);
