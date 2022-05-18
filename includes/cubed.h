@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:18:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:19:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void			init_doors(t_data *data);
 void			init_weapons(t_data *data);
 void			init_hud(t_data *data);
 
-
-
 //==========Raycaster Functions=======================
 void			raycaster(t_data *data);
 
@@ -79,7 +77,6 @@ void			set_new_map_pos(t_vector_double *map, t_vector_double ray, \
 					t_vector_double rd);
 void			segment_to_line(t_segment *segm, t_line *line);
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
-
 
 //==========Draw functions====================
 void			draw_background(t_data *data);
@@ -155,7 +152,6 @@ bool			view_not_blocked(t_data *data, t_vector_int pc_pos, \
 bool			door_check(t_data *data, t_vector_double pos);
 void			reset_player(t_data *data);
 
-
 //================Minimap util functions=================
 void			check_for_walls(t_data *data, t_vector_int c);
 void			wall_detection(t_data *data);
@@ -165,7 +161,6 @@ bool			is_door_opening(t_data *data, int y, int x);
 bool			check_corner(t_data *data, int y, int x);
 bool			draw_square(t_data *data, t_vector_int rec, \
 					t_vector_int wh, unsigned int c);
-
 
 //================Game Loop Functions=====================
 void			game_loop(void *data);
@@ -193,18 +188,7 @@ void			mouse_events(mouse_key_t button, action_t action, \
 					modifier_key_t mods, void *param);
 void			cursor_movement(double xpos, double ypos, void *param);
 
-
 //==================Parser Functions==========================
-
-/**
- * @brief function to parse the input and then the map data.
- * Populates the data.level and data.player structs
- * 
- * @param argv 
- * @param data the function will store its result in the data struct
- * @return true if everything is correct.
- * @return false 
- */
 bool			parse_input(char **argv, t_data *data);
 char			**readmap(int fd, char **temp);
 bool			checkmap(char *map);
@@ -225,7 +209,6 @@ typedef void	(*t_func)(char *line, t_data *data, int kind);
 void			set_sprite_positions(char **map, t_data *data);
 void			set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
 							t_data *data);
-
 
 //===============Util functions==============================
 bool			is_player_tile(char c);
@@ -252,7 +235,6 @@ bool			is_block_patrol_tile(char c);
 //===============Sound Functions============================
 void			soundtrack(t_data *data);
 bool			sound_init(t_data *data);
-
 
 //==============Cleanup Functions===========================
 void			arr_cleanup(char **arr);
