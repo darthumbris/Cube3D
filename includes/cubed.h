@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:19:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:22:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,26 @@
  */
 typedef struct s_data
 {
-	t_mlx				mlx;
-	t_level				level;
-	t_camera			cam;
-	t_raycaster			caster;
-	t_floor_raycaster	floor;
-	t_sprite_raycaster	spr_cast;
-	t_sprite			*sprite;
-	t_sprite_lst		*sprite_lst;
-	bool				bonus;
 	int					number_of_textures;
-	t_player			player;
+	bool				bonus;
 	bool				update_hud;
-	t_config			config;
 	bool				floor_ceiling;
 	uint32_t			delay;
 	uint32_t			color;
+	t_mlx				mlx;
 	t_hud				hud;
+	t_sound				sound;
+	t_level				level;
 	t_doors				*doors;
 	t_secrets			*secrets;
-	t_sound				sound;
+	t_config			config;
+	t_camera			cam;
+	t_player			player;
+	t_sprite			*sprite;
+	t_sprite_lst		*sprite_lst;
+	t_raycaster			caster;
+	t_floor_raycaster	floor;
+	t_sprite_raycaster	spr_cast;
 }				t_data;
 
 //============Init Functions==========================

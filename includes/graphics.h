@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:18:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:23:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 # include <math.h>
 # include <time.h>
 
-# define SCREEN_HEIGHT	768
-# define SCREEN_WIDTH	1024
-# define FOV			70
-# define RENDER_DIST_S	400
+# define SCREEN_HEIGHT		768
+# define SCREEN_WIDTH		1024
+# define FOV				70
+# define RENDER_DIST_S		400
 
-# define VIEW_LINE_COLOUR 0xD7FFFFFF
-# define WALL_COLOUR 0xD8D8FCFF
-# define BORDER_COLOR	4282400768
+# define VIEW_LINE_COLOUR	0xD7FFFFFF
+# define WALL_COLOUR 		0xD8D8FCFF
+# define BORDER_COLOR		4282400768
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -54,13 +54,13 @@ typedef union u_lodtex
 
 typedef struct s_weapon_animation
 {
+	int				frame;
+	int				range;
+	bool			animate;
 	mlx_texture_t	*tex0;
 	mlx_texture_t	*tex1;
 	mlx_texture_t	*tex2;
 	mlx_texture_t	*tex3;
-	bool			animate;
-	int				frame;
-	int				range;
 }			t_weapon_anim;
 
 enum e_weapons
@@ -72,16 +72,16 @@ enum e_weapons
 
 typedef struct s_hud
 {
-	t_vector_int	pos_hud;
 	int				max_height;
 	int				max_width;
-	double			inv_scale;
-	double			scale;
 	int				max_size_faces;
 	int				max_size_numbers;
 	int				face_pos_x;
 	int				border_width;
+	double			inv_scale;
+	double			scale;
 	t_vector_int	pos_map;
+	t_vector_int	pos_hud;
 }	t_hud;
 
 /**
@@ -94,21 +94,20 @@ typedef struct s_hud
  */
 typedef struct s_mlx
 {
+	int				minimap_zoom;
+	double			minimap_scale;
+	double			hud_scale;
 	mlx_t			*mlx_handle;
+	t_lodtex		tex;
 	mlx_image_t		*bg;
 	mlx_image_t		*fg;
 	mlx_image_t		*weapon;
 	mlx_image_t		*hud;
 	mlx_image_t		*minimap;
-	t_lodtex		tex;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
 	t_weapon_anim	weapon_anim[3];
-	double			minimap_scale;
-	double			hud_scale;
-	int				minimap_zoom;
-
 }			t_mlx;
 
 #endif
