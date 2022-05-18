@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 13:47:57 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:46:17 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:52:52 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static char	**read_sound_config(void)
 static bool	store_sound(t_data *data, char *path, int i)
 {
 	data->sound.soundtrack[i] = malloc(sizeof(ma_sound));
-	if (!data->sound.soundtrack[i] || (&data->sound.engine, path, 0, \
+	if (!data->sound.soundtrack[i] || \
+	ma_sound_init_from_file(&data->sound.engine, path, 0, \
 	&data->sound.music_g, NULL, data->sound.soundtrack[i]) != MA_SUCCESS)
 		return (false);
 	return (true);

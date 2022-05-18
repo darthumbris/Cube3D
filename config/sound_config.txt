@@ -1,5 +1,5 @@
-./corner.mp3
-./searchn.mp3
-./warmarch.mp3
+./assets/wav_files/music/corner.mp3
+./assets/wav_files/music/searchn.mp3
+./assets/wav_files/music/warmarch.mp3
 ---
 #dont really think we need to care about hardcoded sound, all that happens is the sound doesnt play
