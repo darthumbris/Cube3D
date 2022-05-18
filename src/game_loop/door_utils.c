@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:53:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 17:12:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	get_distance(int x, int y, t_vector_double player)
 	return (diffx * diffx + diffy * diffy);
 }
 
+//TODO clean this up
 bool	is_nearby_door(t_data *data)
 {
 	int				i;
@@ -57,9 +58,9 @@ bool	is_nearby_door(t_data *data)
 	i = -1;
 	while (++i < data->level.door_count)
 	{
-		if (data->doors[i].state == CLOSED && get_distance(data->doors[i].x, \
-		data->doors[i].y, data->cam.pos) < 4 && is_player_facing_door
-			(data, data->doors[i].x, data->doors[i].y))
+		if (is_closed(data->doors[i].state) && is_player_facing_door(data, \
+			data->doors[i].x, data->doors[i].y, get_distance(data->doors[i].x, \
+			data->doors[i].y, data->cam.pos)))
 		{
 			data->doors[i].state = OPENING;
 			ma_engine_play_sound(&data->sound.engine, \

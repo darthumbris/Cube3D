@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 16:43:19 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 11:53:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 15:41:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_finish_tile(char c)
 {
-	return (c == '?');
+	return (c == '*');
 }
 
 bool	is_item(int kind)
