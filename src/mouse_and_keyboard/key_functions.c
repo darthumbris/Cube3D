@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:15:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:28:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,34 @@ static void	weapon_switch(t_data *data, struct mlx_key_data keys)
 	if (keys.key == MLX_KEY_1 && keys.action != MLX_RELEASE)
 	{
 		data->player.active_weapon = KNIFE;
-		draw_weapons(data, data->mlx.weapon_anim[KNIFE].tex0);
+		draw_weapons(data, data->mlx.weapon_anim[KNIFE].tex0, \
+					data->mlx.weapon);
 	}
 	if (keys.key == MLX_KEY_2 && keys.action != MLX_RELEASE && \
 		data->player.ammo)
 	{
 		data->player.active_weapon = PISTOL;
-		draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0);
+		draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \
+					data->mlx.weapon);
 	}
 	if (keys.key == MLX_KEY_3 && keys.action != MLX_RELEASE && \
 		data->player.ammo && data->player.machine_gun_pickup)
 	{
 		data->player.active_weapon = MACHINEGUN;
-		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0);
+		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0, \
+					data->mlx.weapon);
 	}
+}
+
+static void	weapon_action(t_data *data)
+{
+	data->mlx.weapon_anim[data->player.active_weapon].animate = true;
+	if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
+		gun_actions(data);
+	else
+		ma_engine_play_sound(&data->sound.engine, \
+		"./assets/wav_files/sounds/knife.wav", &data->sound.sfx_g);
+	check_weapon_hit(data);
 }
 
 void	key_handler(struct mlx_key_data keys, void *param)
@@ -64,17 +78,8 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	if (data->bonus)
 	{
 		minimap_keys(data, keys);
-		if (keys.key == MLX_KEY_LEFT_CONTROL && \
-			keys.action != MLX_RELEASE)
-		{
-			data->mlx.weapon_anim[data->player.active_weapon].animate = true;
-			if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)
-				gun_actions(data);
-			else
-				ma_engine_play_sound(&data->sound.engine, \
-				"./assets/wav_files/sounds/knife.wav", &data->sound.sfx_g);
-			check_weapon_hit(data);
-		}
+		if (keys.key == MLX_KEY_LEFT_CONTROL && keys.action != MLX_RELEASE)
+			weapon_action(data);
 		weapon_switch(data, keys);
 	}
 }

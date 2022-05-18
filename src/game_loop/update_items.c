@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 20:33:17 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:25:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 					data->player.active_weapon = MACHINEGUN;
 				else
 					data->player.active_weapon = PISTOL;
-				draw_weapons(data, \
-				data->mlx.weapon_anim[data->player.active_weapon].tex0);
+				draw_weapons(data, data->mlx.weapon_anim
+				[data->player.active_weapon].tex0, data->mlx.weapon);
 			}
 			if (!item->sprite_data.dropped)
 				data->player.ammo += 8;
@@ -109,7 +109,8 @@ void	weapon_item(t_data *data, t_sprite_lst *item)
 		if (data->player.ammo > 99)
 			data->player.ammo = 99;
 		item->sprite_data.kind = 0;
-		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0);
+		draw_weapons(data, data->mlx.weapon_anim[MACHINEGUN].tex0, \
+					data->mlx.weapon);
 	}
 }
 

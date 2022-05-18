@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 14:46:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:09:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,19 @@ typedef enum e_textures
 	HUD_NUMBERS,
 	HUD_FACES,
 	SPRITESHEET_GUARD,
-	SPRITESHEET_DOG
+	SPRITESHEET_DOG,
+	PISTOL0,
+	PISTOL1,
+	PISTOL2,
+	PISTOL3,
+	KNIFE0,
+	KNIFE1,
+	KNIFE2,
+	KNIFE3,
+	MACHINEGUN0,
+	MACHINEGUN1,
+	MACHINEGUN2,
+	MACHINEGUN3,
 }	t_textures;
 
 typedef enum e_sprites
@@ -134,12 +146,12 @@ enum e_compas
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[SPRITESHEET_DOG + 2];
+	mlx_texture_t	*texarr[MACHINEGUN3 + 2];
 }	t_lodtex;
 
 typedef union u_tex_path
 {
-	char	*path[SPRITESHEET_DOG + 2];
+	char	*path[MACHINEGUN3 + 2];
 }			t_tex_path;
 
 enum	e_state

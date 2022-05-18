@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:09:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:12:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:02:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ bool	is_target_visible(t_vector_double target_pos, \
 		if ((int)ray_pos.x == (int)target_pos.x && \
 			(int)ray_pos.y == (int)target_pos.y)
 			return (true);
-		if (is_wall_tile(c) || door_check(data, \
-			(t_vector_int){(int)ray_pos.x, (int)ray_pos.y}))
+		if ((is_wall_tile(c) || door_check(data, ray_posfloor)) \
+			&& sprite_dist(target_pos, attacker_pos) > \
+			sprite_dist(ray_posfloor, target_pos))
 			return (false);
 		ray_pos.x += attacker_dir.x;
 		ray_pos.y += attacker_dir.y;
@@ -57,14 +58,14 @@ static t_sprite_lst	*find_enemy(t_data *data, double range)
 	{
 		if (last->sprite_data.dist >= range)
 			return (NULL);
-		if ((last->sprite_data.kind == GUARD || last->sprite_data.kind == DOG) \
+		if ((is_enemy_kind(last->sprite_data.kind)) \
 			&& last->sprite_data.en_dat.state < DYING)
 		{
 			fov = get_angle_of_attack(last->sprite_data.map_pos, \
 				data->cam.pos, data->cam.dir);
 			if (is_target_visible(last->sprite_data.map_pos, \
 				data->cam.pos, data->cam.dir, data) && (fov <= WEAPON_FOV || \
-				(last->sprite_data.dist < 2 && fov < MELEE_FOV)))
+				(last->sprite_data.dist < 5 && fov < MELEE_FOV)))
 				return (last);
 		}
 		last = last->prev;

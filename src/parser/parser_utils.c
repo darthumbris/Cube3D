@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 14:15:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:18:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	bonus_paths(char *line, t_data *data)
 		return (store_path(line, data, SPRITESHEET_DOG), true);
 	else if (ft_strncmp(line, "TG", 2) == 0)
 		return (store_path(line, data, SPRITESHEET_GUARD), true);
-	return (false);
+	return (bonus_weapons(line, data));
 }
 
 //jump table for storing config settings

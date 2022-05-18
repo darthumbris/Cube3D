@@ -61,6 +61,21 @@ DF ./assets/doorframe_128.png
 TD ./assets/enemies/dog/dogspritesheet.png
 TG ./assets/enemies/guard/guardspritesheet.png
 
+P0 ./assets/weapons/pistol0.png
+P1 ./assets/weapons/pistol1.png
+P2 ./assets/weapons/pistol2.png
+P3 ./assets/weapons/pistol3.png
+
+K0 ./assets/weapons/knife0.png
+K1 ./assets/weapons/knife1.png
+K2 ./assets/weapons/knife2.png
+K3 ./assets/weapons/knife3.png
+
+M0 ./assets/weapons/machinegun0.png
+M1 ./assets/weapons/machinegun1.png
+M2 ./assets/weapons/machinegun2.png
+M3 ./assets/weapons/machinegun3.png
+
 F 84,84,84
 C 42,42,42
 

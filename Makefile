@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/17 19:57:20 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/18 11:44:49 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC =	main.c \
 		parser/parsetextures.c \
 		parser/parsemap.c \
 		parser/parser_utils.c \
+		parser/parser_weapons.c \
 		parser/parse_validation.c \
 		parser/is_what_tile.c \
 		parser/is_enemy.c \
@@ -77,6 +78,7 @@ SRC =	main.c \
 		enemy_processes/path_find_directions.c \
 		enemy_processes/path_find_utils.c \
 		enemy_processes/path_find_patrol.c \
+		enemy_processes/path_find_dog.c \
 		enemy_processes/enemy_ai_0.c \
 		enemy_processes/enemy_ai_1.c \
 		enemy_processes/enemy_ai_2.c \

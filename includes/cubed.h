@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 20:04:50 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:02:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define GUN_RANGE			150
 # define KNIFE_RANGE		5
 # define WEAPON_FOV			0.025
-# define MELEE_FOV			0.22
+# define MELEE_FOV			0.55
 # define DOG_MOVE_SPEED		0.04
 # define GUARD_MOVE_SPEED	0.02
 # define ENEMY_ROT_SPEED	2
@@ -384,6 +384,8 @@ bool	parse_input(char **argv, t_data *data);
 
 bool	parse_config(t_data *data);
 
+bool	bonus_weapons(char *line, t_data *data);
+
 /**
  * @brief does all the error checking for the map
  * 
@@ -473,7 +475,7 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir);
 enum e_compas	get_enemy_direction(t_vector_double dir_cam, \
 						t_vector_double dir_enemy);
 
-void	draw_weapons(t_data *data, mlx_texture_t *gun);
+void	draw_weapons(t_data *data, mlx_texture_t *gun, mlx_image_t *weapon);
 void	animate_weapon(t_data *data);
 void	check_weapon_hit(t_data *data);
 double	get_angle_of_attack(t_vector_double target_pos, \
@@ -483,6 +485,7 @@ double	get_angle_of_attack(t_vector_double target_pos, \
 void	path_find(t_data *data);
 void	pathfind_in_direction(t_data *data, t_sprite *enemy);
 void	pathfind_to_player(t_data *data, t_sprite *enemy);
+void	pathind_dog(t_data *data, t_sprite *dog);
 int		try_cardinal(t_data *data, t_sprite *enemy, int cardinal, int dir_to_p);
 int		try_diagonals(t_data *data, t_sprite *enemy);
 void	patrol_routine(t_data *data, t_sprite *enemy);
@@ -589,7 +592,7 @@ bool	sound_init(t_data *data);
 
 //for the pathfind
 bool	view_not_blocked(t_data *data, t_vector_int pc_pos, t_vector_int g_pos);
-bool	door_check(t_data *data, t_vector_int g_pos);
+bool	door_check(t_data *data, t_vector_double pos);
 void	set_val(t_vector_int *delta, t_vector_int *sign, \
 				t_vector_int pc_pos, t_vector_int g_pos);
 

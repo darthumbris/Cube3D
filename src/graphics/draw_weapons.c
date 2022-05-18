@@ -6,29 +6,34 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 09:26:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:03:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:24:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static void	init_weapon_textures(t_data *data)
+{
+	data->mlx.weapon_anim[PISTOL].tex0 = data->mlx.tex.texarr[PISTOL0];
+	data->mlx.weapon_anim[PISTOL].tex1 = data->mlx.tex.texarr[PISTOL1];
+	data->mlx.weapon_anim[PISTOL].tex2 = data->mlx.tex.texarr[PISTOL2];
+	data->mlx.weapon_anim[PISTOL].tex3 = data->mlx.tex.texarr[PISTOL3];
+	data->mlx.weapon_anim[KNIFE].tex0 = data->mlx.tex.texarr[KNIFE0];
+	data->mlx.weapon_anim[KNIFE].tex1 = data->mlx.tex.texarr[KNIFE1];
+	data->mlx.weapon_anim[KNIFE].tex2 = data->mlx.tex.texarr[KNIFE2];
+	data->mlx.weapon_anim[KNIFE].tex3 = data->mlx.tex.texarr[KNIFE3];
+	data->mlx.weapon_anim[MACHINEGUN].tex0 = data->mlx.tex.texarr[MACHINEGUN0];
+	data->mlx.weapon_anim[MACHINEGUN].tex1 = data->mlx.tex.texarr[MACHINEGUN1];
+	data->mlx.weapon_anim[MACHINEGUN].tex2 = data->mlx.tex.texarr[MACHINEGUN2];
+	data->mlx.weapon_anim[MACHINEGUN].tex3 = data->mlx.tex.texarr[MACHINEGUN3];
+}
 
 //TODO load the textures properly instead of hardcoded.
 void	init_weapons(t_data *data)
 {
 	data->mlx.weapon = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->mlx.weapon_anim[PISTOL].tex0 = mlx_load_png("assets/weapons/pistol0.png");
-	data->mlx.weapon_anim[PISTOL].tex1 = mlx_load_png("assets/weapons/pistol1.png");
-	data->mlx.weapon_anim[PISTOL].tex2 = mlx_load_png("assets/weapons/pistol2.png");
-	data->mlx.weapon_anim[PISTOL].tex3 = mlx_load_png("assets/weapons/pistol3.png");
-	data->mlx.weapon_anim[KNIFE].tex0 = mlx_load_png("assets/weapons/knife0.png");
-	data->mlx.weapon_anim[KNIFE].tex1 = mlx_load_png("assets/weapons/knife1.png");
-	data->mlx.weapon_anim[KNIFE].tex2 = mlx_load_png("assets/weapons/knife2.png");
-	data->mlx.weapon_anim[KNIFE].tex3 = mlx_load_png("assets/weapons/knife3.png");
-	data->mlx.weapon_anim[MACHINEGUN].tex0 = mlx_load_png("assets/weapons/machinegun0.png");
-	data->mlx.weapon_anim[MACHINEGUN].tex1 = mlx_load_png("assets/weapons/machinegun1.png");
-	data->mlx.weapon_anim[MACHINEGUN].tex2 = mlx_load_png("assets/weapons/machinegun2.png");
-	data->mlx.weapon_anim[MACHINEGUN].tex3 = mlx_load_png("assets/weapons/machinegun3.png");
+	init_weapon_textures(data);
 	data->mlx.weapon_anim[PISTOL].frame = 0;
 	data->mlx.weapon_anim[PISTOL].animate = false;
 	data->mlx.weapon_anim[KNIFE].frame = 0;
@@ -37,7 +42,7 @@ void	init_weapons(t_data *data)
 	data->mlx.weapon_anim[MACHINEGUN].animate = false;
 }
 
-void	draw_weapons(t_data *data, mlx_texture_t *gun)
+void	draw_weapons(t_data *data, mlx_texture_t *gun, mlx_image_t *weapon)
 {
 	t_vector_int	pos;
 	t_vector_int	tex;
@@ -52,9 +57,8 @@ void	draw_weapons(t_data *data, mlx_texture_t *gun)
 	{
 		tex.x = pos.x * data->hud.inv_scale;
 		pos.y = (int)(gun->height * data->hud.scale);
-		pixs[1] = data->mlx.weapon->pixels + ((pos.x + pos_x) * 4) + \
-		((data->mlx.weapon->height - gun->height) * \
-			data->mlx.weapon->width * 4);
+		pixs[1] = weapon->pixels + ((pos.x + pos_x) * 4) + ((weapon->height \
+		- gun->height) * weapon->width * 4);
 		while (--pos.y > (int)(8 * data->hud.scale))
 		{
 			tex.y = pos.y * data->hud.inv_scale;
@@ -62,32 +66,32 @@ void	draw_weapons(t_data *data, mlx_texture_t *gun)
 				((tex.y * gun->width + tex.x) * 4)));
 			if (data->color)
 				*(uint32_t *)pixs[1] = data->color;
-			pixs[1] -= data->mlx.weapon->width * 4;
+			pixs[1] -= weapon->width * 4;
 		}
 	}
 }
 
 void	animate_weapon(t_data *data)
 {
-	int	active;
+	int	activ;
 
-	active = data->player.active_weapon;
-	if (data->mlx.weapon_anim[active].frame == 2)
-		draw_weapons(data, data->mlx.weapon_anim[active].tex1);
-	else if (data->mlx.weapon_anim[active].frame == 4)
-		draw_weapons(data, data->mlx.weapon_anim[active].tex2);
-	else if (data->mlx.weapon_anim[active].frame == 6)
-		draw_weapons(data, data->mlx.weapon_anim[active].tex3);
-	else if (data->mlx.weapon_anim[active].frame > 8)
+	activ = data->player.active_weapon;
+	if (data->mlx.weapon_anim[activ].frame == 2)
+		draw_weapons(data, data->mlx.weapon_anim[activ].tex1, data->mlx.weapon);
+	else if (data->mlx.weapon_anim[activ].frame == 4)
+		draw_weapons(data, data->mlx.weapon_anim[activ].tex2, data->mlx.weapon);
+	else if (data->mlx.weapon_anim[activ].frame == 6)
+		draw_weapons(data, data->mlx.weapon_anim[activ].tex3, data->mlx.weapon);
+	else if (data->mlx.weapon_anim[activ].frame > 8)
 	{
-		data->mlx.weapon_anim[active].animate = false;
-		data->mlx.weapon_anim[active].frame = 0;
+		data->mlx.weapon_anim[activ].animate = false;
+		data->mlx.weapon_anim[activ].frame = 0;
 		if (data->player.ammo == 0)
 		{
 			data->player.active_weapon = KNIFE;
-			active = KNIFE;
+			activ = KNIFE;
 		}
-		draw_weapons(data, data->mlx.weapon_anim[active].tex0);
+		draw_weapons(data, data->mlx.weapon_anim[activ].tex0, data->mlx.weapon);
 	}
-	data->mlx.weapon_anim[active].frame++;
+	data->mlx.weapon_anim[activ].frame++;
 }

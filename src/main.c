@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:09:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:24:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static void	init_data(t_data *data)
 
 	srand(time(NULL));
 	data->bonus = false;
-	data->number_of_textures = SPRITESHEET_DOG;
+	data->number_of_textures = MACHINEGUN3;
 	data->level.number_of_sprites = 0;
 	data->level.door_count = 0;
 	data->level.secret_count = 0;
 	i = 0;
-	while (i < SPRITESHEET_DOG + 1)
+	while (i < MACHINEGUN3 + 1)
 		data->level.paths.path[i++] = NULL;
 }
 
@@ -59,7 +59,8 @@ static void	images_to_window(t_data *data)
 	{
 		init_player(data);
 		init_weapons(data);
-		draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0);
+		draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \
+					data->mlx.weapon);
 		mlx_image_to_window(data->mlx.mlx_handle, data->mlx.weapon, 0, 0);
 		mlx_image_to_window(data->mlx.mlx_handle, data->mlx.hud, 0, 0);
 		mlx_image_to_window(data->mlx.mlx_handle, data->mlx.minimap, \

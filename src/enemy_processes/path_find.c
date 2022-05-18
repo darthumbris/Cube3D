@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:40:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:27:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,34 @@ void	set_new_y_pos(t_vector_double *temp_pos, t_vector_double *collision, \
 						t_sprite *enemy, int dir)
 {
 	temp_pos->y = enemy->map_pos.y + dir * enemy->en_dat.speed;
-	collision->y = enemy->map_pos.y + dir * enemy->en_dat.speed + dir * 0.5;
+	collision->y = enemy->map_pos.y + dir * enemy->en_dat.speed + dir * 0.3;
 }
 
 void	set_new_x_pos(t_vector_double *temp_pos, t_vector_double *collision, \
 						t_sprite *enemy, int dir)
 {
 	temp_pos->x = enemy->map_pos.x + dir * enemy->en_dat.speed;
-	collision->x = enemy->map_pos.x + dir * enemy->en_dat.speed + dir * 0.5;
+	collision->x = enemy->map_pos.x + dir * enemy->en_dat.speed + dir * 0.3;
 }
 
 static void	set_state(t_sprite *enemy, t_data *data)
 {
 	if (enemy->en_dat.player_detected && \
 		((enemy->kind == DOG && enemy->dist < 2) || \
-		(enemy->kind == GUARD && enemy->dist < 100)) && \
-		enemy->en_dat.state == TRACKING)
+		(enemy->kind == GUARD && enemy->dist < 100)))
 	{
-		pathfind_to_player(data, enemy);
+		if (enemy->en_dat.last_attack % 2 == 0 && enemy->kind == GUARD)
+			pathfind_to_player(data, enemy);
 		enemy->en_dat.last_attack++;
 		if (enemy->en_dat.last_attack > 50)
 			enemy->en_dat.last_attack = 0;
 		if (enemy->en_dat.last_attack % 45 == 0)
 			attack_player(enemy, data);
 	}
-	else
+	else if (enemy->kind == GUARD)
 		pathfind_to_player(data, enemy);
+	else
+		pathind_dog(data, enemy);
 }
 
 void	path_find(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:11:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 10:34:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	is_nearby_door(t_data *data)
 	int				i;
 
 	i = -1;
-	while (i++ < data->level.door_count)
+	while (++i < data->level.door_count)
 	{
 		if (data->doors[i].state == CLOSED && get_distance((t_vector_int) \
 		{data->doors[i].x, data->doors[i].y}, data->cam.pos) < 4)
@@ -67,7 +67,7 @@ bool	is_nearby_door(t_data *data)
 		}
 	}
 	i = -1;
-	while (i++ < data->level.secret_count)
+	while (++i < data->level.secret_count)
 	{
 		if (data->secrets[i].state == CLOSED && get_distance((t_vector_int) \
 		{data->secrets[i].x, data->secrets[i].y}, data->cam.pos) < 4)

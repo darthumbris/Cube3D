@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:13:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 12:02:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ bool	is_vision_blocked(t_vector_double player_pos, \
 		ray.x = enemy->map_pos.x + dist * dir.x;
 		ray.y = enemy->map_pos.y + dist * dir.y;
 		c = data->level.map[(int)ray.y][(int)ray.x];
-		if (is_wall_tile(c) || door_check(data, \
-			(t_vector_int){(int)ray.x, (int)ray.y}) || \
-			is_enemy_collision(data, ray))
+		if (is_wall_tile(c) || door_check(data, ray))
 			return (true);
 		dist += 0.5;
 	}
