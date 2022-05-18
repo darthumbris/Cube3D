@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:43:21 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/18 15:28:04 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void			update_doors(t_data *data, int i);
 void			update_secret_walls(t_data *data);
 void			update_items(t_data *data);
 void			gun_actions(t_data *data);
+void			simple_heal_item(t_data *data, t_sprite_lst *item, int kind);
 
 //==============Door utils function====================
 int				get_distance(t_vector_int door_pos, t_vector_double player);

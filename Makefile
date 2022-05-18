@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/18 11:44:49 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/18 15:29:05 by pvan-dij      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRC =	main.c \
 		game_loop/check_weapon_hit.c \
 		game_loop/check_weapon_hit_utils.c \
 		game_loop/sound.c \
+		game_loop/items_utils.c \
 		mouse_and_keyboard/mouse_functions.c \
 		mouse_and_keyboard/key_functions.c \
 		mouse_and_keyboard/camera_functions.c \

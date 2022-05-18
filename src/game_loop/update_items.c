@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 10:25:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 15:28:44 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,7 @@ void	health_item(t_data *data, t_sprite_lst *item, int kind)
 	if (data->player.health < 100 && (kind == MEDKIT || \
 		kind == DOGMEAL || kind == STIMULANT))
 	{
-		if (kind == MEDKIT)
-			data->player.health += 25;
-		else if (kind == DOGMEAL)
-			data->player.health += 4;
-		else if (kind == STIMULANT)
-			data->player.health += 10;
-		if (data->player.health > 100)
-			data->player.health = 100;
-		data->update_hud = true;
-		item->sprite_data.kind = 0;
+		simple_heal_item(data, item, kind);
 	}
 	if (kind == SOUL)
 	{
