@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 14:48:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 15:37:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 16:13:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ bool	is_nearby_elevator(t_data *data)
 			if (is_finish_tile(data->level.map[i][j]) && \
 				is_player_facing_door(data, j, i) && \
 				get_distance(j, i, data->cam.pos) < 4)
+			{
+				data->mlx.tex.texarr[FINISH_WALL] = \
+					data->mlx.tex.texarr[ELEVATOR_UP];
 				return (true);
+			}
 			j++;
 		}
 		i++;
