@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 16:10:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 17:11:28 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ bool			is_door_open(t_data *data, int y, int x);
 int				get_door(t_data *data, t_vector_int pos);
 t_doors			*get_door_struct(t_data *data, t_vector_int pos);
 t_secrets		*get_secret(t_data *data, t_vector_int pos);
-bool			is_player_facing_door(t_data *data, int x, int y);
+bool			is_player_facing_door(t_data *data, int x, int y, int dist);
 
 //===============Camera and movement functions===========
 void			change_camera_angle(t_data *data, double dir);
@@ -234,6 +234,7 @@ bool			is_enemy_collision(t_data *data, t_vector_double new_pos);
 bool			is_enemy_movable(int state);
 bool			is_enemy_patrol(t_data *data, t_sprite *sprite);
 bool			is_block_patrol_tile(char c);
+bool			is_closed(int state);
 
 //===============Sound Functions============================
 void			soundtrack(t_data *data);
