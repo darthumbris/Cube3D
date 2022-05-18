@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:09:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 17:19:09 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ void	game_loop(void *v_data)
 	data = (t_data *)v_data;
 	movement_handler(data);
 	mouse_handler(data);
-	soundtrack(data);
 	raycaster(data);
 	if (data->bonus)
+	{
 		bonus_loop(data);
+		soundtrack(data);
+	}
 }

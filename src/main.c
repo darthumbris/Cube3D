@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 10:24:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 17:18:34 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,11 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (1);
 	}
-	ma_sound_start(data.sound.soundtrack[0]);
-	data.sound.cur = 0;
+	if (data.bonus)
+	{
+		ma_sound_start(data.sound.soundtrack[0]);
+		data.sound.cur = 0;
+	}
 	init_doors(&data);
 	init_secrets(&data);
 	draw_background(&data);
