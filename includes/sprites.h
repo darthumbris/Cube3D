@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 10:09:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 13:28:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ enum	e_state
 	PATROLLING,
 	TRACKING,
 	ATTACKING,
+	HURT,
 	DYING,
 	DEAD
 };

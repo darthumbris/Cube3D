@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:15:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 13:38:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ static void	change_animation_frame(t_sprite *enemy, int delay, bool dead)
 {
 	if (!dead)
 	{
-		if (delay % 16 == 0)
+		if (delay % 16 == 0 && enemy->en_dat.state != HURT)
 			enemy->en_dat.frame++;
-		if (enemy->en_dat.frame > 2)
+		if (enemy->en_dat.frame > 2 || \
+			(delay % 24 == 0 && enemy->en_dat.state == HURT))
 		{
 			enemy->en_dat.frame = 0;
 			enemy->en_dat.state = TRACKING;
@@ -63,7 +64,8 @@ static void	check_enemies_attack(t_data *data)
 	while (lst)
 	{
 		if (is_enemy_kind(lst->sprite_data.kind) \
-			&& lst->sprite_data.en_dat.state == ATTACKING)
+			&& (lst->sprite_data.en_dat.state == ATTACKING || \
+			lst->sprite_data.en_dat.state == HURT))
 		{
 			check_attack_sound_play(data, &lst->sprite_data);
 			change_animation_frame(&lst->sprite_data, delay, false);

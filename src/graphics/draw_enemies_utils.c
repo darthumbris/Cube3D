@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 13:56:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:00:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 13:28:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	get_ypos_sheet(t_sprite *sprt)
 {
 	if (is_enemy_movable(sprt->en_dat.state))
 		return ((sprt->en_dat.frame % 5) * 65);
+	else if (is_guard(sprt->kind) && sprt->en_dat.state == HURT)
+		return (5 * 65);
 	else if ((sprt->en_dat.state == DYING || sprt->en_dat.state == DEAD) && \
 		sprt->kind == DOG)
 		return (4 * 65);
@@ -62,6 +64,8 @@ int	get_xpos_sheet(t_sprite *sprt, t_vector_double cam_dir)
 
 	if (is_enemy_movable(sprt->en_dat.state))
 		return ((dir % 8) * 65);
+	else if (is_guard(sprt->kind) && sprt->en_dat.state == HURT)
+		return (7 * 65);
 	else if (sprt->en_dat.state == DYING && sprt->kind == GUARD)
 		return (sprt->en_dat.frame % 5 * 65);
 	else if (sprt->en_dat.state == DYING && sprt->kind == DOG)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:36:55 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 11:10:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 13:38:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static int	get_damage_to_player(double dist, double hit, \
 		damage = 15;
 	else
 		damage /= 2;
-	// if (DEBUG_MODE)
-	// 	printf("player took: %d damage\n", damage);
+	if (DEBUG_MODE)
+		printf("player took: %d damage\n", damage);
 	return (damage);
 }
 
