@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:23:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 15:45:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[MACHINEGUN3 + 2];
+	mlx_texture_t	*texarr[ELEVATOR_UP + 2];
 }	t_lodtex;
 
 typedef struct s_weapon_animation

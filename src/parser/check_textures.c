@@ -6,18 +6,42 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 14:19:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 16:09:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
 //TODO make difference between bonus and not bonus
-static bool	is_loaded(t_data *data, char c)
+static bool	is_loaded(t_data *data, char c, int i, int j)
 {
-	if (data->mlx.tex.texarr[get_sprite_kind(c, data)] == NULL)
+	const int	kind = get_sprite_kind(c, data);
+
+	if (data->mlx.tex.texarr[kind] == NULL)
+	{
+		if (DEBUG_MODE)
+			printf("Failed to load a sprite\n");
 		return (false);
+	}
+	if (is_nonblocking_kind(kind))
+		data->level.map[i][j] = '0';
 	return (true);
+}
+
+static bool	check_weapon_textures(t_lodtex tex)
+{
+	if (tex.texarr[PISTOL0] == NULL || tex.texarr[PISTOL1] == NULL || \
+		tex.texarr[PISTOL2] == NULL || tex.texarr[PISTOL3] == NULL || \
+		tex.texarr[KNIFE0] == NULL || tex.texarr[KNIFE1] == NULL || \
+		tex.texarr[KNIFE2] == NULL || tex.texarr[KNIFE3] == NULL || \
+		tex.texarr[MACHINEGUN0] == NULL || tex.texarr[MACHINEGUN1] == NULL || \
+		tex.texarr[MACHINEGUN2] == NULL || tex.texarr[MACHINEGUN3] == NULL)
+	{
+		if (DEBUG_MODE)
+			printf("Failed to load weapons.\n");
+		return (true);
+	}
+	return (false);
 }
 
 static bool	check_bonus_textures(t_data *data)
@@ -27,9 +51,12 @@ static bool	check_bonus_textures(t_data *data)
 		data->mlx.tex.texarr[HUD_FACES] == NULL || \
 		data->mlx.tex.texarr[DOOR_FRAME] == NULL || \
 		data->mlx.tex.texarr[SPRITESHEET_DOG] == NULL || \
-		data->mlx.tex.texarr[SPRITESHEET_GUARD] == NULL))
+		data->mlx.tex.texarr[SPRITESHEET_GUARD] == NULL || \
+		check_weapon_textures(data->mlx.tex) || \
+		data->mlx.tex.texarr[ELEVATOR_UP] == NULL))
 	{
-		printf("error: bonus texture failed to load\n");
+		if (DEBUG_MODE)
+			printf("error: bonus texture failed to load\n");
 		return (false);
 	}
 	if (!data->bonus)
@@ -49,15 +76,15 @@ bool	check_needed_textures_loaded(t_data *data)
 	char	c;
 
 	i = 0;
-	while (data->level.map[i])
+	while (i < data->level.map_h)
 	{
 		j = 0;
-		while (data->level.map[i][j])
+		while (j < data->level.map_w)
 		{
 			c = data->level.map[i][j];
 			if (c != '0' && c != ' ')
 			{
-				if (!is_loaded(data, c))
+				if (!is_loaded(data, c, i, j))
 					return (false);
 			}
 			j++;

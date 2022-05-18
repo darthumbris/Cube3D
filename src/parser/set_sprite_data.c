@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:47:15 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/18 16:09:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
 	sprite->kind = get_sprite_kind(map[pos.y][pos.x], data);
 	if (sprite->kind == GUARD || sprite->kind == DOG)
 		set_enemy_data(sprite, map, pos, data);
-	if (is_nonblocking_kind(sprite->kind))
-		map[pos.y][pos.x] = '0';
 	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
 	sprite->transp_end = get_transparency_end(sprite->kind, data);
 }

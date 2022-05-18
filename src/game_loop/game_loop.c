@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:09:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 15:34:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ static void	movement_handler(t_data *data)
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 		move_camera_pos(data, +1, true);
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E))
-		is_nearby_door(data);
+	{
+		if (!is_nearby_door(data))
+			if (is_nearby_elevator(data))
+				printf("draw score screen\n");
+	}
 }
 
 static void	update_objects(t_data *data)
