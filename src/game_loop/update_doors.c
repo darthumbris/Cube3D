@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:14:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:54:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static void	attempt_close_door(t_data *data, int i)
 	if (data->doors[i].closing_timer >= 5.0)
 	{
 		data->doors[i].state = CLOSED;
-		if (get_distance((t_vector_int) \
-		{data->doors[i].x, data->doors[i].y}, data->cam.pos) < 1)
+		if (get_distance(data->doors[i].x, data->doors[i].y, data->cam.pos) < 1)
 			data->doors[i].state = OPEN;
 		else
 			data->doors[i].state = CLOSING;
