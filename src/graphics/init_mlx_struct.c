@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:55:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 14:46:41 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,7 @@ bool	init_mlx(t_data *data)
 	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
+	if (!data->spr_cast.zbuffer)
+		return (false);
 	return (init_textures(data));
 }
