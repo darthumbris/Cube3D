@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:28:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/18 13:47:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,28 @@ enum e_compas
 	C_SOUTH_WEST
 };
 
-typedef union u_lodtex
+enum e_door_states
 {
-	mlx_texture_t	*texarr[MACHINEGUN3 + 2];
-}	t_lodtex;
+	CLOSED,
+	OPENING,
+	OPEN,
+	CLOSING,
+	PERMA_CLOSED
+};
+
+enum	e_secret_directions
+{
+	S_NORTH = 42,
+	S_WEST = 43,
+	S_EAST = 44,
+	S_SOUTH = 45
+};
+
+enum e_door_directions
+{
+	NORTH_SOUTH,
+	EAST_WEST
+};
 
 typedef union u_tex_path
 {
@@ -164,6 +182,27 @@ enum	e_state
 	DYING,
 	DEAD
 };
+
+typedef struct s_doors
+{
+	double	s_timer;
+	double	closing_timer;
+	char	type;
+	int		x;
+	int		y;
+	int		state;
+	int		direction;
+}		t_doors;
+
+typedef struct s_secrets
+{
+	double	s_timer;
+	char	type;
+	int		x;
+	int		y;
+	int		state;
+	int		direction;
+}				t_secrets;
 
 typedef struct s_enemy_data
 {
@@ -196,24 +235,6 @@ typedef struct s_sprite_lst
 	struct s_sprite_lst	*next;
 	struct s_sprite_lst	*prev;
 }			t_sprite_lst;
-
-typedef struct s_sprite_raycaster
-{
-	double			*zbuffer;
-	t_vector_double	pos;
-	double			inverse_determinant;
-	t_vector_double	transform;
-	int				sprite_screen_x;
-	int				sprite_height;
-	double			inverse_sprite_height;
-	int				sprite_width;
-	int				sprite_width_halve;
-	double			inverse_sprite_width;
-	t_vector_int	draw_start;
-	t_vector_int	draw_end;
-	t_vector_int	tex;
-	double			inverse_transform_y;
-}				t_sprite_raycaster;
 
 t_sprite_lst	*new_sprite(t_sprite data);
 t_sprite_lst	*add_sprite(t_sprite_lst **begin, t_sprite data);
