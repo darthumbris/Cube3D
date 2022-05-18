@@ -56,3 +56,6 @@ dkms.conf
 cube3D
 .DS_Store
 cube3D_bonus
+mlx_frag_shader.c
+mlx_vert_shader.c
+
