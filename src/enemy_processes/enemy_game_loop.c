@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:30:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:38:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	check_enemies_attack(t_data *data)
 		}
 		lst = lst->next;
 	}
-	if (delay > 48)
+	if (delay > 50)
 		delay = 0;
 }
 
@@ -94,7 +94,7 @@ static void	check_enemies_dead(t_data *data)
 		}
 		lst = lst->next;
 	}
-	if (delay > 48)
+	if (delay > 50)
 		delay = 0;
 }
 

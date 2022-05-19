@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 16:28:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:38:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define GUARD_MOVE_SPEED	0.02
 # define ENEMY_ROT_SPEED	2
 # define ENEMY_RANGE		250
-# define ENEMY_WARN_DIST	6
+# define ENEMY_WARN_DIST	8
 # define ENEMY_HEARING_DIST	75
 # define PATROL_DIST		7
 
