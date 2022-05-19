@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 15:45:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:46:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ typedef enum e_textures
 	MACHINEGUN1,
 	MACHINEGUN2,
 	MACHINEGUN3,
-	ELEVATOR_UP
+	ELEVATOR_UP,
+	SCORE_SCREEN,
+	SCORE_NUMBERS
 }	t_textures;
 
 typedef enum e_sprites
@@ -170,7 +172,7 @@ enum e_door_directions
 
 typedef union u_tex_path
 {
-	char	*path[ELEVATOR_UP + 2];
+	char	*path[SCORE_NUMBERS + 2];
 }			t_tex_path;
 
 enum	e_state

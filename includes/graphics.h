@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 15:45:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:46:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 typedef union u_lodtex
 {
-	mlx_texture_t	*texarr[ELEVATOR_UP + 2];
+	mlx_texture_t	*texarr[SCORE_NUMBERS + 2];
 }	t_lodtex;
 
 typedef struct s_weapon_animation
@@ -104,6 +104,7 @@ typedef struct s_mlx
 	mlx_image_t		*weapon;
 	mlx_image_t		*hud;
 	mlx_image_t		*minimap;
+	mlx_image_t		*score_screen;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;

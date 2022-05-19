@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/18 15:33:15 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/19 10:45:16 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC =	main.c \
 		graphics/minimap_procedural.c \
 		graphics/draw_enemies_utils.c \
 		graphics/draw_enemies_transparencies.c \
+		graphics/draw_score_screen.c \
 		game_loop/door_utils.c \
         game_loop/game_loop.c \
 		game_loop/update_secrets.c \

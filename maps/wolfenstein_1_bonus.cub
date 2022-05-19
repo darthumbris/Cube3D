@@ -73,6 +73,9 @@ M3 ./assets/weapons/machinegun3.png
 
 F2 ./assets/elevator_up_128.png
 
+ES ./assets/hud/score_screen.png
+EN ./assets/hud/score_numbers.png
+
 F 84,84,84
 C 42,42,42
 
@@ -126,7 +129,7 @@ C 42,42,42
             2002           100001000100001
             20i2           111111000111111
             2222           100001000100001
-                           10E0&D0L0De00+1
+                           1000&D0L0De00+1
                            100001000100001
                            111111000111111
                            100000000000001

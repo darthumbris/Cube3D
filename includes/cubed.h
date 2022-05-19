@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 17:11:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:43:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void			draw_transparency(t_data *data, int x);
 void			draw_sprites(t_data *data);
 bool			draw_door(t_data *data);
 void			draw_hud(t_data *data);
+void			draw_score_screen(t_data *data);
 void			draw_minimap(t_data *data);
 void			draw_enemies(t_data *data, t_sprite *sprt);
 void			draw_weapons(t_data *data, mlx_texture_t *gun, \

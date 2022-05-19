@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 16:09:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:47:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ static bool	check_bonus_textures(t_data *data)
 		data->mlx.tex.texarr[SPRITESHEET_DOG] == NULL || \
 		data->mlx.tex.texarr[SPRITESHEET_GUARD] == NULL || \
 		check_weapon_textures(data->mlx.tex) || \
-		data->mlx.tex.texarr[ELEVATOR_UP] == NULL))
+		data->mlx.tex.texarr[ELEVATOR_UP] == NULL || \
+		data->mlx.tex.texarr[SCORE_SCREEN] == NULL || \
+		data->mlx.tex.texarr[SCORE_NUMBERS] == NULL))
 	{
 		if (DEBUG_MODE)
 			printf("error: bonus texture failed to load\n");

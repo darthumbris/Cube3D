@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 15:32:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:37:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ static void	init_minimap(t_data *data)
 void	init_hud(t_data *data)
 {
 	data->mlx.hud = mlx_new_image
+		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
+	data->mlx.score_screen = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->hud.scale = (SCREEN_WIDTH / \
 		(double)data->mlx.tex.texarr[HUD_MAIN]->width);

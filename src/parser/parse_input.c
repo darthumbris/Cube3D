@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:48:13 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:53:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,10 @@ bool	parse_input(char **argv, t_data *data)
 		return (false);
 	make_square_map(data, parse_map(upmap, data));
 	data->cam.pos = getplayerpos(data->level.map);
-	setplayerdir(data->level.map, data->cam.pos, data);
 	if (!data->level.map || \
 		data->cam.pos.x == -1 || data->cam.pos.y == -1)
 		return (false);
+	setplayerdir(data->level.map, data->cam.pos, data);
 	set_sprite_positions(data->level.map, data);
 	return (true);
 }

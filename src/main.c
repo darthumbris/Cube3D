@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 17:19:59 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:47:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	init_data(t_data *data)
 
 	srand(time(NULL));
 	data->bonus = false;
-	data->number_of_textures = ELEVATOR_UP;
+	data->number_of_textures = SCORE_NUMBERS;
 	data->level.number_of_sprites = 0;
 	data->level.door_count = 0;
 	data->level.secret_count = 0;
