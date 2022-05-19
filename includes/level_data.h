@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:56:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:28:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define PICKUP_DIST		0.7
 
 # define GUN_RANGE			150
-# define KNIFE_RANGE		5
+# define KNIFE_RANGE		3
 # define WEAPON_FOV			0.025
 # define MELEE_FOV			0.55
 # define DOG_MOVE_SPEED		0.04

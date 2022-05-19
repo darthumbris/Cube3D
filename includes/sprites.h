@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:46:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:16:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef enum e_textures
 	DOOR_WALL_1,
 	DOOR_WALL_2,
 	SPRITE_0,
-	SPRITE_1,
 	SPRITE_2,
 	SPRITE_3,
 	SPRITE_4,
@@ -100,7 +99,6 @@ typedef enum e_textures
 typedef enum e_sprites
 {
 	BARREL = SPRITE_0,
-	PILLAR = SPRITE_1,
 	LAMP = SPRITE_2,
 	BONES = SPRITE_3,
 	GUARD = SPRITE_4,

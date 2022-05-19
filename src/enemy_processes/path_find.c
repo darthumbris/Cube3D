@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:47:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:33:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	set_state(t_sprite *enemy, t_data *data, int kind)
 		else if (enemy->en_dat.last_attack % 30 == 0)
 			attack_player(enemy, data);
 	}
-	else if (is_guard(kind))
+	else if (is_guard(kind) && enemy->dist < 300)
 		pathfind_to_player(data, enemy);
-	else
+	else if (enemy->dist < 250)
 		pathind_dog(data, enemy);
 }
 
@@ -63,7 +63,8 @@ void	path_find(t_data *data)
 	while (lst)
 	{
 		if (is_enemy_kind(lst->sprite_data.kind) && \
-			lst->sprite_data.en_dat.state == PATROLLING)
+			lst->sprite_data.en_dat.state == PATROLLING && \
+			lst->sprite_data.dist < 400)
 			patrol_routine(data, &lst->sprite_data);
 		if (delay % 5 == 0 && is_enemy_kind(lst->sprite_data.kind) && \
 			(lst->sprite_data.en_dat.state == ALIVE || \

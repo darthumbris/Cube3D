@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:27:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:26:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	rotate_enemy(t_data *data, t_sprite *enemy)
 //TODO make the sound play at certain volume
 void	check_for_player(t_data *data, t_sprite *enemy)
 {
-	if (player_oustide_viewing_cone(data, enemy))
+	if (enemy->dist > ENEMY_RANGE || \
+		player_oustide_viewing_cone(data, enemy))
 		return ;
 	if (enemy->en_dat.state == ATTACKING)
 	{
