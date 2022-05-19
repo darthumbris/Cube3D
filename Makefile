@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/19 14:24:12 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/19 16:42:06 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -183,7 +183,7 @@ fclean: clean
 	@rm -f libmlx42.a
 	@echo "Binaries cleaned."
 
-re: clean all #TODO:re fclean rule
+re: fclean all
 
 .PHONY: all clean fclean re
 

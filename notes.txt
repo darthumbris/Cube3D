@@ -9,45 +9,16 @@ https://github.com/id-Software/wolf3d/blob/master/WOLFSRC/WL_DRAW.C
 Helpfull link for raycasting:
 https://lodev.org/cgtutor/raycasting.html
 
-Fov (wolfenstein3d had 70 at 4:3 (around 100 degrees at 16:9)
-Probably should set it at 90 degrees
-
-Do we use a smaller window and scale it ? (if possible/easy to do)
-
-Have the floor and ceiling be in a separate image (background image)should save on calculations hopefully.
-And makes it easier for the floor and ceiling to be made of textures.
-
-Maybe have the fast inverse square root function from doom? (just for fun, maybe for optimiazition)
-
-Have some sides be darker (for example the north and west sides or something) to have an impression of lighting
-
-For bonus:
-
-Needed:
-
-Wall collisions!!
-Minimap
-Doors which can open and close
-Animated sprites
-Rotating with the mouse.
-
-Want:
-
-Ceiling and floor have textures
-Enemies
+Still want:
+Have some sides be darker (for example the north and west sides or something)
+ 	to have an impression of lighting
 Rotating camera up down.
-Have an fps counter? 
-Can use the delta time of mlx_handle for that
-
-Maybe:
-have multiple textures for the floor and ceiling
-have extra textures for the walls
+Being able to jump and crouch
 Keys for the doors
-Reflections
-Portals (see https://www.youtube.com/watch?v=rnWRs_BBgXc)
-Sprite for the player (hand/weapon)
-UI (health etc.)
 
 Big maybe:
+Portals (see https://www.youtube.com/watch?v=rnWRs_BBgXc)
+Reflections
+
+Really big maybe
 Slopes (like in doom)
-Maybe implement anisotropic filtering?
