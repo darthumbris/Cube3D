@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:48:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 12:40:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ static void	movement_handler(t_data *data)
 	{
 		if (!is_nearby_door(data))
 			if (is_nearby_elevator(data))
-			{
-				printf("draw score screen\n");
-				draw_score_screen(data);
-				mlx_image_to_window(data->mlx.mlx_handle, data->mlx.score_screen, 0, 0);
-			}
+				game_over(data);
 	}
 }
 
@@ -72,12 +68,16 @@ void	game_loop(void *v_data)
 	t_data		*data;
 
 	data = (t_data *)v_data;
-	movement_handler(data);
-	mouse_handler(data);
-	raycaster(data);
+	if (!data->player.game_over)
+	{
+		movement_handler(data);
+		mouse_handler(data);
+		raycaster(data);
+	}
 	if (data->bonus)
 	{
-		bonus_loop(data);
+		if (!data->player.game_over)
+			bonus_loop(data);
 		soundtrack(data);
 	}
 }

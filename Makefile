@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/19 10:45:16 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/19 12:40:46 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC =	main.c \
 		graphics/draw_enemies_utils.c \
 		graphics/draw_enemies_transparencies.c \
 		graphics/draw_score_screen.c \
+		graphics/draw_score_screen_utils.c \
 		game_loop/door_utils.c \
         game_loop/game_loop.c \
 		game_loop/update_secrets.c \
@@ -56,6 +57,7 @@ SRC =	main.c \
 		game_loop/sound.c \
 		game_loop/items_utils.c \
 		game_loop/player_sees_door.c \
+		game_loop/game_over.c \
 		mouse_and_keyboard/mouse_functions.c \
 		mouse_and_keyboard/key_functions.c \
 		mouse_and_keyboard/camera_functions.c \
@@ -98,7 +100,7 @@ SRC :=  $(addprefix $(SRC_DIR)/, $(SRC))
 
 INC = -I $(INC_DIR)
 
-HEADERS = cubed.h sprites.h vectors.h
+HEADERS = cubed.h sprites.h vectors.h define.h graphics.h level_data.h raycaster.h
 HEADERS :=  $(addprefix $(INC_DIR)/, $(HEADERS))
 
 LIBFT = $(LIBFT_DIR)/libft.a

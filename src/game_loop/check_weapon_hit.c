@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:38:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 11:10:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	damage_enemy(t_data *data, t_sprite *enemy, int damage)
 	}
 	else
 	{
+		data->player.enemies_killed++;
 		play_death_sound(data, enemy);
 		enemy->en_dat.state = DYING;
 		enemy->en_dat.frame = 0;

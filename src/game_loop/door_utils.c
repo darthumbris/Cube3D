@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 17:12:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 11:11:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ bool	is_nearby_door(t_data *data)
 			, data->secrets[i].y, data->cam.pos) < 4)
 		{
 			data->secrets[i].state = OPENING;
+			data->player.secrets_found++;
 			return (true);
 		}
 	}

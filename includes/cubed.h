@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:43:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 12:40:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ void			init_secret_segments(t_data *data, t_raycaster *r, \
 void			draw_single_nbr(t_data *data, int nbr, int x_pos);
 void			draw_numbers(t_data *data);
 void			draw_faces(t_data *data);
+void			draw_single_nbr_score(t_data *data, int nbr, t_vector_int pos, \
+								mlx_texture_t *nbr_tex);
+void			draw_percentage(t_data *data, t_vector_int pos, \
+					mlx_texture_t *nbr_tex);
+void			draw_kill_ratio(t_data *data);
+void			draw_treasure_ratio(t_data *data);
+void			draw_secrets_ratio(t_data *data);
+
 
 //======Draw enemies Util functions=========================
 int				get_ypos_sheet(t_sprite *sprt);
@@ -172,6 +180,7 @@ void			update_items(t_data *data);
 void			gun_actions(t_data *data);
 bool			is_nearby_elevator(t_data *data);
 void			simple_heal_item(t_data *data, t_sprite_lst *item, int kind);
+void			game_over(t_data *data);
 
 //==============Door utils function====================
 int				get_distance(int x, int y, t_vector_double player);

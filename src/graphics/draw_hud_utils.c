@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:37:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 11:40:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	init_hud(t_data *data)
 	data->hud.face_pos_x = FACES_POS * data->hud.scale + data->hud.border_width;
 	data->hud.max_size_numbers = data->hud.scale * \
 		(data->mlx.tex.texarr[HUD_NUMBERS]->width / 10);
+	data->hud.max_size_score_nbrs = data->hud.scale * \
+		(data->mlx.tex.texarr[SCORE_NUMBERS]->width / 12);
 	init_minimap(data);
 	draw_border(data, data->hud.max_height * data->floor.width4);
 }

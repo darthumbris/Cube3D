@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:25:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 12:38:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ typedef struct s_player
 	int				active_weapon;
 	int				lives;
 	bool			machine_gun_pickup;
+	bool			game_over;
+	int				secrets_found;
+	int				treasure_found;
+	int				enemies_killed;
+	uint64_t		start_time;
+	uint64_t		end_time;
 	t_vector_double	start_pos;
 	t_vector_double	start_dir;
 	t_vector_double	start_plane;
@@ -69,6 +75,8 @@ typedef struct s_level
 	uint32_t	ceiling_color;
 	uint32_t	number_of_sprites;
 	uint32_t	level_number;
+	int			treasure_count;
+	int			enemies_count;
 	t_tex_path	paths;
 }	t_level;
 

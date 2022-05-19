@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:47:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 12:37:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	init_player(t_data *data)
 {
 	init_hud(data);
 	data->level.level_number = 1;
+	data->player.game_over = false;
 	data->player.ammo = 8;
 	data->player.lives = 3;
 	data->player.health = 100;
@@ -29,6 +30,9 @@ static void	init_player(t_data *data)
 	data->player.start_dir.y = data->cam.dir.y;
 	data->player.start_plane.x = data->cam.plane.x;
 	data->player.start_plane.y = data->cam.plane.y;
+	data->player.enemies_killed = 0;
+	data->player.secrets_found = 0;
+	data->player.treasure_found = 0;
 	draw_hud(data);
 	draw_numbers(data);
 	draw_faces(data);
@@ -46,6 +50,8 @@ static void	init_data(t_data *data)
 	data->level.number_of_sprites = 0;
 	data->level.door_count = 0;
 	data->level.secret_count = 0;
+	data->level.treasure_count = 0;
+	data->level.enemies_count = 0;
 	i = 0;
 	while (i <= data->number_of_textures)
 		data->level.paths.path[i++] = NULL;
@@ -53,6 +59,8 @@ static void	init_data(t_data *data)
 
 static void	images_to_window(t_data *data)
 {
+	struct timeval	timev;
+
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.bg, 0, 0);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.fg, 0, 0);
 	if (data->bonus)
@@ -66,6 +74,8 @@ static void	images_to_window(t_data *data)
 		mlx_image_to_window(data->mlx.mlx_handle, data->mlx.minimap, \
 		data->hud.pos_map.x, data->hud.pos_map.y);
 	}
+	gettimeofday(&timev, NULL);
+	data->player.start_time = timev.tv_sec;
 }
 
 int	main(int argc, char **argv)

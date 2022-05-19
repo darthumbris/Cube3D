@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 10:28:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 10:58:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		mlx_close_window(data->mlx.mlx_handle);
 		exit(EXIT_SUCCESS);
 	}
-	if (data->bonus)
+	if (data->bonus && !data->player.game_over)
 	{
 		minimap_keys(data, keys);
 		if (keys.key == MLX_KEY_LEFT_CONTROL && keys.action != MLX_RELEASE)

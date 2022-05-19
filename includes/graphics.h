@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:46:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 12:37:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
-# include <time.h>
+//time.h only for the score screen to display how long player
+//takes to finish the level.
+# include <sys/time.h>
 
 # define SCREEN_HEIGHT		768
 # define SCREEN_WIDTH		1024
@@ -46,6 +48,15 @@
 # define AMMO_DIGIT_1_POS	224
 # define FACES_POS			134
 # define MINIMAP_POS		71
+
+# define SCORE_NBR_SIZE		12
+# define PERCENTAGE_POS_X	132
+# define NBR_STARTPOS_X		170
+# define TIME_POS_Y			74
+# define PAR_POS_Y			89
+# define KILL_POS_Y			135
+# define SECRET_POS_Y		152
+# define TREASURE_POS_Y		169
 
 typedef union u_lodtex
 {
@@ -76,6 +87,7 @@ typedef struct s_hud
 	int				max_width;
 	int				max_size_faces;
 	int				max_size_numbers;
+	int				max_size_score_nbrs;
 	int				face_pos_x;
 	int				border_width;
 	double			inv_scale;

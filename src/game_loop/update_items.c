@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 15:28:44 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 11:09:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 void	health_item(t_data *data, t_sprite_lst *item, int kind)
 {
 	if (data->player.health < 100 && (kind == MEDKIT || \
-		kind == DOGMEAL || kind == STIMULANT))
-	{
+			kind == DOGMEAL || kind == STIMULANT))
 		simple_heal_item(data, item, kind);
-	}
 	if (kind == SOUL)
 	{
 		data->player.health = 100;
@@ -61,31 +59,32 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 		data->player.ammo = 99;
 }
 
-void	treasure_item(t_data *data, t_sprite_lst *item)
+void	treasure_item(t_data *data, t_sprite *treasure)
 {
-	if (item->sprite_data.kind == TREASURE_0)
+	if (treasure->kind == TREASURE_0)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
 			"./assets/wav_files/sounds/cross.wav", &data->sound.sfx_g);
 		data->player.score += 100;
-		data->update_hud = true;
-		item->sprite_data.kind = 0;
 	}
-	else if (item->sprite_data.kind == TREASURE_1)
+	else if (treasure->kind == TREASURE_1)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
 			"./assets/wav_files/sounds/chalice.wav", &data->sound.sfx_g);
 		data->player.score += 500;
-		data->update_hud = true;
-		item->sprite_data.kind = 0;
 	}
-	else if (item->sprite_data.kind == TREASURE_2)
+	else if (treasure->kind == TREASURE_2)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
 		"./assets/wav_files/sounds/chest.wav", &data->sound.sfx_g);
 		data->player.score += 1000;
+	}
+	if (treasure->kind == TREASURE_0 || treasure->kind == TREASURE_1 || \
+		treasure->kind == TREASURE_2)
+	{
 		data->update_hud = true;
-		item->sprite_data.kind = 0;
+		treasure->kind = 0;
+		data->player.treasure_found++;
 	}
 }
 
@@ -119,7 +118,7 @@ void	update_items(t_data *data)
 		{
 			health_item(data, lst, lst->sprite_data.kind);
 			ammo_item(data, lst);
-			treasure_item(data, lst);
+			treasure_item(data, &lst->sprite_data);
 			weapon_item(data, lst);
 		}
 		lst = lst->next;
