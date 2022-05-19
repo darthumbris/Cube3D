@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:36:55 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:48:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 17:13:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void	reset_player(t_data *data)
 	data->cam.plane.y = data->player.start_plane.y;
 	if (data->player.lives < 0)
 	{
-		printf("game should stop\n");
 		data->player.lives = 0;
 		data->player.health = 0;
+		data->player.game_over = true;
+		game_over(data);
 	}
 }
 

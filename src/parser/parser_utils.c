@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:55:35 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 17:02:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static bool	bonus_paths(char *line, t_data *data)
 		return (store_path(line, data, SCORE_SCREEN), true);
 	else if (ft_strncmp(line, "EN", 2) == 0)
 		return (store_path(line, data, SCORE_NUMBERS), true);
+	else if (ft_strncmp(line, "EG", 2) == 0)
+		return (store_path(line, data, GAME_OVER), true);
 	return (bonus_weapons(line, data));
 }
 

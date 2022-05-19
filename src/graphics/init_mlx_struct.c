@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:46:41 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 16:51:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static bool	init_textures(t_data *data)
 
 bool	init_mlx(t_data *data)
 {
+	if (SCREEN_WIDTH < 320 || SCREEN_HEIGHT < 240)
+		return (false);
 	data->mlx.mlx_handle = mlx_init
 		(SCREEN_WIDTH, SCREEN_HEIGHT, "cube3D", false);
 	if (data->mlx.mlx_handle == NULL)

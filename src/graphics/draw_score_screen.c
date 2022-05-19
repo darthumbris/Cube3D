@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 10:34:22 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 13:19:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 17:04:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ void	draw_single_nbr_score(t_data *data, int nbr, t_vector_int pos, \
 	}
 }
 
-void	draw_score_screen(t_data *data)
+void	draw_score_screen(t_data *data, mlx_texture_t *texture)
 {
 	t_vector_int	pos;
 	t_vector_int	tex;
 	uint8_t			*pixs[2];
 
 	pos.x = data->hud.border_width - 1;
-	pixs[0] = data->mlx.tex.texarr[SCORE_SCREEN]->pixels;
+	pixs[0] = texture->pixels;
 	while (++pos.x < data->mlx.mlx_handle->width - data->hud.border_width)
 	{
 		tex.x = (pos.x - data->hud.border_width) * data->hud.inv_scale;

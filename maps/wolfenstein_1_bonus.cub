@@ -72,6 +72,7 @@ F2 ./assets/elevator_up_128.png
 
 ES ./assets/hud/score_screen.png
 EN ./assets/hud/score_numbers.png
+EG ./assets/hud/game_over.png
 
 F 84,84,84
 C 42,42,42
