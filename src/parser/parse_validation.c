@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:31:50 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:24:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 15:28:37 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ bool	validchar(char c)
 	return ((is_player_tile(c) || is_sprite_tile(c) || is_wall_tile(c) || \
 			is_empty_tile(c)) || is_finish_tile(c) || is_door_tile(c) || \
 			is_secret_tile(c));
-}
-
-bool	validchar_space(char c)
-{
-	return (!(!validchar(c) && c != ' '));
 }
 
 //checks wether 0 is valid. if there are non digits around it, it is not

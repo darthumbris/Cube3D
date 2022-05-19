@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:24:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 15:28:07 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 		j = -1;
 		while (upmap[i][++j])
 		{
-			// printf("%c", upmap[i][j]);
 			if (checks(upmap, i, j, data))
 				return (true);
 			if (is_player_tile(upmap[i][j]))
@@ -82,7 +81,6 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 			else if (is_secret_tile(upmap[i][j]))
 				data->level.secret_count++;
 		}
-		// printf("\n");
 	}
 	return (false);
 }

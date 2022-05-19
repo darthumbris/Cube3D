@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:12:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 15:28:43 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,6 @@ char			**readmap(int fd, char **temp);
 bool			checkmap(char *map);
 bool			playerposcheck(char c);
 bool			validchar(char c);
-bool			validchar_space(char c);
 bool			mapjmptable(char *line, t_data *data);
 bool			checktypes(t_data *data);
 bool			parse_config(t_data *data);
