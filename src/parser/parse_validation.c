@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:31:50 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 10:13:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 15:24:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ bool	verifyzero(char **upmap, int i, int j, t_data *data)
 		return (false);
 	if (!validchar(upmap[i][j + 1]) || !validchar(upmap[i][j - 1]) || \
 		!validchar(upmap[i + 1][j]) || !validchar(upmap[i - 1][j]))
+		return (false);
+	return (true);
+}
+
+//checks wether 0 is valid. if there are non digits around it, it is not
+bool	verifyspace(char **upmap, int i, int j, t_data *data)
+{
+	if (i + 1 > data->level.map_h || i - 1 < 0 \
+		|| j + 1 > (int)ft_strlen(upmap[i]) || j - 1 < 0)
+		return (false);
+	if (!is_wall_tile(upmap[i][j + 1]) || !is_wall_tile(upmap[i][j - 1]) || \
+		!is_wall_tile(upmap[i + 1][j]) || !is_wall_tile(upmap[i - 1][j]))
 		return (false);
 	return (true);
 }

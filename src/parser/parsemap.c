@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 10:39:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 15:24:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,11 @@ void	getwidtheight(char **upmap, t_data *data)
 //TODO: check if player start on edge of map if this fails
 bool	checks(char **upmap, int i, int j, t_data *data)
 {
-	return (validchar_space(upmap[i][j]) == false || \
-		((upmap[i][j] == '0' || is_player_tile(upmap[i][j]) || \
-		is_sprite_tile(upmap[i][j])) \
-		&& verifyzero(upmap, i, j, data) == false));
+	return (((upmap[i][j] == '0' || is_player_tile(upmap[i][j]) || \
+		is_sprite_tile(upmap[i][j]) || is_door_tile(upmap[i][j]) || \
+		is_secret_tile(upmap[i][j])) \
+		&& verifyzero(upmap, i, j, data) == false && \
+		verifyspace(upmap, i, j, data) == false));
 }
 
 bool	norm_loop(t_data *data, char **upmap, int *count)
@@ -69,6 +70,7 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 		j = -1;
 		while (upmap[i][++j])
 		{
+			// printf("%c", upmap[i][j]);
 			if (checks(upmap, i, j, data))
 				return (true);
 			if (is_player_tile(upmap[i][j]))
@@ -80,6 +82,7 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 			else if (is_secret_tile(upmap[i][j]))
 				data->level.secret_count++;
 		}
+		// printf("\n");
 	}
 	return (false);
 }
