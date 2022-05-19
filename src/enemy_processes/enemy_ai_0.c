@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:02:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:27:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	rotate_enemy(t_data *data, t_sprite *enemy)
 //TODO make the sound play at certain volume
 void	check_for_player(t_data *data, t_sprite *enemy)
 {
-	double	volume;
-
 	if (player_oustide_viewing_cone(data, enemy))
 		return ;
 	if (enemy->en_dat.state == ATTACKING)
@@ -93,13 +91,10 @@ void	check_for_player(t_data *data, t_sprite *enemy)
 		return ;
 	}
 	enemy->en_dat.state = TRACKING;
-	volume = 100.0 - sqrt(enemy->dist) * 3.0;
-	if (volume < 0)
-		volume = 0;
 	if (!enemy->en_dat.played_sound && enemy->kind == GUARD)
-		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/grdsit2.wav", &data->sound.sfx_g);
+		play_sound_vol(data, "./assets/wav_files/sounds/grdsit2.wav", \
+			enemy->dist);
 	else if (!enemy->en_dat.played_sound && enemy->kind == DOG)
-		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/dogsit.wav", &data->sound.sfx_g);
+		play_sound_vol(data, "./assets/wav_files/sounds/dogsit.wav", \
+			enemy->dist);
 }

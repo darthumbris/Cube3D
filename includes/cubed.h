@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 12:40:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:26:18 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,13 @@ void			draw_single_nbr_score(t_data *data, int nbr, t_vector_int pos, \
 								mlx_texture_t *nbr_tex);
 void			draw_percentage(t_data *data, t_vector_int pos, \
 					mlx_texture_t *nbr_tex);
+void			draw_colon(t_data *data, t_vector_int pos, \
+								mlx_texture_t *nbr_tex);
 void			draw_kill_ratio(t_data *data);
 void			draw_treasure_ratio(t_data *data);
 void			draw_secrets_ratio(t_data *data);
-
+void			draw_time(t_data *data, int time[2]);
+void			draw_bonus_score(t_data *data);
 
 //======Draw enemies Util functions=========================
 int				get_ypos_sheet(t_sprite *sprt);
@@ -249,7 +252,7 @@ bool			is_closed(int state);
 //===============Sound Functions============================
 void			soundtrack(t_data *data);
 bool			sound_init(t_data *data);
-void			play_sound_vol(t_data *data, char *fpath, float vol);
+void			play_sound_vol(t_data *data, char *fpath, double dist);
 
 //==============Cleanup Functions===========================
 void			arr_cleanup(char **arr);

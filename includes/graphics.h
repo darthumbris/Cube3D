@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 12:37:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:07:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@
 
 # define SCORE_NBR_SIZE		12
 # define PERCENTAGE_POS_X	132
+# define COLON_POS_X		120
 # define NBR_STARTPOS_X		170
-# define TIME_POS_Y			74
-# define PAR_POS_Y			89
+# define TIME_POS_Y			76
+# define PAR_POS_Y			91
+# define BONUS_POS_Y		113
 # define KILL_POS_Y			135
 # define SECRET_POS_Y		152
 # define TREASURE_POS_Y		169

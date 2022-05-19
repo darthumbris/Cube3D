@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:25:12 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:10:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:41:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,15 @@ void	update_secret_walls(t_data *data)
 		if ((is_secret_tile(data->secrets[i].type)) && \
 			data->secrets[i].state == OPENING)
 		{
-			data->secrets[i].s_timer += data->mlx.mlx_handle->delta_time;
+			data->secrets[i].s_timer += data->mlx.mlx_handle->delta_time * 0.5;
 			if (data->secrets[i].s_timer >= 2.0)
 			{
 				data->secrets[i].s_timer = 2.0;
 				set_new_secret_pos(data, i);
 				data->secrets[i].state = OPEN;
+				play_sound_vol(data, "./assets/wav_files/sounds/walstop.wav", \
+				sprite_dist(data->cam.pos, \
+				(t_vector_double){data->secrets[i].x, data->secrets[i].y}));
 			}
 		}
 		i++;

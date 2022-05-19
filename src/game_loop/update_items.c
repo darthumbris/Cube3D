@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 11:09:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 13:32:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	health_item(t_data *data, t_sprite_lst *item, int kind)
 		if (data->player.lives > 9)
 			data->player.lives = 9;
 		data->player.ammo += 25;
-		data->player.score += 10000;
 		data->update_hud = true;
 		item->sprite_data.kind = 0;
 	}

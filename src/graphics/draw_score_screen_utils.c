@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 12:25:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 12:31:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:04:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	draw_kill_ratio(t_data *data)
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (KILL_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
-	kill_ratio = 123;
 	if (kill_ratio > 99)
 		draw_single_nbr_score(data, kill_ratio / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -33,6 +32,8 @@ void	draw_kill_ratio(t_data *data)
 	draw_single_nbr_score(data, kill_ratio, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
 	draw_percentage(data, pos, score_nbr);
+	if (kill_ratio == 100)
+		data->player.bonus_score += 10000;
 }
 
 void	draw_treasure_ratio(t_data *data)
@@ -46,7 +47,6 @@ void	draw_treasure_ratio(t_data *data)
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (TREASURE_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
-	treasure_ratio = 123;
 	if (treasure_ratio > 99)
 		draw_single_nbr_score(data, treasure_ratio / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -56,6 +56,8 @@ void	draw_treasure_ratio(t_data *data)
 	draw_single_nbr_score(data, treasure_ratio, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
 	draw_percentage(data, pos, score_nbr);
+	if (treasure_ratio == 100)
+		data->player.bonus_score += 10000;
 }
 
 void	draw_secrets_ratio(t_data *data)
@@ -69,7 +71,6 @@ void	draw_secrets_ratio(t_data *data)
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (SECRET_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
-	secrets_ratio = 123;
 	if (secrets_ratio > 99)
 		draw_single_nbr_score(data, secrets_ratio / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -79,27 +80,57 @@ void	draw_secrets_ratio(t_data *data)
 	draw_single_nbr_score(data, secrets_ratio, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
 	draw_percentage(data, pos, score_nbr);
+	if (secrets_ratio == 100)
+		data->player.bonus_score += 10000;
 }
 
-void	draw_time(t_data *data)
+void	draw_time(t_data *data, int time[2])
 {
-	int				secrets_ratio;
+	t_vector_int	pos;
+	int				par_y;
+	mlx_texture_t	*score_nbr;
+
+	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
+	pos.y = data->mlx.mlx_handle->height - (TIME_POS_Y * data->hud.scale);
+	par_y = data->mlx.mlx_handle->height - (PAR_POS_Y * data->hud.scale);
+	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
+	draw_single_nbr_score(data, time[0] / 10, pos, score_nbr);
+	draw_single_nbr_score(data, 0, (t_vector_int){pos.x, par_y}, score_nbr);
+	pos.x += 14 * data->hud.scale;
+	draw_single_nbr_score(data, 1, (t_vector_int){pos.x, par_y}, score_nbr);
+	draw_single_nbr_score(data, time[0], pos, score_nbr);
+	pos.x += 14 * data->hud.scale;
+	draw_colon(data, pos, score_nbr);
+	draw_colon(data, (t_vector_int){pos.x, par_y}, score_nbr);
+	pos.x += 14 * data->hud.scale;
+	draw_single_nbr_score(data, time[1] / 10, pos, score_nbr);
+	draw_single_nbr_score(data, 3, (t_vector_int){pos.x, par_y}, score_nbr);
+	pos.x += 14 * data->hud.scale;
+	draw_single_nbr_score(data, time[1], pos, score_nbr);
+	draw_single_nbr_score(data, 0, (t_vector_int){pos.x, par_y}, score_nbr);
+}
+
+void	draw_bonus_score(t_data *data)
+{
+	int				bonus;
 	t_vector_int	pos;
 	mlx_texture_t	*score_nbr;
 
-	secrets_ratio = (int)(100 * (data->player.secrets_found / \
-				(double)data->level.secret_count));
+	bonus = data->player.bonus_score;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
-	pos.y = data->mlx.mlx_handle->height - (SECRET_POS_Y * data->hud.scale);
+	pos.y = data->mlx.mlx_handle->height - (BONUS_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
-	secrets_ratio = 123;
-	if (secrets_ratio > 99)
-		draw_single_nbr_score(data, secrets_ratio / 100, pos, score_nbr);
+	if (bonus > 9999)
+		draw_single_nbr_score(data, bonus / 10000, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
-	if (secrets_ratio > 9)
-		draw_single_nbr_score(data, secrets_ratio / 10, pos, score_nbr);
+	if (bonus > 999)
+		draw_single_nbr_score(data, bonus / 1000, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
-	draw_single_nbr_score(data, secrets_ratio, pos, score_nbr);
+	if (bonus > 99)
+		draw_single_nbr_score(data, bonus / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
-	draw_percentage(data, pos, score_nbr);
+	if (bonus > 9)
+		draw_single_nbr_score(data, bonus / 10, pos, score_nbr);
+	pos.x += 14 * data->hud.scale;
+	draw_single_nbr_score(data, bonus, pos, score_nbr);
 }

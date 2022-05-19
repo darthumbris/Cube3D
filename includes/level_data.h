@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 12:38:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 13:56:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define ENEMY_HEARING_DIST	75
 # define PATROL_DIST		7
 
+# define PAR_TIME			90
+
 typedef struct s_player
 {
 	int				health;
@@ -45,6 +47,7 @@ typedef struct s_player
 	int				secrets_found;
 	int				treasure_found;
 	int				enemies_killed;
+	int				bonus_score;
 	uint64_t		start_time;
 	uint64_t		end_time;
 	t_vector_double	start_pos;

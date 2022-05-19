@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 11:10:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:38:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,12 @@ static int	calculate_damage(t_data *data, double dist)
 
 static void	play_death_sound(t_data *data, t_sprite *enemy)
 {
-	double	volume;
-
-	volume = 100.0 - sqrt(enemy->dist) * 3.0;
-	if (volume < 0)
-		volume = 0;
 	if (enemy->kind == GUARD)
-		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/grddth1.wav", &data->sound.sfx_g);
+		play_sound_vol(data, "./assets/wav_files/sounds/grddth1.wav", \
+			enemy->dist);
 	else
-		ma_engine_play_sound(&data->sound.engine, \
-		"./assets/wav_files/sounds/dogdth.wav", &data->sound.sfx_g);
+		play_sound_vol(data, "./assets/wav_files/sounds/dogdth.wav", \
+			enemy->dist);
 }
 
 static void	damage_enemy(t_data *data, t_sprite *enemy, int damage)

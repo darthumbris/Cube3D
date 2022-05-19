@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:13:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 11:11:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:11:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,38 +48,6 @@ int	get_distance(int x, int y, t_vector_double player)
 	const int	diffy = y - (int)player.y;
 
 	return (diffx * diffx + diffy * diffy);
-}
-
-//TODO clean this up
-bool	is_nearby_door(t_data *data)
-{
-	int				i;
-
-	i = -1;
-	while (++i < data->level.door_count)
-	{
-		if (is_closed(data->doors[i].state) && is_player_facing_door(data, \
-			data->doors[i].x, data->doors[i].y, get_distance(data->doors[i].x, \
-			data->doors[i].y, data->cam.pos)))
-		{
-			data->doors[i].state = OPENING;
-			ma_engine_play_sound(&data->sound.engine, \
-			"./assets/wav_files/sounds/dropen.wav", &data->sound.sfx_g);
-			return (true);
-		}
-	}
-	i = -1;
-	while (++i < data->level.secret_count)
-	{
-		if (data->secrets[i].state == CLOSED && get_distance(data->secrets[i].x \
-			, data->secrets[i].y, data->cam.pos) < 4)
-		{
-			data->secrets[i].state = OPENING;
-			data->player.secrets_found++;
-			return (true);
-		}
-	}
-	return (false);
 }
 
 bool	is_door_open(t_data *data, int y, int x)

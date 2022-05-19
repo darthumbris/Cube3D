@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:38:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:30:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	check_attack_sound_play(t_data *data, t_sprite *enemy)
 	if (enemy->en_dat.frame == 1 && !enemy->en_dat.played_sound)
 	{
 		if (enemy->kind == DOG)
-			ma_engine_play_sound(&data->sound.engine, \
-			"./assets/wav_files/sounds/dogatk.wav", &data->sound.sfx_g);
+			play_sound_vol(data, "./assets/wav_files/sounds/dogatk.wav", \
+				enemy->dist);
 		if (enemy->kind == GUARD)
-			ma_engine_play_sound(&data->sound.engine, \
-			"./assets/wav_files/sounds/grdatk.wav", &data->sound.sfx_g);
+			play_sound_vol(data, "./assets/wav_files/sounds/grdatk.wav", \
+				enemy->dist);
 		enemy->en_dat.played_sound = true;
 	}
 }

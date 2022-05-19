@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 13:47:57 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 14:52:52 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/19 14:35:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	soundtrack(t_data *data)
 		else
 			play_sound(data, data->sound.cur + 1);
 	}
+	if (ma_sound_at_end(&data->sound.sfx_g))
+		ma_sound_set_volume(&data->sound.sfx_g, 1.0);
 }
 
 static char	**read_sound_config(void)
