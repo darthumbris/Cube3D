@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 16:33:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 09:42:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,31 +54,22 @@ static void	set_state(t_sprite *enemy, t_data *data, int kind)
 		pathind_dog(data, enemy);
 }
 
-void	path_find(t_data *data)
+void	path_find(t_data *data, t_sprite *enemy)
 {
-	t_sprite_lst	*lst;
 	static int		delay = 0;
 
-	lst = data->sprite_lst;
-	while (lst)
+	if (enemy->en_dat.state == PATROLLING && \
+		enemy->dist < 400)
+		patrol_routine(data, enemy);
+	if (delay % 5 == 0 && (enemy->en_dat.state == ALIVE || \
+		enemy->en_dat.state == PATROLLING))
+		check_for_player(data, enemy);
+	else if (enemy->en_dat.state == TRACKING)
 	{
-		if (is_enemy_kind(lst->sprite_data.kind) && \
-			lst->sprite_data.en_dat.state == PATROLLING && \
-			lst->sprite_data.dist < 400)
-			patrol_routine(data, &lst->sprite_data);
-		if (delay % 5 == 0 && is_enemy_kind(lst->sprite_data.kind) && \
-			(lst->sprite_data.en_dat.state == ALIVE || \
-			lst->sprite_data.en_dat.state == PATROLLING))
-			check_for_player(data, &lst->sprite_data);
-		else if (is_enemy_kind(lst->sprite_data.kind) && \
-			lst->sprite_data.en_dat.state == TRACKING)
-		{
-			track_player(data, &lst->sprite_data);
-			set_state(&lst->sprite_data, data, lst->sprite_data.kind);
-		}
-		lst = lst->next;
-		delay++;
+		track_player(data, enemy);
+		set_state(enemy, data, enemy->kind);
 	}
+	delay++;
 	if (delay > 50)
 		delay = 0;
 }

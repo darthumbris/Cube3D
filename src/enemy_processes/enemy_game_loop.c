@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 16:38:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 09:45:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,52 +54,40 @@ static void	change_animation_frame(t_sprite *enemy, int delay, bool dead)
 	}
 }
 
-static void	check_enemies_attack(t_data *data)
+static void	check_enemies_attack(t_data *data, t_sprite *enemy)
 {
-	t_sprite_lst	*lst;
 	static int		delay = 0;
 
-	lst = data->sprite_lst;
 	delay++;
-	while (lst)
+	if (enemy->en_dat.state == ATTACKING || \
+		enemy->en_dat.state == HURT)
 	{
-		if (is_enemy_kind(lst->sprite_data.kind) \
-			&& (lst->sprite_data.en_dat.state == ATTACKING || \
-			lst->sprite_data.en_dat.state == HURT))
-		{
-			check_attack_sound_play(data, &lst->sprite_data);
-			change_animation_frame(&lst->sprite_data, delay, false);
-		}
-		lst = lst->next;
+		check_attack_sound_play(data, enemy);
+		change_animation_frame(enemy, delay, false);
 	}
 	if (delay > 50)
 		delay = 0;
 }
 
-static void	check_enemies_dead(t_data *data)
+static void	check_enemies_dead(t_sprite *enemy)
 {
-	t_sprite_lst	*lst;
 	static int		delay = 0;
 
-	lst = data->sprite_lst;
 	delay++;
-	while (lst)
+	if (enemy->en_dat.state == DYING)
 	{
-		if (is_enemy_kind(lst->sprite_data.kind) \
-			&& lst->sprite_data.en_dat.state == DYING)
-		{
-			if (delay % 8 == 0)
-				lst->sprite_data.en_dat.frame++;
-			change_animation_frame(&lst->sprite_data, 0, true);
-		}
-		lst = lst->next;
+		if (delay % 8 == 0)
+			enemy->en_dat.frame++;
+		change_animation_frame(enemy, 0, true);
 	}
 	if (delay > 50)
 		delay = 0;
 }
 
-void	update_enemies(t_data *data)
+void	update_enemies(t_data *data, t_sprite *enemy)
 {
-	check_enemies_attack(data);
-	check_enemies_dead(data);
+	draw_enemies(data, enemy);
+	check_enemies_attack(data, enemy);
+	check_enemies_dead(enemy);
+	path_find(data, enemy);
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:04:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 09:43:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ double			get_angle_of_attack(t_vector_double target_pos, \
 				t_vector_double attacker_pos, t_vector_double attacker_dir);
 
 //=============Path Find functions==========================
-void			path_find(t_data *data);
+void			path_find(t_data *data, t_sprite *enemy);
 void			pathfind_in_direction(t_data *data, t_sprite *enemy);
 void			pathfind_to_player(t_data *data, t_sprite *enemy);
 void			pathind_dog(t_data *data, t_sprite *dog);
@@ -176,7 +176,7 @@ bool			draw_square(t_data *data, t_vector_int rec, \
 
 //================Game Loop Functions=====================
 void			game_loop(void *data);
-void			update_enemies(t_data *data);
+void			update_enemies(t_data *data, t_sprite *enemy);
 void			update_doors(t_data *data, int i);
 void			update_secret_walls(t_data *data);
 void			update_items(t_data *data);

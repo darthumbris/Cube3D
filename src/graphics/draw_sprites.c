@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/12 10:29:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 09:48:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	draw_sprites(t_data *data)
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
 	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
-	path_find(data);
 	i = 0;
 	while (lst)
 	{
@@ -124,10 +123,10 @@ void	draw_sprites(t_data *data)
 		{
 			set_sprite_variables(data, lst);
 			set_draw_start_end(data);
-			if (lst->sprite_data.kind != GUARD && lst->sprite_data.kind != DOG)
+			if (!is_enemy_kind(lst->sprite_data.kind))
 				draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
 			else
-				draw_enemies(data, &lst->sprite_data);
+				update_enemies(data, &lst->sprite_data);
 		}
 		i++;
 		lst = lst->next;

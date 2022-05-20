@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 16:36:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 09:46:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void	bonus_loop(t_data *data)
 	if (data->mlx.weapon_anim[data->player.active_weapon].animate)
 		animate_weapon(data);
 	update_objects(data);
-	update_enemies(data);
 }
 
 void	game_loop(void *v_data)
