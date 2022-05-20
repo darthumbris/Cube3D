@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:58:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 12:38:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ bool	is_wall_tile(char c)
 {
 	return (c == '1' || c == '2' || c == '3' || c == '4' || \
 			c == '5' || c == '6' || c == '7' || c == '8' || \
-			c == '9' || c == '*' || c == '-');
+			c == '9' || c == '*' || c == '-' || c == '~');
 }
 
 bool	is_empty_tile(char c)

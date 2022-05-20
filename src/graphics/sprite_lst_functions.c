@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 12:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 10:35:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 12:36:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_sprite_lst	*add_ammo_to_lst(t_sprite_lst **begin, t_sprite data)
 	first = new_sprite(data);
 	if (!first)
 		return (NULL);
-	first->sprite_data.kind = 48;
+	first->sprite_data.kind = 49;
 	first->sprite_data.transp_begin.x = 56;
 	first->sprite_data.transp_begin.y = 0;
 	first->sprite_data.transp_end.x = 72;

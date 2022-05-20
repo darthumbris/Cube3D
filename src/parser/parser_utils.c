@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:02:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 12:35:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ static bool	bonus_paths(char *line, t_data *data)
 		return (store_path(line, data, SPRITESHEET_DOG), true);
 	else if (ft_strncmp(line, "TG", 2) == 0)
 		return (store_path(line, data, SPRITESHEET_GUARD), true);
-	else if (ft_strncmp(line, "F2", 2) == 0)
-		return (store_path(line, data, ELEVATOR_UP), true);
 	else if (ft_strncmp(line, "ES", 2) == 0)
 		return (store_path(line, data, SCORE_SCREEN), true);
 	else if (ft_strncmp(line, "EN", 2) == 0)

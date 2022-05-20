@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 11:18:11 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 12:34:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum e_textures
 	WALL_9,
 	WALL_10,
 	FINISH_WALL,
+	ELEVATOR_UP,
 	HIDDEN_WALL_1,
 	HIDDEN_WALL_2,
 	HIDDEN_WALL_3,
@@ -91,7 +92,6 @@ typedef enum e_textures
 	MACHINEGUN1,
 	MACHINEGUN2,
 	MACHINEGUN3,
-	ELEVATOR_UP,
 	SCORE_SCREEN,
 	SCORE_NUMBERS,
 	GAME_OVER

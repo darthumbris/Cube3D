@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 16:52:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 12:40:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	get_block_id(char c)
 		return (FINISH_WALL);
 	else if (c == '-')
 		return (WALL_10);
+	else if (c == '~')
+		return (ELEVATOR_UP);
 	else
 		return (WALL_1);
 }
