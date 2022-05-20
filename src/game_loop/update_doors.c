@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:42:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:23:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void	update_doors(t_data *data, int i)
 		}
 		else if (data->doors[i].state == OPEN)
 			attempt_close_door(data, i);
+		if (data->doors[i].delay > 0)
+				data->doors[i].delay--;
 	}
 }

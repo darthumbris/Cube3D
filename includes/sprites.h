@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:02:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:18:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ typedef struct s_doors
 	int		y;
 	int		state;
 	int		direction;
+	int		delay;
 }		t_doors;
 
 typedef struct s_secrets

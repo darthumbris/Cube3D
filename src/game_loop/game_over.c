@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 12:38:58 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:11:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:15:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	game_over(t_data *data)
 	else
 		draw_score_screen(data, data->mlx.tex.texarr[GAME_OVER]);
 	draw_score_elements(data);
-	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.score_screen, 0, 0);
+	//mlx_image_to_window(data->mlx.mlx_handle, data->mlx.score_screen, 0, 0);
 	data->player.game_over = true;
 }

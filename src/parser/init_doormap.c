@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 15:52:39 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/09 15:30:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:19:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	set_door_direction(t_data *data, int i, int j, int door)
 		data->doors[door].direction = EAST_WEST;
 	else
 		data->doors[door].direction = NORTH_SOUTH;
+	data->doors[door].delay = 0;
 }
 
 void	init_doors(t_data *data)

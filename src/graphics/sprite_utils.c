@@ -6,7 +6,7 @@
 /*   By: y: shoogenb <shoogenb@student.codam.nl>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:51:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:44:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 10:42:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,37 @@ static void	swap_sprite(t_sprite_lst *lst, t_sprite_lst *lst2)
 	lst2->sprite_data = temp;
 }
 
-void	sort_sprites(t_data *data, t_sprite_lst **begin)
+static void	sort_only_valid(t_sprite_lst **current, t_sprite_lst **begin, \
+							t_vector_double pos)
 {
-	t_sprite_lst	*last;
 	double			dist1;
 	double			dist2;
 
-	last = *begin;
-	while (last && last->next)
+	dist1 = sprite_dist((*current)->sprite_data.map_pos, pos);
+	dist2 = sprite_dist((*current)->next->sprite_data.map_pos, pos);
+	if (dist1 < dist2)
 	{
-		dist1 = sprite_dist(last->sprite_data.map_pos, data->cam.pos);
-		dist2 = sprite_dist(last->next->sprite_data.map_pos, data->cam.pos);
-		if (dist1 < dist2)
-		{
-			swap_sprite(last, last->next);
-			last->sprite_data.dist = dist2;
-			last->next->sprite_data.dist = dist1;
-			last = *begin;
-			continue ;
-		}
-		else
-		{
-			last->sprite_data.dist = dist1;
-			last->next->sprite_data.dist = dist2;
-		}
-		last = last->next;
+		swap_sprite(*current, (*current)->next);
+		(*current)->sprite_data.dist = dist2;
+		(*current)->next->sprite_data.dist = dist1;
+		(*current) = *begin;
+	}
+	else
+	{
+		(*current)->sprite_data.dist = dist1;
+		(*current)->next->sprite_data.dist = dist2;
+	}
+}
+
+void	sort_sprites(t_data *data, t_sprite_lst **begin)
+{
+	t_sprite_lst	*current;
+
+	current = *begin;
+	while (current && current->next)
+	{
+		if (current->sprite_data.kind)
+			sort_only_valid(&current, begin, data->cam.pos);
+		current = current->next;
 	}
 }

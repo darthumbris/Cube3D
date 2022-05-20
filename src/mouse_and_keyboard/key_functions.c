@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 10:58:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:18:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,16 @@ static void	weapon_action(t_data *data)
 	check_weapon_hit(data);
 }
 
+static void	door_action(t_data *data)
+{
+	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_E))
+	{
+		if (!is_nearby_door(data))
+			if (is_nearby_elevator(data))
+				game_over(data);
+	}
+}
+
 void	key_handler(struct mlx_key_data keys, void *param)
 {
 	t_data	*data;
@@ -82,4 +92,5 @@ void	key_handler(struct mlx_key_data keys, void *param)
 			weapon_action(data);
 		weapon_switch(data, keys);
 	}
+	door_action(data);
 }

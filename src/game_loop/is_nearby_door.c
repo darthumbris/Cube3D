@@ -6,11 +6,16 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 14:11:18 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:40:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:27:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static bool	is_closable(int state)
+{
+	return (state == OPENING || state == OPEN);
+}
 
 static bool	check_door(t_data *data)
 {
@@ -19,11 +24,17 @@ static bool	check_door(t_data *data)
 	i = -1;
 	while (++i < data->level.door_count)
 	{
-		if (is_closed(data->doors[i].state) && is_player_facing_door(data, \
+		if (is_player_facing_door(data, \
 			data->doors[i].x, data->doors[i].y, get_distance(data->doors[i].x, \
-			data->doors[i].y, data->cam.pos)))
+			data->doors[i].y, data->cam.pos)) && \
+			(is_closed(data->doors[i].state) || \
+			is_closable(data->doors[i].state)) && data->doors[i].delay == 0)
 		{
-			data->doors[i].state = OPENING;
+			if (is_closed(data->doors[i].state))
+				data->doors[i].state = OPENING;
+			else if (is_closable(data->doors[i].state))
+				data->doors[i].state = CLOSING;
+			data->doors[i].delay = 30;
 			play_sound_vol(data, "./assets/wav_files/sounds/dropen.wav", \
 				sprite_dist(data->cam.pos, (t_vector_double){data->doors[i].x, \
 				data->doors[i].y}));
@@ -54,7 +65,6 @@ static bool	check_secrets(t_data *data)
 	return (false);
 }
 
-//TODO clean this up
 bool	is_nearby_door(t_data *data)
 {
 	return (check_door(data) || check_secrets(data));

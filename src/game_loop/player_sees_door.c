@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 14:48:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 17:11:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:17:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_closed(int state)
 {
-	return (state == CLOSED);
+	return (state == CLOSED || state == CLOSING);
 }
 
 bool	is_player_facing_door(t_data *data, int x, int y, int dist)
