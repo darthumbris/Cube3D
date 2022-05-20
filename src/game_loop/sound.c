@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 13:47:57 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:35:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 12:12:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ bool	sound_init(t_data *data)
 			return (false);
 		i++;
 	}
+	arr_cleanup(config);
 	return (true);
 }
