@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 14:48:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 11:17:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/20 11:37:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ bool	is_player_facing_door(t_data *data, int x, int y, int dist)
 	return (false);
 }
 
-//TODO also check if the door correspond with the elevator door is
-// perma closed
 bool	is_nearby_elevator(t_data *data)
 {
 	int	i;
@@ -52,6 +50,8 @@ bool	is_nearby_elevator(t_data *data)
 			{
 				data->mlx.tex.texarr[FINISH_WALL] = \
 					data->mlx.tex.texarr[ELEVATOR_UP];
+				play_sound_vol(data, "assets/wav_files/sounds/elstart.wav", \
+				sprite_dist(data->cam.pos, (t_vector_double){j, i}));
 				return (true);
 			}
 			j++;
