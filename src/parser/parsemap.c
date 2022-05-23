@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:28:07 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:54:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,19 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 
 char	**parse_map(char **upmap, t_data *data)
 {
-	int	count;
+	int	p_count;
 
-	count = 0;
+	p_count = 0;
 	if (!upmap || !*upmap)
-		return (NULL);
+		return (map_error_msg("Map is empty"));
 	while (*upmap && ft_isalpha(*(*upmap)))
 		upmap++;
 	getwidtheight(upmap, data);
-	if (norm_loop(data, upmap, &count))
-		return (NULL);
-	if (count > 1)
-		return (NULL);
+	if (data->level.map_w < 3 || data->level.map_h < 3)
+		map_error_msg("Map is misconfigured");
+	if (norm_loop(data, upmap, &p_count))
+		return (map_error_msg("Map is misconfigured"));
+	if (p_count != 1)
+		return (map_error_msg("Player is misconfigured"));
 	return (upmap);
 }
-
-//TODO: check multiple start

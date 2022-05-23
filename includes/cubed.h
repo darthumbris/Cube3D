@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 10:30:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:12:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ void			set_sprite_positions(char **map, t_data *data);
 void			set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
 							t_data *data);
 bool			verifyspace(char **upmap, int i, int j, t_data *data);
+void			*map_error_msg(char *msg);
+bool			error_msg(char *msg);
 
 //===============Util functions==============================
 bool			is_player_tile(char c);

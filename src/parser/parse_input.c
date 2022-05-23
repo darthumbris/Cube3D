@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 15:57:03 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:54:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	parse_types(char **upmap, t_data *data)
 		&& upmap[i][0] != ' ' && !ft_isdigit(upmap[i][0]))
 		{
 			if (mapjmptable(upmap[i], data) == false)
-				return (false);
+				return (error_msg("Map is misconfigured"));
 			i++;
 		}
 	}
@@ -34,7 +34,7 @@ bool	parse_types(char **upmap, t_data *data)
 		while (upmap[i] && i <= SOUTH + 2)
 		{
 			if (mapjmptable(upmap[i], data) == false)
-				return (false);
+				return (error_msg("Map is misconfigured"));
 			i++;
 		}
 	}
@@ -121,7 +121,7 @@ bool	parse_input(char **argv, t_data *data)
 	upmap = NULL;
 	if (ft_strlen(argv[1]) < 4 || \
 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
-		return (false);
+		return (error_msg("Incorrect map file type"));
 	if (ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 10), "_bonus.cub", 10) == 0)
 		data->bonus = true;
 	fd = open(argv[1], O_RDONLY);

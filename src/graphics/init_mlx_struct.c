@@ -6,11 +6,25 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/19 16:51:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:26:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static bool	check_non_bonus_textures(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->mlx.tex.texarr[i] == NULL)
+			return (error_msg("Failed to load textures"));
+		i++;
+	}
+	return (true);
+}
 
 //temp for now
 static bool	init_sprites(t_data *data)
@@ -51,23 +65,25 @@ static bool	init_textures(t_data *data)
 	data->caster.ray_dist = 0;
 	if (data->bonus)
 		return (init_sprites(data));
-	return (true);
+	return (check_non_bonus_textures(data));
 }
 
 bool	init_mlx(t_data *data)
 {
 	if (SCREEN_WIDTH < 320 || SCREEN_HEIGHT < 240)
-		return (false);
+		return (error_msg("Screen size too small"));
 	data->mlx.mlx_handle = mlx_init
 		(SCREEN_WIDTH, SCREEN_HEIGHT, "cube3D", false);
 	if (data->mlx.mlx_handle == NULL)
-		return (false);
+		return (error_msg("Failed to init mlx"));
+	if (!data->bonus && data->level.colors_error)
+		return (error_msg("Colors not configured"));
 	data->mlx.fg = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->mlx.bg = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (data->mlx.fg == NULL || data->mlx.bg == NULL)
-		return (false);
+		return (error_msg("Failed to init images"));
 	data->floor.inverse_width = 1 / (double)data->mlx.mlx_handle->width;
 	data->floor.pos_z = 0.5 * data->mlx.mlx_handle->height;
 	data->floor.halve_height = data->mlx.mlx_handle->height / 2;
@@ -75,6 +91,6 @@ bool	init_mlx(t_data *data)
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
 	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
 	if (!data->spr_cast.zbuffer)
-		return (false);
+		return (error_msg("Malloc error"));
 	return (init_textures(data));
 }

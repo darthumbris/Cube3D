@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 10:16:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:25:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,14 @@ static bool	check_bonus_textures(t_data *data)
 		check_weapon_textures(data->mlx.tex) || \
 		data->mlx.tex.texarr[SCORE_SCREEN] == NULL || \
 		data->mlx.tex.texarr[SCORE_NUMBERS] == NULL))
-	{
-		if (DEBUG_MODE)
-			printf("error: bonus texture failed to load\n");
-		return (false);
-	}
-	if (!data->bonus)
-		data->floor_ceiling = false;
-	else if (data->mlx.tex.texarr[FLOOR] == NULL || \
+		return (error_msg("Bonus texture failed to load"));
+	if (data->mlx.tex.texarr[FLOOR] == NULL || \
 		data->mlx.tex.texarr[CEILING] == NULL)
 		data->floor_ceiling = false;
 	else
 		data->floor_ceiling = true;
-	if (data->floor_ceiling == false && \
-		(data->level.ceiling_color == -1 || data->level.floor_color == -1))
-		return (false);
+	if (data->floor_ceiling == false && data->level.colors_error)
+		return (error_msg("Colors not configured"));
 	return (true);
 }
 
@@ -89,7 +82,7 @@ bool	check_needed_textures_loaded(t_data *data)
 			if (c != '0' && c != ' ')
 			{
 				if (!is_loaded(data, c, i, j))
-					return (false);
+					return (error_msg("Failure loading textures"));
 			}
 			j++;
 		}

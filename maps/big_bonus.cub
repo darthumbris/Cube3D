@@ -4,7 +4,6 @@ WE ./assets/bluestone_128.png
 EA ./assets/eagle_128.png
 FL ./assets/wood_128.png
 CL ./assets/greystone_128.png
-S1 ./assets/pillar_final.png
 W1 ./assets/bluestone_128.png
 W2 ./assets/greystone_128.png
 W3 ./assets/wood_128.png
@@ -26,7 +25,6 @@ S0 ./assets/barrel_final.png
 S2 ./assets/lamp_final.png
 S4 ./assets/bones_final.png
 S5 ./assets/guard_final.png
-S6 ./assets/greystone_special1_128.png
 S7 ./assets/dog_final.png
 S8 ./assets/table_final.png
 S9 ./assets/well_full_final.png
@@ -61,9 +59,30 @@ DF ./assets/doorframe_128.png
 TD ./assets/enemies/dog/dogspritesheet.png
 TG ./assets/enemies/guard/guardspritesheet.png
 
+P0 ./assets/weapons/pistol0.png
+P1 ./assets/weapons/pistol1.png
+P2 ./assets/weapons/pistol2.png
+P3 ./assets/weapons/pistol3.png
+
+K0 ./assets/weapons/knife0.png
+K1 ./assets/weapons/knife1.png
+K2 ./assets/weapons/knife2.png
+K3 ./assets/weapons/knife3.png
+
+M0 ./assets/weapons/machinegun0.png
+M1 ./assets/weapons/machinegun1.png
+M2 ./assets/weapons/machinegun2.png
+M3 ./assets/weapons/machinegun3.png
+
+F2 ./assets/elevator_up_128.png
+
+ES ./assets/hud/score_screen.png
+EN ./assets/hud/score_numbers.png
+EG ./assets/hud/game_over.png
+
 F 84,84,84
 C 42,42,42
-  
+
 1111111111111111111111111111111111111111111111111111111111111111111111111
 1000000000000000000000000000000000G00000000000000000000000000000000000001
 1000000000000000000000000000000000G00000000000000000000000000000000000001

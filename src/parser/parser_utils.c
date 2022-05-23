@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:35:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:50:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	checktypes(t_data *data)
 		while (i <= SOUTH)
 		{
 			if (data->level.paths.path[i] == NULL)
-				return (true);
+				return (!error_msg("Failure in checking map"));
 			i++;
 		}
 	}
@@ -100,19 +100,19 @@ char	**readmap(int fd, char **temp)
 	bytes_read = 1;
 	map = NULL;
 	if (fd == -1)
-		return (NULL);
+		return (map_error_msg("Failed to open map"));
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, 10000);
 		if (bytes_read == -1)
-			return (NULL);
+			return (map_error_msg("Failed to read from map"));
 		buf[bytes_read] = 0;
 		if (bytes_read == 0)
 			break ;
 		map = ft_strjoin(map, buf);
 	}
 	if (checkmap(map))
-		return (NULL);
+		return (map_error_msg("Map has a new line where it should not"));
 	temp = ft_split(map, '\n');
 	free(map);
 	return (temp);

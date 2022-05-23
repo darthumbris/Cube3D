@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 15:52:39 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 11:19:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:32:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ bool	init_door_map(t_data *data)
 {
 	data->doors = ft_calloc(sizeof(t_doors), data->level.door_count);
 	if (data->doors == NULL)
-		return (false);
+		return (error_msg("Malloc failure"));
 	data->secrets = ft_calloc(sizeof(t_secrets), data->level.secret_count);
 	if (data->secrets == NULL)
-		return (false);
+		return (error_msg("Malloc failure"));
 	return (true);
 }

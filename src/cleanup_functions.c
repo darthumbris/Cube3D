@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cleunup_functions.c                                :+:    :+:            */
+/*   cleanup_functions.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 12:32:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 12:35:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:47:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	cleanup_config(t_data *data)
 	free(data->config.dat);
 }
 
-//TODO: cleanup callocs and do the freeing of config.dat properly
 void	cleanup_data(t_data *data)
 {
 	if (data->bonus)

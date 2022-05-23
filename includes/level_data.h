@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 10:16:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:09:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ typedef struct s_level
 	int			map_h;
 	char		**unparsed;
 	char		**map;
-	int			floor_color;
-	int			ceiling_color;
+	uint32_t	floor_color;
+	uint32_t	ceiling_color;
 	uint32_t	number_of_sprites;
 	uint32_t	level_number;
 	int			treasure_count;
 	int			enemies_count;
 	t_tex_path	paths;
+	bool		colors_error;
 }	t_level;
 
 typedef struct s_config_data

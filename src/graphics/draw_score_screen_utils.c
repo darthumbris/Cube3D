@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 12:25:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:04:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:46:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	draw_kill_ratio(t_data *data)
 
 	kill_ratio = (int)(100 * (data->player.enemies_killed / \
 				(double)data->level.enemies_count));
+	if (kill_ratio < 0)
+		kill_ratio = 0;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (KILL_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
@@ -44,6 +46,8 @@ void	draw_treasure_ratio(t_data *data)
 
 	treasure_ratio = (int)(100 * (data->player.treasure_found / \
 				(double)data->level.treasure_count));
+	if (treasure_ratio < 0)
+		treasure_ratio = 0;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (TREASURE_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
@@ -68,6 +72,8 @@ void	draw_secrets_ratio(t_data *data)
 
 	secrets_ratio = (int)(100 * (data->player.secrets_found / \
 				(double)data->level.secret_count));
+	if (secrets_ratio < 0)
+		secrets_ratio = 0;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (SECRET_POS_Y * data->hud.scale);
 	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];

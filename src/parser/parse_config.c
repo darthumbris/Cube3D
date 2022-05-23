@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:51:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/11 13:24:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:50:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	set_config_data(t_data *data, char **config)
 	data->config.dat = ft_calloc(sizeof(t_config_data), size);
 	config_data = ft_calloc(sizeof(char **), size + 1);
 	if (data->config.dat == NULL || config_data == NULL)
-		return (false);
+		return (error_msg("Malloc failure"));
 	config_data[size] = NULL;
 	data->config.size = size;
 	i = 0;
@@ -76,12 +76,12 @@ bool	parse_config(t_data *data)
 	config = NULL;
 	fd = open("config/wolfenstein_map_config.txt", O_RDONLY);
 	if (fd == -1)
-		return (false);
+		return (error_msg("Failed to open config file"));
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, 10000);
 		if (bytes_read == -1)
-			return (false);
+			return (error_msg("Failed to read config file"));
 		buf[bytes_read] = 0;
 		if (bytes_read == 0)
 			break ;

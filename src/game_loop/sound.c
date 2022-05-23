@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 13:47:57 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:12:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:32:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,20 @@ bool	sound_init(t_data *data)
 	ma_sound_group_init(&data->sound.engine, 0, NULL, &data->sound.music_g) \
 	!= MA_SUCCESS || ma_sound_group_init(&data->sound.engine, 0, \
 	NULL, &data->sound.sfx_g) != MA_SUCCESS)
-		return (false);
+		return (error_msg("Failed to init sound"));
 	i = 0;
 	config = read_sound_config();
 	while (config[i] && ft_strncmp(config[i], "---", 3) != 0)
 		i++;
 	data->sound.soundtrack = malloc(sizeof(ma_sound *) * (i + 1));
 	if (!data->sound.soundtrack)
-		return (false);
+		return (error_msg("Malloc failure"));
 	data->sound.length = i;
 	i = 0;
 	while (config[i] && ft_strncmp(config[i], "---", 3) != 0)
 	{
 		if (!store_sound(data, config[i], i))
-			return (false);
+			return (error_msg("Failed to load sound from config"));
 		i++;
 	}
 	arr_cleanup(config);
