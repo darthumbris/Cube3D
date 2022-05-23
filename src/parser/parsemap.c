@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 12:09:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 13:00:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,7 @@ char	**parse_map(char **upmap, t_data *data)
 		upmap++;
 	}
 	if (e_count > 6)
-	{
-		printf("Map is misconfigured");
-		return (NULL);
-	}
+		return (map_error_msg("Map is misconfigured"));
 	getwidtheight(upmap, data);
 	if (!check_map_values(upmap, data))
 		return (NULL);
