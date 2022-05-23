@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:07:32 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 10:08:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 14:09:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	f_store(char *line, t_data *data)
 	if (!rgb)
 	{
 		data->level.floor_color = -1;
+		data->level.error_colors = true;
 		return ;
 	}
 	data->level.floor_color = \
@@ -80,6 +81,7 @@ void	c_store(char *line, t_data *data)
 	if (!rgb)
 	{
 		data->level.ceiling_color = -1;
+		data->level.error_colors = true;
 		return ;
 	}
 	data->level.ceiling_color = \

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 11:59:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 14:10:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ bool	parse_input(char **argv, t_data *data)
 		printf("Error: Incorrect map file type\n");
 		return (false);
 	}
+	data->level.error_colors = false;
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	data->level.unparsed = upmap;

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:36:49 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 14:13:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ int	main(int argc, char **argv)
 {
 	t_data		data;
 
-	if (argc != 2 || !parse_input(argv, &data) || !init_mlx(&data))
+	if (argc != 2)
 	{
-		write(2, "Error\n", 6);
+		write(2, "Error: Not correct amount of arguments\n", 39);
 		return (1);
 	}
+	if (argc != 2 || !parse_input(argv, &data) || !init_mlx(&data))
+		return (1);
 	draw_background(&data);
 	mlx_image_to_window(data.mlx.mlx_handle, data.mlx.bg, 0, 0);
 	raycaster(&data);

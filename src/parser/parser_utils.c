@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 11:57:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 14:12:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool	checktypes(t_data *data)
 		printf("Error: Failed to load all textures\n");
 		return (true);
 	}
-	if (data->level.floor_color == -1 || data->level.ceiling_color == -1)
+	if (data->level.error_colors)
 	{
-		printf("Error: Failed to load the colours\n");
+		printf("Error: Colours not configured correctly\n");
 		return (true);
 	}
 	return (false);

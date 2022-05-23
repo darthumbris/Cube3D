@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 12:09:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 14:09:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,13 @@ typedef enum e_textures
  */
 typedef struct s_level
 {
+	bool			error_colors;
 	char			**unparsed;
 	char			**map;
 	int				map_w;
 	int				map_h;
-	int				floor_color;
-	int				ceiling_color;
+	uint32_t		floor_color;
+	uint32_t		ceiling_color;
 	char			*no_texture_path;
 	char			*we_texture_path;
 	char			*so_texture_path;
