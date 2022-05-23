@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:35:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/23 10:16:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ static bool	check_bonus_textures(t_data *data)
 		data->floor_ceiling = false;
 	else
 		data->floor_ceiling = true;
+	if (data->floor_ceiling == false && \
+		(data->level.ceiling_color == -1 || data->level.floor_color == -1))
+		return (false);
 	return (true);
 }
 
