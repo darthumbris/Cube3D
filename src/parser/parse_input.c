@@ -6,12 +6,18 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 15:02:01 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 11:59:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
+
+void	*map_error_msg(char *msg)
+{
+	printf("Error: %s\n", msg);
+	return (NULL);
+}
 
 //loops through the 6 configs
 bool	parse_types(char **upmap, t_data *data)
@@ -78,7 +84,10 @@ bool	parse_input(char **argv, t_data *data)
 	upmap = NULL;
 	if (ft_strlen(argv[1]) < 4 || \
 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
+	{
+		printf("Error: Incorrect map file type\n");
 		return (false);
+	}
 	fd = open(argv[1], O_RDONLY);
 	upmap = readmap(fd, upmap);
 	data->level.unparsed = upmap;
@@ -87,9 +96,9 @@ bool	parse_input(char **argv, t_data *data)
 		return (false);
 	data->level.map = parse_map(upmap, data);
 	data->player.pos = getplayerpos(data->level.map);
-	setplayerdir(data->level.map, data->player.pos, data);
 	if (!data->level.map || \
 		data->player.pos.x == -1 || data->player.pos.y == -1)
 		return (false);
+	setplayerdir(data->level.map, data->player.pos, data);
 	return (true);
 }

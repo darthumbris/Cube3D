@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 15:01:50 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 12:09:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ typedef struct s_level
 	char			**map;
 	int				map_w;
 	int				map_h;
+	int				floor_color;
+	int				ceiling_color;
 	char			*no_texture_path;
 	char			*we_texture_path;
 	char			*so_texture_path;
 	char			*ea_texture_path;
-	unsigned int	floor_color;
-	unsigned int	ceiling_color;
 }	t_level;
 
 /**
@@ -290,6 +290,8 @@ bool	checktypes(t_data *data);
 bool	validchar(char c);
 bool	validchar_space(char c);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
+void	*map_error_msg(char *msg);
+bool	check_map_values(char **upmap, t_data *data);
 
 /*
 	Jump table functions to store values in struct

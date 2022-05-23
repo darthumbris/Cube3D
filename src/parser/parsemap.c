@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/26 15:03:26 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 12:09:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,45 +51,25 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
-bool	playerposcheck(char c)
-{
-	return (c == 'N' || c == 'E' || c == 'S' || c == 'W');
-}
-
-bool	checks(char **upmap, int i, int j, t_data *data)
-{
-	return (validchar_space(upmap[i][j]) == false || \
-		((upmap[i][j] == '0' || playerposcheck(upmap[i][j])) && \
-			verifyzero(upmap, i, j, data) == false));
-}
-
 char	**parse_map(char **upmap, t_data *data)
 {
-	int	i;
-	int	j;
-	int	count;
+	int	e_count;
 
-	count = 0;
+	e_count = 0;
 	if (!upmap || !*upmap)
-		return (NULL);
+		return (map_error_msg("Map is empty"));
 	while (*upmap && ft_isalpha(*(*upmap)))
-		upmap++;
-	getwidtheight(upmap, data);
-	i = -1;
-	while (upmap[++i])
 	{
-		j = -1;
-		while (upmap[i][++j])
-		{
-			if (checks(upmap, i, j, data))
-				return (NULL);
-			if (playerposcheck(upmap[i][j]))
-				count++;
-		}
+		e_count++;
+		upmap++;
 	}
-	if (count > 1)
+	if (e_count > 6)
+	{
+		printf("Map is misconfigured");
+		return (NULL);
+	}
+	getwidtheight(upmap, data);
+	if (!check_map_values(upmap, data))
 		return (NULL);
 	return (upmap);
 }
-
-//TODO: check multiple start

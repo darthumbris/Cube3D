@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/04/26 14:38:03 by pvan-dij      ########   odam.nl          #
+#    Updated: 2022/05/23 12:08:39 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =	main.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \
 		parser/parsemap.c \
+		parser/parsemap_utils.c \
 		parser/parser_utils.c \
 		parser/parse_validation.c
 		
@@ -117,11 +118,12 @@ fclean: clean
 	@printf "%b" "$(ERROR_COLOR)Removing $(PRG_COLOR)$(NAME)\n"
 	@rm -f $(NAME)
 	@make -C libs/MLX42 fclean
+	@make -C libs/libft fclean
 	@rm -f libmlx42.a
 	@rm -f libft.a
 	@echo "Binaries cleaned."
 
-re: clean all #TODO:re fclean rule
+re: fclean all
 
 .PHONY: all clean fclean re
 

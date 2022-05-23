@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:25:24 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/23 11:57:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,17 @@
 //checks if types were parsed correctly
 bool	checktypes(t_data *data)
 {
-	if (data->level.no_texture_path == NULL)
+	if (!data->level.no_texture_path || !data->level.we_texture_path || \
+		!data->level.ea_texture_path || !data->level.so_texture_path)
+	{
+		printf("Error: Failed to load all textures\n");
 		return (true);
-	if (data->level.we_texture_path == NULL)
+	}
+	if (data->level.floor_color == -1 || data->level.ceiling_color == -1)
+	{
+		printf("Error: Failed to load the colours\n");
 		return (true);
-	if (data->level.ea_texture_path == NULL)
-		return (true);
-	if (data->level.so_texture_path == NULL)
-		return (true);
+	}
 	return (false);
 }
 
@@ -46,6 +49,7 @@ bool	mapjmptable(char *line, t_data *data)
 			return (jmpt[i].storemapval(line, data), true);
 		i++;
 	}
+	printf("Error: Map is misconfigured\n");
 	return (false);
 }
 
