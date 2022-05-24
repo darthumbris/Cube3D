@@ -1,12 +1,12 @@
-NO         ./assets/greystone.png
+
 SO    ./assets/wood.png
 
-
+EA                    ./assets/eagle.png
 WE ./assets/purplestone.png
 
+NO         ./assets/greystone.png
 
 
-EA                    ./assets/eagle.png
 
 
 F 130,125,130

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 09:37:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 14:09:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ bool	parse_types(char **upmap, t_data *data)
 	}
 	else
 	{
+		data->config.size = 4;
 		while (upmap[i] && i <= SOUTH + 2)
 		{
 			if (mapjmptable(upmap[i], data) == false)

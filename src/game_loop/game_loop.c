@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/20 11:45:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 16:21:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	game_loop(void *v_data)
 	if (!data->player.game_over)
 	{
 		movement_handler(data);
-		mouse_handler(data);
+		if (data->bonus)
+			mouse_handler(data);
 		raycaster(data);
 	}
 	if (data->bonus)

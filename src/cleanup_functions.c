@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 12:32:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:47:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 16:23:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	cleanup_config(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->config.size)
+	while (i < data->config.size_temp)
 	{
 		free(data->config.dat[i].key);
 		i++;

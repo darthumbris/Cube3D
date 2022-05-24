@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:51:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:50:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 16:11:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static bool	set_config_data(t_data *data, char **config)
 		return (error_msg("Malloc failure"));
 	config_data[size] = NULL;
 	data->config.size = size;
+	data->config.size_temp = size;
 	i = 0;
 	while (i < size)
 	{

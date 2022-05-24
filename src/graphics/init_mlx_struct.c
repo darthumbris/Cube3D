@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 09:29:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 13:55:37 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	init_mlx(t_data *data)
 		(SCREEN_WIDTH, SCREEN_HEIGHT, "cube3D", false);
 	if (data->mlx.mlx_handle == NULL)
 		return (error_msg("Failed to init mlx"));
-	if (!data->bonus && !data->level.colors_error)
+	if (!data->bonus && data->level.colors_error != 0)
 		return (error_msg("Colors not configured"));
 	data->mlx.fg = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);

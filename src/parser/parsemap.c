@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:54:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 14:11:12 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,19 @@ bool	norm_loop(t_data *data, char **upmap, int *count)
 char	**parse_map(char **upmap, t_data *data)
 {
 	int	p_count;
+	int	e_count;
 
 	p_count = 0;
+	e_count = 0;
 	if (!upmap || !*upmap)
 		return (map_error_msg("Map is empty"));
 	while (*upmap && ft_isalpha(*(*upmap)))
+	{
+		e_count++;
 		upmap++;
+	}
+	if (e_count > 6 && !data->bonus)
+		return (map_error_msg("Map is misconfigured"));
 	getwidtheight(upmap, data);
 	if (data->level.map_w < 3 || data->level.map_h < 3)
 		map_error_msg("Map is misconfigured");

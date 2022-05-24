@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/24 09:27:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 16:11:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_config
 {
 	t_config_data	*dat;
 	int				size;
+	int				size_temp;
 }			t_config;
 
 typedef struct s_sound
