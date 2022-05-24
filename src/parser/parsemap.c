@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 14:15:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 13:35:04 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ char	**parse_map(char **upmap, t_data *data)
 	if (data->level.map_h < 3 || data->level.map_w < 3)
 		return (map_error_msg("Map is misconfigured"));
 	if (!check_map_values(upmap, data))
-		return (NULL);
+		return (map_error_msg("Map is misconfigured"));
 	return (upmap);
 }

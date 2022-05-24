@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 14:09:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 13:40:39 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,7 @@ char	**readmap(int fd, char **temp);
 bool	checktypes(t_data *data);
 bool	validchar(char c);
 bool	validchar_space(char c);
+bool	error_msg(char *msg);
 bool	verifyzero(char **upmap, int i, int j, t_data *data);
 void	*map_error_msg(char *msg);
 bool	check_map_values(char **upmap, t_data *data);

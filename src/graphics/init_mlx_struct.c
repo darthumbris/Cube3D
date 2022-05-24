@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/19 17:41:06 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/24 13:40:25 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	init_textures(t_data *data)
 		data->mlx.tex.texarr[EAST] == NULL || \
 		data->mlx.tex.texarr[SOUTH] == NULL || \
 		data->mlx.tex.texarr[WEST] == NULL)
-		return (false);
+		return (error_msg("Textures not found"));
 	data->cam.pos.x = data->player.pos.x + 0.5;
 	data->cam.pos.y = data->player.pos.y + 0.5;
 	data->caster.ray_dist = 0;

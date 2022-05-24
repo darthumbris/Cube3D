@@ -6,13 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/23 12:04:35 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 12:13:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 13:43:36 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static bool	error_msg(char *msg)
+bool	error_msg(char *msg)
 {
 	printf("Error: %s\n", msg);
 	return (false);
@@ -46,12 +46,12 @@ bool	check_map_values(char **upmap, t_data *data)
 		while (upmap[i][++j])
 		{
 			if (checks(upmap, i, j, data))
-				return (error_msg("Map is not correct"));
+				return (false);
 			if (playerposcheck(upmap[i][j]))
 				p_count++;
 		}
 	}
 	if (p_count != 1)
-		return (error_msg("Map contains not precisely one player position"));
+		return (false);
 	return (true);
 }

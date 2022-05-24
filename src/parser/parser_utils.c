@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 14:12:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 13:36:09 by pvan-dij      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	**readmap(int fd, char **temp)
 		map = ft_strjoin(map, buf);
 	}
 	if (checkmap(map))
-		return (NULL);
+		return (map_error_msg("Map is misconfigured"));
 	temp = ft_split(map, '\n');
 	free(map);
 	return (temp);
