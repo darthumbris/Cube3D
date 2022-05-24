@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:34:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:53:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ typedef enum e_sprites
 	BARREL = SPRITE_0,
 	LAMP = SPRITE_2,
 	BONES = SPRITE_3,
-	GUARD = SPRITE_4,
-	DOG = SPRITE_5,
+	GUARD = SPRITESHEET_GUARD,
+	DOG = SPRITESHEET_DOG,
 	TABLE = SPRITE_6,
 	WELL_EMPTY = SPRITE_7,
 	WELL_FULL = SPRITE_8,

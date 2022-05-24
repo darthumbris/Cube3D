@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:07:32 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:09:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:37:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	color_store(char *line, t_data *data, int kind)
 			data->level.floor_color = -1;
 		else
 			data->level.ceiling_color = -1;
-		data->level.colors_error = true;
 		return ;
 	}
+	data->level.colors_error--;
 	if (kind == 0)
 		data->level.floor_color = \
 			(rgb[0] << 24) + (rgb[1] << 16) + (rgb[2] << 8) + (255);

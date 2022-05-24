@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:25:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:57:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,21 @@ static bool	check_bonus_textures(t_data *data)
 		data->mlx.tex.texarr[SPRITESHEET_GUARD] == NULL || \
 		check_weapon_textures(data->mlx.tex) || \
 		data->mlx.tex.texarr[SCORE_SCREEN] == NULL || \
-		data->mlx.tex.texarr[SCORE_NUMBERS] == NULL))
+		data->mlx.tex.texarr[SCORE_NUMBERS] == NULL || \
+		data->mlx.tex.texarr[GAME_OVER] == NULL || \
+		data->mlx.tex.texarr[ELEVATOR_UP] == NULL))
 		return (error_msg("Bonus texture failed to load"));
 	if (data->mlx.tex.texarr[FLOOR] == NULL || \
 		data->mlx.tex.texarr[CEILING] == NULL)
 		data->floor_ceiling = false;
 	else
 		data->floor_ceiling = true;
-	if (data->floor_ceiling == false && data->level.colors_error)
+	if (data->floor_ceiling == false)
+	{
+		printf("Failed to load floor or ceiling textures. ");
+		printf("Switching over to Colours\n");
+	}
+	if (data->floor_ceiling == false && data->level.colors_error != 0)
 		return (error_msg("Colors not configured"));
 	return (true);
 }

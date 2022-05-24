@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:09:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:27:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_level
 	int			treasure_count;
 	int			enemies_count;
 	t_tex_path	paths;
-	bool		colors_error;
+	int			colors_error;
 }	t_level;
 
 typedef struct s_config_data

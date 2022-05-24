@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:50:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:35:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ bool	mapjmptable(char *line, t_data *data)
 {
 	int						i;
 
+	if (ft_strncmp(line, "F ", 2) == 0)
+		return (color_store(line, data, 0), true);
+	if (ft_strncmp(line, "C ", 2) == 0)
+		return (color_store(line, data, 1), true);
 	i = 0;
 	while (i < data->config.size)
 	{
@@ -65,12 +69,7 @@ bool	mapjmptable(char *line, t_data *data)
 			return (store_path(line, data, i), true);
 		i++;
 	}
-	if (ft_strncmp(line, "F ", 2) == 0)
-		return (color_store(line, data, 0), true);
-	else if (ft_strncmp(line, "C ", 2) == 0)
-		return (color_store(line, data, 1), true);
-	else
-		return (bonus_paths(line, data));
+	return (bonus_paths(line, data));
 }
 
 //checks for double newlines in map

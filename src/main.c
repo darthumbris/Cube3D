@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:35:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:28:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	init_data(t_data *data)
 	data->level.secret_count = 0;
 	data->level.treasure_count = 0;
 	data->level.enemies_count = 0;
-	data->level.colors_error = false;
+	data->level.colors_error = 2;
 	data->sound.cur = 0;
 	i = 0;
 	while (i <= data->number_of_textures)

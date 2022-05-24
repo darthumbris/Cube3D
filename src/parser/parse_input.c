@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:54:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/24 09:37:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	parse_types(char **upmap, t_data *data)
 	i = 0;
 	if (data->bonus)
 	{
-		while (upmap[i] && i < data->number_of_textures + 2 \
+		while (upmap[i] && i < data->number_of_textures + 3 \
 		&& upmap[i][0] != ' ' && !ft_isdigit(upmap[i][0]))
 		{
 			if (mapjmptable(upmap[i], data) == false)

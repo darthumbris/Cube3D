@@ -24,8 +24,8 @@ F1 ./assets/elevator_down_128.png
 S0 ./assets/barrel_final.png
 S2 ./assets/lamp_final.png
 S4 ./assets/bones_final.png
-S5 ./assets/guard_final.png
-S7 ./assets/dog_final.png
+
+
 S8 ./assets/table_final.png
 S9 ./assets/well_full_final.png
 SA ./assets/well_empty_final.png
@@ -82,6 +82,8 @@ EG ./assets/hud/game_over.png
 
 F 84,84,84
 C 42,42,42
+
+
 
 1111111111111111111111111111111111111111111111111111111111111111111111111
 1000000000000000000000000000000000G00000000000000000000000000000000000001
