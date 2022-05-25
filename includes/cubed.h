@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:25:55 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 13:40:39 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:46:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ typedef union u_lodtex
 		mlx_texture_t	*ea_texture;
 		mlx_texture_t	*so_texture;
 		mlx_texture_t	*we_texture;
-		mlx_texture_t	*fl_texture;
 		mlx_texture_t	*ce_texture;
 	};
 }	t_lodtex;

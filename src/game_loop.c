@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:33:29 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/23 11:16:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:47:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,13 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
 	{
-		mlx_terminate(data->mlx.mlx_handle);
+		mlx_delete_image(data->mlx.mlx_handle, data->mlx.bg);
+		mlx_delete_image(data->mlx.mlx_handle, data->mlx.fg);
+		mlx_delete_texture(data->mlx.tex.texarr[0]);
+		mlx_delete_texture(data->mlx.tex.texarr[1]);
+		mlx_delete_texture(data->mlx.tex.texarr[2]);
+		mlx_delete_texture(data->mlx.tex.texarr[3]);
+		mlx_close_window(data->mlx.mlx_handle);
 		ft_cleanup(data->level.unparsed);
 		exit(0);
 	}
