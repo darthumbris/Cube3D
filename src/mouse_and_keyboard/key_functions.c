@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:38:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:55:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ void	key_handler(struct mlx_key_data keys, void *param)
 		cleanup_data(data);
 		mlx_close_hook(data->mlx.mlx_handle, game_loop, param);
 		mlx_close_window(data->mlx.mlx_handle);
-		return ;
-		//exit(EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 	}
 	if (data->bonus && !data->player.game_over)
 	{

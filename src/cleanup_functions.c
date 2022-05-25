@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 12:32:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:39:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:54:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,13 @@ void	cleanup_data(t_data *data)
 		mlx_delete_image(data->mlx.mlx_handle, data->mlx.minimap);
 		mlx_delete_image(data->mlx.mlx_handle, data->mlx.score_screen);
 		clear_sprite_lst(&data->sprite_lst);
-		cleanup_soundtrack(data);
-		free(data->sprite);
-		if (data->doors)
-			free(data->doors);
-		if (data->secrets)
-			free(data->secrets);
 	}
+	free(data->sprite);
+	if (data->doors)
+		free(data->doors);
+	if (data->secrets)
+		free(data->secrets);
+	cleanup_soundtrack(data);
 	free(data->spr_cast.zbuffer);
 	arr_cleanup(data->level.unparsed);
 	arr_cleanup(data->level.map);
