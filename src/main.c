@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 16:22:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:41:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int	main(int argc, char **argv)
 		mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);
 	mlx_key_hook(data.mlx.mlx_handle, key_handler, &data);
 	mlx_loop(data.mlx.mlx_handle);
+	mlx_terminate(data.mlx.mlx_handle);
 	return (0);
 }

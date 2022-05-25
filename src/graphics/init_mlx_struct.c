@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 13:55:37 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:24:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ static bool	init_textures(t_data *data)
 	int	i;
 	int	textures_to_load;
 
-	if (data->bonus)
-		textures_to_load = data->number_of_textures;
-	else
-		textures_to_load = SOUTH;
+	textures_to_load = data->number_of_textures;
 	i = 0;
 	while (i <= textures_to_load)
 	{
@@ -89,7 +86,7 @@ bool	init_mlx(t_data *data)
 	data->floor.halve_height = data->mlx.mlx_handle->height / 2;
 	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
-	data->spr_cast.zbuffer = malloc(sizeof(double) * SCREEN_WIDTH);
+	data->spr_cast.zbuffer = ft_calloc(sizeof(double), SCREEN_WIDTH);
 	if (!data->spr_cast.zbuffer)
 		return (error_msg("Malloc error"));
 	return (init_textures(data));

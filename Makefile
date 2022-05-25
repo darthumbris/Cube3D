@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/23 13:02:36 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/25 10:39:20 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC =	main.c \
 		mouse_and_keyboard/key_functions.c \
 		mouse_and_keyboard/camera_functions.c \
 		cleanup_functions.c \
+		cleanup_functions2.c \
 		parser/parse_input.c \
 		parser/parsefcval.c \
 		parser/parsetextures.c \

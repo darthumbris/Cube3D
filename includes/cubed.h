@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:12:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/25 10:39:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,5 +259,6 @@ void			play_sound_vol(t_data *data, char *fpath, double dist);
 //==============Cleanup Functions===========================
 void			arr_cleanup(char **arr);
 void			cleanup_data(t_data *data);
+void			cleanup_soundtrack(t_data *data);
 
 #endif
