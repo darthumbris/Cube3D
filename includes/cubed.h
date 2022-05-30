@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:39:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/30 15:50:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "raycaster.h"
 # include "graphics.h"
 # include "level_data.h"
+# include "menu.h"
 
 # ifndef DEBUG_MODE
 #  define DEBUG_MODE		0
@@ -51,6 +52,8 @@ typedef struct s_data
 	t_raycaster			caster;
 	t_floor_raycaster	floor;
 	t_sprite_raycaster	spr_cast;
+	t_episodes			eps;
+	t_menu				menu;
 }				t_data;
 
 //============Init Functions==========================
@@ -185,6 +188,12 @@ bool			is_nearby_elevator(t_data *data);
 void			simple_heal_item(t_data *data, t_sprite_lst *item, int kind);
 void			game_over(t_data *data);
 
+//====================Menu Loop Functions=================================
+void			menu_loop(void *v_data);
+void			menu_key_handler(struct mlx_key_data keys, void *param);
+void			draw_menu_screen(t_data *data, mlx_texture_t *texture);
+void			draw_cursor(t_data *data, t_vector_int pos);
+
 //==============Door utils function====================
 int				get_distance(int x, int y, t_vector_double player);
 bool			is_nearby_door(t_data *data);
@@ -227,6 +236,8 @@ void			set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
 bool			verifyspace(char **upmap, int i, int j, t_data *data);
 void			*map_error_msg(char *msg);
 bool			error_msg(char *msg);
+bool			init_menu(t_data *data);
+bool			init_map_data(t_data *data);
 
 //===============Util functions==============================
 bool			is_player_tile(char c);
@@ -260,5 +271,8 @@ void			play_sound_vol(t_data *data, char *fpath, double dist);
 void			arr_cleanup(char **arr);
 void			cleanup_data(t_data *data);
 void			cleanup_soundtrack(t_data *data);
+
+//===================Map Editor Functions=================
+void			load_map(t_data *data);
 
 #endif

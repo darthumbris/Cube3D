@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/24 16:11:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/30 14:03:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,12 @@ typedef struct s_level
 	int			secret_count;
 	int			map_w;
 	int			map_h;
+	int			grid_size;
+	char		*texture_paths_file;
 	char		**unparsed;
+	char		**tempthing;
 	char		**map;
+	uint8_t		***map_planes;
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;
 	uint32_t	number_of_sprites;
@@ -110,5 +114,13 @@ typedef struct s_sound
 	ma_sound_group	music_g;
 	ma_sound_group	sfx_g;
 }	t_sound;
+
+typedef struct s_episodes
+{
+	int		episode_cnt;
+	int		*eps_map_cnt;
+	char	**episode_names;
+	char	***map_names;
+}				t_episodes;
 
 #endif

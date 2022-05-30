@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/05/25 10:39:20 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/05/30 14:50:10 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,6 +95,11 @@ SRC =	main.c \
 		enemy_processes/enemy_attack.c \
 		enemy_processes/enemy_attack_utils.c \
 		enemy_processes/enemy_game_loop.c \
+		map_editor/map_editor.c \
+		parser/init_map_data.c \
+		menu_loop/init_menu.c \
+		menu_loop/menu_loop.c \
+		graphics/draw_menu_screen.c \
 		
 
 SRC_EXT = c

@@ -22,3 +22,30 @@ Reflections
 
 Really big maybe
 Slopes (like in doom)
+
+
+MAP EDITOR:
+
+/*Saves the entire tilemap to a text file
+	plane gridpos is for the 3 planes. Plane0 for walls and doors. Plane1 for objects and plane2 for enemies
+	Format: 
+	MapSize x y
+	gridSize
+	file containing textures needed (or might just have a seperate file which links tilenumbers to textures)
+	x y plane tile_id,
+
+	so the x y plane and tile_id are seperated by a space and then 
+	each "tile" of data (xyplane id) is seperated by a comma
+*/
+
+Map format:
+evertything seperated by spaces
+tile can be a value from 0-255
+
+starts with map_width and map_height
+then gridsize of the tiles (64 or 128 probably)
+maptype or map_level
+file with all used textures
+x y tile
+
+map_w map_h

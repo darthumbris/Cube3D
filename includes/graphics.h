@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 16:14:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/30 16:48:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@
 //takes to finish the level.
 # include <sys/time.h>
 
-# define SCREEN_HEIGHT		768
-# define SCREEN_WIDTH		1024
+# define SCREEN_HEIGHT		720
+# define SCREEN_WIDTH		960
 # define FOV				70
 # define RENDER_DIST_S		400
 
 # define VIEW_LINE_COLOUR	0xD7FFFFFF
 # define WALL_COLOUR 		0xD8D8FCFF
 # define BORDER_COLOR		4282400768
+# define MENU_BORDER_COLOR	0x880000FF
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -122,6 +123,10 @@ typedef struct s_mlx
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
+	mlx_texture_t	*menu_screen;
+	mlx_texture_t	*level_select;
+	mlx_texture_t	*map_editor_screen;
+	mlx_texture_t	*cursor;
 	t_weapon_anim	weapon_anim[3];
 }			t_mlx;
 

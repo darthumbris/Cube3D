@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:24:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/30 15:25:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ bool	init_mlx(t_data *data)
 	data->spr_cast.zbuffer = ft_calloc(sizeof(double), SCREEN_WIDTH);
 	if (!data->spr_cast.zbuffer)
 		return (error_msg("Malloc error"));
+	return (true);
 	return (init_textures(data));
 }
