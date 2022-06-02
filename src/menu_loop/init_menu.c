@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:23:32 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/02 17:02:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/02 17:35:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ bool	init_menu(t_data *data)
 	if (init_menu_textures(data) == false)
 		return (false);
 	data->menu.map_zoom = 2;
-	data->menu.map_offset.x = 149;
-	data->menu.map_offset.y = 149;
+	data->menu.map_offset.x = 49;
+	data->menu.map_offset.y = 49;
 	data->menu.map[0][0][0] = 1;
 	data->menu.cursor = true;
 	data->menu.cursor_pos = 0;

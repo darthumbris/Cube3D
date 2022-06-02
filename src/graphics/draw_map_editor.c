@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 11:53:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/02 17:10:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/02 17:40:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,12 @@ void	draw_map(t_data *data, t_rect grid)
 				data->menu.grid_size + data->menu.map_area.pos0.x;
 			pix.y = (map_pos.y - data->menu.map_offset.y) * \
 				data->menu.grid_size + data->menu.map_area.pos0.y;
+			draw_grid_square(data, grid, WALL_COLOUR, pix);
 			if (is_border_map(map_pos))
-			{
-				printf("mappos: %d,%d\n", map_pos.x, map_pos.y);
+				//printf("mappos: %d,%d\n", map_pos.x, map_pos.y);
 				draw_grid_square(data, grid, MAP_BORDER_COLOUR, pix);
-			}
-			else
-				draw_grid_square(data, grid, WALL_COLOUR, pix);
+			if (map_pos.x > 0 && map_pos.y > 0 && data->menu.map[map_pos.y][map_pos.x][0] != 0)
+				draw_grid_square(data, grid, 0x000000ff, pix);
 			map_pos.x++;
 		}
 		map_pos.y++;

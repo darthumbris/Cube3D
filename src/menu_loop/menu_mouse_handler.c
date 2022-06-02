@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/31 10:02:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/02 17:39:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	menu_mouse_handler(mouse_key_t button, action_t action, \
 		modifier_key_t mods, void *param)
 {
 	t_vector_int	pos;
+	t_vector_int	map_pos;
 	t_data			*data;
 
 	(void)mods;
@@ -52,7 +53,16 @@ void	menu_mouse_handler(mouse_key_t button, action_t action, \
 	if (data->menu.menu_level != 2)
 		return ;
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &pos.x, &pos.y);
-	printf("mouse: %d,%d\n", pos.x, pos.y);
+	map_pos.x = ((pos.x - data->menu.map_area.pos0.x) / data->menu.grid_size) + data->menu.map_offset.x;
+	map_pos.y = ((pos.y - data->menu.map_area.pos0.y) / data->menu.grid_size) + data->menu.map_offset.y;
+	// printf("mouse: %d,%d\n", pos.x, pos.y);
+	// printf("mousemappos: %d,%d\n", map_pos.x, map_pos.y);
+	if (map_pos.x > 0 && map_pos.y > 0 && \
+		map_pos.x < MAX_MAP_SIZE && map_pos.y < MAX_MAP_SIZE)
+	{
+		data->menu.map[map_pos.y][map_pos.x][0] = 1;
+		data->menu.update = true;
+	}
 	if (set_btn_state(&data->menu.enemy_btn, button, action, pos) || \
 		set_btn_state(&data->menu.obj_btn, button, action, pos) || \
 		set_btn_state(&data->menu.floor_btn, button, action, pos))
