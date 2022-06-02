@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:28:15 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/30 15:49:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/02 12:20:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,34 @@ static void	draw_menu_border(t_data *data, int max)
 		{
 			*(uint32_t *)menu = MENU_BORDER_COLOR;
 			menu -= data->floor.width4;
+		}
+	}
+}
+
+void	draw_check_mark(t_data *data, t_vector_int pos)
+{
+	t_vector_int	pixel;
+	t_vector_int	tex;
+	uint8_t			*menu;
+	uint8_t			*check;
+
+	pixel.x = -1;
+	check = data->mlx.check_mark->pixels;
+	while (++pixel.x < data->hud.scale * data->mlx.check_mark->width)
+	{
+		tex.x = pixel.x * data->hud.inv_scale;
+		menu = data->mlx.fg->pixels + (((pixel.x + pos.x) * 4) + \
+			(pos.y) * \
+			data->floor.width4);
+		pixel.y = -1;
+		while (++pixel.y < SCORE_NBR_SIZE * data->hud.scale)
+		{
+			tex.y = pixel.y * data->hud.inv_scale;
+			data->color = (*(uint32_t *)(check + ((tex.y * \
+				data->mlx.check_mark->width + tex.x) * 4)));
+			if (data->color)
+				*(uint32_t *)menu = data->color;
+			menu += data->floor.width4;
 		}
 	}
 }

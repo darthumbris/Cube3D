@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/30 16:48:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/05/31 09:59:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_mlx
 	mlx_texture_t	*level_select;
 	mlx_texture_t	*map_editor_screen;
 	mlx_texture_t	*cursor;
+	mlx_texture_t	*check_mark;
 	t_weapon_anim	weapon_anim[3];
 }			t_mlx;
 
