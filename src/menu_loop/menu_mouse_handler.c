@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/02 17:39:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/07 09:54:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ void	menu_mouse_handler(mouse_key_t button, action_t action, \
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &pos.x, &pos.y);
 	map_pos.x = ((pos.x - data->menu.map_area.pos0.x) / data->menu.grid_size) + data->menu.map_offset.x;
 	map_pos.y = ((pos.y - data->menu.map_area.pos0.y) / data->menu.grid_size) + data->menu.map_offset.y;
-	// printf("mouse: %d,%d\n", pos.x, pos.y);
-	// printf("mousemappos: %d,%d\n", map_pos.x, map_pos.y);
 	if (map_pos.x > 0 && map_pos.y > 0 && \
-		map_pos.x < MAX_MAP_SIZE && map_pos.y < MAX_MAP_SIZE)
+		map_pos.x < MAX_MAP_SIZE && map_pos.y < MAX_MAP_SIZE && \
+		is_mouse_in_rect(pos.x, pos.y, data->menu.map_area))
 	{
 		data->menu.map[map_pos.y][map_pos.x][0] = 1;
 		data->menu.update = true;

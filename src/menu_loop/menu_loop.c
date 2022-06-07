@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 13:53:40 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/02 17:11:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/07 09:51:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,16 +109,16 @@ void	move_map(t_data *data)
 		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
 	{
 		data->menu.map_offset.x += MAP_TRANSLATE_SPEED;
-		if (data->menu.map_offset.x > MAX_MAP_SIZE - data->menu.max_tiles_on_map.x + 0.1)
-			data->menu.map_offset.x = MAX_MAP_SIZE - data->menu.max_tiles_on_map.x + 0.1;
+		if (data->menu.map_offset.x > MAX_MAP_SIZE - data->menu.max_tiles_on_map.x - 0.4)
+			data->menu.map_offset.x = MAX_MAP_SIZE - data->menu.max_tiles_on_map.x - 0.4;
 		data->menu.update = true;
 	}
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_DOWN) || \
 		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S))
 	{
 		data->menu.map_offset.y += MAP_TRANSLATE_SPEED;
-		if (data->menu.map_offset.y > MAX_MAP_SIZE - data->menu.max_tiles_on_map.y + 0.1)
-			data->menu.map_offset.y = MAX_MAP_SIZE - data->menu.max_tiles_on_map.y + 0.1;
+		if (data->menu.map_offset.y > MAX_MAP_SIZE - data->menu.max_tiles_on_map.y - 0.4)
+			data->menu.map_offset.y = MAX_MAP_SIZE - data->menu.max_tiles_on_map.y - 0.4;
 		data->menu.update = true;
 	}
 	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_UP) || \
