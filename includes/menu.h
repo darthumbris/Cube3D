@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/07 10:00:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/07 17:38:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,22 @@ typedef struct s_button
 	t_rect				rect;
 	enum e_btn_state	state;
 	bool				active;
+	char				*txt;
 }				t_button;
+
+typedef struct dropdownlist
+{
+	t_vector_int		pos;
+	int					width;
+	int					height;
+	unsigned int		elements;
+	t_button			active;
+	t_button			*btn_lst;
+	char				**btn_txt;
+	t_rect				open_rct;
+	t_rect				outline;
+	t_rect				hvr_rct;
+}	t_ddlst;
 
 typedef struct s_menu
 {
@@ -50,6 +65,12 @@ typedef struct s_menu
 	int				map_zoom;
 	t_vector_double	map_offset;
 	t_vector_int	max_tiles_on_map;
+	t_ddlst			plane_ddlst;
+	t_ddlst			floor_ddlst;
+	t_ddlst			obj_ddlst;
+	t_ddlst			enemy_ddlst;
+	int				active_plane;
+	int				active_sprite;
 }				t_menu;
 
 # define MENU_CURSOR_0_X_POS	69
@@ -62,7 +83,12 @@ typedef struct s_menu
 # define MAX_MAP_SIZE			200
 # define MAP_BORDER_COLOUR		0x848484FF
 # define MAP_TRANSLATE_SPEED	0.3
+# define HOVER_COLOR			0x7d7d7d7d
+# define CLICKED_COLOR			0x424200ff
 
 unsigned int	get_color_tile(int tile);
+bool			is_hover(t_button *btn, int x, int y);
+bool			is_mouse_in_rect(int x, int y, t_rect r);
+int				get_button_mouse_on(int x, int y, t_ddlst drop);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 13:53:40 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/07 09:51:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/07 17:33:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void	menu_loop(void *v_data)
 {
 	t_data			*data;
 	t_vector_int	pos;
+	int				x;
+	int				y;
 
 	data = (t_data *)v_data;
 	if (data->menu.update)
@@ -177,5 +179,18 @@ void	menu_loop(void *v_data)
 		data->menu.update = false;
 	}
 	if (data->menu.menu_level == 2)
+	{
 		move_map(data);
+		mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
+		if (is_hover(&data->menu.enemy_btn, x, y) || \
+			is_hover(&data->menu.obj_btn, x, y) || \
+			is_hover(&data->menu.floor_btn, x, y) || \
+			is_hover(&data->menu.plane_ddlst.active, x, y) || \
+			is_hover(&data->menu.floor_ddlst.active, x, y) || \
+			(data->menu.plane_ddlst.active.active == true && \
+			is_mouse_in_rect(x, y, data->menu.plane_ddlst.open_rct)) || \
+			(data->menu.floor_ddlst.active.active == true && \
+			is_mouse_in_rect(x, y, data->menu.floor_ddlst.open_rct)))
+			data->menu.update = true;
+	}
 }

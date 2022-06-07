@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 11:53:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/07 10:09:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/07 17:42:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static bool	is_border_map(t_vector_int map_pos)
 	map_pos.x == MAX_MAP_SIZE - 1 || map_pos.y == MAX_MAP_SIZE - 1);
 }
 
-void	draw_map(t_data *data, t_rect grid)
+void	draw_map_grid(t_data *data, t_rect grid)
 {
 	t_vector_int	map_pos;
 	t_vector_int	pix;
@@ -110,7 +110,34 @@ void	draw_map(t_data *data, t_rect grid)
 			draw_grid_square(data, grid, WALL_COLOUR, pix);
 			if (is_border_map(map_pos))
 				draw_grid_square(data, grid, MAP_BORDER_COLOUR, pix);
-			if (map_pos.x > 0 && map_pos.y > 0 && data->menu.map[map_pos.y][map_pos.x][0] != 0)
+			map_pos.x++;
+		}
+		map_pos.y++;
+	}
+}
+
+void	draw_map_tiles(t_data *data, t_rect grid)
+{
+	t_vector_int	map_pos;
+	t_vector_int	pix;
+
+	map_pos.y = (int)data->menu.map_offset.y;
+	while (map_pos.y < MAX_MAP_SIZE && \
+		map_pos.y < data->menu.map_offset.y + data->menu.max_tiles_on_map.y + 1)
+	{
+		map_pos.x = (int)data->menu.map_offset.x;
+		while (map_pos.x < MAX_MAP_SIZE && \
+			map_pos.x < data->menu.map_offset.x + data->menu.max_tiles_on_map.x + 1)
+		{
+			pix.x = (map_pos.x - data->menu.map_offset.x) * \
+				data->menu.grid_size + data->menu.map_area.pos0.x;
+			pix.y = (map_pos.y - data->menu.map_offset.y) * \
+				data->menu.grid_size + data->menu.map_area.pos0.y;
+			if (data->menu.enemy_btn.active == true && data->menu.map[map_pos.y][map_pos.x][2] != 0)
+				draw_filled_square(data, grid, pix, data->menu.map[map_pos.y][map_pos.x][2]);
+			if (data->menu.obj_btn.active == true && data->menu.map[map_pos.y][map_pos.x][1] != 0)
+				draw_filled_square(data, grid, pix, data->menu.map[map_pos.y][map_pos.x][1]);
+			if (data->menu.floor_btn.active == true && data->menu.map[map_pos.y][map_pos.x][0] != 0)
 				draw_filled_square(data, grid, pix, data->menu.map[map_pos.y][map_pos.x][0]);
 			map_pos.x++;
 		}
@@ -118,7 +145,7 @@ void	draw_map(t_data *data, t_rect grid)
 	}
 }
 
-static void	draw_grid(t_data *data)
+static void	draw_map_area(t_data *data)
 {
 	t_rect			grid;
 
@@ -129,11 +156,14 @@ static void	draw_grid(t_data *data)
 	grid.pos1.y = data->menu.grid_size;
 	data->menu.max_tiles_on_map.x = 213 * data->hud.scale / data->menu.grid_size - 1;
 	data->menu.max_tiles_on_map.y = 218 * data->hud.scale / data->menu.grid_size - 1;
-	draw_map(data, grid);
+	draw_map_grid(data, grid);
+	draw_map_tiles(data, grid);
 }
 
 void	draw_map_editor(t_data *data)
 {
-	draw_grid(data);
+	draw_map_area(data);
+	draw_drop_down_lsts(data);
+	draw_buttons(data);
 	//draw_tiles(data);
 }

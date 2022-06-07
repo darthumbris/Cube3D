@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/07 10:00:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/07 16:23:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,11 @@ void			menu_mouse_handler(mouse_key_t button, action_t action, \
 					modifier_key_t mods, void *param);
 void			draw_check_mark(t_data *data, t_vector_int pos);
 void			draw_map_editor(t_data *data);
+void			draw_buttons(t_data *data);
+void			draw_rect(t_data *data, t_rect rec, uint32_t color);
+void			draw_drop_down_lsts(t_data *data);
+void			draw_rect_outline(t_data *data, t_rect rec, uint32_t c, \
+						int thickness);
 
 //==============Door utils function====================
 int				get_distance(int x, int y, t_vector_double player);
