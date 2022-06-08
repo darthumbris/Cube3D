@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 16:00:38 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:01:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 17:12:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,15 @@ int	set_btn_state(t_button *btn, mouse_key_t button, action_t action, \
 
 int	get_button_mouse_on(int x, int y, t_ddlst drop)
 {
-	unsigned int	i;
+	int	diff;
+	int	pos;
 
-	i = 0;
-	while (i < drop.elements)
+	if (is_mouse_in_rect(x, y, drop.open_rct))
 	{
-		if (is_mouse_in_rect(x, y, drop.btn_lst[i].rect))
-			return (i);
-		i++;
+		diff = drop.open_rct.pos1.y - y;
+		pos = drop.max_visible - diff / (9 * drop.font_scale);
+		//printf("pos: %d\n", pos);
+		return (pos);
 	}
 	return (-1);
 }

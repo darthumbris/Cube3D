@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:00:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 17:16:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,35 @@ void	set_active_btn(t_ddlst *ddlst, t_menu *menu, t_vector_int pos, \
 				menu->floor_ddlst.active.rect = menu->floor_ddlst.hvr_rct;
 			}
 			else if (menu->floor_ddlst.active.active == true)
-				menu->active_sprite = 1 + offset;
+				menu->active_sprite = 1 + offset + ddlst->scroll_pos;
 			ddlst->active.active = false;
-			ddlst->active = ddlst->btn_lst[offset];
+			ddlst->active = ddlst->btn_lst[offset + ddlst->scroll_pos];
 			ddlst->active.rect = ddlst->hvr_rct;
 		}
 	}
+}
+
+//TODO make the how far it can scroll not hardcoded
+void	scroll_function_btn(double x, double y, void *param)
+{
+	t_vector_int	pos;
+	t_data			*data;
+
+	(void)x;
+	data = (t_data *)param;
+	mlx_get_mouse_pos(data->mlx.mlx_handle, &pos.x, &pos.y);
+	if (is_mouse_in_rect(pos.x, pos.y, data->menu.floor_ddlst.open_rct) && \
+		data->menu.floor_ddlst.active.active == true)
+	{
+		if (y < 0)
+			data->menu.floor_ddlst.scroll_pos++;
+		else
+			data->menu.floor_ddlst.scroll_pos--;
+	}
+	if (data->menu.floor_ddlst.scroll_pos < 0)
+		data->menu.floor_ddlst.scroll_pos = 0;
+	if (data->menu.floor_ddlst.scroll_pos > 37)
+		data->menu.floor_ddlst.scroll_pos = 37;
 }
 
 void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \

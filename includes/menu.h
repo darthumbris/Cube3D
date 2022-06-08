@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 12:22:12 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 17:08:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct dropdownlist
 	t_rect				open_rct;
 	t_rect				outline;
 	t_rect				hvr_rct;
+	int					scroll_pos;
+	int					max_visible;
 }	t_ddlst;
 
 enum	e_pen_mode
@@ -106,5 +108,6 @@ unsigned int	get_color_tile(int tile);
 bool			is_hover(t_button *btn, int x, int y);
 bool			is_mouse_in_rect(int x, int y, t_rect r);
 int				get_button_mouse_on(int x, int y, t_ddlst drop);
+void			scroll_function_btn(double x, double y, void *param);
 
 #endif

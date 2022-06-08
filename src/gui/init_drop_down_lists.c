@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:03:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:36:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 17:11:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ void	init_floor_ddlst(t_ddlst *f, double scale, double font_scale)
 	f->outline.pos1.y = f->active.rect.pos1.y + 9 * font_scale;
 	f->font_scale = font_scale;
 	init_buttons_ddlst(f, scale, f->open_rct.pos0.y);
+	f->scroll_pos = 0;
+	f->max_visible = 18;
 }
 
 void	init_plane_ddlst(t_ddlst *p, double scale, double font_scale)
@@ -136,6 +138,8 @@ void	init_plane_ddlst(t_ddlst *p, double scale, double font_scale)
 	p->outline.pos1.y = p->active.rect.pos1.y + 9 * font_scale;
 	p->font_scale = font_scale;
 	init_buttons_ddlst(p, scale, p->open_rct.pos0.y);
+	p->scroll_pos = 0;
+	p->max_visible = 3;
 }
 
 void	init_dropdown_lists(t_menu *menu, double hud_scale)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:35:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 17:04:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static void	draw_text_drop(t_data *data, t_vector_int pos, t_ddlst ddlst, \
 {
 	unsigned int	i;
 
-	i = 0;
+	i = ddlst.scroll_pos;
+	pos.y = y_pos;
 	while (i < ddlst.elements)
 	{
-		pos.y = y_pos + 9 * ddlst.font_scale * (i + 1);
+		pos.y += 9 * ddlst.font_scale;
 		if (pos.y < ddlst.open_rct.pos1.y)
 			draw_str(data, ddlst.btn_txt[i], pos, ddlst.font_scale);
 		i++;
