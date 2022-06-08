@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/06/07 14:24:51 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/06/08 16:01:37 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,13 +97,24 @@ SRC =	main.c \
 		enemy_processes/enemy_game_loop.c \
 		map_editor/map_editor.c \
 		parser/init_map_data.c \
-		menu_loop/init_menu.c \
 		menu_loop/menu_loop.c \
+		menu_loop/menu_loop_editor.c \
 		menu_loop/menu_mouse_handler.c \
-		graphics/draw_menu_screen.c \
-		graphics/draw_map_editor.c \
-		graphics/draw_map_editor_utils.c \
-		graphics/draw_drop_down_lst.c \
+		menu_loop/menu_key_handler.c \
+		menu_loop/menu_key_handler_utils.c \
+		menu_loop/mouse_btn_handler.c \
+		menu_loop/mouse_btn_handler_utils.c \
+		map_editor/init_menu.c \
+		map_editor/draw_menu_screen.c \
+		map_editor/draw_map_editor.c \
+		map_editor/draw_map_editor_utils.c \
+		map_editor/draw_map_grid.c \
+		gui/init_drop_down_lists.c \
+		gui/init_buttons.c \
+		gui/draw_drop_down_lst.c \
+		gui/draw_drop_down_lst_utils.c \
+		gui/draw_buttons.c \
+		gui/draw_text_btns.c \
 		
 
 SRC_EXT = c

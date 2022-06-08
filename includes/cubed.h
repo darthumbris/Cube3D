@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/07 16:23:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 16:03:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,17 +193,39 @@ void			menu_loop(void *v_data);
 void			menu_key_handler(struct mlx_key_data keys, void *param);
 void			draw_menu_screen(t_data *data, mlx_texture_t *texture);
 void			draw_cursor(t_data *data, t_vector_int pos);
+bool			is_movement_key(enum keys key);
+void			close_game(t_data *data);
+
+//===================Map-Editor functions======================================
+bool			is_in_map_area(t_rect map, int x, int y);
 void			menu_mouse_handler(mouse_key_t button, action_t action, \
 					modifier_key_t mods, void *param);
 void			draw_check_mark(t_data *data, t_vector_int pos);
 void			draw_map_editor(t_data *data);
+void			draw_map_grid(t_data *data, t_rect grid, t_menu *menu);
+void			draw_map_tiles(t_data *data, t_rect grid, t_menu *menu);
+void			draw_filled_square(t_data *data, t_rect rec, \
+								t_vector_int offset, int tile);
+void			check_hover(t_data *data);
+void			move_map(t_data *data, t_menu *menu);
+
+//====================GUI Functions============================================
+void			init_buttons(t_data *data);
+t_button		new_button(t_rect rect, char *txt);
 void			draw_buttons(t_data *data);
+void			init_dropdown_lists(t_menu *menu, double hud_scale);
 void			draw_rect(t_data *data, t_rect rec, uint32_t color);
 void			draw_drop_down_lsts(t_data *data);
 void			draw_rect_outline(t_data *data, t_rect rec, uint32_t c, \
 						int thickness);
+void			draw_str(t_data *data, char *str, t_vector_int pos, \
+					double font_scale);
+void			check_btns_clicked(t_data *data, mouse_key_t button, \
+					action_t action, t_vector_int pos);
+int				set_btn_state(t_button *btn, mouse_key_t button, \
+					action_t action, t_vector_int pos);					
 
-//==============Door utils function====================
+//==============Door utils function============================================
 int				get_distance(int x, int y, t_vector_double player);
 bool			is_nearby_door(t_data *data);
 bool			is_door_open(t_data *data, int y, int x);

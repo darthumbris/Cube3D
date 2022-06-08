@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/25 14:55:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/27 15:00:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 15:01:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ void	load_map(t_data *data)
 {
 	int		i;
 	int		fd;
-	char	**temp = NULL;
+	char	**temp;
 
+	temp = NULL;
 	fd = open("./maps/new_map_format.cub", O_RDONLY);
 	data->level.tempthing = readmap(fd, temp);
 	data->level.map_w = ft_atoi(data->level.tempthing[0]);

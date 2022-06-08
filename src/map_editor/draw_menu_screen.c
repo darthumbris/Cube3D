@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:28:15 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/02 12:20:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/08 13:41:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,7 @@ void	draw_menu_screen(t_data *data, mlx_texture_t *texture)
 			tex.y = (data->hud.max_height - pos.y) * data->hud.inv_scale;
 			data->color = (*(int *)(pixs[0] + \
 				((tex.y * data->hud.max_width + tex.x) * 4)));
-			if (data->color)
-				*(uint32_t *)pixs[1] = data->color;
+			*(uint32_t *)pixs[1] = data->color;
 			pixs[1] -= data->floor.width4;
 		}
 	}
