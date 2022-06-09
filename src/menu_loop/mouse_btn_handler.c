@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 11:47:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 16:53:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,13 @@ void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \
 			data->menu.plane_ddlst.active.active = false;
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.floor_ddlst.open_rct))
 			data->menu.floor_ddlst.active.active = false;
+		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.obj_ddlst.open_rct))
+			data->menu.obj_ddlst.active.active = false;
 	}
 	if (data->menu.floor_ddlst.active.active == false)
 		set_btn_state(&data->menu.plane_ddlst.active, button, action, pos);
+	if (data->menu.obj_ddlst.active.active == false)
+		set_btn_state(&data->menu.obj_ddlst.active, button, action, pos);
 	if (data->menu.plane_ddlst.active.active == false)
 		set_btn_state(&data->menu.floor_ddlst.active, button, action, pos);
 }
@@ -129,4 +133,6 @@ void	check_btns_clicked(t_data *data, mouse_key_t button, \
 		set_active_btn(&data->menu.plane_ddlst, &data->menu, pos, button);
 	else if (data->menu.floor_ddlst.active.active == true)
 		set_active_btn(&data->menu.floor_ddlst, &data->menu, pos, button);
+	else if (data->menu.obj_ddlst.active.active == true)
+		set_active_btn(&data->menu.obj_ddlst, &data->menu, pos, button);
 }
