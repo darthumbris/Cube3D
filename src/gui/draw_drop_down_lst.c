@@ -6,30 +6,30 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 17:04:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 09:42:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static void	draw_text_drop(t_data *data, t_vector_int pos, t_ddlst ddlst, \
-							int y_pos)
+static void	draw_text_drop(t_data *data, t_vector_int pos, t_ddlst ddlst)
 {
 	unsigned int	i;
+	int				offset;
 
 	i = ddlst.scroll_pos;
-	pos.y = y_pos;
-	while (i < ddlst.elements)
+	offset = 0;
+	while (offset < ddlst.max_visible)
 	{
-		pos.y += 9 * ddlst.font_scale;
+		pos.y = ddlst.btn_lst[offset].rect.pos1.y - data->hud.scale;
 		if (pos.y < ddlst.open_rct.pos1.y)
 			draw_str(data, ddlst.btn_txt[i], pos, ddlst.font_scale);
 		i++;
+		offset++;
 	}
 }
 
-void	draw_drop_down_lst(t_data *data, t_vector_int pos, t_ddlst ddlst, \
-			int y_pos)
+void	draw_drop_down_lst(t_data *data, t_vector_int pos, t_ddlst ddlst)
 {
 	int				x;
 	int				y;
@@ -40,14 +40,14 @@ void	draw_drop_down_lst(t_data *data, t_vector_int pos, t_ddlst ddlst, \
 	{
 		mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
 		draw_rect(data, ddlst.open_rct, HOVER_COLOR);
-		draw_text_drop(data, pos, ddlst, y_pos);
+		draw_text_drop(data, pos, ddlst);
 		if (is_mouse_in_rect(x, y, ddlst.open_rct))
 		{
 			offset = get_button_mouse_on(x, y, ddlst);
 			if (offset >= 0 && offset < ddlst.elements)
 			{
 				draw_rect_outline(data, ddlst.btn_lst[offset].rect, \
-					MAP_BORDER_COLOUR, 1 * data->hud.scale);
+					MAP_BORDER_COLOUR, 1 * ddlst.font_scale);
 			}
 		}
 	}
@@ -63,8 +63,8 @@ void	draw_drop_down_lsts(t_data *data)
 	floor = data->menu.floor_ddlst;
 	pos.y = plane.pos.y + 9 * plane.font_scale;
 	pos.x = plane.pos.x;
-	draw_drop_down_lst(data, pos, data->menu.plane_ddlst, pos.y);
+	draw_drop_down_lst(data, pos, data->menu.plane_ddlst);
 	pos.y = floor.pos.y + 9 * floor.font_scale;
 	if (plane.active.active == false)
-		draw_drop_down_lst(data, pos, data->menu.floor_ddlst, pos.y);
+		draw_drop_down_lst(data, pos, data->menu.floor_ddlst);
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:59:00 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 14:13:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 09:02:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ void	draw_rect(t_data *data, t_rect rec, uint32_t color)
 	}
 }
 
-static void	draw_horizontal_line(t_data *data, t_rect rec, uint32_t c, \
+static void	draw_vertical_line(t_data *data, t_rect rec, uint32_t c, \
 								int thickness)
 {
 	int		y;
 	uint8_t	*menu;
 	int		pixels;
 
-	y = rec.pos0.y;
+	y = rec.pos0.y - 1;
 	menu = data->mlx.fg->pixels;
 	if (y < 0)
 		y = 0;
@@ -66,14 +66,14 @@ void	draw_rect_outline(t_data *data, t_rect rec, uint32_t c, \
 	int		x;
 	int		pixels;
 
-	draw_horizontal_line(data, rec, c, thickness);
+	draw_vertical_line(data, rec, c, thickness);
 	menu = data->mlx.fg->pixels;
 	x = rec.pos0.x;
 	if (x < 0)
 		x = 0;
 	while (x < rec.pos1.x && x < (int)data->mlx.fg->width)
 	{
-		pixels = 0;
+		pixels = -thickness;
 		while (pixels < thickness)
 		{
 			*(uint32_t *)(menu + (((rec.pos0.y + pixels) * \

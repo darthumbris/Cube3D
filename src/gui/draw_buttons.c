@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:55:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 14:07:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 08:33:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	draw_button(t_data *data, t_rect rec, uint32_t color)
 	}
 }
 
+//TODO make sure that this is removed for other menu screens
 static void	draw_transparency_btns(t_data *data, t_rect rec, uint32_t c)
 {
 	uint8_t			*menu;
@@ -70,7 +71,7 @@ static void	draw_click_idle(t_data *data, t_button btn)
 	if (btn.state == HOVER)
 		draw_button(data, btn.rect, HOVER_COLOR);
 	else if (btn.state == IDLE)
-		draw_button(data, btn.rect, 0x252525ff);
+		draw_button(data, btn.rect, 0x00000000);
 	if ((btn.state == IDLE || btn.state == HOVER) && btn.active == false)
 		draw_transparency_btns(data, btn.rect, 0x4c0000ff);
 	else

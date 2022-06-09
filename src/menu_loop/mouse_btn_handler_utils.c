@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 16:00:38 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 17:12:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 09:05:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	get_button_mouse_on(int x, int y, t_ddlst drop)
 	{
 		diff = drop.open_rct.pos1.y - y;
 		pos = drop.max_visible - diff / (9 * drop.font_scale);
-		//printf("pos: %d\n", pos);
 		return (pos);
 	}
 	return (-1);
