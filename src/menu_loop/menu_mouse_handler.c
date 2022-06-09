@@ -6,11 +6,22 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 14:22:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:48:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static t_vector_int	get_map_pos(t_menu *menu, t_vector_int pos)
+{
+	t_vector_int	map;
+
+	map.x = (10 * (pos.x - menu->map_area.pos0.x) / menu->grid_size) / 10 \
+				+ (int)menu->map_offset.x;
+	map.y = (10 *(pos.y - menu->map_area.pos0.y) / menu->grid_size) / 10 \
+				+ (int)menu->map_offset.y;
+	return (map);
+}
 
 void	menu_mouse_handler(mouse_key_t button, action_t action, \
 		modifier_key_t mods, void *param)
@@ -27,10 +38,7 @@ void	menu_mouse_handler(mouse_key_t button, action_t action, \
 	menu = &data->menu;
 	menu->update = true;
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &pos.x, &pos.y);
-	map.x = ((pos.x - menu->map_area.pos0.x) / menu->grid_size) \
-				+ menu->map_offset.x;
-	map.y = ((pos.y - menu->map_area.pos0.y) / menu->grid_size) \
-				+ menu->map_offset.y;
+	map = get_map_pos(menu, pos);
 	if (map.x > 0 && map.y > 0 && map.x < MAX_MAP_SIZE && map.y < MAX_MAP_SIZE \
 		&& is_mouse_in_rect(pos.x, pos.y, menu->map_area))
 	{
