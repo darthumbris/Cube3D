@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:23:32 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 12:05:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:26:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	init_map_editor(t_data *data, t_menu *menu)
 	menu->map_area.pos1.x = 315 * data->hud.scale;
 	menu->map_area.pos0.y = 15 * data->hud.scale;
 	menu->map_area.pos1.y = 232 * data->hud.scale;
-	menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom;
+	menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom + 1;
 	menu->max_tiles_on_map.x = 213 * data->hud.scale / menu->grid_size;
 	menu->max_tiles_on_map.y = 218 * data->hud.scale / menu->grid_size;
 }

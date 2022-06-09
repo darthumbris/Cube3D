@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:05:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:22:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	menu_mouse_handler(mouse_key_t button, action_t action, \
 	if (map.x > 0 && map.y > 0 && map.x < MAX_MAP_SIZE && map.y < MAX_MAP_SIZE \
 		&& is_mouse_in_rect(pos.x, pos.y, menu->map_area))
 	{
-		if (button == MLX_MOUSE_BUTTON_LEFT)
+		if (button == MLX_MOUSE_BUTTON_LEFT && \
+			menu->map[map.y][map.x][menu->active_plane] != menu->active_sprite)
 			menu->map[map.y][map.x][menu->active_plane] = menu->active_sprite;
 		else if (button == MLX_MOUSE_BUTTON_RIGHT)
 			menu->map[map.y][map.x][menu->active_plane] = 0;

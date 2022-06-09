@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:00:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:33:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,46 @@ unsigned int	get_color_tile(int tile)
 	return (0x8f8f8fff);
 }
 
-static void	draw_active_plane_tile(t_data *data, t_rect grid, \
-								t_menu *menu, t_vector_int pos[2])
+t_vector_int	get_icon_pos(t_data *data, int tile, int plane)
+{
+	if (plane == 0)
+		return (data->menu.floor_ddlst.btn_lst[tile - 1].icon_pos);
+	else if (plane == 1)
+		return (data->menu.obj_ddlst.btn_lst[tile - 1].icon_pos);
+	else
+		return (data->menu.enemy_ddlst.btn_lst[tile - 1].icon_pos);
+}
+
+static void	draw_active_plane_tile(t_data *data, t_menu *menu, \
+									t_vector_int pos[2])
 {
 	t_vector_int	m;
 	t_vector_int	pix;
+	int				tile_plane[2];
 
 	pix = pos[0];
 	m = pos[1];
 	if (menu->enemy_btn.active && menu->map[m.y][m.x][2] != 0)
-		draw_filled_square(data, grid, pix, data->menu.map[m.y][m.x][2]);
+	{
+		tile_plane[0] = menu->map[m.y][m.x][2];
+		tile_plane[1] = 2;
+		draw_icon_square(data, pix, tile_plane);
+	}
 	if (menu->obj_btn.active && menu->map[m.y][m.x][1] != 0)
-		draw_filled_square(data, grid, pix, data->menu.map[m.y][m.x][1]);
+	{
+		tile_plane[0] = menu->map[m.y][m.x][1];
+		tile_plane[1] = 1;
+		draw_icon_square(data, pix, tile_plane);
+	}
 	if (menu->floor_btn.active && menu->map[m.y][m.x][0] != 0)
-		draw_filled_square(data, grid, pix, menu->map[m.y][m.x][0]);
+	{
+		tile_plane[0] = menu->map[m.y][m.x][0];
+		tile_plane[1] = 0;
+		draw_icon_square(data, pix, tile_plane);
+	}
 }
 
-void	draw_map_tiles(t_data *data, t_rect grid, t_menu *menu)
+void	draw_map_tiles(t_data *data, t_menu *menu)
 {
 	t_vector_int	map_pos;
 	t_vector_int	pix;
@@ -59,7 +82,7 @@ void	draw_map_tiles(t_data *data, t_rect grid, t_menu *menu)
 				menu->grid_size + menu->map_area.pos0.y;
 			pos[0] = pix;
 			pos[1] = map_pos;
-			draw_active_plane_tile(data, grid, &data->menu, pos);
+			draw_active_plane_tile(data, &data->menu, pos);
 			map_pos.x++;
 		}
 		map_pos.y++;

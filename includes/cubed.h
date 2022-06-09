@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 12:10:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:34:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,11 +203,14 @@ void			menu_mouse_handler(mouse_key_t button, action_t action, \
 void			draw_check_mark(t_data *data, t_vector_int pos);
 void			draw_map_editor(t_data *data);
 void			draw_map_grid(t_data *data, t_rect grid, t_menu *menu);
-void			draw_map_tiles(t_data *data, t_rect grid, t_menu *menu);
+void			draw_map_tiles(t_data *data, t_menu *menu);
 void			draw_filled_square(t_data *data, t_rect rec, \
 								t_vector_int offset, int tile);
 void			check_hover(t_data *data);
 void			move_map(t_data *data, t_menu *menu);
+t_vector_int	get_icon_pos(t_data *data, int tile, int plane);
+void			draw_icon_square(t_data *data, t_vector_int offset, \
+									int tile_plane[2]);
 
 //====================GUI Functions============================================
 void			init_buttons(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:02:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:05:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:12:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	init_top_btns(t_data *data, t_rect rect)
 	rect.pos1.x = 16 * data->hud.scale;
 	rect.pos0.y = 224 * data->hud.scale;
 	rect.pos1.y = 238 * data->hud.scale;
+	data->menu.floor_btn.active = true;
 }
 
 static void	init_paint_btns(t_data *data, t_rect rect)

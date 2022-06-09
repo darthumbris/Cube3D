@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 12:15:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:24:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_menu
 # define MENU_CURSOR_1_Y_START	48
 # define MENU_CURSOR_1_JUMP		32
 # define MENU_CURSOR_1_X_POS	4
-# define GRID_SIZE				3
+# define GRID_SIZE				5.33333333333
 # define MAX_MAP_SIZE			200
 # define MAP_BORDER_COLOUR		0x848484FF
 # define MAP_TRANSLATE_SPEED	0.3

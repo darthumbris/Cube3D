@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 11:53:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 14:54:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:38:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,31 @@ bool	is_in_map_area(t_rect map, int x, int y)
 			x < map.pos1.x && y < map.pos1.y);
 }
 
-static void	make_smaller_square(t_rect *rec)
+void	draw_icon_square(t_data *data, t_vector_int offset, int tile_plane[2])
 {
-	rec->pos0.x += 1;
-	rec->pos0.y += 1;
-}
+	const t_vector_int	icon = get_icon_pos(data, tile_plane[0], tile_plane[1]);
+	uint8_t				*map;
+	uint8_t				*atlas;
+	t_vector_int		pixel;
+	t_vector_int		tex;
 
-void	draw_filled_square(t_data *data, t_rect rec, \
-							t_vector_int offset, int tile)
-{
-	const uint32_t	c = get_color_tile(tile);
-	uint8_t			*map;
-	int				y;
-	int				x;
-
-	make_smaller_square(&rec);
-	y = rec.pos0.y + offset.y;
-	map = data->mlx.fg->pixels;
-	if (y < 0)
-		y = 0;
-	while (y < rec.pos1.y + offset.y && y < (int)data->mlx.fg->height)
+	pixel.x = -1;
+	atlas = data->mlx.wall_icons->pixels;
+	while (++pixel.x < data->menu.grid_size - 1)
 	{
-		x = rec.pos0.x + offset.x;
-		if (x < 0)
-			x = 0;
-		while (x < rec.pos1.x + offset.x && x < (int)data->mlx.fg->width)
+		tex.x = (pixel.x / data->menu.map_zoom) + (icon.x * 16);
+		map = data->mlx.fg->pixels + ((pixel.x + 1 + offset.x + \
+			(offset.y + data->menu.grid_size - 2) * data->mlx.fg->width) * 4);
+		pixel.y = data->menu.grid_size - 1;
+		while (--pixel.y > 0)
 		{
-			if (is_in_map_area(data->menu.map_area, x, y))
-				*(uint32_t *)(map + ((y * data->mlx.fg->width + x) * 4)) = c;
-			x++;
+			tex.y = (pixel.y / data->menu.map_zoom) + (icon.y * 16);
+			if (is_in_map_area(data->menu.map_area, pixel.x + \
+								offset.x, pixel.y + offset.y))
+				*(uint32_t *)map = (*(int *)(atlas + ((tex.y * \
+					data->mlx.wall_icons->width + tex.x) * 4)));
+			map -= data->floor.width4;
 		}
-		y++;
 	}
 }
 
@@ -59,13 +53,13 @@ static void	draw_map_area(t_data *data)
 
 	grid.pos0.x = 0;
 	grid.pos0.y = 0;
-	data->menu.grid_size = GRID_SIZE * data->hud.scale * data->menu.map_zoom;
+	data->menu.grid_size = GRID_SIZE * data->hud.scale * data->menu.map_zoom + 1;
 	grid.pos1.x = data->menu.grid_size;
 	grid.pos1.y = data->menu.grid_size;
 	data->menu.max_tiles_on_map.x = 213 * scale_grid - 1;
 	data->menu.max_tiles_on_map.y = 218 * scale_grid - 1;
 	draw_map_grid(data, grid, &data->menu);
-	draw_map_tiles(data, grid, &data->menu);
+	draw_map_tiles(data, &data->menu);
 }
 
 void	draw_map_editor(t_data *data)
@@ -73,5 +67,4 @@ void	draw_map_editor(t_data *data)
 	draw_map_area(data);
 	draw_drop_down_lsts(data);
 	draw_buttons(data);
-	//draw_tiles(data);
 }

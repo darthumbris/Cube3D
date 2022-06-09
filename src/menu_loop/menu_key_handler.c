@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:39:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:39:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:25:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	zoom_map(t_data *data, enum keys key, t_menu *menu)
 		menu->map_zoom--;
 		if (menu->map_zoom < 1)
 			menu->map_zoom = 1;
-		menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom;
+		menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom + 1;
 		menu->update = true;
 	}
 	if (key == MLX_KEY_KP_ADD && menu->menu_level == 2)
@@ -61,7 +61,7 @@ static void	zoom_map(t_data *data, enum keys key, t_menu *menu)
 		menu->map_zoom++;
 		if (menu->map_zoom > 8)
 			menu->map_zoom = 8;
-		menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom;
+		menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom + 1;
 		menu->update = true;
 	}
 }
