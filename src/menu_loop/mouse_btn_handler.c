@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 17:16:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 11:47:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	scroll_function_btn(double x, double y, void *param)
 {
 	t_vector_int	pos;
 	t_data			*data;
+	int				max_scroll;
 
 	(void)x;
 	data = (t_data *)param;
@@ -59,8 +60,10 @@ void	scroll_function_btn(double x, double y, void *param)
 	}
 	if (data->menu.floor_ddlst.scroll_pos < 0)
 		data->menu.floor_ddlst.scroll_pos = 0;
-	if (data->menu.floor_ddlst.scroll_pos > 37)
-		data->menu.floor_ddlst.scroll_pos = 37;
+	max_scroll = (int)data->menu.floor_ddlst.elements - \
+					data->menu.floor_ddlst.max_visible;
+	if (data->menu.floor_ddlst.scroll_pos > max_scroll)
+		data->menu.floor_ddlst.scroll_pos = max_scroll;
 }
 
 void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 09:42:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 12:37:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,47 @@ static void	draw_text_drop(t_data *data, t_vector_int pos, t_ddlst ddlst)
 	{
 		pos.y = ddlst.btn_lst[offset].rect.pos1.y - data->hud.scale;
 		if (pos.y < ddlst.open_rct.pos1.y)
-			draw_str(data, ddlst.btn_txt[i], pos, ddlst.font_scale);
+			draw_str(data, ddlst.btn_lst[i].txt, pos, ddlst.font_scale);
 		i++;
 		offset++;
 	}
 }
 
-void	draw_drop_down_lst(t_data *data, t_vector_int pos, t_ddlst ddlst)
+static void	draw_icon_drop(t_data *data, t_vector_int pos, t_ddlst drop)
+{
+	unsigned int	i;
+	int				offset;
+
+	i = drop.scroll_pos;
+	offset = 0;
+	while (offset < drop.max_visible)
+	{
+		pos.y = drop.btn_lst[offset].rect.pos1.y - data->hud.scale;
+		if (pos.y < drop.open_rct.pos1.y)
+			draw_icon_button(data, pos, drop.btn_lst[i].icon_pos, \
+				drop.font_scale);
+		i++;
+		offset++;
+	}
+}
+
+void	draw_drop_down_lst(t_data *data, t_vector_int pos, \
+			t_ddlst ddlst, bool icon)
 {
 	int				x;
 	int				y;
 	unsigned int	offset;
 
 	draw_str(data, ddlst.active.txt, pos, ddlst.font_scale);
+	if (icon)
+		draw_icon_button(data, pos, ddlst.active.icon_pos, ddlst.font_scale);
 	if (ddlst.active.active == true)
 	{
 		mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
 		draw_rect(data, ddlst.open_rct, HOVER_COLOR);
 		draw_text_drop(data, pos, ddlst);
+		if (icon)
+			draw_icon_drop(data, pos, ddlst);
 		if (is_mouse_in_rect(x, y, ddlst.open_rct))
 		{
 			offset = get_button_mouse_on(x, y, ddlst);
@@ -63,8 +86,8 @@ void	draw_drop_down_lsts(t_data *data)
 	floor = data->menu.floor_ddlst;
 	pos.y = plane.pos.y + 9 * plane.font_scale;
 	pos.x = plane.pos.x;
-	draw_drop_down_lst(data, pos, data->menu.plane_ddlst);
+	draw_drop_down_lst(data, pos, data->menu.plane_ddlst, false);
 	pos.y = floor.pos.y + 9 * floor.font_scale;
 	if (plane.active.active == false)
-		draw_drop_down_lst(data, pos, data->menu.floor_ddlst);
+		draw_drop_down_lst(data, pos, data->menu.floor_ddlst, true);
 }

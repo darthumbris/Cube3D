@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 08:52:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 12:10:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,9 @@ void			draw_str(t_data *data, char *str, t_vector_int pos, \
 void			check_btns_clicked(t_data *data, mouse_key_t button, \
 					action_t action, t_vector_int pos);
 int				set_btn_state(t_button *btn, mouse_key_t button, \
-					action_t action, t_vector_int pos);					
+					action_t action, t_vector_int pos);
+void			draw_icon_button(t_data *data, t_vector_int pos, \
+						t_vector_int icon, double font_scale);			
 
 //==============Door utils function============================================
 int				get_distance(int x, int y, t_vector_double player);

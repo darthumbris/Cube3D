@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 17:08:29 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 12:15:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define MENU_H
 
 # include "vectors.h"
+
+typedef struct s_icon
+{
+	char			*name;
+	int				y;
+	int				x;
+	char			*tex_name;
+}	t_icon;
 
 enum	e_btn_state
 {
@@ -34,6 +42,7 @@ typedef struct s_button
 	enum e_btn_state	state;
 	bool				active;
 	char				*txt;
+	t_vector_int		icon_pos;
 }				t_button;
 
 typedef struct dropdownlist

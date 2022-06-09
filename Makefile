@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/06/08 16:01:37 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/06/09 12:10:36 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,6 +115,7 @@ SRC =	main.c \
 		gui/draw_drop_down_lst_utils.c \
 		gui/draw_buttons.c \
 		gui/draw_text_btns.c \
+		gui/draw_icon_buttons.c \
 		
 
 SRC_EXT = c

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:23:32 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:26:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 12:05:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ static bool	init_menu_textures(t_mlx *mlx)
 		("assets/hud/map_editor_screen.png");
 	mlx->check_mark = mlx_load_png("assets/hud/temp_active.png");
 	mlx->font = mlx_load_png("assets/hud/font.png");
+	mlx->wall_icons = mlx_load_png("assets/hud/wall_textures_icons.png");
 	mlx->menu_editor = mlx_new_image
 		(mlx->mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (mlx->menu_screen == NULL || mlx->level_select == NULL || \
 		mlx->cursor == NULL || mlx->check_mark == NULL || \
-		mlx->font == NULL)
+		mlx->font == NULL || mlx->wall_icons == NULL)
 		return (false);
 	return (true);
 }
