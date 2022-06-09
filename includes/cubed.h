@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 14:34:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 16:31:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ void			move_map(t_data *data, t_menu *menu);
 t_vector_int	get_icon_pos(t_data *data, int tile, int plane);
 void			draw_icon_square(t_data *data, t_vector_int offset, \
 									int tile_plane[2]);
+mlx_texture_t	*get_icon_texture(t_data *data, int plane);
 
 //====================GUI Functions============================================
 void			init_buttons(t_data *data);

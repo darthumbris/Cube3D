@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 12:37:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 16:21:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,12 @@ void	draw_drop_down_lsts(t_data *data)
 	draw_drop_down_lst(data, pos, data->menu.plane_ddlst, false);
 	pos.y = floor.pos.y + 9 * floor.font_scale;
 	if (plane.active.active == false)
-		draw_drop_down_lst(data, pos, data->menu.floor_ddlst, true);
+	{
+		if (data->menu.active_plane == 0)
+			draw_drop_down_lst(data, pos, data->menu.floor_ddlst, true);
+		else if (data->menu.active_plane == 1)
+			draw_drop_down_lst(data, pos, data->menu.obj_ddlst, true);
+		else
+			draw_drop_down_lst(data, pos, data->menu.enemy_ddlst, true);
+	}
 }

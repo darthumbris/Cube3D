@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 11:53:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 14:45:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 16:31:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	draw_icon_square(t_data *data, t_vector_int offset, int tile_plane[2])
 {
 	const t_vector_int	icon = get_icon_pos(data, tile_plane[0], tile_plane[1]);
 	uint8_t				*map;
-	uint8_t				*atlas;
+	mlx_texture_t		*atlas;
 	t_vector_int		pixel;
 	t_vector_int		tex;
 
 	pixel.x = -1;
-	atlas = data->mlx.wall_icons->pixels;
+	atlas = get_icon_texture(data, tile_plane[1]);
 	while (++pixel.x < data->menu.grid_size - 1)
 	{
 		tex.x = (pixel.x / data->menu.map_zoom) + (icon.x * 16);
@@ -39,8 +39,8 @@ void	draw_icon_square(t_data *data, t_vector_int offset, int tile_plane[2])
 			tex.y = (pixel.y / data->menu.map_zoom) + (icon.y * 16);
 			if (is_in_map_area(data->menu.map_area, pixel.x + \
 								offset.x, pixel.y + offset.y))
-				*(uint32_t *)map = (*(int *)(atlas + ((tex.y * \
-					data->mlx.wall_icons->width + tex.x) * 4)));
+				*(uint32_t *)map = (*(int *)(atlas->pixels + ((tex.y * \
+					atlas->width + tex.x) * 4)));
 			map -= data->floor.width4;
 		}
 	}

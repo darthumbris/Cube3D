@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 14:24:11 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/09 14:53:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 # define MENU_H
 
 # include "vectors.h"
-
-typedef struct s_icon
-{
-	char			*name;
-	int				y;
-	int				x;
-	char			*tex_name;
-}	t_icon;
+# include "icon.h"
 
 enum	e_btn_state
 {
