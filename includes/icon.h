@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:52:42 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 09:43:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:03:28 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,30 @@ static const t_icon	enemy_icon_lst[] = \
 		{"schabs",2,4,"WALL050.png"},
 		{"trans",2,5,"WALL059.png"},
 		{"ubermutant",2,6,"WALL060.png"},
+	};
+
+static const t_icon	item_icon_lst[] = \
+	{
+		{"ammo1",0,0,"WALL001.png"},
+		{"silver key",0,1,"WALL002.png"},
+		{"dog meal",0,2,"WALL003.png"},
+		{"cross",0,3,"WALL004.png"},
+		{"chalice",0,4,"WALL005.png"},
+		{"chest",0,5,"WALL006.png"},
+		{"crown",0,6,"WALL030.png"},
+		{"backpack",0,7,"WALL011.png"},
+		{"fuel",1,0,"WALL012.png"},
+		{"clip",1,1,"WALL007.png"},
+		{"launcher",1,2,"WALL023.png"},
+		{"medkit",1,3,"WALL032.png"},
+		{"mach gun",1,4,"WALL020.png"},
+		{"plasmarifle",1,5,"WALL051.png"},
+		{"rockets",1,6,"WALL052.png"},
+		{"shells",1,7,"WALL053.png"},
+		{"shotgun",2,0,"WALL028.png"},
+		{"soul",2,1,"WALL019.png"},
+		{"stimulant",2,2,"WALL041.png"},
+		{"gold key",2,3,"WALL049.png"}
 	};
 
 #endif

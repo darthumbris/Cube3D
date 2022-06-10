@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 13:35:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 13:42:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_menu
 	t_ddlst			wall_ddlst;
 	t_ddlst			decor_ddlst;
 	t_ddlst			enemy_ddlst;
+	t_ddlst			item_ddlst;
+	t_ddlst			zone_ddlst;
 	t_button		obj_btn;
 	t_button		enemy_btn;
 	t_button		floor_btn;
