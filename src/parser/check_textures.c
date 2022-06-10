@@ -6,13 +6,12 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 09:38:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/24 13:52:19 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:13:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-//TODO make difference between bonus and not bonus
 static bool	is_loaded(t_data *data, char c, int i, int j)
 {
 	const int	kind = get_sprite_kind(c, data);

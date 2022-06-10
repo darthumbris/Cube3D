@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 09:26:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 10:24:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:13:10 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	init_weapon_textures(t_data *data)
 	data->mlx.weapon_anim[MACHINEGUN].tex3 = data->mlx.tex.texarr[MACHINEGUN3];
 }
 
-//TODO load the textures properly instead of hardcoded.
 void	init_weapons(t_data *data)
 {
 	data->mlx.weapon = mlx_new_image

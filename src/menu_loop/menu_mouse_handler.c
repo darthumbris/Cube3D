@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 13:34:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:10:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ static int	get_correct_plane(int active_plane)
 //(0 should be replaced by is_floor function)
 //TODO also make that you can't place a wall when there is already
 // an obj or enmy
+//TODO make it so depending on what is the active sprite list
+// items/decor/floor/zone etc and also what direction and difficulty and 
+// if it is a secret wall the number
+//TODO make the renderer check the number and correspond it to
+// an icon
 static void	change_map(mouse_key_t button, t_menu *menu, t_vector_int map)
 {
 	if (button == MLX_MOUSE_BUTTON_LEFT && \

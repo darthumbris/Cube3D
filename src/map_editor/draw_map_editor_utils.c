@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 13:38:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:11:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ unsigned int	get_color_tile(int tile)
 	return (0x8f8f8fff);
 }
 
+//TODO make this also check for if it is items/decor floor/zone etc.
 t_vector_int	get_icon_pos(t_data *data, int tile, int plane)
 {
 	if (plane == 0)

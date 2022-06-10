@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 13:42:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:07:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ bool			is_hover(t_button *btn, int x, int y);
 bool			is_mouse_in_rect(int x, int y, t_rect r);
 int				get_button_mouse_on(int x, int y, t_ddlst drop);
 void			scroll_function_btn(double x, double y, void *param);
+// int				get_correct_plane(int active_plane);
 
 #endif

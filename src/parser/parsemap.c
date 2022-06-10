@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 14:11:12 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:13:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
-//TODO: check if player start on edge of map if this fails
 bool	checks(char **upmap, int i, int j, t_data *data)
 {
 	return (((upmap[i][j] == '0' || is_player_tile(upmap[i][j]) || \

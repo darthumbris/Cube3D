@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 12:26:33 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 12:53:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:12:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	pathfind_cardinal(t_data *data, t_sprite *enemy)
 		enemy->en_dat.path_dir = 8 + cardinal;
 }
 
-//TODO have a different algo for the dogs
 void	pathfind_to_player(t_data *data, t_sprite *enemy)
 {
 	if (enemy->en_dat.path_dir == 0)

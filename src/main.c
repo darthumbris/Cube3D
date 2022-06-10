@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:51:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:14:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ static void	images_to_window(t_data *data)
 	// data->player.start_time = timev.tv_sec;
 }
 
+//TODO make the game only work according to bonus stuff. 
+//TODO make it so it can go to next level etc.
 int	main(void)
 {
 	t_data			data;
