@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:55:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 08:33:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 13:41:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ static void	draw_hover_drop_down(t_data *data)
 		draw_button(data, data->menu.plane_ddlst.hvr_rct, 0x000000ff);
 		if (data->menu.plane_ddlst.active.active == false)
 		{
-			if (data->menu.floor_ddlst.active.state == HOVER)
-				draw_button(data, data->menu.floor_ddlst.hvr_rct, HOVER_COLOR);
-			else if (data->menu.floor_ddlst.active.state == IDLE)
-				draw_button(data, data->menu.floor_ddlst.hvr_rct, 0x000000ff);
+			if (data->menu.wall_ddlst.active.state == HOVER)
+				draw_button(data, data->menu.wall_ddlst.hvr_rct, HOVER_COLOR);
+			else if (data->menu.wall_ddlst.active.state == IDLE)
+				draw_button(data, data->menu.wall_ddlst.hvr_rct, 0x000000ff);
 		}
 	}
 }

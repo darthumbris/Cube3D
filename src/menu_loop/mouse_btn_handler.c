@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 12:41:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 13:38:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	is_sprite_ddlst_active(t_menu *menu)
 {
-	return (menu->floor_ddlst.active.active || \
-			menu->obj_ddlst.active.active || \
+	return (menu->wall_ddlst.active.active || \
+			menu->decor_ddlst.active.active || \
 			menu->enemy_ddlst.active.active);
 }
 
@@ -35,8 +35,6 @@ void	set_active_btn(t_ddlst *ddlst, t_menu *menu, t_vector_int pos, \
 			{
 				menu->active_plane = offset;
 				menu->active_sprite = 1;
-				menu->floor_ddlst.active = menu->floor_ddlst.btn_lst[0];
-				menu->floor_ddlst.active.rect = menu->floor_ddlst.hvr_rct;
 			}
 			else if (is_sprite_ddlst_active(menu))
 				menu->active_sprite = 1 + offset + ddlst->scroll_pos;
@@ -74,8 +72,8 @@ void	scroll_function_btn(double x, double y, void *param)
 	(void)x;
 	data = (t_data *)param;
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &pos.x, &pos.y);
-	change_scroll_pos(&data->menu.floor_ddlst, y, pos);
-	change_scroll_pos(&data->menu.obj_ddlst, y, pos);
+	change_scroll_pos(&data->menu.wall_ddlst, y, pos);
+	change_scroll_pos(&data->menu.decor_ddlst, y, pos);
 	change_scroll_pos(&data->menu.enemy_ddlst, y, pos);
 }
 
@@ -86,21 +84,18 @@ void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \
 	{
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.plane_ddlst.open_rct))
 			data->menu.plane_ddlst.active.active = false;
-		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.floor_ddlst.open_rct))
-			data->menu.floor_ddlst.active.active = false;
-		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.obj_ddlst.open_rct))
-			data->menu.obj_ddlst.active.active = false;
+		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.wall_ddlst.open_rct))
+			data->menu.wall_ddlst.active.active = false;
+		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.decor_ddlst.open_rct))
+			data->menu.decor_ddlst.active.active = false;
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.enemy_ddlst.open_rct))
 			data->menu.enemy_ddlst.active.active = false;
 	}
-	if (data->menu.floor_ddlst.active.active == false || \
-		data->menu.obj_ddlst.active.active == false || \
-		data->menu.enemy_ddlst.active.active == false)
-		set_btn_state(&data->menu.plane_ddlst.active, button, action, pos);
+	set_btn_state(&data->menu.plane_ddlst.active, button, action, pos);
 	if (data->menu.plane_ddlst.active.active == false)
 	{
-		set_btn_state(&data->menu.floor_ddlst.active, button, action, pos);
-		set_btn_state(&data->menu.obj_ddlst.active, button, action, pos);
+		set_btn_state(&data->menu.wall_ddlst.active, button, action, pos);
+		set_btn_state(&data->menu.decor_ddlst.active, button, action, pos);
 		set_btn_state(&data->menu.enemy_ddlst.active, button, action, pos);
 	}
 }
@@ -150,10 +145,10 @@ void	check_btns_clicked(t_data *data, mouse_key_t button, \
 	change_state_ddlst(data, button, action, pos);
 	if (data->menu.plane_ddlst.active.active == true)
 		set_active_btn(&data->menu.plane_ddlst, &data->menu, pos, button);
-	else if (data->menu.floor_ddlst.active.active == true)
-		set_active_btn(&data->menu.floor_ddlst, &data->menu, pos, button);
-	else if (data->menu.obj_ddlst.active.active == true)
-		set_active_btn(&data->menu.obj_ddlst, &data->menu, pos, button);
-	else if (data->menu.enemy_ddlst.active.active == true)
+	if (data->menu.wall_ddlst.active.active == true)
+		set_active_btn(&data->menu.wall_ddlst, &data->menu, pos, button);
+	if (data->menu.decor_ddlst.active.active == true)
+		set_active_btn(&data->menu.decor_ddlst, &data->menu, pos, button);
+	if (data->menu.enemy_ddlst.active.active == true)
 		set_active_btn(&data->menu.enemy_ddlst, &data->menu, pos, button);
 }

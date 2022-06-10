@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 12:42:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 13:34:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ static t_vector_int	get_map_pos(t_menu *menu, t_vector_int pos)
 	return (map);
 }
 
+static int	get_correct_plane(int active_plane)
+{
+	if (active_plane == 0 || active_plane == 1)
+		return (0);
+	else if (active_plane == 2 || active_plane == 3)
+		return (1);
+	return (2);
+}
+
 //TODO also possible to place on floors 
 //(0 should be replaced by is_floor function)
 //TODO also make that you can't place a wall when there is already
@@ -34,10 +43,10 @@ static void	change_map(mouse_key_t button, t_menu *menu, t_vector_int map)
 	{
 		if (!menu->active_plane || \
 			(menu->active_plane && menu->map[map.y][map.x][0] == 0))
-			menu->map[map.y][map.x][menu->active_plane] = menu->active_sprite;
+			menu->map[map.y][map.x][get_correct_plane(menu->active_plane)] = menu->active_sprite;
 	}
 	else if (button == MLX_MOUSE_BUTTON_RIGHT)
-		menu->map[map.y][map.x][menu->active_plane] = 0;
+		menu->map[map.y][map.x][get_correct_plane(menu->active_plane)] = 0;
 }
 
 void	menu_mouse_handler(mouse_key_t button, action_t action, \

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:54:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:56:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 13:37:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ void	check_hover(t_data *data)
 		is_hover(&data->menu.obj_btn, x, y) || \
 		is_hover(&data->menu.floor_btn, x, y) || \
 		is_hover(&data->menu.plane_ddlst.active, x, y) || \
-		is_hover(&data->menu.floor_ddlst.active, x, y) || \
+		is_hover(&data->menu.wall_ddlst.active, x, y) || \
+		is_hover(&data->menu.decor_ddlst.active, x, y) || \
+		is_hover(&data->menu.enemy_ddlst.active, x, y) || \
 		is_hover(&data->menu.bucket_btn, x, y) || \
 		is_hover(&data->menu.pen_btn, x, y) || \
 		is_hover(&data->menu.area_btn, x, y) || \
@@ -69,7 +71,11 @@ void	check_hover(t_data *data)
 		is_hover(&data->menu.save_btn, x, y) || \
 		(data->menu.plane_ddlst.active.active == true && \
 		is_mouse_in_rect(x, y, data->menu.plane_ddlst.open_rct)) || \
-		(data->menu.floor_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, data->menu.floor_ddlst.open_rct)))
+		(data->menu.wall_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, data->menu.wall_ddlst.open_rct)) || \
+		(data->menu.decor_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, data->menu.decor_ddlst.open_rct)) || \
+		(data->menu.enemy_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, data->menu.enemy_ddlst.open_rct)))
 		data->menu.update = true;
 }
