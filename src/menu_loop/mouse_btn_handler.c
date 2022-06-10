@@ -6,11 +6,18 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:53:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 12:41:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static bool	is_sprite_ddlst_active(t_menu *menu)
+{
+	return (menu->floor_ddlst.active.active || \
+			menu->obj_ddlst.active.active || \
+			menu->enemy_ddlst.active.active);
+}
 
 void	set_active_btn(t_ddlst *ddlst, t_menu *menu, t_vector_int pos, \
 						mouse_key_t button)
@@ -31,7 +38,7 @@ void	set_active_btn(t_ddlst *ddlst, t_menu *menu, t_vector_int pos, \
 				menu->floor_ddlst.active = menu->floor_ddlst.btn_lst[0];
 				menu->floor_ddlst.active.rect = menu->floor_ddlst.hvr_rct;
 			}
-			else if (menu->floor_ddlst.active.active == true)
+			else if (is_sprite_ddlst_active(menu))
 				menu->active_sprite = 1 + offset + ddlst->scroll_pos;
 			ddlst->active.active = false;
 			ddlst->active = ddlst->btn_lst[offset + ddlst->scroll_pos];
@@ -40,30 +47,36 @@ void	set_active_btn(t_ddlst *ddlst, t_menu *menu, t_vector_int pos, \
 	}
 }
 
-//TODO make the how far it can scroll not hardcoded
+static void	change_scroll_pos(t_ddlst *drop, double y, t_vector_int pos)
+{
+	int	max_scroll;
+
+	if (is_mouse_in_rect(pos.x, pos.y, drop->open_rct) && \
+		drop->active.active == true)
+	{
+		if (y < 0)
+			drop->scroll_pos++;
+		else
+			drop->scroll_pos--;
+	}
+	if (drop->scroll_pos < 0)
+		drop->scroll_pos = 0;
+	max_scroll = (int)drop->elements - drop->max_visible;
+	if (drop->scroll_pos > max_scroll)
+		drop->scroll_pos = max_scroll;
+}
+
 void	scroll_function_btn(double x, double y, void *param)
 {
 	t_vector_int	pos;
 	t_data			*data;
-	int				max_scroll;
 
 	(void)x;
 	data = (t_data *)param;
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &pos.x, &pos.y);
-	if (is_mouse_in_rect(pos.x, pos.y, data->menu.floor_ddlst.open_rct) && \
-		data->menu.floor_ddlst.active.active == true)
-	{
-		if (y < 0)
-			data->menu.floor_ddlst.scroll_pos++;
-		else
-			data->menu.floor_ddlst.scroll_pos--;
-	}
-	if (data->menu.floor_ddlst.scroll_pos < 0)
-		data->menu.floor_ddlst.scroll_pos = 0;
-	max_scroll = (int)data->menu.floor_ddlst.elements - \
-					data->menu.floor_ddlst.max_visible;
-	if (data->menu.floor_ddlst.scroll_pos > max_scroll)
-		data->menu.floor_ddlst.scroll_pos = max_scroll;
+	change_scroll_pos(&data->menu.floor_ddlst, y, pos);
+	change_scroll_pos(&data->menu.obj_ddlst, y, pos);
+	change_scroll_pos(&data->menu.enemy_ddlst, y, pos);
 }
 
 void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \
@@ -77,13 +90,19 @@ void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \
 			data->menu.floor_ddlst.active.active = false;
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.obj_ddlst.open_rct))
 			data->menu.obj_ddlst.active.active = false;
+		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.enemy_ddlst.open_rct))
+			data->menu.enemy_ddlst.active.active = false;
 	}
-	if (data->menu.floor_ddlst.active.active == false)
+	if (data->menu.floor_ddlst.active.active == false || \
+		data->menu.obj_ddlst.active.active == false || \
+		data->menu.enemy_ddlst.active.active == false)
 		set_btn_state(&data->menu.plane_ddlst.active, button, action, pos);
-	if (data->menu.obj_ddlst.active.active == false)
-		set_btn_state(&data->menu.obj_ddlst.active, button, action, pos);
 	if (data->menu.plane_ddlst.active.active == false)
+	{
 		set_btn_state(&data->menu.floor_ddlst.active, button, action, pos);
+		set_btn_state(&data->menu.obj_ddlst.active, button, action, pos);
+		set_btn_state(&data->menu.enemy_ddlst.active, button, action, pos);
+	}
 }
 
 void	deactivate_other_paint_btns(t_data *data, int activated)
@@ -135,4 +154,6 @@ void	check_btns_clicked(t_data *data, mouse_key_t button, \
 		set_active_btn(&data->menu.floor_ddlst, &data->menu, pos, button);
 	else if (data->menu.obj_ddlst.active.active == true)
 		set_active_btn(&data->menu.obj_ddlst, &data->menu, pos, button);
+	else if (data->menu.enemy_ddlst.active.active == true)
+		set_active_btn(&data->menu.enemy_ddlst, &data->menu, pos, button);
 }

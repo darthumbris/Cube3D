@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:52:42 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:15:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:43:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_icon
 	char			*tex_name;
 }	t_icon;
 
-static const t_icon	wall_icon_lst[51] = \
+static const t_icon	wall_icon_lst[] = \
 	{
 		{"greybrick1",0,0,"WALL001.png"},
 		{"greybrick2",0,1,"WALL002.png"},
@@ -76,7 +76,7 @@ static const t_icon	wall_icon_lst[51] = \
 		{"door4",5,5,"WALL018.png"}
 	};
 
-static const t_icon	obj_icon_lst[49] = \
+static const t_icon	obj_icon_lst[] = \
 	{
 		{"barrel gr",0,0,"WALL001.png"},
 		{"bones1",0,1,"WALL002.png"},
@@ -127,6 +127,33 @@ static const t_icon	obj_icon_lst[49] = \
 		{"truck",5,6,"WALL018.png"},
 		{"plant2",5,7,"WALL018.png"},
 		{"spout",6,0,"WALL018.png"}
+	};
+
+static const t_icon	enemy_icon_lst[] = \
+	{
+		{"dog",0,0,"WALL001.png"},
+		{"guard",0,1,"WALL002.png"},
+		{"mutant",0,2,"WALL003.png"},
+		{"officer",0,3,"WALL004.png"},
+		{"spectre",0,4,"WALL005.png"},
+		{"ss",0,5,"WALL006.png"},
+		{"ghost1",0,6,"WALL030.png"},
+		{"ghost2",0,7,"WALL011.png"},
+		{"ghost3",1,0,"WALL012.png"},
+		{"ghost4",1,1,"WALL007.png"},
+		{"barney",1,2,"WALL023.png"},
+		{"deathknight",1,3,"WALL032.png"},
+		{"devil",1,4,"WALL020.png"},
+		{"fake",1,5,"WALL051.png"},
+		{"fatface",1,6,"WALL052.png"},
+		{"gretel",1,7,"WALL053.png"},
+		{"hans",2,0,"WALL028.png"},
+		{"hitler",2,1,"WALL019.png"},
+		{"mechhitler",2,2,"WALL041.png"},
+		{"otto",2,3,"WALL049.png"},
+		{"schabs",2,4,"WALL050.png"},
+		{"trans",2,5,"WALL059.png"},
+		{"ubermutant",2,6,"WALL060.png"},
 	};
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 14:33:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:58:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ unsigned int	get_color_tile(int tile)
 
 t_vector_int	get_icon_pos(t_data *data, int tile, int plane)
 {
+	printf("tile: %d, plane: %d\n", tile, plane);
 	if (plane == 0)
 		return (data->menu.floor_ddlst.btn_lst[tile - 1].icon_pos);
 	else if (plane == 1)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:23:32 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:26:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 09:20:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	init_menu_textures(t_mlx *mlx)
 	mlx->font = mlx_load_png("assets/hud/font.png");
 	mlx->wall_icons = mlx_load_png("assets/hud/wall_textures_icons.png");
 	mlx->obj_icons = mlx_load_png("assets/hud/decor_icons.png");
-	mlx->enmy_icons = mlx_load_png("assets/hud/decor_icons.png");
+	mlx->enmy_icons = mlx_load_png("assets/hud/enemy_icons.png");
 	mlx->menu_editor = mlx_new_image
 		(mlx->mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (mlx->menu_screen == NULL || mlx->level_select == NULL || \
