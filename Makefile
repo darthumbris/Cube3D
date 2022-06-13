@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/06/09 12:10:36 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/06/13 14:54:11 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,7 +105,6 @@ SRC =	main.c \
 		menu_loop/mouse_btn_handler.c \
 		menu_loop/mouse_btn_handler_utils.c \
 		map_editor/init_menu.c \
-		map_editor/draw_menu_screen.c \
 		map_editor/draw_map_editor.c \
 		map_editor/draw_map_editor_utils.c \
 		map_editor/draw_map_grid.c \
@@ -116,6 +115,8 @@ SRC =	main.c \
 		gui/draw_buttons.c \
 		gui/draw_text_btns.c \
 		gui/draw_icon_buttons.c \
+		map_editor/is_lst.c \
+		graphics/draw_texture.c \
 		
 
 SRC_EXT = c

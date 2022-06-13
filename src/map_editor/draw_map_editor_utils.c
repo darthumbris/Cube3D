@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 14:11:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:10:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,47 @@ unsigned int	get_color_tile(int tile)
 	return (0x8f8f8fff);
 }
 
-//TODO make this also check for if it is items/decor floor/zone etc.
+t_vector_int	icon_lst_check(t_ddlst *drop, int tile, const t_icon icon_lst[])
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < drop->elements)
+	{
+		if (icon_lst[i].tile_value_begin >= tile && \
+			tile <= icon_lst[i].tile_value_end)
+			return (drop->btn_lst[i].icon_pos);
+		i++;
+	}
+	return ((t_vector_int){0, 0});
+}
+
 t_vector_int	get_icon_pos(t_data *data, int tile, int plane)
 {
+	t_vector_int	pos;
+
 	if (plane == 0)
-		return (data->menu.wall_ddlst.btn_lst[tile - 1].icon_pos);
+	{
+		if (is_wall_lst(tile))
+		{
+			pos = icon_lst_check
+				(&data->menu.wall_ddlst, tile, wall_icon_lst);
+			// printf("printing wall\n");
+			// printf("tile: %d, icon_pos: %d, %d\n", tile, pos.y, pos.x);
+			return (icon_lst_check
+				(&data->menu.wall_ddlst, tile, wall_icon_lst));
+		}
+		return (icon_lst_check(&data->menu.zone_ddlst, tile, zone_icon_lst));
+	}
 	else if (plane == 1)
-		return (data->menu.decor_ddlst.btn_lst[tile - 1].icon_pos);
+	{
+		if (is_decor_lst(tile))
+			return (icon_lst_check
+				(&data->menu.decor_ddlst, tile, obj_icon_lst));
+		return (icon_lst_check(&data->menu.item_ddlst, tile, item_icon_lst));
+	}
 	else
-		return (data->menu.enemy_ddlst.btn_lst[tile - 1].icon_pos);
+		return (icon_lst_check(&data->menu.enemy_ddlst, tile, enemy_icon_lst));
 }
 
 static void	draw_active_plane_tile(t_data *data, t_menu *menu, \

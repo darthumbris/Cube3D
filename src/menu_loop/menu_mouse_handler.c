@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 14:10:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:09:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,28 @@ static int	get_correct_plane(int active_plane)
 	return (2);
 }
 
+static uint8_t	get_tile_value(int plane, int dir, int difficulty, int sprt)
+{
+	const int	tile_shift = difficulty * 3 + dir;
+
+	if (plane == 0 && wall_icon_lst[sprt].tile_value_begin + tile_shift <= \
+		wall_icon_lst[sprt].tile_value_end)
+	{
+		printf("plane: %d, sprt: %d, return: %d\n", plane, sprt, wall_icon_lst[sprt].tile_value_begin + tile_shift);
+		return (wall_icon_lst[sprt].tile_value_begin + tile_shift);
+	}
+	else if (plane == 1)
+		return (zone_icon_lst[sprt].tile_value_begin);
+	else if (plane == 2)
+		return (obj_icon_lst[sprt].tile_value_begin);
+	else if (plane == 3)
+		return (item_icon_lst[sprt].tile_value_begin);
+	else if (enemy_icon_lst[sprt].tile_value_begin + tile_shift <= \
+		enemy_icon_lst[sprt].tile_value_end)
+		return (enemy_icon_lst[sprt].tile_value_begin + tile_shift);
+	return (0);
+}
+
 //TODO also possible to place on floors 
 //(0 should be replaced by is_floor function)
 //TODO also make that you can't place a wall when there is already
@@ -48,7 +70,8 @@ static void	change_map(mouse_key_t button, t_menu *menu, t_vector_int map)
 	{
 		if (!menu->active_plane || \
 			(menu->active_plane && menu->map[map.y][map.x][0] == 0))
-			menu->map[map.y][map.x][get_correct_plane(menu->active_plane)] = menu->active_sprite;
+			menu->map[map.y][map.x][get_correct_plane(menu->active_plane)] = \
+			get_tile_value(menu->active_plane, 0, 0, menu->active_sprite - 1);
 	}
 	else if (button == MLX_MOUSE_BUTTON_RIGHT)
 		menu->map[map.y][map.x][get_correct_plane(menu->active_plane)] = 0;

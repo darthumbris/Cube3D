@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 14:07:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:03:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_menu
 	int				active_sprite;
 	bool			update;
 	bool			cursor;
+	bool			player_placed;
 	t_rect			map_area;
 	uint8_t			map[200][200][3];
 	t_ddlst			plane_ddlst;
@@ -90,6 +91,7 @@ typedef struct s_menu
 	t_button		pen_btn;
 	t_button		load_btn;
 	t_button		save_btn;
+	t_vector_int	player_pos;
 	t_vector_int	max_tiles_on_map;
 	enum e_pen_mode	pen;
 	t_vector_double	map_offset;
@@ -113,6 +115,11 @@ bool			is_hover(t_button *btn, int x, int y);
 bool			is_mouse_in_rect(int x, int y, t_rect r);
 int				get_button_mouse_on(int x, int y, t_ddlst drop);
 void			scroll_function_btn(double x, double y, void *param);
+bool			is_wall_lst(int tile);
+bool			is_zone_lst(int tile);
+bool			is_decor_lst(int tile);
+bool			is_item_lst(int tile);
+bool			is_movable_lst(int tile);
 // int				get_correct_plane(int active_plane);
 
 #endif

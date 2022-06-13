@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:56:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 16:41:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 11:59:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,25 @@ static void	draw_char(t_data *data, t_vector_int pos, int tex_pos_width[2], \
 	uint8_t			*font;
 	uint32_t		color;
 
-	pixel.x = 0;
 	font = data->mlx.font->pixels;
-	while (++pixel.x < tex_pos_width[1])
-	{
-		tex.x = pixel.x * (1 / font_scale) + tex_pos_width[0];
-		menu = data->mlx.fg->pixels + (((pixel.x + pos.x) * 4) + \
+	pixel.y = -1;
+	menu = data->mlx.fg->pixels + (((pos.x) * 4) + \
 			(pos.y) * data->floor.width4);
-		pixel.y = 8 * font_scale - 1;
-		while (--pixel.y > 0)
+	while (++pixel.y < 8 * font_scale)
+	{
+		pixel.x = -1;
+		while (++pixel.x < tex_pos_width[1])
 		{
+			tex.x = pixel.x * (1 / font_scale) + tex_pos_width[0];
 			tex.y = pixel.y * (1 / font_scale);
 			color = (*(int *)(font + ((tex.y * \
 				data->mlx.font->width + tex.x) * 4)));
 			if (color == 4278190080)
 				*(uint32_t *)menu = color;
-			menu -= data->floor.width4;
+			menu += 4;
 		}
+		if (pixel.x < (int)data->mlx.fg->width)
+			menu += (data->mlx.fg->width * 4 - (tex_pos_width[1]) * 4);
 	}
 }
 
@@ -50,30 +52,32 @@ static void	draw_number(t_data *data, t_vector_int pos, int nbr, \
 	uint8_t			*font;
 	uint32_t		color;
 
-	pixel.x = 0;
+	pixel.y = -1;
 	font = data->mlx.font->pixels;
-	while (++pixel.x < 9 * font_scale)
-	{
-		tex.x = pixel.x * (1 / font_scale) + (nbr * 9 + 210);
-		menu = data->mlx.fg->pixels + (((pixel.x + pos.x) * 4) + \
+	menu = data->mlx.fg->pixels + (pos.x * 4 + \
 			(pos.y * data->floor.width4));
-		pixel.y = 8 * font_scale - 1;
-		while (--pixel.y > 0)
+	while (++pixel.y < (int)(8 * font_scale))
+	{
+		pixel.x = -1;
+		while (++pixel.x < (int)(9 * font_scale))
 		{
+			tex.x = pixel.x * (1 / font_scale) + (nbr * 9 + 210);
 			tex.y = pixel.y * (1 / font_scale);
 			color = (*(int *)(font + ((tex.y * \
 				data->mlx.font->width + tex.x) * 4)));
 			if (color == 4278190080)
 				*(uint32_t *)menu = color;
-			menu -= data->floor.width4;
+			menu += 4;
 		}
+		if (pixel.x < (int)data->mlx.fg->width)
+			menu += (data->mlx.fg->width * 4 - pixel.x * 4);
 	}
 }
 
 static void	draw_alpha(t_data *data, t_vector_int pos, char c, \
 						double font_scale)
 {
-	int		tex_pos_width[2];
+	int				tex_pos_width[2];
 
 	tex_pos_width[1] = 8 * font_scale;
 	tex_pos_width[0] = (c - 'a') * 8 + 0;

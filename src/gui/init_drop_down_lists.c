@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:03:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 14:03:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 14:41:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ void	init_plane_ddlst(t_ddlst *p, double scale, double font_scale)
 	p->pos.y = 13 * scale;
 	p->btn_txt = ft_calloc(sizeof(char *), p->elements);
 	p->btn_txt[0] = ft_strdup("plane 0 walls");
-	p->btn_txt[1] = ft_strdup("plane 0 floor");
+	p->btn_txt[1] = ft_strdup("plane 0 zones");
 	p->btn_txt[2] = ft_strdup("plane 1 decor");
 	p->btn_txt[3] = ft_strdup("plane 1 items");
-	p->btn_txt[4] = ft_strdup("plane 2 enemies");
+	p->btn_txt[4] = ft_strdup("plane 2 moving");
 	p->hvr_rct.pos0.x = 3 * scale;
 	p->hvr_rct.pos0.y = 15 * scale;
 	p->hvr_rct.pos1.x = 88 * scale;
@@ -111,7 +111,8 @@ void	init_plane_ddlst(t_ddlst *p, double scale, double font_scale)
 void	init_dropdown_lists(t_menu *menu, double hud_scale)
 {
 	init_plane_ddlst(&menu->plane_ddlst, hud_scale, hud_scale * 0.75);
-	init_sprite_ddlst(&menu->wall_ddlst, hud_scale, wall_icon_lst, 51);
+	init_sprite_ddlst(&menu->wall_ddlst, hud_scale, wall_icon_lst, 50);
+	init_sprite_ddlst(&menu->zone_ddlst, hud_scale, zone_icon_lst, 36);
 	init_sprite_ddlst(&menu->decor_ddlst, hud_scale, obj_icon_lst, 49);
 	init_sprite_ddlst(&menu->enemy_ddlst, hud_scale, enemy_icon_lst, 23);
 	init_sprite_ddlst(&menu->item_ddlst, hud_scale, item_icon_lst, 19);

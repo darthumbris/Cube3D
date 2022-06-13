@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:23:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 14:39:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,15 @@ typedef struct s_mlx
 	mlx_texture_t	*wall_icons;
 	mlx_texture_t	*obj_icons;
 	mlx_texture_t	*enmy_icons;
+	mlx_texture_t	*item_icons;
+	mlx_texture_t	*zone_icons;
 	t_weapon_anim	weapon_anim[3];
 }			t_mlx;
+
+void	draw_texture(mlx_image_t *img, mlx_texture_t *tex, \
+					t_vector_int start, double scale);
+void	draw_texture_area(mlx_image_t *img, mlx_texture_t *tex, \
+					t_vector_int start, t_vector_int tex_pos, \
+					int wh[2], double scale);
 
 #endif

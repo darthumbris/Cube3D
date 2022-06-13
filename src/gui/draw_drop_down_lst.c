@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 14:08:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 14:20:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	draw_text_drop(t_data *data, t_vector_int pos, t_ddlst ddlst)
 	offset = 0;
 	while (offset < ddlst.max_visible)
 	{
-		pos.y = ddlst.btn_lst[offset].rect.pos1.y - data->hud.scale;
+		pos.y = ddlst.btn_lst[offset].rect.pos0.y;
 		if (pos.y < ddlst.open_rct.pos1.y)
 			draw_str(data, ddlst.btn_lst[i].txt, pos, ddlst.font_scale);
 		i++;
@@ -38,7 +38,7 @@ static void	draw_icon_drop(t_data *data, t_vector_int pos, t_ddlst drop)
 	offset = 0;
 	while (offset < drop.max_visible)
 	{
-		pos.y = drop.btn_lst[offset].rect.pos1.y - data->hud.scale;
+		pos.y = drop.btn_lst[offset].rect.pos0.y;
 		if (pos.y < drop.open_rct.pos1.y)
 			draw_icon_button(data, pos, drop.btn_lst[i].icon_pos, \
 				drop.font_scale);
@@ -84,16 +84,16 @@ void	draw_drop_down_lsts(t_data *data)
 
 	plane = data->menu.plane_ddlst;
 	floor = data->menu.wall_ddlst;
-	pos.y = plane.pos.y + 9 * plane.font_scale;
+	pos.y = plane.pos.y + 3 * plane.font_scale;
 	pos.x = plane.pos.x;
 	draw_drop_down_lst(data, pos, data->menu.plane_ddlst, false);
-	pos.y = floor.pos.y + 9 * floor.font_scale;
+	pos.y = floor.pos.y + 2 * floor.font_scale;
 	if (plane.active.active == false)
 	{
 		if (data->menu.active_plane == 0)
 			draw_drop_down_lst(data, pos, data->menu.wall_ddlst, true);
 		else if (data->menu.active_plane == 1)
-			draw_drop_down_lst(data, pos, data->menu.decor_ddlst, true);
+			draw_drop_down_lst(data, pos, data->menu.zone_ddlst, true);
 		else if (data->menu.active_plane == 2)
 			draw_drop_down_lst(data, pos, data->menu.decor_ddlst, true);
 		else if (data->menu.active_plane == 3)
