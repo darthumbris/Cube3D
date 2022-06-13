@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 11:53:16 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:03:22 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:54:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_icon_square(t_data *data, t_vector_int offset, int tile_plane[2])
 	atlas = get_icon_texture(data, plane);
 	wh[0] = 16;
 	wh[1] = 16;
-	draw_texture_area(data->mlx.fg, atlas, offset, icon, wh, \
+	draw_texture_area(data->mlx.menu_editor, atlas, offset, icon, wh, \
 						data->menu.map_zoom);
 }
 

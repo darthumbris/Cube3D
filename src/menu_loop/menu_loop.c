@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 13:53:40 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 09:45:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:37:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,35 +29,42 @@ static void	main_menu(t_data *data)
 	start.x = 0;
 	start.y = 0;
 	if (data->menu.menu_level == 0)
-		draw_texture(data->mlx.fg, data->mlx.menu_screen, start, scale);
+		draw_texture(data->mlx.menu_editor, data->mlx.menu_screen, start, scale);
 	else
-		draw_texture(data->mlx.fg, data->mlx.level_select, start, scale);
+		draw_texture(data->mlx.menu_editor, data->mlx.level_select, start, scale);
 }
 
 static void	map_editor_menu(t_data *data, t_menu *menu, t_mlx *mlx)
 {
 	t_vector_int	start;
 	const double	scale = data->hud.scale;
+	static	bool	reset = false;
 
 	start.x = 0;
 	start.y = 0;
-	draw_texture(data->mlx.fg, data->mlx.map_editor_screen, start, scale);
+	if (!reset)
+	{
+		ft_memset(data->mlx.fg->pixels, 0, SCREEN_HEIGHT * SCREEN_WIDTH * 4);
+		reset = true;
+	}
+	ft_memset(data->mlx.menu_editor->pixels + (225 * SCREEN_WIDTH * 4), 0, SCREEN_HEIGHT * SCREEN_WIDTH * 4);
+	draw_texture(data->mlx.menu_editor, data->mlx.map_editor_screen, start, scale);
 	mlx_set_cursor_mode(data->mlx.mlx_handle, MLX_MOUSE_NORMAL);
 	data->menu.cursor = false;
 	if (data->menu.enemy_btn.active == true)
 	{
 		start = menu->enemy_btn.rect.pos0;
-		draw_texture(mlx->fg, mlx->check_mark, start, scale);
+		draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
 	}
 	if (data->menu.floor_btn.active == true)
 	{
 		start = menu->floor_btn.rect.pos0;
-		draw_texture(mlx->fg, mlx->check_mark, start, scale);
+		draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
 	}
 	if (data->menu.obj_btn.active == true)
 	{
 		start = menu->obj_btn.rect.pos0;
-		draw_texture(mlx->fg, mlx->check_mark, start, scale);
+		draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
 	}
 	draw_map_editor(data);
 }
@@ -96,7 +103,7 @@ void	menu_loop(void *v_data)
 		else if (data->menu.menu_level == 2)
 			map_editor_menu(data, &data->menu, &data->mlx);
 		if (data->menu.cursor)
-			draw_texture(data->mlx.fg, data->mlx.cursor, pos, data->hud.scale);
+			draw_texture(data->mlx.menu_editor, data->mlx.cursor, pos, data->hud.scale);
 		data->menu.update = false;
 	}
 	if (data->menu.menu_level == 2)

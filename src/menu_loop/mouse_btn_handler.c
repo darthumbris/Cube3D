@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:14:56 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:59:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \
 	{
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.plane_ddlst.open_rct))
 			data->menu.plane_ddlst.active.active = false;
+		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.rotate_ddlst.open_rct))
+			data->menu.rotate_ddlst.active.active = false;
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.wall_ddlst.open_rct))
 			data->menu.wall_ddlst.active.active = false;
 		if (!is_mouse_in_rect(pos.x, pos.y, data->menu.decor_ddlst.open_rct))
@@ -103,6 +105,8 @@ void	change_state_ddlst(t_data *data, mouse_key_t button, action_t action, \
 		set_btn_state(&data->menu.enemy_ddlst.active, button, action, pos);
 		set_btn_state(&data->menu.item_ddlst.active, button, action, pos);
 		set_btn_state(&data->menu.zone_ddlst.active, button, action, pos);
+		if (data->menu.active_plane == 4 || data->menu.active_plane == 0)
+			set_btn_state(&data->menu.rotate_ddlst.active, button, action, pos);
 	}
 }
 
@@ -161,4 +165,6 @@ void	check_btns_clicked(t_data *data, mouse_key_t button, \
 		set_active_btn(&data->menu.enemy_ddlst, &data->menu, pos, button);
 	else if (data->menu.item_ddlst.active.active == true && data->menu.active_plane == 3)
 		set_active_btn(&data->menu.item_ddlst, &data->menu, pos, button);
+	else if (data->menu.rotate_ddlst.active.active == true)
+		set_active_btn(&data->menu.rotate_ddlst, &data->menu, pos, button);
 }

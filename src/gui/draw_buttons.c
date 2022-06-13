@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:55:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/10 13:41:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:39:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	draw_button(t_data *data, t_rect rec, uint32_t color)
 	int				x;
 
 	y = rec.pos0.y;
-	menu = data->mlx.menu_editor->pixels;
+	menu = data->mlx.menu_editor_fg->pixels;
 	if (y < 0)
 		y = 0;
 	while (y < rec.pos1.y && y < (int)data->mlx.fg->height)
@@ -36,7 +36,6 @@ static void	draw_button(t_data *data, t_rect rec, uint32_t color)
 	}
 }
 
-//TODO make sure that this is removed for other menu screens
 static void	draw_transparency_btns(t_data *data, t_rect rec, uint32_t c)
 {
 	uint8_t			*menu;
@@ -47,7 +46,7 @@ static void	draw_transparency_btns(t_data *data, t_rect rec, uint32_t c)
 
 	y = rec.pos0.y;
 	menu = data->mlx.bg->pixels;
-	fg = data->mlx.fg->pixels;
+	fg = data->mlx.menu_editor->pixels;
 	if (y < 0)
 		y = 0;
 	while (y < rec.pos1.y && y < (int)data->mlx.fg->height)
@@ -68,14 +67,14 @@ static void	draw_transparency_btns(t_data *data, t_rect rec, uint32_t c)
 
 static void	draw_click_idle(t_data *data, t_button btn)
 {
-	if (btn.state == HOVER)
-		draw_button(data, btn.rect, HOVER_COLOR);
-	else if (btn.state == IDLE)
-		draw_button(data, btn.rect, 0x00000000);
 	if ((btn.state == IDLE || btn.state == HOVER) && btn.active == false)
 		draw_transparency_btns(data, btn.rect, 0x4c0000ff);
 	else
 		draw_transparency_btns(data, btn.rect, 0x850000ff);
+	if (btn.state == HOVER)
+		draw_button(data, btn.rect, HOVER_COLOR);
+	else if (btn.state == IDLE)
+		draw_button(data, btn.rect, 0);
 }
 
 static void	draw_hover_drop_down(t_data *data)
@@ -84,19 +83,24 @@ static void	draw_hover_drop_down(t_data *data)
 		draw_button(data, data->menu.plane_ddlst.hvr_rct, HOVER_COLOR);
 	else if (data->menu.plane_ddlst.active.state == IDLE)
 	{
-		draw_button(data, data->menu.plane_ddlst.hvr_rct, 0x000000ff);
+		draw_button(data, data->menu.plane_ddlst.hvr_rct, 0);
 		if (data->menu.plane_ddlst.active.active == false)
 		{
 			if (data->menu.wall_ddlst.active.state == HOVER)
 				draw_button(data, data->menu.wall_ddlst.hvr_rct, HOVER_COLOR);
 			else if (data->menu.wall_ddlst.active.state == IDLE)
-				draw_button(data, data->menu.wall_ddlst.hvr_rct, 0x000000ff);
+				draw_button(data, data->menu.wall_ddlst.hvr_rct, 0);
+			if (data->menu.rotate_ddlst.active.state == HOVER)
+				draw_button(data, data->menu.rotate_ddlst.hvr_rct, HOVER_COLOR);
+			else if (data->menu.rotate_ddlst.active.state == IDLE)
+				draw_button(data, data->menu.rotate_ddlst.hvr_rct, 0);
 		}
 	}
 }
 
 void	draw_buttons(t_data *data)
 {
+	draw_hover_drop_down(data);
 	draw_click_idle(data, data->menu.enemy_btn);
 	draw_click_idle(data, data->menu.floor_btn);
 	draw_click_idle(data, data->menu.obj_btn);
@@ -106,5 +110,4 @@ void	draw_buttons(t_data *data)
 	draw_click_idle(data, data->menu.picker_btn);
 	draw_click_idle(data, data->menu.load_btn);
 	draw_click_idle(data, data->menu.save_btn);
-	draw_hover_drop_down(data);
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:56:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 11:59:25 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:14:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	draw_char(t_data *data, t_vector_int pos, int tex_pos_width[2], \
 
 	font = data->mlx.font->pixels;
 	pixel.y = -1;
-	menu = data->mlx.fg->pixels + (((pos.x) * 4) + \
+	menu = data->mlx.menu_editor->pixels + (((pos.x) * 4) + \
 			(pos.y) * data->floor.width4);
 	while (++pixel.y < 8 * font_scale)
 	{
@@ -54,7 +54,7 @@ static void	draw_number(t_data *data, t_vector_int pos, int nbr, \
 
 	pixel.y = -1;
 	font = data->mlx.font->pixels;
-	menu = data->mlx.fg->pixels + (pos.x * 4 + \
+	menu = data->mlx.menu_editor->pixels + (pos.x * 4 + \
 			(pos.y * data->floor.width4));
 	while (++pixel.y < (int)(8 * font_scale))
 	{

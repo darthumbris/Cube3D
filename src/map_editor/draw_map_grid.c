@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 14:49:18 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:00:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:12:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	draw_grid_horizontal_line(t_data *data, t_rect rec, \
 	int		x;
 
 	y = rec.pos0.y + offset.y;
-	map = data->mlx.fg->pixels;
+	map = data->mlx.menu_editor->pixels;
 	if (y < 0)
 		y = 0;
 	while (y < rec.pos1.y + offset.y && y < (int)data->mlx.fg->height)
@@ -49,7 +49,7 @@ static void	draw_grid_square(t_data *data, t_rect rec, uint32_t c, \
 	int		x;
 
 	draw_grid_horizontal_line(data, rec, c, offset);
-	map = data->mlx.fg->pixels;
+	map = data->mlx.menu_editor->pixels;
 	x = rec.pos0.x + offset.x;
 	if (x < 0)
 		x = 0;

@@ -6,22 +6,11 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:10:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:53:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-unsigned int	get_color_tile(int tile)
-{
-	if (tile == 1)
-		return (0x8f8f8fff);
-	else if (tile == 2)
-		return (0x0000b3ff);
-	else if (tile == 3)
-		return (0x774e2bff);
-	return (0x8f8f8fff);
-}
 
 t_vector_int	icon_lst_check(t_ddlst *drop, int tile, const t_icon icon_lst[])
 {
@@ -30,7 +19,7 @@ t_vector_int	icon_lst_check(t_ddlst *drop, int tile, const t_icon icon_lst[])
 	i = 0;
 	while (i < drop->elements)
 	{
-		if (icon_lst[i].tile_value_begin >= tile && \
+		if (tile >= icon_lst[i].tile_value_begin && \
 			tile <= icon_lst[i].tile_value_end)
 			return (drop->btn_lst[i].icon_pos);
 		i++;
@@ -48,8 +37,6 @@ t_vector_int	get_icon_pos(t_data *data, int tile, int plane)
 		{
 			pos = icon_lst_check
 				(&data->menu.wall_ddlst, tile, wall_icon_lst);
-			// printf("printing wall\n");
-			// printf("tile: %d, icon_pos: %d, %d\n", tile, pos.y, pos.x);
 			return (icon_lst_check
 				(&data->menu.wall_ddlst, tile, wall_icon_lst));
 		}
@@ -75,10 +62,10 @@ static void	draw_active_plane_tile(t_data *data, t_menu *menu, \
 
 	pix = pos[0];
 	m = pos[1];
-	if (menu->enemy_btn.active && menu->map[m.y][m.x][2] != 0)
+	if (menu->floor_btn.active && menu->map[m.y][m.x][0] != 0)
 	{
-		tile_plane[0] = menu->map[m.y][m.x][2];
-		tile_plane[1] = 2;
+		tile_plane[0] = menu->map[m.y][m.x][0];
+		tile_plane[1] = 0;
 		draw_icon_square(data, pix, tile_plane);
 	}
 	if (menu->obj_btn.active && menu->map[m.y][m.x][1] != 0)
@@ -87,10 +74,10 @@ static void	draw_active_plane_tile(t_data *data, t_menu *menu, \
 		tile_plane[1] = 1;
 		draw_icon_square(data, pix, tile_plane);
 	}
-	if (menu->floor_btn.active && menu->map[m.y][m.x][0] != 0)
+	if (menu->enemy_btn.active && menu->map[m.y][m.x][2] != 0)
 	{
-		tile_plane[0] = menu->map[m.y][m.x][0];
-		tile_plane[1] = 0;
+		tile_plane[0] = menu->map[m.y][m.x][2];
+		tile_plane[1] = 2;
 		draw_icon_square(data, pix, tile_plane);
 	}
 }

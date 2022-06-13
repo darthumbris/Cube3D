@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:03:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:27:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_menu
 	t_rect			map_area;
 	uint8_t			map[200][200][3];
 	t_ddlst			plane_ddlst;
+	t_ddlst			rotate_ddlst;
 	t_ddlst			wall_ddlst;
 	t_ddlst			decor_ddlst;
 	t_ddlst			enemy_ddlst;

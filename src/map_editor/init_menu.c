@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:23:32 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 14:40:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:29:46 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ static bool	init_menu_textures(t_mlx *mlx)
 	mlx->enmy_icons = mlx_load_png("assets/hud/enemy_icons.png");
 	mlx->item_icons = mlx_load_png("assets/hud/item_icons.png");
 	mlx->zone_icons = mlx_load_png("assets/hud/zone_icons.png");
+	mlx->dir_icons = mlx_load_png("assets/hud/direction_icons.png");
 	mlx->menu_editor = mlx_new_image
+		(mlx->mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
+	mlx->menu_editor_fg = mlx_new_image
 		(mlx->mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (mlx->menu_screen == NULL || mlx->level_select == NULL || \
 		mlx->cursor == NULL || mlx->check_mark == NULL || \
 		mlx->font == NULL || mlx->wall_icons == NULL || \
 		mlx->obj_icons == NULL || mlx->enmy_icons == NULL || \
-		mlx->item_icons == NULL || mlx->zone_icons == NULL)
+		mlx->item_icons == NULL || mlx->zone_icons == NULL || \
+		mlx->dir_icons == NULL)
 		return (false);
 	return (true);
 }

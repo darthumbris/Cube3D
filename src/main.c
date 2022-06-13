@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/13 09:06:12 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:32:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static void	images_to_window(t_data *data)
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.bg, 0, 0);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.fg, 0, 0);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.menu_editor, 0, 0);
+	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.menu_editor_fg, 0, 0);
 	// init_player(data);
 	// init_weapons(data);
 	// draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \

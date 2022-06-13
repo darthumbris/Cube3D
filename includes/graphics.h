@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 14:39:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:29:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_mlx
 	mlx_image_t		*minimap;
 	mlx_image_t		*score_screen;
 	mlx_image_t		*menu_editor;
+	mlx_image_t		*menu_editor_fg;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
@@ -135,6 +136,7 @@ typedef struct s_mlx
 	mlx_texture_t	*enmy_icons;
 	mlx_texture_t	*item_icons;
 	mlx_texture_t	*zone_icons;
+	mlx_texture_t	*dir_icons;
 	t_weapon_anim	weapon_anim[3];
 }			t_mlx;
 

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:03:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 14:41:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 16:45:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,42 @@ void	init_plane_ddlst(t_ddlst *p, double scale, double font_scale)
 	p->max_visible = 5;
 }
 
+void	init_rotate_ddlst(t_ddlst *p, double scale, double font_scale)
+{
+	p->elements = 4;
+	p->height = 7 * scale;
+	p->width = 85 * scale;
+	p->pos.x = 3 * scale;
+	p->pos.y = 191 * scale;
+	p->btn_txt = ft_calloc(sizeof(char *), p->elements);
+	p->btn_txt[0] = ft_strdup("west");
+	p->btn_txt[1] = ft_strdup("south");
+	p->btn_txt[2] = ft_strdup("north");
+	p->btn_txt[3] = ft_strdup("east");
+	p->hvr_rct.pos0.x = 3 * scale;
+	p->hvr_rct.pos0.y = 191 * scale;
+	p->hvr_rct.pos1.x = 88 * scale;
+	p->hvr_rct.pos1.y = 198 * scale;
+	p->active = new_button(p->hvr_rct, p->btn_txt[0]);
+	p->btn_lst = ft_calloc(sizeof(t_button), p->elements);
+	p->open_rct = p->hvr_rct;
+	p->open_rct.pos0.y = 198 * scale;
+	p->open_rct.pos1.y = p->hvr_rct.pos1.y + (p->elements * 9 * font_scale) + 1;
+	p->outline = p->active.rect;
+	p->outline.pos1.y = p->active.rect.pos1.y + 9 * font_scale;
+	p->font_scale = font_scale;
+	init_buttons_ddlst(p, scale, p->open_rct.pos0.y);
+	p->scroll_pos = 0;
+	p->max_visible = 4;
+}
+
 void	init_dropdown_lists(t_menu *menu, double hud_scale)
 {
 	init_plane_ddlst(&menu->plane_ddlst, hud_scale, hud_scale * 0.75);
+	init_rotate_ddlst(&menu->rotate_ddlst, hud_scale, hud_scale * 0.75);
 	init_sprite_ddlst(&menu->wall_ddlst, hud_scale, wall_icon_lst, 50);
 	init_sprite_ddlst(&menu->zone_ddlst, hud_scale, zone_icon_lst, 36);
 	init_sprite_ddlst(&menu->decor_ddlst, hud_scale, obj_icon_lst, 49);
-	init_sprite_ddlst(&menu->enemy_ddlst, hud_scale, enemy_icon_lst, 23);
+	init_sprite_ddlst(&menu->enemy_ddlst, hud_scale, enemy_icon_lst, 25);
 	init_sprite_ddlst(&menu->item_ddlst, hud_scale, item_icon_lst, 19);
 }

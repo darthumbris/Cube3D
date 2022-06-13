@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:52:42 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 14:54:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:51:27 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ static const t_icon	item_icon_lst[] = \
 static const t_icon	enemy_icon_lst[] = \
 	{
 		{"player",2,7,"WSAF", 1, 4},
+		{"push wall", 3, 0, "ads", 250, 250},
 		{"guard",0,1,"WALL002.png", 5, 16},
 		{"dog",0,0,"WALL001.png", 17, 28},
 		{"mutant",0,2,"WALL003.png", 29, 40},

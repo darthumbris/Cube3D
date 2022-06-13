@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 14:53:55 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:03:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 15:49:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ bool	is_item_lst(int tile)
 
 bool	is_movable_lst(int tile)
 {
-	return (tile >= 1 && tile <= 249);
+	return (tile >= 1 && tile <= 250);
 }
