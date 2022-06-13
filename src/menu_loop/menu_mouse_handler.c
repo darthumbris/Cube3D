@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:59:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/13 17:00:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	change_map(mouse_key_t button, t_menu *menu, t_vector_int map)
 	if (button == MLX_MOUSE_BUTTON_LEFT && \
 		menu->map[map.y][map.x][menu->active_plane] != menu->active_sprite)
 	{
-		// if (!menu->active_plane)
 			menu->map[map.y][map.x][get_correct_plane(menu->active_plane)] = \
 			get_tile_value(menu->active_plane, 0, 0, menu->active_sprite - 1);
 	}
