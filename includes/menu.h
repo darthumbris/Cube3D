@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 12:35:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 15:01:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_menu
 	bool			update;
 	bool			cursor;
 	bool			player_placed;
+	bool			reset_filename;
 	t_rect			map_area;
 	uint8_t			map[200][200][3];
 	t_ddlst			plane_ddlst;

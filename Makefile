@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/06/14 11:11:59 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/06/14 15:39:39 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,6 +117,8 @@ SRC =	main.c \
 		gui/draw_icon_buttons.c \
 		map_editor/is_lst.c \
 		map_editor/save_map.c \
+		map_editor/save_map_utils.c \
+		map_editor/map_to_file.c \
 		graphics/draw_texture.c \
 		
 

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 13:18:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 14:11:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	draw_drop_down_lsts(t_data *data)
 	pos.y = plane.pos.y + 3 * plane.font_scale;
 	pos.x = plane.pos.x;
 	draw_drop_down_lst(data, pos, data->menu.plane_ddlst, false);
-	pos.y = floor.pos.y + 2 * floor.font_scale;
+	pos.y = floor.pos.y + 1 * floor.font_scale;
 	if (plane.active.active == false)
 	{
 		if (data->menu.active_plane == 0)

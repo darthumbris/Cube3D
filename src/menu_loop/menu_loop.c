@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 13:53:40 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 12:55:54 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 14:58:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,6 @@ void	menu_loop(void *v_data)
 		move_map(data, &data->menu);
 		check_hover(data);
 	}
+	if (data->menu.save_btn.active)
+		check_mouse_svbtn_clicked(data);
 }

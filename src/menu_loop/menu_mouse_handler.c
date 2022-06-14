@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 17:00:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 15:03:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	menu_mouse_handler(mouse_key_t button, action_t action, \
 
 	(void)mods;
 	data = (t_data *)param;
-	if (data->menu.menu_level != 2)
+	if (data->menu.menu_level != 2 || data->menu.save_btn.active)
 		return ;
 	menu = &data->menu;
 	menu->update = true;

@@ -31,7 +31,6 @@ MAP EDITOR:
 	Format: 
 	MapSize x y
 	gridSize
-	file containing textures needed (or might just have a seperate file which links tilenumbers to textures)
 	x y plane tile_id,
 
 	so the x y plane and tile_id are seperated by a space and then 
