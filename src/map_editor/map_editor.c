@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/25 14:55:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 16:32:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 16:35:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,6 @@ void	load_map(t_data *data)
 	data->level.map_planes = create_map_planes(data);
 	fill_map(data);
 	print_map(data);
+	//TODO before starting this loop init player and level etc. and destroy images?
+	mlx_loop_hook(data->mlx.mlx_handle, game_loop, data);
 }
