@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:58:53 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:59:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 12:17:04 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ void	check_btns_clicked(t_data *data, mouse_key_t button, \
 	set_btn_state(&data->menu.enemy_btn, button, action, pos);
 	set_btn_state(&data->menu.obj_btn, button, action, pos);
 	set_btn_state(&data->menu.floor_btn, button, action, pos);
+	if (data->menu.save_btn.active == false)
+		set_btn_state(&data->menu.save_btn, button, action, pos);
+	if (data->menu.save_btn.active == true)
+		save_map(data);
 	if (set_btn_state(&data->menu.bucket_btn, button, action, pos) == 2)
 		deactivate_other_paint_btns(data, 0);
 	else if (set_btn_state(&data->menu.pen_btn, button, action, pos) == 2)

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 16:31:47 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 13:15:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ t_vector_int	get_icon_pos(t_data *data, int tile, int plane);
 void			draw_icon_square(t_data *data, t_vector_int offset, \
 									int tile_plane[2]);
 mlx_texture_t	*get_icon_texture(t_data *data, int plane);
+void			save_map(t_data *data);
 
 //====================GUI Functions============================================
 void			init_buttons(t_data *data);
@@ -223,7 +224,7 @@ void			draw_drop_down_lsts(t_data *data);
 void			draw_rect_outline(t_data *data, t_rect rec, uint32_t c, \
 						int thickness);
 void			draw_str(t_data *data, char *str, t_vector_int pos, \
-					double font_scale);
+					double font_scale, mlx_image_t *img);
 void			check_btns_clicked(t_data *data, mouse_key_t button, \
 					action_t action, t_vector_int pos);
 int				set_btn_state(t_button *btn, mouse_key_t button, \

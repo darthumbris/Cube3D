@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 13:53:40 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:37:57 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 12:55:54 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	menu_loop(void *v_data)
 	t_vector_int	pos;
 
 	data = (t_data *)v_data;
-	if (data->menu.update)
+	if (data->menu.update  && data->menu.save_btn.active == false)
 	{
 		set_cursor_pos(data->menu.menu_level, &pos, \
 					data->hud.scale, data->menu.cursor_pos);
@@ -106,7 +106,7 @@ void	menu_loop(void *v_data)
 			draw_texture(data->mlx.menu_editor, data->mlx.cursor, pos, data->hud.scale);
 		data->menu.update = false;
 	}
-	if (data->menu.menu_level == 2)
+	if (data->menu.menu_level == 2 && data->menu.save_btn.active == false)
 	{
 		move_map(data, &data->menu);
 		check_hover(data);

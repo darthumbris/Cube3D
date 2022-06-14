@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:39:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/09 14:25:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 12:17:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	menu_key_handler(struct mlx_key_data keys, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (keys.action == MLX_RELEASE)
+	if (keys.action == MLX_RELEASE || data->menu.save_btn.active)
 		return ;
 	if (keys.key == MLX_KEY_ESCAPE)
 		escape_key(data);

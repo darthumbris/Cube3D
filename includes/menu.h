@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 15:27:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 12:35:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_menu
 	int				map_zoom;
 	int				active_plane;
 	int				active_sprite;
+	char			filenname[30];
 	bool			update;
 	bool			cursor;
 	bool			player_placed;
