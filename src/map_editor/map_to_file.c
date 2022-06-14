@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/14 15:25:38 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 16:21:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 16:32:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,7 @@ void	map_to_file(t_data *data)
 	}
 	full_path = ft_strjoin_r("saves/", data->menu.filenname);
 	if (access(full_path, F_OK) == 0)
-	{
 		printf("File already exists. Change filename\n");
-	}
 	else
 	{
 		fd = open(full_path, O_WRONLY | O_CREAT, 0644);

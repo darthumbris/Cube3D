@@ -6,42 +6,12 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:32:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 16:31:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "define.h"
 #include "cubed.h"
-
-// static void	test_map_to_file(void)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		fd;
-// 	char	**temp = NULL;
-
-// 	fd = open("./maps/help.txt", O_RDONLY);
-// 	temp = readmap(fd, temp);
-// 	i = 0;
-// 	while (temp[i])
-// 	{
-// 		j = 0;
-// 		while (temp[i][j])
-// 		{
-// 			if (ft_isdigit(temp[i][j]))
-// 			{
-// 				if (temp[i][j] == '0')
-// 					printf("%d %d 0 %d,", j, i, 160);
-// 				else
-// 					printf("%d %d 0 %d,", j, i, temp[i][j] - '0');
-// 			}
-// 			else if (temp[i][j] == 'N')
-// 				printf("%d %d 2 19,", j, i);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
 
 // static void	init_player(t_data *data)
 // {

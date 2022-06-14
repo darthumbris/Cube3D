@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/25 14:55:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 16:28:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 16:32:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	**readnewmap(int fd, char **temp)
 	return (temp);
 }
 
+//test function
+//TODO remove test function
 void	print_map(t_data *data)
 {
 	int	i;
@@ -99,9 +101,7 @@ void	print_map(t_data *data)
 		{
 			j = -1;
 			while (++j < data->level.map_w)
-			{
 				printf("%d ", data->level.map_planes[i][j][k]);
-			}
 			printf("\n");
 		}
 		printf("\n");
