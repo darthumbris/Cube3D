@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/25 14:55:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:01:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 16:28:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fill_map(t_data *data)
 	char			**map_tiles;
 	char			***cords;
 
-	map_tiles = ft_split(data->level.tempthing[3], ',');
+	map_tiles = ft_split(data->level.tempthing[2], ',');
 	i = 0;
 	while (map_tiles[i])
 		i++;
@@ -51,14 +51,60 @@ void	fill_map(t_data *data)
 	while (map_tiles[i])
 	{
 		cords[i] = ft_split(map_tiles[i], ' ');
-		pos.x = ft_atoi(cords[i][0]);
-		pos.y = ft_atoi(cords[i][1]);
+		pos.x = ft_atoi(cords[i][1]);
+		pos.y = ft_atoi(cords[i][0]);
 		plane = ft_atoi(cords[i][2]);
 		if (ft_atoi(cords[i][3]) != 0)
 			data->level.map_planes[pos.y][pos.x][plane] = ft_atoi(cords[i][3]);
-		else
-			data->level.map_planes[pos.y][pos.x][plane] = 106;
 		i++;
+	}
+}
+
+char	**readnewmap(int fd, char **temp)
+{
+	char	buf[10001];
+	char	*map;
+	int		bytes_read;
+
+	bytes_read = 1;
+	map = NULL;
+	if (fd == -1)
+		return (map_error_msg("Failed to open map"));
+	while (bytes_read > 0)
+	{
+		bytes_read = read(fd, buf, 10000);
+		if (bytes_read == -1)
+			return (map_error_msg("Failed to read from map"));
+		buf[bytes_read] = 0;
+		if (bytes_read == 0)
+			break ;
+		map = ft_strjoin(map, buf);
+	}
+	temp = ft_split(map, '\n');
+	free(map);
+	return (temp);
+}
+
+void	print_map(t_data *data)
+{
+	int	i;
+	int	k;
+	int	j;
+
+	k = -1;
+	while (++k < 3)
+	{
+		i = -1;
+		while (++i < data->level.map_h)
+		{
+			j = -1;
+			while (++j < data->level.map_w)
+			{
+				printf("%d ", data->level.map_planes[i][j][k]);
+			}
+			printf("\n");
+		}
+		printf("\n");
 	}
 }
 
@@ -69,15 +115,15 @@ void	load_map(t_data *data)
 	char	**temp;
 
 	temp = NULL;
-	fd = open("./maps/new_map_format.cub", O_RDONLY);
-	data->level.tempthing = readmap(fd, temp);
+	fd = open("./saves/test.cub", O_RDONLY);
+	data->level.tempthing = readnewmap(fd, temp);
 	data->level.map_w = ft_atoi(data->level.tempthing[0]);
 	i = 0;
 	while (data->level.tempthing[0][i] && data->level.tempthing[0][i] != ' ')
 		i++;
 	data->level.map_h = ft_atoi(data->level.tempthing[0] + i);
 	data->level.grid_size = ft_atoi(data->level.tempthing[1]);
-	data->level.texture_paths_file = ft_strdup(data->level.tempthing[2]);
 	data->level.map_planes = create_map_planes(data);
 	fill_map(data);
+	print_map(data);
 }

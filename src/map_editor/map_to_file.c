@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/14 15:25:38 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 16:06:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/14 16:21:26 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	map_to_file(t_data *data)
 		}
 		write_to_file(data, fd, wh);
 		printf("Succesfully saved file\n");
+		load_map(data);
 	}
 	free(full_path);
 }
