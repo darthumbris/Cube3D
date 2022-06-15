@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:29:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 15:09:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,47 @@
 # define SECRET_POS_Y		152
 # define TREASURE_POS_Y		169
 
-typedef union u_lodtex
+enum	e_hud_textures
 {
-	mlx_texture_t	*texarr[GAME_OVER + 2];
+	HUD_M_T,
+	HUD_N_T,
+	HUD_F_T,
+	SCORE_M_T,
+	SCORE_N_T,
+	GAMEOVER_T
+};
+
+enum	e_weapon_textures
+{
+	PISTOL0_T,
+	PISTOL1_T,
+	PISTOL2_T,
+	PISTOL3_T,
+	KNIFE0_T,
+	KNIFE1_T,
+	KNIFE2_T,
+	KNIFE3_T,
+	MACHINEGUN0_T,
+	MACHINEGUN1_T,
+	MACHINEGUN2_T,
+	MACHINEGUN3_T,
+};
+
+typedef struct s_lodtex
+{
+	mlx_texture_t	*wall[51];
+	mlx_texture_t	*obj[69];
+	mlx_texture_t	*enmy[23];
+	mlx_texture_t	*hud[6];
+	mlx_texture_t	*wpn[12];
 }	t_lodtex;
+
+typedef struct s_texture_in_map
+{
+	bool	wall[51];
+	bool	obj[69];
+	bool	enmy[23];
+}	t_txtr_in_map;
 
 typedef struct s_weapon_animation
 {
@@ -122,6 +159,7 @@ typedef struct s_mlx
 	mlx_image_t		*score_screen;
 	mlx_image_t		*menu_editor;
 	mlx_image_t		*menu_editor_fg;
+	t_txtr_in_map	txt_in_map;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;

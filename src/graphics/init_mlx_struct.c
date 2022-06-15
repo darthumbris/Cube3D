@@ -6,64 +6,29 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/30 15:25:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 14:16:56 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static bool	check_non_bonus_textures(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (data->mlx.tex.texarr[i] == NULL)
-			return (error_msg("Failed to load textures"));
-		i++;
-	}
-	return (true);
-}
-
 //temp for now
-static bool	init_sprites(t_data *data)
-{
-	unsigned int	i;
+// static bool	init_sprites(t_data *data)
+// {
+// 	unsigned int	i;
 
-	if (data->level.number_of_sprites == 0)
-		return (true);
-	data->sprite_lst = new_sprite(data->sprite[0]);
-	i = 1;
-	while (i < data->level.number_of_sprites)
-	{
-		add_sprite(&(data->sprite_lst), data->sprite[i]);
-		i++;
-	}
-	sort_sprites(data, &data->sprite_lst);
-	return (check_needed_textures_loaded(data));
-}
-
-static bool	init_textures(t_data *data)
-{
-	int	i;
-	int	textures_to_load;
-
-	textures_to_load = data->number_of_textures;
-	i = 0;
-	while (i <= textures_to_load)
-	{
-		if (data->level.paths.path[i])
-			data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
-		else
-			data->mlx.tex.texarr[i] = NULL;
-		i++;
-	}
-	data->caster.ray_dist = 0;
-	if (data->bonus)
-		return (init_sprites(data));
-	return (check_non_bonus_textures(data));
-}
+// 	if (data->level.number_of_sprites == 0)
+// 		return (true);
+// 	data->sprite_lst = new_sprite(data->sprite[0]);
+// 	i = 1;
+// 	while (i < data->level.number_of_sprites)
+// 	{
+// 		add_sprite(&(data->sprite_lst), data->sprite[i]);
+// 		i++;
+// 	}
+// 	sort_sprites(data, &data->sprite_lst);
+// 	return (check_needed_textures_loaded(data));
+// }
 
 bool	init_mlx(t_data *data)
 {
@@ -90,5 +55,4 @@ bool	init_mlx(t_data *data)
 	if (!data->spr_cast.zbuffer)
 		return (error_msg("Malloc error"));
 	return (true);
-	return (init_textures(data));
 }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 15:55:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 14:26:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static mlx_texture_t	*get_enemy_texture(t_data *data, int kind)
 {
 	if (kind == DOG)
-		return (data->mlx.tex.texarr[SPRITESHEET_DOG]);
-	return (data->mlx.tex.texarr[SPRITESHEET_GUARD]);
+		return (data->mlx.tex.enmy[0]);
+	return (data->mlx.tex.enmy[1]);
 }
 
 static void	draw_sprite_line(t_data *dat, t_vector_int pos, t_sprite *sprt, \

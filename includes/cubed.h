@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 15:26:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 15:58:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ void			init_secrets(t_data *data);
 void			init_doors(t_data *data);
 void			init_weapons(t_data *data);
 void			init_hud(t_data *data);
+bool			init_textures(t_data *data);
+bool			init_level(t_data *data);
+bool			init_hud_textures(t_mlx *gfx);
+bool			init_weapon_textures(t_mlx *gfx);
+void			check_textures_needed(t_data *data, int i, int j, int k);
 
 //==========Raycaster Functions=======================
 void			raycaster(t_data *data);
@@ -80,6 +85,7 @@ void			set_new_map_pos(t_vector_double *map, t_vector_double ray, \
 					t_vector_double rd);
 void			segment_to_line(t_segment *segm, t_line *line);
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
+int				get_door_lst_nbr(int tile);
 
 //==========Draw functions====================
 void			draw_background(t_data *data);
@@ -283,12 +289,12 @@ bool			init_map_data(t_data *data);
 //===============Util functions==============================
 bool			is_player_tile(char c);
 bool			is_sprite_tile(char c);
-bool			is_wall_tile(char c);
+bool			is_wall_tile(uint8_t c);
 bool			is_empty_tile(char c);
-bool			is_door_tile(char c);
+bool			is_door_tile(uint8_t c);
 bool			is_finish_tile(char c);
-bool			is_secret_tile(char c);
-bool			is_wall_kind_tile(char c);
+bool			is_secret_tile(uint8_t c);
+bool			is_wall_kind_tile(uint8_t c);
 bool			is_item(int kind);
 bool			is_enemy_tile(char c);
 bool			is_enemy_kind(int kind);

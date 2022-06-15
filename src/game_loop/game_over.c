@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 12:38:58 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:27:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 14:27:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	game_over(t_data *data)
 {
 	data->player.bonus_score = 0;
 	if (data->player.lives >= 0 && data->player.health > 0)
-		draw_score_screen(data, data->mlx.tex.texarr[SCORE_SCREEN]);
+		draw_score_screen(data, data->mlx.tex.hud[SCORE_M_T]);
 	else
-		draw_score_screen(data, data->mlx.tex.texarr[GAME_OVER]);
+		draw_score_screen(data, data->mlx.tex.hud[GAMEOVER_T]);
 	draw_score_elements(data);
 	raycaster(data);
 	data->player.game_over = true;

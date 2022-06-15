@@ -6,7 +6,7 @@
 #    By: shoogenb <shoogenb@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/04/06 13:12:52 by shoogenb      #+#    #+#                  #
-#    Updated: 2022/06/14 15:39:39 by shoogenb      ########   odam.nl          #
+#    Updated: 2022/06/15 14:17:25 by shoogenb      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,6 +120,10 @@ SRC =	main.c \
 		map_editor/save_map_utils.c \
 		map_editor/map_to_file.c \
 		graphics/draw_texture.c \
+		game_loop/init_level.c \
+		parser/init_textures1.c \
+		parser/init_textures2.c \
+		parser/init_textures_utils.c \
 		
 
 SRC_EXT = c

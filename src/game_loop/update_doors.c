@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:51:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 11:23:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:25:42 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	attempt_close_door(t_data *data, int i)
 
 static void	check_perma_closed(t_data *data, int i)
 {
-	if (is_finish_tile(data->level.map[(int)data->cam.pos.y] \
-		[(int)data->cam.pos.x]))
+	if (is_finish_tile(data->level.map_planes[(int)data->cam.pos.y] \
+		[(int)data->cam.pos.x][0]))
 		data->doors[i].state = PERMA_CLOSED;
 }
 

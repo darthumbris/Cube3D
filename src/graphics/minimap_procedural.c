@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 14:55:45 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/12 15:18:00 by pvan-dij      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:10:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	fill_corners(t_data *data)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (data->level.map[i])
+	i = -1;
+	while (++i < data->level.map_h)
 	{
-		j = 0;
-		while (j < data->level.map_w)
+		j = -1;
+		while (++j < data->level.map_w)
 		{
-			if (is_wall_tile(data->level.map[i][j]) && check_corner(data, i, j))
+			if (is_wall_tile(data->level.map_planes[i][j][0]) && check_corner(data, i, j))
 				data->level.wall_map[i][j] = true;
 			j++;
 		}
@@ -85,9 +85,8 @@ bool	is_door_opening(t_data *data, int y, int x)
 //checks wall tiles with simple floodfill
 void	check_for_walls(t_data *data, t_vector_int c)
 {
-	if (is_wall_tile(data->level.map[c.y][c.x]) || ((is_door_tile
-	(data->level.map[c.y][c.x]) || is_secret_tile(data->level.map[c.y][c.x])) \
-	&& !is_door_opening(data, c.y, c.x)))
+	if (is_wall_kind_tile(data->level.map_planes[c.y][c.x][0]) \
+		&& !is_door_opening(data, c.y, c.x))
 		data->level.wall_map[c.y][c.x] = true;
 	else if (data->level.wall_map[c.y][c.x] == 0)
 	{
@@ -101,8 +100,8 @@ void	check_for_walls(t_data *data, t_vector_int c)
 		if (c.x + 1 < data->level.map_w)
 			check_for_walls(data, (t_vector_int){.x = c.x + 1, .y = c.y});
 	}
-	if ((is_door_tile(data->level.map[c.y][c.x]) || is_secret_tile
-		(data->level.map[c.y][c.x])) && is_door_opening(data, c.y, c.x))
+	if ((is_door_tile(data->level.map_planes[c.y][c.x][0]) || is_secret_tile
+		(data->level.map_planes[c.y][c.x][2])) && is_door_opening(data, c.y, c.x))
 		data->level.wall_map[c.y][c.x] = 2;
 }
 
@@ -126,4 +125,5 @@ void	clean_wall_map(t_data *data)
 		}
 		i++;
 	}
+	(void)data;
 }

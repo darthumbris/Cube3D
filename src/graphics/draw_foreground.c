@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:06 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 09:41:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 14:23:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static void	set_new_pos(t_data *data, int x)
 
 static void	set_tex(t_data *data)
 {
-	data->floor.tex.x = (int)(data->mlx.tex.texarr[FLOOR]->width * \
+	data->floor.tex.x = (int)(data->mlx.tex.wall[0]->width * \
 	(data->floor.pos_d.x - (int)data->floor.pos_d.x)) & \
-		(data->mlx.tex.texarr[FLOOR]->width -1);
-	data->floor.tex.y = (int)(data->mlx.tex.texarr[FLOOR]->height * \
+		(data->mlx.tex.wall[0]->width -1);
+	data->floor.tex.y = (int)(data->mlx.tex.wall[0]->height * \
 	(data->floor.pos_d.y - (int)data->floor.pos_d.y)) & \
-		(data->mlx.tex.texarr[FLOOR]->height -1);
+		(data->mlx.tex.wall[0]->height -1);
 }
 
 void	draw_floor_ceiling(t_data *data, int x)
@@ -50,8 +50,8 @@ void	draw_floor_ceiling(t_data *data, int x)
 	uint8_t			*bg_up;
 	uint8_t			*bg_down;
 
-	floor = data->mlx.tex.texarr[FLOOR]->pixels;
-	ceiling = data->mlx.tex.texarr[CEILING]->pixels;
+	floor = data->mlx.tex.wall[0]->pixels;
+	ceiling = data->mlx.tex.wall[15]->pixels;
 	y = data->caster.draw_end;
 	bg_up = data->mlx.fg->pixels + data->floor.x4 + (y * data->floor.width4);
 	bg_down = data->mlx.fg->pixels + ((data->mlx.mlx_handle->height - y - 1) * \
@@ -62,7 +62,7 @@ void	draw_floor_ceiling(t_data *data, int x)
 		set_new_pos(data, x);
 		set_tex(data);
 		data->floor.color_pos = (data->floor.tex.y * \
-			data->mlx.tex.texarr[FLOOR]->width + data->floor.tex.x) * 4;
+			data->mlx.tex.wall[0]->width + data->floor.tex.x) * 4;
 		*(uint32_t *)bg_up = (*(int *)(floor + data->floor.color_pos));
 		*(uint32_t *)bg_down = (*(int *)(ceiling + data->floor.color_pos));
 		bg_up += data->floor.width4;

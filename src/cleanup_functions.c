@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 12:32:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:54:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:29:02 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static void	cleanup_textures(t_data *data)
 	i = 0;
 	while (i <= data->number_of_textures)
 	{
-		if (data->mlx.tex.texarr[i])
-			mlx_delete_texture(data->mlx.tex.texarr[i]);
+		if (data->mlx.tex.hud[i])
+			mlx_delete_texture(data->mlx.tex.hud[i]);
 		i++;
 	}
 }
@@ -84,7 +84,7 @@ void	cleanup_data(t_data *data)
 	cleanup_soundtrack(data);
 	free(data->spr_cast.zbuffer);
 	arr_cleanup(data->level.unparsed);
-	arr_cleanup(data->level.map);
+	// arr_cleanup(data->level.map);//TODO cleanup mapplanes
 	if (data->level.wall_map)
 		cleanup_wall_map(data);
 	if (data->config.dat)

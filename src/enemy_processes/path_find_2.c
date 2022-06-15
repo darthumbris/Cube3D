@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 10:59:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:41:21 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:32:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	pathfind_in_direction(t_data *data, t_sprite *enemy)
 	else if (dir == 1 || dir == 3 || dir == 8 || dir == 11)
 		set_new_x_pos(&temp_pos, &collision, enemy, -1);
 	if (is_out_of_bounds(collision, data) || is_obstacle
-		(data->level.map[(int)(collision.y)][(int)(collision.x)]) || \
+		(data->level.map_planes[(int)(collision.y)][(int)(collision.x)][0]) || \
 		door_check(data, collision))
 	{
 		enemy->en_dat.path_dir = 0;

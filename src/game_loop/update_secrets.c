@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:25:12 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:41:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:25:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,23 @@ static void	set_new_secret_pos(t_data *data, int i)
 	if (data->secrets[i].direction == S_WEST)
 	{
 		if (data->secrets[i].type == '<')
-			data->level.map[y][x - 2] = '8';
+			data->level.map_planes[y][x - 2][0] = '8';
 		else
-			data->level.map[y][x - 2] = '2';
+			data->level.map_planes[y][x - 2][0] = '2';
 	}
 	else if (data->secrets[i].direction == S_EAST)
 	{
-		data->level.map[y][x + 2] = '1';
+		data->level.map_planes[y][x + 2][0] = '1';
 	}
 	else if (data->secrets[i].direction == S_NORTH)
 	{
-		data->level.map[y - 2][x] = '5';
+		data->level.map_planes[y - 2][x][0] = '5';
 	}
 	else if (data->secrets[i].direction == S_SOUTH)
 	{
-		data->level.map[y + 2][x] = '2';
+		data->level.map_planes[y + 2][x][0] = '2';
 	}
-	data->level.map[y][x] = '0';
+	data->level.map_planes[y][x][0] = '0';
 	data->level.wall_map[y][x] = 0;
 }
 

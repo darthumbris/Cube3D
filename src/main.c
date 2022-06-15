@@ -6,38 +6,12 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/14 16:31:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:37:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "define.h"
 #include "cubed.h"
-
-// static void	init_player(t_data *data)
-// {
-// 	init_hud(data);
-// 	data->level.level_number = 1;
-// 	data->player.game_over = false;
-// 	data->player.ammo = 8;
-// 	data->player.lives = 3;
-// 	data->player.health = 100;
-// 	data->player.score = 0;
-// 	data->player.active_weapon = PISTOL;
-// 	data->player.machine_gun_pickup = false;
-// 	data->player.start_pos.x = data->cam.pos.x;
-// 	data->player.start_pos.y = data->cam.pos.y;
-// 	data->player.start_dir.x = data->cam.dir.x;
-// 	data->player.start_dir.y = data->cam.dir.y;
-// 	data->player.start_plane.x = data->cam.plane.x;
-// 	data->player.start_plane.y = data->cam.plane.y;
-// 	data->player.enemies_killed = 0;
-// 	data->player.secrets_found = 0;
-// 	data->player.treasure_found = 0;
-// 	draw_hud(data);
-// 	draw_numbers(data);
-// 	draw_faces(data);
-// 	data->update_hud = false;
-// }
 
 //srand is for the faces in the hud
 static void	init_data(t_data *data)
@@ -64,22 +38,10 @@ static void	init_data(t_data *data)
 
 static void	images_to_window(t_data *data)
 {
-	struct timeval	timev;
-
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.bg, 0, 0);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.fg, 0, 0);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.menu_editor, 0, 0);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.menu_editor_fg, 0, 0);
-	// init_player(data);
-	// init_weapons(data);
-	// draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \
-	// 			data->mlx.weapon);
-	// mlx_image_to_window(data->mlx.mlx_handle, data->mlx.weapon, 0, 0);
-	// mlx_image_to_window(data->mlx.mlx_handle, data->mlx.hud, 0, 0);
-	// mlx_image_to_window(data->mlx.mlx_handle, data->mlx.minimap, \
-	// data->hud.pos_map.x, data->hud.pos_map.y);
-	gettimeofday(&timev, NULL);
-	// data->player.start_time = timev.tv_sec;
 }
 
 //TODO make the game only work according to bonus stuff. 
@@ -87,6 +49,7 @@ static void	images_to_window(t_data *data)
 //TODO make it so when map is saved it also includes all the needed textures 
 // (either as numbers or actually the path names or something like that)
 // (not sure how that would work with the enemies and their spritesheets)
+//TODO Make all things properly work with the ***map_planes!!!
 int	main(void)
 {
 	t_data			data;
@@ -97,8 +60,9 @@ int	main(void)
 		return (1);
 	ma_sound_start(data.sound.soundtrack[0]);
 	images_to_window(&data);
-	mlx_loop_hook(data.mlx.mlx_handle, menu_loop, &data);
+	// mlx_loop_hook(data.mlx.mlx_handle, menu_loop, &data);
 	mlx_key_hook(data.mlx.mlx_handle, menu_key_handler, &data);
+	load_map(&data);//temp
 	mlx_mouse_hook(data.mlx.mlx_handle, menu_mouse_handler, &data);
 	mlx_scroll_hook(data.mlx.mlx_handle, scroll_function_btn, &data);
 	mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);

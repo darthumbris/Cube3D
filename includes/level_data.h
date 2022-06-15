@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:52:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/30 14:03:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:22:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ typedef struct s_level
 	char		*texture_paths_file;
 	char		**unparsed;
 	char		**tempthing;
-	char		**map;
 	uint8_t		***map_planes;
 	uint32_t	floor_color;
 	uint32_t	ceiling_color;

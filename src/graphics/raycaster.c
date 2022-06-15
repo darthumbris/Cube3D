@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 15:01:11 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:15:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_door_hit(t_data *data)
 	t_vector_double			wall;
 	const t_vector_double	pos = data->cam.pos;
 
-	if (!is_door_tile(data->level.map[(int)pos.y][(int)pos.x]))
+	if (!is_door_tile(data->level.map_planes[(int)pos.y][(int)pos.x][0]))
 		return ;
 	if (data->caster.side == 0)
 	{
