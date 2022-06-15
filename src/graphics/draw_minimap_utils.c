@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 16:26:31 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:14:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:41:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	wall_detection(t_data *data)
 }
 
 //draws squares on minimap image
+//TODO check if this can be improved
 bool	draw_square(t_data *data, t_vector_int rec, \
 t_vector_int wh, unsigned int c)
 {

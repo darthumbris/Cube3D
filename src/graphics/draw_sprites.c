@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 14:23:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:39:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 	}
 }
 
+//TODO check if possible to use the draw_texture function here?
 static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 {
 	int			x;

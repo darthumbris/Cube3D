@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 09:26:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 14:32:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:38:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_weapons(t_data *data)
 	data->mlx.weapon_anim[MACHINEGUN].animate = false;
 }
 
+//TODO make this us the draw_texture function
 void	draw_weapons(t_data *data, mlx_texture_t *gun, mlx_image_t *weapon)
 {
 	t_vector_int	pos;

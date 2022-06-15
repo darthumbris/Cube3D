@@ -6,12 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/30 15:28:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:41:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//TODO make this improved version or use the draw_rect function
 static void	draw_border(t_data *data, int max)
 {
 	t_vector_int	pos;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 14:26:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:42:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	draw_sprite_line(t_data *dat, t_vector_int pos, t_sprite *sprt, \
 	}
 }
 
+//TODO try to use the draw_texture_area here
 void	draw_enemies(t_data *data, t_sprite *sprt)
 {
 	const t_vector_int	transp_x = get_transp_x(sprt, data->cam.dir);
