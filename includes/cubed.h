@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 15:58:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 13:54:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "graphics.h"
 # include "level_data.h"
 # include "menu.h"
+# include "enemies.h"
 
 # ifndef DEBUG_MODE
 #  define DEBUG_MODE		0
@@ -85,7 +86,7 @@ void			set_new_map_pos(t_vector_double *map, t_vector_double ray, \
 					t_vector_double rd);
 void			segment_to_line(t_segment *segm, t_line *line);
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
-int				get_door_lst_nbr(int tile);
+int				get_door_lst_nbr(uint8_t tile);
 
 //==========Draw functions====================
 void			draw_background(t_data *data);
@@ -265,38 +266,38 @@ bool			parse_input(char **argv, t_data *data);
 char			**readmap(int fd, char **temp);
 bool			checkmap(char *map);
 bool			playerposcheck(char c);
-bool			validchar(char c);
+bool			validchar(uint8_t c);
 bool			mapjmptable(char *line, t_data *data);
 bool			checktypes(t_data *data);
 bool			parse_config(t_data *data);
 bool			bonus_weapons(char *line, t_data *data);
-char			**parse_map(char **upmap, t_data *data);
+bool			parse_map(uint8_t	***map, t_data *data);
 bool			check_needed_textures_loaded(t_data *data);
-bool			verifyzero(char **upmap, int i, int j, t_data *data);
-int				get_sprite_kind(char c, t_data *data);
+bool			verifyzero(uint8_t	***map, int i, int j, t_data *data);
+int				get_sprite_kind(uint8_t c, t_data *data);
 void			store_path(char *line, t_data *data, int kind);
 void			color_store(char *line, t_data *data, int kind);
 typedef void	(*t_func)(char *line, t_data *data, int kind);
-void			set_sprite_positions(char **map, t_data *data);
-void			set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
-							t_data *data);
-bool			verifyspace(char **upmap, int i, int j, t_data *data);
+void			set_sprite_positions(uint8_t	***map, t_data *data);
+void			set_enemy_data(t_sprite *sprite, uint8_t ***map, t_vector_int pos);
+bool			verifyspace(uint8_t	***map, int i, int j, t_data *data);
 void			*map_error_msg(char *msg);
 bool			error_msg(char *msg);
 bool			init_menu(t_data *data);
 bool			init_map_data(t_data *data);
+bool			norm_loop(t_data *data, uint8_t	***map, int *count);
 
 //===============Util functions==============================
-bool			is_player_tile(char c);
-bool			is_sprite_tile(char c);
+bool			is_player_tile(uint8_t c);
+bool			is_sprite_tile(uint8_t c);
 bool			is_wall_tile(uint8_t c);
-bool			is_empty_tile(char c);
+bool			is_empty_tile(uint8_t c);
 bool			is_door_tile(uint8_t c);
 bool			is_finish_tile(char c);
 bool			is_secret_tile(uint8_t c);
 bool			is_wall_kind_tile(uint8_t c);
 bool			is_item(int kind);
-bool			is_enemy_tile(char c);
+bool			is_enemy_tile(uint8_t c);
 bool			is_enemy_kind(int kind);
 bool			is_guard(int kind);
 bool			is_dog(int kind);

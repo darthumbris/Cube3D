@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 10:30:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:13:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	health_item(t_data *data, t_sprite_lst *item, int kind)
 {
 	if (data->player.health < 100 && (kind == MEDKIT || \
-			kind == DOGMEAL || kind == STIMULANT))
+			kind == DOG_MEAL || kind == STIMULANT))
 		simple_heal_item(data, item, kind);
 	if (kind == SOUL)
 	{
@@ -60,26 +60,31 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 
 void	treasure_item(t_data *data, t_sprite *treasure)
 {
-	if (treasure->kind == TREASURE_0)
+	if (treasure->kind == CROSS)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
 			"./assets/wav_files/sounds/cross.wav", &data->sound.sfx_g);
 		data->player.score += 100;
 	}
-	else if (treasure->kind == TREASURE_1)
+	else if (treasure->kind == CHALICE)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
 			"./assets/wav_files/sounds/chalice.wav", &data->sound.sfx_g);
 		data->player.score += 500;
 	}
-	else if (treasure->kind == TREASURE_2)
+	else if (treasure->kind == CHEST)
 	{
 		ma_engine_play_sound(&data->sound.engine, \
 		"./assets/wav_files/sounds/chest.wav", &data->sound.sfx_g);
 		data->player.score += 1000;
 	}
-	if (treasure->kind == TREASURE_0 || treasure->kind == TREASURE_1 || \
-		treasure->kind == TREASURE_2)
+	else if (treasure->kind == CROWN)
+	{
+		ma_engine_play_sound(&data->sound.engine, \
+		"./assets/wav_files/sounds/crown.wav", &data->sound.sfx_g);
+		data->player.score += 5000;
+	}
+	if (treasure->kind >= CROSS && treasure->kind <= CROWN)
 	{
 		data->update_hud = true;
 		treasure->kind = 0;
@@ -89,7 +94,7 @@ void	treasure_item(t_data *data, t_sprite *treasure)
 
 void	weapon_item(t_data *data, t_sprite_lst *item)
 {
-	if (item->sprite_data.kind == GUN)
+	if (item->sprite_data.kind == MACHGUN)
 	{
 		data->player.active_weapon = MACHINEGUN;
 		data->player.machine_gun_pickup = true;

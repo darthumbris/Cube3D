@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 13:56:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:28:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:10:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	get_ypos_sheet(t_sprite *sprt)
 	else if (is_guard(sprt->kind) && sprt->en_dat.state == HURT)
 		return (5 * 65);
 	else if ((sprt->en_dat.state == DYING || sprt->en_dat.state == DEAD) && \
-		sprt->kind == DOG)
+		(sprt->kind == DOG_STANDING || sprt->kind == DOG_PATROL))
 		return (4 * 65);
 	else if ((sprt->en_dat.state == DYING || sprt->en_dat.state == DEAD) && \
-		sprt->kind == GUARD)
+		(sprt->kind == GUARD_STANDING || sprt->kind == GUARD_PATROL))
 		return (5 * 65);
-	else if (sprt->kind == DOG)
+	else if ((sprt->kind == DOG_STANDING || sprt->kind == DOG_PATROL))
 		return (5 * 65);
 	return (6 * 65);
 }
@@ -66,13 +66,15 @@ int	get_xpos_sheet(t_sprite *sprt, t_vector_double cam_dir)
 		return ((dir % 8) * 65);
 	else if (is_guard(sprt->kind) && sprt->en_dat.state == HURT)
 		return (7 * 65);
-	else if (sprt->en_dat.state == DYING && sprt->kind == GUARD)
+	else if (sprt->en_dat.state == DYING && \
+		(sprt->kind == GUARD_STANDING || sprt->kind == GUARD_PATROL))
 		return (sprt->en_dat.frame % 5 * 65);
-	else if (sprt->en_dat.state == DYING && sprt->kind == DOG)
+	else if (sprt->en_dat.state == DYING && \
+		(sprt->kind == DOG_STANDING || sprt->kind == DOG_PATROL))
 		return (sprt->en_dat.frame % 4 * 65);
 	else if (sprt->en_dat.state == ATTACKING)
 		return (sprt->en_dat.frame % 3 * 65);
-	else if (sprt->kind == DOG)
+	else if ((sprt->kind == DOG_STANDING || sprt->kind == DOG_PATROL))
 		return (3 * 65);
 	return (4 * 65);
 }

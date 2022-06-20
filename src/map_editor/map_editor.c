@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/25 14:55:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 12:15:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:39:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	load_map(t_data *data)
 	char	**temp;
 
 	temp = NULL;
-	fd = open("./saves/test.cub", O_RDONLY);
+	fd = open("./saves/test1.cub", O_RDONLY);
 	data->level.tempthing = readnewmap(fd, temp);
 	data->level.map_w = ft_atoi(data->level.tempthing[0]);
 	i = 0;
@@ -132,5 +132,6 @@ void	load_map(t_data *data)
 		exit(1);
 	}
 	//TODO before starting this loop init player and level etc. and destroy images?
+	mlx_key_hook(data->mlx.mlx_handle, key_handler, data);
 	mlx_loop_hook(data->mlx.mlx_handle, game_loop, data);
 }

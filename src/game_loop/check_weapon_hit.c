@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 14:38:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:14:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	calculate_damage(t_data *data, double dist)
 
 static void	play_death_sound(t_data *data, t_sprite *enemy)
 {
-	if (enemy->kind == GUARD)
+	if ((enemy->kind == GUARD_PATROL || enemy->kind == GUARD_STANDING))
 		play_sound_vol(data, "./assets/wav_files/sounds/grddth1.wav", \
 			enemy->dist);
 	else
@@ -68,7 +68,7 @@ static void	damage_enemy(t_data *data, t_sprite *enemy, int damage)
 		enemy->en_dat.state = DYING;
 		enemy->en_dat.frame = 0;
 		data->player.score += 100;
-		if (enemy->kind == GUARD)
+		if (enemy->kind == GUARD_PATROL || enemy->kind == GUARD_STANDING)
 			add_ammo_to_lst(&data->sprite_lst, *enemy);
 		else
 			data->player.score += 100;

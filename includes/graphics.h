@@ -6,14 +6,14 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 15:09:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:19:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
 
-# include "../libs/MLX42/include/MLX42/MLX42.h"
+// # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "sprites.h"
 # include <fcntl.h>
 # include <stdio.h>

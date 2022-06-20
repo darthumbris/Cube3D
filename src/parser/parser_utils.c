@@ -6,71 +6,11 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 15:20:02 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 14:08:55 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:16:47 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
-
-//checks if types were parsed correctly
-bool	checktypes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (!data->bonus)
-	{
-		while (i <= SOUTH)
-		{
-			if (data->level.paths.path[i] == NULL)
-				return (!error_msg("Failure in checking map"));
-			i++;
-		}
-	}
-	return (false);
-}
-
-static bool	bonus_paths(char *line, t_data *data)
-{
-	if (ft_strncmp(line, "HU", 2) == 0)
-		return (store_path(line, data, HUD_MAIN), true);
-	else if (ft_strncmp(line, "HN", 2) == 0)
-		return (store_path(line, data, HUD_NUMBERS), true);
-	else if (ft_strncmp(line, "FH", 2) == 0)
-		return (store_path(line, data, HUD_FACES), true);
-	else if (ft_strncmp(line, "DF", 2) == 0)
-		return (store_path(line, data, DOOR_FRAME), true);
-	else if (ft_strncmp(line, "TD", 2) == 0)
-		return (store_path(line, data, SPRITESHEET_DOG), true);
-	else if (ft_strncmp(line, "TG", 2) == 0)
-		return (store_path(line, data, SPRITESHEET_GUARD), true);
-	else if (ft_strncmp(line, "ES", 2) == 0)
-		return (store_path(line, data, SCORE_SCREEN), true);
-	else if (ft_strncmp(line, "EN", 2) == 0)
-		return (store_path(line, data, SCORE_NUMBERS), true);
-	else if (ft_strncmp(line, "EG", 2) == 0)
-		return (store_path(line, data, GAME_OVER), true);
-	return (bonus_weapons(line, data));
-}
-
-//jump table for storing config settings
-bool	mapjmptable(char *line, t_data *data)
-{
-	int						i;
-
-	i = 0;
-	while (i < data->config.size)
-	{
-		if (ft_strncmp(line, data->config.dat[i].key, 2) == 0)
-			return (store_path(line, data, i), true);
-		i++;
-	}
-	if (ft_strncmp(line, "F ", 2) == 0)
-		return (color_store(line, data, 0), true);
-	else if (ft_strncmp(line, "C ", 2) == 0)
-		return (color_store(line, data, 1), true);
-	return (bonus_paths(line, data));
-}
 
 //checks for double newlines in map
 bool	checkmap(char *map)

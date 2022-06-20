@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/10 14:13:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 09:51:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,63 +49,51 @@ void	getwidtheight(char **upmap, t_data *data)
 	data->level.map_h = i;
 }
 
-bool	checks(char **upmap, int i, int j, t_data *data)
+bool	checks(uint8_t	***map, int i, int j, t_data *data)
 {
-	return (((upmap[i][j] == '0' || is_player_tile(upmap[i][j]) || \
-		is_sprite_tile(upmap[i][j]) || is_door_tile(upmap[i][j]) || \
-		is_secret_tile(upmap[i][j])) \
-		&& verifyzero(upmap, i, j, data) == false && \
-		verifyspace(upmap, i, j, data) == false));
+	return (((is_empty_tile(map[i][j][0]) || is_door_tile(map[i][j][0])) \
+		&& verifyzero(map, i, j, data) == false && \
+		verifyspace(map, i, j, data) == false));
 }
 
-bool	norm_loop(t_data *data, char **upmap, int *count)
+bool	norm_loop(t_data *data, uint8_t	***map, int *count)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (upmap[++i])
+	while (++i < data->level.map_h)
 	{
 		j = -1;
-		while (upmap[i][++j])
+		while (++j < data->level.map_w)
 		{
-			if (checks(upmap, i, j, data))
+			if (checks(map, i, j, data))
 				return (true);
-			if (is_player_tile(upmap[i][j]))
+			if (is_player_tile(map[i][j][2]))
 				(*count)++;
-			else if (is_sprite_tile(upmap[i][j]))
+			else if (is_sprite_tile(map[i][j][2] || is_sprite_tile(map[i][j][1])))
 				data->level.number_of_sprites++;
-			else if (is_door_tile(upmap[i][j]))
+			else if (is_door_tile(map[i][j][0]))
 				data->level.door_count++;
-			else if (is_secret_tile(upmap[i][j]))
+			else if (is_secret_tile(map[i][j][2]))
 				data->level.secret_count++;
 		}
 	}
 	return (false);
 }
 
-char	**parse_map(char **upmap, t_data *data)
+bool	parse_map(uint8_t	***map, t_data *data)
 {
 	int	p_count;
 	int	e_count;
 
 	p_count = 0;
 	e_count = 0;
-	if (!upmap || !*upmap)
-		return (map_error_msg("Map is empty"));
-	while (*upmap && ft_isalpha(*(*upmap)))
-	{
-		e_count++;
-		upmap++;
-	}
-	if (e_count > 6 && !data->bonus)
-		return (map_error_msg("Map is misconfigured"));
-	getwidtheight(upmap, data);
-	if (data->level.map_w < 3 || data->level.map_h < 3)
-		map_error_msg("Map is misconfigured");
-	if (norm_loop(data, upmap, &p_count))
-		return (map_error_msg("Map is misconfigured"));
+	if (!map)
+		return (error_msg("Map is empty"));
+	if (norm_loop(data, map, &p_count))
+		return (error_msg("Map is misconfigured"));
 	if (p_count != 1)
-		return (map_error_msg("Player is misconfigured"));
-	return (upmap);
+		return (error_msg("Player is misconfigured"));
+	return (true);
 }

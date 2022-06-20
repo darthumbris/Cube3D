@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 10:59:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:32:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:27:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	change_frame(t_sprite *enemy)
 		enemy->en_dat.counter = 0;
 	if (enemy->en_dat.counter % 7 == 0)
 		enemy->en_dat.frame++;
-	if ((enemy->kind == DOG && enemy->en_dat.frame > 3) || \
-	(enemy->kind == GUARD && enemy->en_dat.frame > 4))
+	if ((enemy->kind == DOG_PATROL && enemy->en_dat.frame > 3) || \
+	(enemy->kind == GUARD_PATROL && enemy->en_dat.frame > 4))
 		enemy->en_dat.frame = 0;
 }
 

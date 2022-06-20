@@ -6,30 +6,81 @@
 /*   By: y: shoogenb <shoogenb@student.codam.nl>      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 11:51:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 10:42:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 10:56:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-int	get_sprite_kind(char c, t_data *data)
+int	get_enemy_kind(uint8_t c)
 {
-	int	i;
-
-	if (is_guard_tile(c))
-		return (GUARD);
-	else if (is_dog_tile(c))
-		return (DOG);
-	i = 0;
-	if (data->bonus && data->config.size > 5)
-		i = 4;
-	while (i < data->config.size)
+	switch (c)
 	{
-		if (c == data->config.dat[i].value)
-			return (i);
-		i++;
+	case 5 ... 16:
+		return (GUARD_STANDING);
+	case 17 ... 28:
+		return (GUARD_PATROL);
+	case 29 ... 40:
+		return (DOG_STANDING);
+	case 173 ... 184:
+		return (DOG_PATROL);
+	case 41 ... 52:
+		return (MUTANT_STANDING);
+	case 53 ... 64:
+		return (MUTANT_PATROL);
+	case 65 ... 76:
+		return (OFFICER_STANDING);
+	case 77 ... 88:
+		return (OFFICER_PATROL);
+	case 89 ... 100:
+		return (SS_STANDING);
+	case 185 ... 196:
+		return (SS_PATROL);
+	case 101 ... 104:
+		return (SPECTRE_STANDING);
+	case 105 ... 108:
+		return (SPECTRE_PATROL);
+	case 109 ... 112:
+		return (DEATHKNIGHT_STANDING);
+	case 113 ... 116:
+		return (DEATHKNIGHT_PATROL);
+	case 117 ... 120:
+		return (UBERMUTANT_STANDING);
+	case 121 ... 124:
+		return (UBERMUTANT_PATROL);
+	case 125 ... 128:
+		return (BARNEY);
+	case 129 ... 132:
+		return (DEVIL);
+	case 133 ... 136:
+		return (FAKE);
+	case 137 ... 140:
+		return (FATFACE);
+	case 141 ... 144:
+		return (GRETEL);
+	case 145 ... 148:
+		return (HANS);
+	case 149 ... 152:
+		return (HITLER);
+	case 153 ... 156:
+		return (MECHHITLER);
+	case 157 ... 160:
+		return (OTTO);
+	case 161 ... 164:
+		return (SCHABS);
+	case 165 ... 168:
+		return (TRANS);
+	case 169:
+		return (GHOST1);
+	case 170:
+		return (GHOST2);
+	case 171:
+		return (GHOST3);
+	case 172:
+		return (GHOST4);
+	default:
+		return (127);
 	}
-	return (0);
 }
 
 double	sprite_dist(t_vector_double start, t_vector_double end)

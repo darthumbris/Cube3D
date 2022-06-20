@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:15:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 15:51:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	set_texture_pos(t_data *data, mlx_texture_t *tex, t_raycaster *ray)
 		ray->tex.x = tex->width - ray->tex.x - 1;
 	if (ray->side == 1 && ray->ray_dir.y > 0)
 		ray->tex.x = tex->width - ray->tex.x - 1;
-	ray->step_y = 1.0 * tex->height * ray->inv_line_height;
+	ray->step_y = 0.5 * tex->height * ray->inv_line_height;
 	ray->tex_pos = (ray->draw_start - \
 		data->floor.halve_height + ray->halve_line_height) * \
 		ray->step_y;
@@ -72,16 +72,11 @@ void	set_texture_pos(t_data *data, mlx_texture_t *tex, t_raycaster *ray)
 
 static void	extra_drawing(t_data *data, int x)
 {
-	if (data->bonus)
-	{
-		if (data->floor_ceiling)
-			draw_floor_ceiling(data, x);
-		else
-			draw_transparency(data, x);
-		data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
-	}
+	if (data->floor_ceiling)
+		draw_floor_ceiling(data, x);
 	else
 		draw_transparency(data, x);
+	data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
 }
 
 void	raycaster(t_data *data)
@@ -102,6 +97,6 @@ void	raycaster(t_data *data)
 		set_texture_pos(data, texture, &data->caster);
 		draw_walls(data, x, texture);
 		extra_drawing(data, x);
-		++x;
+		x++;
 	}
 }

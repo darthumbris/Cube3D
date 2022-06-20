@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:56:52 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:31:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:11:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_vector_int	get_transp_y(t_sprite *sprt)
 	int				frame;
 
 	frame = sprt->en_dat.frame;
-	if (sprt->kind == GUARD)
+	if ((sprt->kind == GUARD_STANDING || sprt->kind == GUARD_PATROL))
 	{
 		if (sprt->en_dat.state >= HURT)
 			frame = 5;
@@ -82,9 +82,10 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir)
 	enum e_compas	dir;
 
 	dir = get_enemy_direction(cam_dir, sprt->en_dat.dir);
-	if (sprt->kind == GUARD && sprt->en_dat.state == HURT)
+	if ((sprt->kind == GUARD_STANDING || sprt->kind == GUARD_PATROL) \
+		&& sprt->en_dat.state == HURT)
 		dir = 7;
-	if (sprt->kind == DOG)
+	if ((sprt->kind == DOG_STANDING || sprt->kind == DOG_PATROL))
 		return (get_transp_x_dog(sprt, dir));
 	else
 		return (get_transp_x_guard(sprt, dir));

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:36:55 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:29:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:28:19 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static int	get_damage_to_player(double dist, double hit, \
 		damage = 31;
 	else
 		damage /= 2;
-	if (((hit > dodge_chance && kind == GUARD) || \
-		(kind == DOG && hit > 0.30)) && (damage / 2) > 15)
+	if (((hit > dodge_chance && kind == GUARD_PATROL) || \
+		(kind == DOG_PATROL && hit > 0.30)) && (damage / 2) > 15)
 		damage = 15;
 	else
 		damage /= 2;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 12:09:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:21:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:23:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,30 @@ static void	init_player(t_data *data)
 	data->update_hud = false;
 }
 
+static bool	init_sprites(t_data *data)
+{
+	unsigned int	i;
+
+	if (data->level.number_of_sprites == 0)
+		return (true);
+	data->sprite_lst = new_sprite(data->sprite[0]);
+	i = 1;
+	while (i < data->level.number_of_sprites)
+	{
+		add_sprite(&(data->sprite_lst), data->sprite[i]);
+		i++;
+	}
+	sort_sprites(data, &data->sprite_lst);
+	return (true);
+}
+
 //TODO properly parse the level for player pos/dir and all sprites/ doors/ secrets enemies etc
 
 bool	init_level(t_data *data)
 {
 	struct timeval	timev;
 	int				i;
+	int				player_count;
 
 	data->bonus = true;
 	data->cam.pos.x = 2.5;
@@ -54,6 +72,11 @@ bool	init_level(t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 	if (!init_textures(data))
 		return (false);
+	norm_loop(data, data->level.map_planes, &player_count);
+	set_sprite_positions(data->level.map_planes, data);
+	init_sprites(data);
+	init_door_map(data);
+	init_doors(data);
 	init_player(data);
 	init_weapons(data);
 	draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \

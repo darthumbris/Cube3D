@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 15:58:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:44:05 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:28:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 bool	is_enemy_kind(int kind)
 {
-	return (kind == GUARD || kind == DOG);
+	return (kind == GUARD_PATROL || kind == DOG_PATROL);
 }
 
 bool	is_guard(int kind)
 {
-	return (kind == GUARD);
+	return (kind == GUARD_PATROL);
 }
 
 bool	is_dog(int kind)
 {
-	return (kind == DOG);
+	return (kind == DOG_PATROL);
 }
 
 bool	is_enemy_movable(int state)

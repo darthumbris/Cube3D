@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/13 08:50:05 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 11:41:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 16:39:28 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	draw_texture_area(mlx_image_t *img, mlx_texture_t *tex, \
 	uint32_t		color;
 	const double	inv_scale = 1 / scale;
 
-	pos.y = start.y;
+	pos.y = start.y - 1;
 	end.x = start.x + (wh[0] * scale);
 	end.y = start.y + (wh[1] * scale);
 	pixels = img->pixels + ((start.x + start.y * img->width) * 4);
-	while (pos.y < end.y && pos.y < (int)img->height)
+	while (++pos.y < end.y && pos.y < (int)img->height)
 	{
-		pos.x = start.x;
-		while (pos.x < end.x && pos.x < (int)img->width)
+		pos.x = start.x - 1;
+		while (++pos.x < end.x && pos.x < (int)img->width)
 		{
 			pos_tex.x = (pos.x - start.x) * inv_scale + tex_pos.x * wh[0];
 			pos_tex.y = (pos.y - start.y) * inv_scale + tex_pos.y * wh[1];
@@ -40,12 +40,10 @@ void	draw_texture_area(mlx_image_t *img, mlx_texture_t *tex, \
 				pos_tex.y * tex->width) * 4)));
 			if (color)
 				*(uint32_t *)pixels = color;
-			pos.x++;
 			pixels += 4;
 		}
 		if (pos.x < (int)img->width)
 			pixels += (img->width * 4 - (end.x - start.x) * 4);
-		pos.y++;
 	}
 }
 
@@ -63,10 +61,10 @@ void	draw_texture(mlx_image_t *img, mlx_texture_t *tex, \
 	end.x = start.x + (tex->width * scale);
 	end.y = start.y + (tex->height * scale);
 	pixels = img->pixels + ((start.x + start.y * img->width) * 4);
-	while (pos.y < end.y && pos.y < (int)img->height)
+	while (++pos.y < end.y && pos.y < (int)img->height)
 	{
-		pos.x = start.x;
-		while (pos.x < end.x && pos.x < (int)img->width)
+		pos.x = start.x - 1;
+		while (++pos.x < end.x && pos.x < (int)img->width)
 		{
 			pos_tex.x = (pos.x - start.x) * inv_scale;
 			pos_tex.y = (pos.y - start.y) * inv_scale;
@@ -74,11 +72,9 @@ void	draw_texture(mlx_image_t *img, mlx_texture_t *tex, \
 				pos_tex.y * tex->width) * 4)));
 			if (color)
 				*(uint32_t *)pixels = color;
-			pos.x++;
 			pixels += 4;
 		}
 		if (pos.x < (int)img->width)
 			pixels += (img->width * 4 - (end.x - start.x) * 4);
-		pos.y++;
 	}
 }

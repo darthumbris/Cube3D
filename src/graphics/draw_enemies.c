@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:42:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:09:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static mlx_texture_t	*get_enemy_texture(t_data *data, int kind)
 {
-	if (kind == DOG)
+	if (kind == DOG_STANDING || kind == DOG_PATROL)
 		return (data->mlx.tex.enmy[0]);
 	return (data->mlx.tex.enmy[1]);
 }

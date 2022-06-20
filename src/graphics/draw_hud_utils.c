@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:41:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:47:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_hud(t_data *data)
 	data->delay = 0;
 	data->hud.max_height = data->mlx.mlx_handle->height - 1;
 	data->hud.pos_hud.y = data->mlx.mlx_handle->height - \
-			240 * data->hud.scale;
+			40 * data->hud.scale;
 	data->hud.max_width = 320;
 	data->hud.border_width = (data->mlx.mlx_handle->width - \
 					data->hud.max_width * data->hud.scale) / 2;

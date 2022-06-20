@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 16:43:19 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 15:51:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:26:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ bool	is_finish_tile(char c)
 
 bool	is_item(int kind)
 {
-	return (kind >= STIMULANT && kind <= TREASURE_2);
+	return (kind >= AMMO && kind <= GOLD_KEY);
 }
 
 bool	is_nonblocking_kind(int kind)
 {
-	return (kind == LAMP || kind == GUARD || kind == DOG || kind == BONES || \
-		kind == CHANDELIER || is_item(kind) || kind == BONES_2 || \
-		kind == DEAD_GUARD || kind == PUDDLE);
+	return (kind == LAMP_G || kind == LAMP_R || (kind >= 2 && kind <= 9)
+		|| is_enemy_kind(kind) || kind == BLOOD_PUDDLE || kind == VINES || \
+		kind == PANS1 || kind == PANS2 || kind == PUDDLE_WTR || \
+		kind == CHANDELIER || is_item(kind));
 }
 
 bool	is_secret_tile(uint8_t c)

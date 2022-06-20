@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:39:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 17:01:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ static void	set_sprite_variables(t_data *data, t_sprite_lst *sprite)
 
 static void	set_draw_start_end(t_data *data)
 {
-	data->spr_cast.draw_start.y = -(data->spr_cast.sprite_height << 1) + \
-		data->floor.halve_height;
+	data->spr_cast.move_screen = 0;
+	data->spr_cast.draw_start.y = (-(data->spr_cast.sprite_height << 1) + \
+		data->floor.halve_height);
 	if (data->spr_cast.draw_start.y < 0)
 		data->spr_cast.draw_start.y = 0;
-	data->spr_cast.draw_end.y = (data->spr_cast.sprite_height << 1) + \
-		data->floor.halve_height;
+	data->spr_cast.draw_end.y = ((data->spr_cast.sprite_height << 1) + \
+		data->floor.halve_height);
 	if (data->spr_cast.draw_end.y >= data->mlx.mlx_handle->height)
 		data->spr_cast.draw_end.y = data->mlx.mlx_handle->height - 1;
 	data->spr_cast.sprite_width = abs((int)(data->mlx.mlx_handle->height * \
@@ -67,16 +68,16 @@ static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 	{
 		dist = y * 256 - data->mlx.mlx_handle->height * 128 + \
 			data->spr_cast.sprite_height * 128;
-		data->spr_cast.tex.y = ((dist * data->mlx.tex.obj[sprt->kind]->\
+		data->spr_cast.tex.y = ((dist * data->mlx.tex.obj[sprt->kind - 1]->\
 			height) * data->spr_cast.inverse_sprite_height) / 256;
-		if (data->spr_cast.tex.y < (int)data->mlx.tex.obj[sprt->kind]->\
+		if (data->spr_cast.tex.y < (int)data->mlx.tex.obj[sprt->kind - 1]->\
 			height && data->spr_cast.tex.y > sprt->transp_end.y)
 		{
 			if (sprt->transp_begin.y > 0 && data->spr_cast.tex.y > \
 				sprt->transp_begin.y)
 				break ;
-			color = (*(unsigned int *)(data->mlx.tex.obj[sprt->kind]->pixels \
-			+ (data->mlx.tex.obj[sprt->kind]->width * data->spr_cast.tex.y * \
+			color = (*(unsigned int *)(data->mlx.tex.obj[sprt->kind - 1]->pixels \
+			+ (data->mlx.tex.obj[sprt->kind - 1]->width * data->spr_cast.tex.y * \
 			4 + data->spr_cast.tex.x * 4)));
 			if (color != 0xff000000)
 				*(uint32_t *)fg = color;
@@ -85,7 +86,8 @@ static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
 	}
 }
 
-//TODO check if possible to use the draw_texture function here?
+//TODO change it so it does it in a similar way as draw texture function
+//TODO try to do it so the sprites don't need to be 128 x 128?
 static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 {
 	int			x;
@@ -96,7 +98,7 @@ static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
 		data->spr_cast.tex.x = (int)(256 * \
 			(x - (-data->spr_cast.sprite_width_halve + \
 			data->spr_cast.sprite_screen_x)) * \
-			data->mlx.tex.obj[kind]->width * \
+			data->mlx.tex.obj[kind - 1]->width * \
 		data->spr_cast.inverse_sprite_width) / 256;
 		if (data->spr_cast.transform.y > 0 && x > 0 && \
 			x < data->mlx.mlx_handle->width && \
@@ -126,8 +128,8 @@ void	draw_sprites(t_data *data)
 			set_draw_start_end(data);
 			if (!is_enemy_kind(lst->sprite_data.kind))
 				draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
-			else
-				update_enemies(data, &lst->sprite_data);
+			// else
+			// 	update_enemies(data, &lst->sprite_data);
 		}
 		i++;
 		lst = lst->next;

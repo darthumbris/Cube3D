@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:42:13 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 15:06:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 15:33:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	init_needed_wall_textures(t_lodtex *tex, t_data *data)
 	{
 		if (data->mlx.txt_in_map.wall[i])
 		{
-			path = ft_strjoin_r("assets/walls/", wall_icon_lst[i - 1].tex_name);
+			path = ft_strjoin_r("assets/walls/", wall_icon_lst[i].tex_name);
 			tex->wall[i] = mlx_load_png(path);
 			if (tex->wall[i] == NULL)
 			{
@@ -52,7 +52,7 @@ bool	init_needed_obj_textures(t_lodtex *tex, t_data *data)
 		if (data->mlx.txt_in_map.obj[i])
 		{
 			if (i < 49)
-				path = ft_strjoin_r("assets/sprites/decor/", obj_icon_lst[i - 1].tex_name);
+				path = ft_strjoin_r("assets/sprites/decor/", obj_icon_lst[i].tex_name);
 			else
 				path = ft_strjoin_r("assets/sprites/items/", item_icon_lst[i - 49].tex_name);
 			tex->obj[i] = mlx_load_png(path);

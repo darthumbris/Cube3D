@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:43:21 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 15:10:28 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:48:12 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 bool	init_hud_textures(t_mlx *gfx)
 {
-	gfx->tex.hud[0] = mlx_load_png("assets/hud/hud_transparent.png");
-	gfx->tex.hud[1] = mlx_load_png("assets/hud/hud_numbers.png");
-	gfx->tex.hud[2] = mlx_load_png("assets/hud/hud_faces.png");
-	gfx->tex.hud[3] = mlx_load_png("assets/hud/score_screen.png");
-	gfx->tex.hud[4] = mlx_load_png("assets/hud/score_numbers.png");
-	gfx->tex.hud[5] = mlx_load_png("assets/hud/game_over.png");
-	if (gfx->tex.hud[0] == NULL || gfx->tex.hud[1] == NULL || \
-		gfx->tex.hud[2] == NULL || gfx->tex.hud[3] == NULL || \
-		gfx->tex.hud[4] == NULL || gfx->tex.hud[5] == NULL)
+	gfx->tex.hud[HUD_M_T] = mlx_load_png("assets/hud/hud_transparent.png");
+	gfx->tex.hud[HUD_N_T] = mlx_load_png("assets/hud/hud_numbers.png");
+	gfx->tex.hud[HUD_F_T] = mlx_load_png("assets/hud/hud_faces.png");
+	gfx->tex.hud[SCORE_M_T] = mlx_load_png("assets/hud/score_screen.png");
+	gfx->tex.hud[SCORE_N_T] = mlx_load_png("assets/hud/score_numbers.png");
+	gfx->tex.hud[GAMEOVER_T] = mlx_load_png("assets/hud/game_over.png");
+	if (gfx->tex.hud[HUD_M_T] == NULL || gfx->tex.hud[HUD_N_T] == NULL || \
+		gfx->tex.hud[HUD_F_T] == NULL || gfx->tex.hud[SCORE_M_T] == NULL || \
+		gfx->tex.hud[SCORE_N_T] == NULL || gfx->tex.hud[GAMEOVER_T] == NULL)
 		return (false);
 	return (true);
 }

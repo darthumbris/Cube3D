@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 09:45:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:28:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	check_attack_sound_play(t_data *data, t_sprite *enemy)
 {
 	if (enemy->en_dat.frame == 1 && !enemy->en_dat.played_sound)
 	{
-		if (enemy->kind == DOG)
+		if (enemy->kind == DOG_PATROL)
 			play_sound_vol(data, "./assets/wav_files/sounds/dogatk.wav", \
 				enemy->dist);
-		if (enemy->kind == GUARD)
+		if (enemy->kind == GUARD_PATROL)
 			play_sound_vol(data, "./assets/wav_files/sounds/grdatk.wav", \
 				enemy->dist);
 		enemy->en_dat.played_sound = true;
@@ -41,12 +41,12 @@ static void	change_animation_frame(t_sprite *enemy, int delay, bool dead)
 	}
 	else
 	{
-		if (enemy->kind == GUARD && enemy->en_dat.frame > 4)
+		if (enemy->kind == GUARD_PATROL && enemy->en_dat.frame > 4)
 		{
 			enemy->en_dat.state = DEAD;
 			enemy->en_dat.frame = 4;
 		}
-		else if (enemy->kind == DOG && enemy->en_dat.frame > 3)
+		else if (enemy->kind == DOG_PATROL && enemy->en_dat.frame > 3)
 		{
 			enemy->en_dat.state = DEAD;
 			enemy->en_dat.frame = 3;
@@ -86,7 +86,7 @@ static void	check_enemies_dead(t_sprite *enemy)
 
 void	update_enemies(t_data *data, t_sprite *enemy)
 {
-	draw_enemies(data, enemy);
+	// draw_enemies(data, enemy);
 	check_enemies_attack(data, enemy);
 	check_enemies_dead(enemy);
 	path_find(data, enemy);

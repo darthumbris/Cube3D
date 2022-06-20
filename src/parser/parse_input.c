@@ -6,43 +6,13 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:29:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:29:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
 
-//loops through the configs
-bool	parse_types(char **upmap, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->bonus)
-	{
-		while (upmap[i] && i < data->number_of_textures + 3 \
-		&& upmap[i][0] != ' ' && !ft_isdigit(upmap[i][0]))
-		{
-			if (mapjmptable(upmap[i], data) == false)
-				return (error_msg("Map is misconfigured"));
-			i++;
-		}
-	}
-	else
-	{
-		data->config.size = 4;
-		while (upmap[i] && i <= SOUTH + 2)
-		{
-			if (mapjmptable(upmap[i], data) == false)
-				return (error_msg("Map is misconfigured"));
-			i++;
-		}
-	}
-	return (true);
-}
-
-//name
 t_vector_double	getplayerpos(char **map)
 {
 	int	i;

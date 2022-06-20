@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:34:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:27:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void	check_for_player(t_data *data, t_sprite *enemy)
 		return ;
 	}
 	enemy->en_dat.state = TRACKING;
-	if (!enemy->en_dat.played_sound && enemy->kind == GUARD)
+	if (!enemy->en_dat.played_sound && enemy->kind == GUARD_PATROL)
 		play_sound_vol(data, "./assets/wav_files/sounds/grdsit2.wav", \
 			enemy->dist);
-	else if (!enemy->en_dat.played_sound && enemy->kind == DOG)
+	else if (!enemy->en_dat.played_sound && enemy->kind == DOG_PATROL)
 		play_sound_vol(data, "./assets/wav_files/sounds/dogsit.wav", \
 			enemy->dist);
 }
