@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 12:09:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:23:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 17:08:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,44 @@ static bool	init_sprites(t_data *data)
 	return (true);
 }
 
+void	set_player_dir(t_data *data, uint8_t c)
+{
+	data->cam.dir.x = 0;
+	data->cam.dir.y = 0;
+	if (c == 1)
+		data->cam.dir.y = -1.0;
+	else if (c == 2)
+		data->cam.dir.y = +1.0;
+	else if (c == 3)
+		data->cam.dir.x = -1.0;
+	else
+		data->cam.dir.x = +1.0;
+	data->cam.plane.x = tan(M_PI_2 * FOV / 180.0) * -data->cam.dir.y;
+	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
+}
+
+void	set_player_pos(t_data *data, uint8_t ***map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < data->level.map_h)
+	{
+		j = -1;
+		while (++j < data->level.map_w)
+		{
+			if (is_player_tile(map[i][j][2]))
+			{
+				data->cam.pos.y = i + 0.5;
+				data->cam.pos.x = j + 0.5;
+				set_player_dir(data, map[i][j][2]);
+				return ;
+			}
+		}
+	}
+}
+
 //TODO properly parse the level for player pos/dir and all sprites/ doors/ secrets enemies etc
 
 bool	init_level(t_data *data)
@@ -64,15 +102,12 @@ bool	init_level(t_data *data)
 	int				player_count;
 
 	data->bonus = true;
-	data->cam.pos.x = 2.5;
-	data->cam.pos.y = 2.5;
-	data->cam.dir.y = 0;
-	data->cam.dir.x = +1.0;
-	data->cam.plane.x = tan(M_PI_2 * FOV / 180.0) * -data->cam.dir.y;
-	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
+	player_count = 0;
 	if (!init_textures(data))
 		return (false);
-	norm_loop(data, data->level.map_planes, &player_count);
+	if (!norm_loop(data, data->level.map_planes, &player_count))
+		return (false);
+	set_player_pos(data, data->level.map_planes);
 	set_sprite_positions(data->level.map_planes, data);
 	init_sprites(data);
 	init_door_map(data);

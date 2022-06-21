@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:42:13 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 15:33:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:52:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ bool	init_needed_enemy_textures(t_lodtex *tex, t_data *data)
 		{
 			path = ft_strjoin_r("assets/sprites/guards/", enemy_icon_lst[i + 2].tex_name);
 			tex->enmy[i] = mlx_load_png(path);
+			printf("i: %d, path: %s\n", i, path);
 			if (tex->enmy[i] == NULL)
 			{
 				printf("failed to load %d name: %s\n", i, path);

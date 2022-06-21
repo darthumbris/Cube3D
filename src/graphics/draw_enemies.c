@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:09:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:53:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static mlx_texture_t	*get_enemy_texture(t_data *data, int kind)
 {
 	if (kind == DOG_STANDING || kind == DOG_PATROL)
-		return (data->mlx.tex.enmy[0]);
-	return (data->mlx.tex.enmy[1]);
+		return (data->mlx.tex.enmy[1]);
+	return (data->mlx.tex.enmy[0]);
 }
 
 static void	draw_sprite_line(t_data *dat, t_vector_int pos, t_sprite *sprt, \
@@ -50,28 +50,26 @@ static void	draw_sprite_line(t_data *dat, t_vector_int pos, t_sprite *sprt, \
 }
 
 //TODO try to use the draw_texture_area here
-void	draw_enemies(t_data *data, t_sprite *sprt)
+void	draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c)
 {
 	const t_vector_int	transp_x = get_transp_x(sprt, data->cam.dir);
 	mlx_texture_t		*texture;
 	int					x;
 	const int			xpos_sheet = get_xpos_sheet(sprt, data->cam.dir);
 
-	x = data->spr_cast.draw_start.x;
+	x = c->draw_start.x - 1;
 	texture = get_enemy_texture(data, sprt->kind);
-	while (++x < data->spr_cast.draw_end.x)
+	while (++x < c->draw_end.x)
 	{
-		data->spr_cast.tex.x = (int)(256 * \
-			(x - (-data->spr_cast.sprite_width_halve + \
-			data->spr_cast.sprite_screen_x)) * \
-			(texture->width / 8) * \
-		data->spr_cast.inverse_sprite_width) / 256;
-		data->spr_cast.tex.x += xpos_sheet;
-		if (data->spr_cast.transform.y > 0 && x > 0 && \
-			x < data->mlx.mlx_handle->width && data->spr_cast.transform.y \
-			< data->spr_cast.zbuffer[x] && data->spr_cast.tex.x > transp_x.x \
-			&& data->spr_cast.tex.x < transp_x.y)
+		c->tex.x = (int)(256 * (x - (-c->sprite_width_halve + \
+			c->sprite_screen_x)) * (texture->width / 8) * \
+			c->inverse_sprite_width) / 256;
+		c->tex.x += xpos_sheet;
+		if (c->transform.y > 0 && x > 0 && \
+			x < data->mlx.mlx_handle->width && c->transform.y \
+			< c->zbuffer[x] && c->tex.x > transp_x.x \
+			&& c->tex.x < transp_x.y)
 			draw_sprite_line(data, (t_vector_int){x, \
-				data->spr_cast.draw_start.y}, sprt, texture);
+				c->draw_start.y}, sprt, texture);
 	}
 }

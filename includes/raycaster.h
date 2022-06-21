@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:42:01 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 15:39:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:39:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_sprite_raycaster
 	t_vector_int	draw_end;
 	t_vector_int	tex;
 	double			inverse_transform_y;
-	int				move_screen;
+	int				move;
 }				t_sprite_raycaster;
 
 typedef struct s_floor_raycaster

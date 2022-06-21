@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/09 13:37:04 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:13:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:55:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ammo_item(t_data *data, t_sprite_lst *item)
 {
 	if (data->player.ammo < 99)
 	{
-		if (item->sprite_data.kind == AMMO)
+		if (item->sprite_data.kind == CLIP)
 		{
 			if (data->player.active_weapon == KNIFE && data->player.ammo == 0)
 			{

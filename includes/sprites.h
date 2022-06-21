@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:19:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:56:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,121 +92,6 @@ enum	e_sprites
 	STIMULANT,
 	GOLD_KEY
 };
-
-// typedef enum e_textures
-// {
-// 	WEST = 0,
-// 	EAST,
-// 	NORTH,
-// 	SOUTH,
-// 	FLOOR,
-// 	CEILING,
-// 	WALL_1,
-// 	WALL_2,
-// 	WALL_3,
-// 	WALL_4,
-// 	WALL_5,
-// 	WALL_6,
-// 	WALL_7,
-// 	WALL_8,
-// 	WALL_9,
-// 	WALL_10,
-// 	FINISH_WALL,
-// 	ELEVATOR_UP,
-// 	HIDDEN_WALL_1,
-// 	HIDDEN_WALL_2,
-// 	HIDDEN_WALL_3,
-// 	HIDDEN_WALL_4,
-// 	DOOR_WALL_1,
-// 	DOOR_WALL_2,
-// 	SPRITE_0,
-// 	SPRITE_2,
-// 	SPRITE_3,
-// 	SPRITE_4,
-// 	SPRITE_5,
-// 	SPRITE_6,
-// 	SPRITE_7,
-// 	SPRITE_8,
-// 	SPRITE_9,
-// 	SPRITE_10,
-// 	SPRITE_11,
-// 	SPRITE_12,
-// 	SPRITE_13,
-// 	SPRITE_14,
-// 	SPRITE_15,
-// 	SPRITE_16,
-// 	SPRITE_17,
-// 	SPRITE_18,
-// 	SPRITE_19,
-// 	SPRITE_20,
-// 	ITEM_0,
-// 	ITEM_1,
-// 	ITEM_2,
-// 	ITEM_3,
-// 	ITEM_4,
-// 	ITEM_5,
-// 	ITEM_6,
-// 	ITEM_7,
-// 	ITEM_8,
-// 	DOOR_FRAME,
-// 	HUD_MAIN,
-// 	HUD_NUMBERS,
-// 	HUD_FACES,
-// 	SPRITESHEET_GUARD,
-// 	SPRITESHEET_DOG,
-// 	PISTOL0,
-// 	PISTOL1,
-// 	PISTOL2,
-// 	PISTOL3,
-// 	KNIFE0,
-// 	KNIFE1,
-// 	KNIFE2,
-// 	KNIFE3,
-// 	MACHINEGUN0,
-// 	MACHINEGUN1,
-// 	MACHINEGUN2,
-// 	MACHINEGUN3,
-// 	SCORE_SCREEN,
-// 	SCORE_NUMBERS,
-// 	GAME_OVER
-// }	t_textures;
-
-// typedef enum e_sprites
-// {
-// 	BARREL = SPRITE_0,
-// 	LAMP = SPRITE_2,
-// 	BONES = SPRITE_3,
-// 	GUARD = SPRITESHEET_GUARD,
-// 	DOG = SPRITESHEET_DOG,
-// 	TABLE = SPRITE_6,
-// 	WELL_EMPTY = SPRITE_7,
-// 	WELL_FULL = SPRITE_8,
-// 	CHANDELIER = SPRITE_9,
-// 	PLANT = SPRITE_10,
-// 	TABLE_CHAIRS = SPRITE_11,
-// 	STATUE = SPRITE_12,
-// 	LAMP_STANDING = SPRITE_13,
-// 	TREE = SPRITE_14,
-// 	GREEN_BARREL = SPRITE_15,
-// 	POT = SPRITE_16,
-// 	FLAG = SPRITE_17,
-// 	BONES_2 = SPRITE_18,
-// 	DEAD_GUARD = SPRITE_19,
-// 	PUDDLE = SPRITE_20,
-// }	t_sprite_enum;
-
-// typedef enum e_items
-// {
-// 	STIMULANT = ITEM_0,
-// 	MEDKIT = ITEM_1,
-// 	SOUL = ITEM_2,
-// 	DOGMEAL = ITEM_3,
-// 	GUN = ITEM_4,
-// 	AMMO = ITEM_5,
-// 	TREASURE_0 = ITEM_6,
-// 	TREASURE_1 = ITEM_7,
-// 	TREASURE_2 = ITEM_8
-// }	t_items;
 
 enum e_compas
 {

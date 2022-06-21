@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:19:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 15:11:31 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define WALL_COLOUR 		0xD8D8FCFF
 # define BORDER_COLOR		4282400768
 # define MENU_BORDER_COLOR	0x880000FF
+# define TEX_SIZE			128
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61

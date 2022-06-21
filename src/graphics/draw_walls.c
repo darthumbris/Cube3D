@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 15:12:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 15:51:35 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 15:32:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,22 @@ mlx_texture_t	*get_texture(t_data *data, t_vector_double pos)
 void	draw_walls(t_data *data, int x, mlx_texture_t *texture)
 {
 	int				y;
-	uint8_t			*pix[2];
+	uint8_t			*fg;
+	uint8_t			*wall;
 	int				max;
 
 	max = data->mlx.mlx_handle->height - \
 		data->mlx.tex.hud[HUD_M_T]->height * data->hud.scale;
 	y = data->caster.draw_start;
-	pix[0] = texture->pixels;
-	pix[1] = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
+	wall = texture->pixels;
+	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
 	while (y < data->caster.draw_end && y < max)
 	{
 		data->caster.tex.y = (int)data->caster.tex_pos % 128;
 		data->caster.tex_pos += data->caster.step_y;
-		*(uint32_t *)pix[1] = (*(int *)(pix[0] + \
+		*(uint32_t *)fg = (*(uint32_t *)(wall + \
 		((data->caster.tex.y * texture->width + data->caster.tex.x) * 4)));
-		pix[1] += data->floor.width4;
+		fg += data->floor.width4;
 		++y;
 	}
 }

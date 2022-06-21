@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:28:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:50:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	check_enemies_dead(t_sprite *enemy)
 
 void	update_enemies(t_data *data, t_sprite *enemy)
 {
-	// draw_enemies(data, enemy);
+	draw_enemies(data, enemy, &data->spr_cast);
 	check_enemies_attack(data, enemy);
 	check_enemies_dead(enemy);
 	path_find(data, enemy);

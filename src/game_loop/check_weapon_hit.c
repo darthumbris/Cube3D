@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 12:07:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:14:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:50:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	check_weapon_hit(t_data *data)
 			printf("miss\n");
 		return ;
 	}
-	draw_enemies(data, &enemy->sprite_data);
+	draw_enemies(data, &enemy->sprite_data, &data->spr_cast);
 	damage_enemy(data, &enemy->sprite_data, \
 		calculate_damage(data, round(sqrt(enemy->sprite_data.dist))));
 }

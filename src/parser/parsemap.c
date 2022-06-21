@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 17:13:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/20 09:51:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 17:09:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	norm_loop(t_data *data, uint8_t	***map, int *count)
 				data->level.secret_count++;
 		}
 	}
-	return (false);
+	return ((*count) == 1);
 }
 
 bool	parse_map(uint8_t	***map, t_data *data)

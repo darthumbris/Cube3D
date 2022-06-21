@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/21 13:32:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/21 16:46:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,66 +32,84 @@ static void	set_sprite_variables(t_data *data, t_sprite_lst *sprite)
 	data->spr_cast.inverse_sprite_height = 1.0 / data->spr_cast.sprite_height;
 }
 
-static void	set_draw_start_end(t_data *data)
+static bool	ceiling_sprite(int kind)
 {
-	data->spr_cast.move_screen = 0;
-	data->spr_cast.draw_start.y = (-(data->spr_cast.sprite_height << 1) + \
-		data->floor.halve_height);
-	if (data->spr_cast.draw_start.y < 0)
-		data->spr_cast.draw_start.y = 0;
-	data->spr_cast.draw_end.y = ((data->spr_cast.sprite_height << 1) + \
-		data->floor.halve_height);
-	if (data->spr_cast.draw_end.y >= data->mlx.mlx_handle->height)
-		data->spr_cast.draw_end.y = data->mlx.mlx_handle->height - 1;
-	data->spr_cast.sprite_width = abs((int)(data->mlx.mlx_handle->height * \
-		data->spr_cast.inverse_transform_y));
-	data->spr_cast.sprite_width_halve = data->spr_cast.sprite_width / 2;
-	data->spr_cast.inverse_sprite_width = 1.0 / data->spr_cast.sprite_width;
-	data->spr_cast.draw_start.x = -data->spr_cast.sprite_width_halve + \
-		data->spr_cast.sprite_screen_x;
-	if (data->spr_cast.draw_start.x < 0)
-		data->spr_cast.draw_start.x = 0;
-	data->spr_cast.draw_end.x = data->spr_cast.sprite_width_halve + \
-		data->spr_cast.sprite_screen_x;
-	if (data->spr_cast.draw_end.x >= data->mlx.mlx_handle->width)
-		data->spr_cast.draw_end.x = data->mlx.mlx_handle->width - 1;
+	return (kind == LAMP_G || kind == LAMP_R || kind == CHANDELIER || \
+			kind == ORB || kind == CAGE1 || kind == CAGE2 || kind == CAGE3 \
+			|| kind == CAGE4 || kind == PANS1 || kind == PANS2);
 }
 
-//TODO change it so it does it in a similar way as draw texture function
-//TODO try to do it so the sprites don't need to be 128 x 128?
-static void	draw_sprite(t_sprite_raycaster *c, t_sprite *sprt, mlx_image_t *img, mlx_texture_t *tex)
+static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)
+{
+	if (ceiling_sprite(kind))
+		c->move = 0;
+	else
+		c->move = (int)((5 * TEX_SIZE) * c->inverse_transform_y);
+	c->draw_start.y = (-(c->sprite_height << 1) + (img->height / 2)) + c->move;
+	if (c->draw_start.y < 0)
+		c->draw_start.y = 0;
+	c->draw_end.y = ((c->sprite_height << 1) + (img->height / 2)) + c->move;
+	if (c->draw_end.y >= (int)img->height)
+		c->draw_end.y = img->height - 1;
+	c->sprite_width = abs((int)(img->height * \
+		c->inverse_transform_y));
+	c->sprite_width_halve = c->sprite_width / 2;
+	c->inverse_sprite_width = 1.0 / c->sprite_width;
+	c->draw_start.x = -c->sprite_width_halve + c->sprite_screen_x;
+	if (c->draw_start.x < 0)
+		c->draw_start.x = 0;
+	c->draw_end.x = c->sprite_width_halve + c->sprite_screen_x;
+	if (c->draw_end.x >= (int)img->width)
+		c->draw_end.x = img->width - 1;
+}
+
+static bool	in_sprite_area(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
+{
+	return (c->transform.y > 0 && pos.x > 0 && pos.x < (int)img->width \
+			&& c->transform.y < c->zbuffer[pos.x]);
+}
+
+static bool	in_color_area(t_vector_int texp, mlx_texture_t *tex)
+{
+	return (texp.x >= 0 && texp.x < (int)tex->width);
+}
+
+static void	draw_sprite(t_sprite_raycaster *c, t_sprite *sprt, mlx_image_t *i, mlx_texture_t *tex)
 {
 	int				d;
 	uint8_t			*fg;
 	uint32_t		color;
 	t_vector_int	pos;
-	t_vector_int	texp;
+	t_vector_int	t;
 
 	pos.y = c->draw_start.y - 1;
-	fg = img->pixels + (((pos.y + 1) * img->width + c->draw_start.x) * 4);
+	fg = i->pixels + (((pos.y + 1) * i->width + c->draw_start.x) * 4);
 	while (++pos.y < c->draw_end.y)
 	{
-		d = pos.y * 256 - (int)img->height * 128 + c->sprite_height * 128;
-		texp.y = ((d * tex->height) * c->inverse_sprite_height) / 256;
+		d = (pos.y - c->move) * 256 - i->height * 128 + c->sprite_height * 128;
+		t.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
 		pos.x = c->draw_start.x - 1;
-		while (++pos.x < c->draw_end.x)
+		if (t.y > sprt->transp_end.y)
+			break ;
+		while (++pos.x < c->draw_end.x && t.y < (int)tex->height && t.y >= 0)
 		{
-			texp.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
-			c->sprite_screen_x)) * tex->width * c->inverse_sprite_width) / 256;
-			if (c->transform.y > 0 && pos.x > 0 && pos.x < (int)img->width \
-			&& c->transform.y < c->zbuffer[pos.x] && texp.x > \
-			sprt->transp_begin.x && texp.x < sprt->transp_end.x && \
-			texp.y < (int)tex->height && texp.y > 0)
+			t.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
+			c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
+			if (sprt->transp_begin.x > 0 && t.x < sprt->transp_end.x)
+				t.x -= sprt->transp_begin.x;
+			if (t.x > sprt->transp_end.x)
+				break ;
+			if (in_sprite_area(c, pos, i) && in_color_area(t, tex))
 			{
-				color = (*(uint32_t *)(tex->pixels + ((tex->width * \
-					texp.y + texp.x) * 4)));
-				if (color != 0xff000000)
+				color = (*(uint32_t *)(tex->pixels + \
+					((tex->width * t.y + t.x) * 4)));
+				if (color != 0x880098 && color != 0x8b009b)
 					*(uint32_t *)fg = color;
 			}
 			fg += 4;
 		}
-		if (pos.x < (int)img->width)
-			fg += ((img->width - (c->draw_end.x - c->draw_start.x)) * 4);
+		if (pos.x < (int)i->width)
+			fg += ((i->width - (pos.x - c->draw_start.x)) * 4);
 	}
 }
 
@@ -110,11 +128,12 @@ void	draw_sprites(t_data *data)
 		if (lst->sprite_data.dist < RENDER_DIST_S && lst->sprite_data.kind)
 		{
 			set_sprite_variables(data, lst);
-			set_draw_start_end(data);
+			set_draw_pos(lst->sprite_data.kind, &data->spr_cast, data->mlx.fg);
 			if (!is_enemy_kind(lst->sprite_data.kind))
-				draw_sprite(&data->spr_cast, &lst->sprite_data, data->mlx.fg, data->mlx.tex.obj[lst->sprite_data.kind - 1]);
-			// else
-			// 	update_enemies(data, &lst->sprite_data);
+				draw_sprite(&data->spr_cast, &lst->sprite_data, data->mlx.fg, \
+					data->mlx.tex.obj[lst->sprite_data.kind - 1]);
+			else
+				update_enemies(data, &lst->sprite_data);
 		}
 		i++;
 		lst = lst->next;
