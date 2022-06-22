@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:56:52 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:11:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:12:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ t_vector_int	get_transp_y(t_sprite *sprt)
 	int				frame;
 
 	frame = sprt->en_dat.frame;
-	if ((sprt->kind == GUARD_STANDING || sprt->kind == GUARD_PATROL))
+	if (sprt->kind == GUARD)
 	{
 		if (sprt->en_dat.state >= HURT)
 			frame = 5;
-		else if (sprt->en_dat.state == ATTACKING)
+		else if (sprt->en_dat.state == ATTACK)
 			frame = 6;
 		y.x = 13 + (frame % 7) * 65;
 		y.y = 63 + (frame % 7) * 65;
@@ -31,7 +31,7 @@ t_vector_int	get_transp_y(t_sprite *sprt)
 	{
 		if (sprt->en_dat.state == DEAD || sprt->en_dat.state == DYING)
 			frame = 4;
-		else if (sprt->en_dat.state == ATTACKING)
+		else if (sprt->en_dat.state == ATTACK)
 			frame = 5;
 		y.x = 19 + (frame % 6) * 65;
 		y.y = 63 + (frame % 6) * 65;
@@ -50,7 +50,7 @@ static t_vector_int	get_transp_x_dog(t_sprite *sprt, enum e_compas dir)
 		x.x = 6 + (sprt->en_dat.frame % 4) * 65;
 		x.y = 63 + (sprt->en_dat.frame % 4) * 65;
 	}
-	else if (sprt->en_dat.state == ATTACKING)
+	else if (sprt->en_dat.state == ATTACK)
 	{
 		x.x = 19 + (sprt->en_dat.frame % 3) * 65;
 		x.y = 59 + (sprt->en_dat.frame % 3) * 65;
@@ -69,7 +69,7 @@ static t_vector_int	get_transp_x_guard(t_sprite *sprt, enum e_compas dir)
 		x.x = 13 + (sprt->en_dat.frame % 5) * 65;
 		x.y = 63 + (sprt->en_dat.frame % 5) * 65;
 	}
-	else if (sprt->en_dat.state == ATTACKING)
+	else if (sprt->en_dat.state == ATTACK)
 	{
 		x.x = 17 + (sprt->en_dat.frame % 3) * 65;
 		x.y = 46 + (sprt->en_dat.frame % 3) * 65;
@@ -82,10 +82,10 @@ t_vector_int	get_transp_x(t_sprite *sprt, t_vector_double cam_dir)
 	enum e_compas	dir;
 
 	dir = get_enemy_direction(cam_dir, sprt->en_dat.dir);
-	if ((sprt->kind == GUARD_STANDING || sprt->kind == GUARD_PATROL) \
+	if ((sprt->kind == GUARD) \
 		&& sprt->en_dat.state == HURT)
 		dir = 7;
-	if ((sprt->kind == DOG_STANDING || sprt->kind == DOG_PATROL))
+	if ((sprt->kind == DOG || sprt->kind == DOG))
 		return (get_transp_x_dog(sprt, dir));
 	else
 		return (get_transp_x_guard(sprt, dir));

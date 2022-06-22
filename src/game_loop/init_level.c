@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 12:09:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/21 17:08:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:03:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ bool	init_level(t_data *data)
 	int				i;
 	int				player_count;
 
-	data->bonus = true;
 	player_count = 0;
 	if (!init_textures(data))
 		return (false);
@@ -112,6 +111,7 @@ bool	init_level(t_data *data)
 	init_sprites(data);
 	init_door_map(data);
 	init_doors(data);
+	init_secrets(data);
 	init_player(data);
 	init_weapons(data);
 	draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \

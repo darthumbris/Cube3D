@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 12:32:09 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:29:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:00:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,11 @@ void	cleanup_data(t_data *data)
 	mlx_delete_image(data->mlx.mlx_handle, data->mlx.fg);
 	mlx_delete_image(data->mlx.mlx_handle, data->mlx.bg);
 	cleanup_textures(data);
-	if (data->bonus)
-	{
-		mlx_delete_image(data->mlx.mlx_handle, data->mlx.weapon);
-		mlx_delete_image(data->mlx.mlx_handle, data->mlx.hud);
-		mlx_delete_image(data->mlx.mlx_handle, data->mlx.minimap);
-		mlx_delete_image(data->mlx.mlx_handle, data->mlx.score_screen);
-		clear_sprite_lst(&data->sprite_lst);
-	}
+	mlx_delete_image(data->mlx.mlx_handle, data->mlx.weapon);
+	mlx_delete_image(data->mlx.mlx_handle, data->mlx.hud);
+	mlx_delete_image(data->mlx.mlx_handle, data->mlx.minimap);
+	mlx_delete_image(data->mlx.mlx_handle, data->mlx.score_screen);
+	clear_sprite_lst(&data->sprite_lst);
 	free(data->sprite);
 	if (data->doors)
 		free(data->doors);

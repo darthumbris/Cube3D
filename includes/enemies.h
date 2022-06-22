@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/20 10:03:47 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:19:47 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:19:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,33 @@ enum e_enemy_kinds
 	GHOST2,
 	GHOST3,
 	GHOST4,
+};
+
+enum e_enemies
+{
+	GUARD = 255,
+	DOG,
+	OFFICER,
+	SS,
+	MUTANT,
+	SPECTRE,
+	DEATHKNIGHT,
+	UBERMUTANT,
+	BOSS_BARNEY,
+	BOSS_DEVIL,
+	BOSS_FAKE,
+	BOSS_FAT,
+	BOSS_GRET,
+	BOSS_HANS,
+	BOSS_HITL,
+	BOSS_MECH,
+	BOSS_OTTO,
+	BOSS_SCHAB,
+	BOSS_TRANS,
+	PAC_1,
+	PAC_2,
+	PAC_3,
+	PAC_4,
 };
 
 int	get_enemy_kind(uint8_t c);

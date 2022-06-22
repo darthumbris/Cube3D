@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:03:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:45:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:09:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ void	init_dropdown_lists(t_menu *menu, double hud_scale)
 {
 	init_plane_ddlst(&menu->plane_ddlst, hud_scale, hud_scale * 0.75);
 	init_rotate_ddlst(&menu->rotate_ddlst, hud_scale, hud_scale * 0.75);
-	init_sprite_ddlst(&menu->wall_ddlst, hud_scale, wall_icon_lst, 50);
+	init_sprite_ddlst(&menu->wall_ddlst, hud_scale, wall_icon_lst, 51);
 	init_sprite_ddlst(&menu->zone_ddlst, hud_scale, zone_icon_lst, 36);
 	init_sprite_ddlst(&menu->decor_ddlst, hud_scale, obj_icon_lst, 49);
-	init_sprite_ddlst(&menu->enemy_ddlst, hud_scale, enemy_icon_lst, 25);
+	init_sprite_ddlst(&menu->enemy_ddlst, hud_scale, enemy_icon_lst, 33);
 	init_sprite_ddlst(&menu->item_ddlst, hud_scale, item_icon_lst, 19);
 }

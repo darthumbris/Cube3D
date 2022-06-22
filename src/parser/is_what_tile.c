@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 13:50:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 15:38:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	is_enemy_tile(uint8_t	c)
 
 bool	is_wall_tile(uint8_t c)
 {
-	return (c >= 1 && c <= 45);
+	return (c >= 1 && c <= 46);
 }
 
 bool	is_empty_tile(uint8_t c)

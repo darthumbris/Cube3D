@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/21 16:50:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:01:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 typedef struct s_data
 {
 	int					number_of_textures;
-	bool				bonus;
 	bool				update_hud;
 	bool				floor_ceiling;
 	uint32_t			delay;

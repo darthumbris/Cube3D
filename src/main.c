@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 15:47:34 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/20 11:39:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:09:39 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	init_data(t_data *data)
 
 	srand(time(NULL));
 	data->floor_ceiling = false;
-	data->bonus = true;
 	data->number_of_textures = 255;
 	data->level.number_of_sprites = 0;
 	data->level.door_count = 0;
@@ -46,10 +45,6 @@ static void	images_to_window(t_data *data)
 
 //TODO make the game only work according to bonus stuff. 
 //TODO make it so it can go to next level etc.
-//TODO make it so when map is saved it also includes all the needed textures 
-// (either as numbers or actually the path names or something like that)
-// (not sure how that would work with the enemies and their spritesheets)
-//TODO Make all things properly work with the ***map_planes!!!
 int	main(void)
 {
 	t_data			data;
@@ -60,9 +55,9 @@ int	main(void)
 		return (1);
 	ma_sound_start(data.sound.soundtrack[0]);
 	images_to_window(&data);
-	// mlx_loop_hook(data.mlx.mlx_handle, menu_loop, &data);
+	mlx_loop_hook(data.mlx.mlx_handle, menu_loop, &data);
 	mlx_key_hook(data.mlx.mlx_handle, menu_key_handler, &data);
-	load_map(&data);//temp
+	// load_map(&data);//temp
 	mlx_mouse_hook(data.mlx.mlx_handle, menu_mouse_handler, &data);
 	mlx_scroll_hook(data.mlx.mlx_handle, scroll_function_btn, &data);
 	mlx_set_cursor_mode(data.mlx.mlx_handle, MLX_MOUSE_DISABLED);

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 15:52:39 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/15 16:32:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:05:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	set_door_direction(t_data *data, int i, int j, int door)
 	data->doors[door].delay = 0;
 }
 
+//TODO fix door direction thing
 void	init_doors(t_data *data)
 {
 	int	i;
@@ -48,6 +49,7 @@ void	init_doors(t_data *data)
 	}
 }
 
+//TODO fix this shit
 static void	set_secret_direction(t_data *data, int i, int j, int door)
 {
 	const char	c = data->level.map_planes[i][j][2];

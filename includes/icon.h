@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 14:52:42 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/20 14:13:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:10:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ static const t_icon	wall_icon_lst[] = \
 		{"mixedbrick",5,3,"WALL039.png", 41, 41},
 		{"wood arch",2,4,"WALL050.png", 42, 42},
 		{"railing",3,8,"WALL017.png", 43, 43},
-		{"prison cell",1,3,"WALL020.png", 44, 44},
+		{"prison cell1",1,3,"WALL020.png", 44, 44},
 		{"switch",5,4,"WALL061.png", 45, 45},
 		{"steel door",0,7,"WALL011.png", 169, 172},
+		{"prison cell2",0,8,"WALL074.png", 46, 46},
 		{"door1",4,6,"WALL014.png", 173, 176},
 		{"door2",4,7,"WALL015.png", 177, 180},
 		{"door3",4,8,"WALL016.png", 181, 184},
@@ -194,6 +195,7 @@ static const t_icon	item_icon_lst[] = \
 		{"gold key",2,3,"YKEYA0.png", 69, 69}
 	};
 
+//TODO add Patrol and standing icons to spritesheet
 static const t_icon	enemy_icon_lst[] = \
 {
 	{"player",2,7,"WSAF", 1, 4},
@@ -210,10 +212,10 @@ static const t_icon	enemy_icon_lst[] = \
 	{"ss p",0,5,"WALL006.png", 185, 196},
 	{"spectre s",0,4,"WALL005.png", 101, 104},
 	{"spectre p",0,4,"WALL005.png", 105, 108},
-	{"deathknight s",1,3,"WALL032.png", 109, 112},
-	{"deathknight p",1,3,"WALL032.png", 113, 116},
-	{"ubermutant s",2,6,"WALL060.png", 117, 120},
-	{"ubermutant p",2,6,"WALL060.png", 121, 124},
+	{"d knight s",1,3,"WALL032.png", 109, 112},
+	{"d knight p",1,3,"WALL032.png", 113, 116},
+	{"u mutant s",2,6,"WALL060.png", 117, 120},
+	{"u mutant p",2,6,"WALL060.png", 121, 124},
 	{"barney",1,2,"WALL023.png", 125, 128},
 	{"devil",1,4,"WALL020.png", 129, 132},
 	{"fake",1,5,"WALL051.png", 133, 136},

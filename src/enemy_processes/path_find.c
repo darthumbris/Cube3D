@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/20 09:42:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:14:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,12 @@ void	path_find(t_data *data, t_sprite *enemy)
 {
 	static int		delay = 0;
 
-	if (enemy->en_dat.state == PATROLLING && \
-		enemy->dist < 400)
+	if (enemy->en_dat.state == PATROL && enemy->dist < 400)
 		patrol_routine(data, enemy);
-	if (delay % 5 == 0 && (enemy->en_dat.state == ALIVE || \
-		enemy->en_dat.state == PATROLLING))
+	if (delay % 5 == 0 && (enemy->en_dat.state == STAND || \
+		enemy->en_dat.state == PATROL))
 		check_for_player(data, enemy);
-	else if (enemy->en_dat.state == TRACKING)
+	else if (enemy->en_dat.state == CHASE)
 	{
 		track_player(data, enemy);
 		set_state(enemy, data, enemy->kind);

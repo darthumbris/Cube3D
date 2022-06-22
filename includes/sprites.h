@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/21 16:56:48 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:05:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,10 +135,10 @@ typedef union u_tex_path
 
 enum	e_state
 {
-	ALIVE,
-	PATROLLING,
-	TRACKING,
-	ATTACKING,
+	STAND,
+	PATROL,
+	CHASE,
+	ATTACK,
 	HURT,
 	DYING,
 	DEAD
@@ -183,7 +183,7 @@ typedef struct s_enemy_data
 typedef struct s_sprite
 {
 	t_vector_double	map_pos;
-	enum e_sprites	kind;
+	int				kind;
 	t_vector_int	transp_begin;
 	t_vector_int	transp_end;
 	double			dist;
