@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/09 12:06:26 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:12:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:29:41 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	draw_icon_button(t_data *data, t_vector_int pos, \
 	wh[1] = 16;
 	atlas = get_icon_texture(data, data->menu.active_plane);
 	pos.x += 94 * font_scale;
-	draw_texture_area(data->mlx.menu_editor, atlas, pos, icon, wh, font_scale / 2);
+	draw_texture_area
+		(data->mlx.menu_editor, atlas, pos, icon, wh, font_scale / 2);
 }
