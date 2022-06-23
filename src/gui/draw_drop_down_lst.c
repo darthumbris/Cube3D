@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 15:31:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:36:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,15 @@ void	draw_drop_down_lsts(t_mlx *mlx, t_map_edit *ed)
 		i = -1;
 		while (++i < SPRITE_LSTS)
 			if (ed->active_plane == i)
-				draw_drop_down_lst(mlx, pos, sprt->drop[i], true, ed->active_plane);
+				draw_drop_down_lst
+				(mlx, pos, sprt->drop[i], true, ed->active_plane);
 		if (ed->active_plane == 4)
 		{
 			pos.y = sp->drop[ROTATION].pos.y + 2 * plane.font_scale;
-			draw_drop_down_lst(mlx, pos, sp->drop[0], false, ed->active_plane);
+			draw_drop_down_lst(mlx, pos, sp->drop[0], 0, ed->active_plane);
 			pos.y = sp->drop[DIFFICULTY].pos.y + 2 * plane.font_scale;
-			if (sp->drop[ROTATION].active.active == false)
-				draw_drop_down_lst(mlx, pos, sp->drop[1], false, ed->active_plane);
+			if (!sp->drop[ROTATION].active.active)
+				draw_drop_down_lst(mlx, pos, sp->drop[1], 0, ed->active_plane);
 		}
 	}
 }
