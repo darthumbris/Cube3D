@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:17:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 13:53:12 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:31:59 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ static void	draw_icon_drop(t_mlx *mlx, t_vector_int pos, \
 		pos_icon[0].y = drop.btn_lst[offset].rect.pos0.y;
 		pos_icon[0].x = drop.btn_lst[offset].rect.pos0.x;
 		pos_icon[1] = drop.btn_lst[i].icon_pos;
-		printf("iconpos: %d,%d\n", pos_icon[1].y, pos_icon[1].x);
 		if (pos_icon[0].y < drop.open_rct.pos1.y)
 			draw_icon_button(mlx, pos_icon, active_plane, \
 				drop.font_scale);
 		i++;
 		offset++;
 	}
-	printf("\n\n\n");
 }
 
 void	draw_drop_down_lst(t_mlx *mlx, t_vector_int pos, \
@@ -85,39 +83,34 @@ void	draw_drop_down_lst(t_mlx *mlx, t_vector_int pos, \
 	}
 }
 
-void	draw_drop_down_lsts(t_mlx *mlx, t_map_edit *editor)
+void	draw_drop_down_lsts(t_mlx *mlx, t_map_edit *ed)
 {
 	t_vector_int	pos;
 	t_ddlst			plane;
-	t_ddlst			floor;
 	t_sprt_drop		*sprt;
+	t_sp_drop		*sp;
+	int				i;
 
-	sprt = &editor->sprt_drops;
-	plane = editor->plane_ddlst;
-	floor = sprt->wall_ddlst;
+	sprt = &ed->sprt_drops;
+	sp = &ed->sp_drops;
+	plane = ed->plane_ddlst;
 	pos.y = plane.pos.y + 3 * plane.font_scale;
 	pos.x = plane.pos.x;
-	draw_drop_down_lst(mlx, pos, editor->plane_ddlst, false, editor->active_plane);
-	pos.y = floor.pos.y + 1 * floor.font_scale;
+	draw_drop_down_lst(mlx, pos, ed->plane_ddlst, false, ed->active_plane);
+	pos.y = sprt->drop[0].pos.y + 1 * sprt->drop[0].font_scale;
 	if (plane.active.active == false)
 	{
-		if (editor->active_plane == 0)
-			draw_drop_down_lst(mlx, pos, sprt->wall_ddlst, true, editor->active_plane);
-		else if (editor->active_plane == 1)
-			draw_drop_down_lst(mlx, pos, sprt->zone_ddlst, true, editor->active_plane);
-		else if (editor->active_plane == 2)
-			draw_drop_down_lst(mlx, pos, sprt->decor_ddlst, true, editor->active_plane);
-		else if (editor->active_plane == 3)
-			draw_drop_down_lst(mlx, pos, sprt->item_ddlst, true, editor->active_plane);
-		else
-			draw_drop_down_lst(mlx, pos, sprt->enemy_ddlst, true, editor->active_plane);
-		if (editor->active_plane == 4)
+		i = -1;
+		while (++i < SPRITE_LSTS)
+			if (ed->active_plane == i)
+				draw_drop_down_lst(mlx, pos, sprt->drop[i], true, ed->active_plane);
+		if (ed->active_plane == 4)
 		{
-			pos.y = editor->sp_drops.rotate_ddlst.pos.y + 2 * plane.font_scale;
-			draw_drop_down_lst(mlx, pos, editor->sp_drops.rotate_ddlst, false, editor->active_plane);
-			pos.y = editor->sp_drops.diff_ddlst.pos.y + 2 * plane.font_scale;
-			if (editor->sp_drops.rotate_ddlst.active.active == false)
-				draw_drop_down_lst(mlx, pos, editor->sp_drops.diff_ddlst, false, editor->active_plane);
+			pos.y = sp->drop[ROTATION].pos.y + 2 * plane.font_scale;
+			draw_drop_down_lst(mlx, pos, sp->drop[0], false, ed->active_plane);
+			pos.y = sp->drop[DIFFICULTY].pos.y + 2 * plane.font_scale;
+			if (sp->drop[ROTATION].active.active == false)
+				draw_drop_down_lst(mlx, pos, sp->drop[1], false, ed->active_plane);
 		}
 	}
 }

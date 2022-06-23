@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 13:53:40 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 11:45:39 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 14:44:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	map_editor_menu(t_data *data, t_menu *menu, t_mlx *mlx, t_map_edit *
 	t_vector_int	start;
 	const double	scale = data->hud.scale;
 	static bool		reset = false;
+	int				i;
 
 	start.x = 0;
 	start.y = 0;
@@ -50,20 +51,14 @@ static void	map_editor_menu(t_data *data, t_menu *menu, t_mlx *mlx, t_map_edit *
 	draw_texture(mlx->menu_editor, mlx->map_editor_screen, start, scale);
 	mlx_set_cursor_mode(mlx->mlx_handle, MLX_MOUSE_NORMAL);
 	menu->cursor = false;
-	if (editor->vis_btns.enemy_btn.active == true)
+	i = -1;
+	while (++i < DIS_BTNS)
 	{
-		start = editor->vis_btns.enemy_btn.rect.pos0;
-		draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
-	}
-	if (editor->vis_btns.floor_btn.active == true)
-	{
-		start = editor->vis_btns.floor_btn.rect.pos0;
-		draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
-	}
-	if (editor->vis_btns.obj_btn.active == true)
-	{
-		start = editor->vis_btns.obj_btn.rect.pos0;
-		draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
+		if (editor->vis_btns.btns[i].active == true)
+		{
+			start = editor->vis_btns.btns[i].rect.pos0;
+			draw_texture(mlx->menu_editor, mlx->check_mark, start, scale);
+		}
 	}
 	draw_map_editor(data);
 }

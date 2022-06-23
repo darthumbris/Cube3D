@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 11:27:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:33:20 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "vectors.h"
 # include "icon.h"
+
+# define SPRITE_LSTS	5
+# define SPECIAL_LSTS	2
+# define DIS_BTNS		3
+# define PNT_BTNS		4
 
 enum	e_btn_state
 {
@@ -63,37 +68,49 @@ enum	e_pen_mode
 	PICKER
 };
 
+enum	e_sprite_lsts
+{
+	WALL,
+	ZONE,
+	DECOR,
+	ITEM,
+	ENEMY
+};
+
+enum	e_special_lsts
+{
+	ROTATION,
+	DIFFICULTY
+};
+
+enum	e_dis_btns
+{
+	FLOOR,
+	OBJ,
+	ENMY
+};
+
 typedef struct s_sprite_drop_lists
 {
-	t_ddlst			wall_ddlst;
-	t_ddlst			decor_ddlst;
-	t_ddlst			enemy_ddlst;
-	t_ddlst			item_ddlst;
-	t_ddlst			zone_ddlst;
+	t_ddlst			drop[SPRITE_LSTS];
 }	t_sprt_drop;
 
 typedef struct s_special_drop_lists
 {
-	t_ddlst			rotate_ddlst;
-	t_ddlst			diff_ddlst;
+	t_ddlst			drop[SPECIAL_LSTS];
 }	t_sp_drop;
 
 typedef struct s_display_btns
 {
-	t_button		obj_btn;
-	t_button		enemy_btn;
-	t_button		floor_btn;
+	t_button		btns[DIS_BTNS];
 }	t_vis_btns;
 
 typedef struct s_paint_btns
 {
-	t_button		bucket_btn;
-	t_button		picker_btn;
-	t_button		area_btn;
-	t_button		pen_btn;
+	t_button		btns[PNT_BTNS];
 }	t_pnt_btns;
 
-typedef struct	s_file
+typedef struct s_file
 {
 	char			filenname[30];
 	bool			reset_filename;

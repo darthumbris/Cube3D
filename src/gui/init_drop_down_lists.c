@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:03:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 12:39:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:34:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,11 +173,11 @@ void	init_dropdown_lists(t_map_edit *editor, double hud_scale)
 	sprt = &editor->sprt_drops;
 	sp = &editor->sp_drops;
 	init_plane_ddlst(&editor->plane_ddlst, hud_scale, hud_scale * 0.75);
-	init_rotate_ddlst(&sp->rotate_ddlst, hud_scale, hud_scale * 0.75);
-	init_difficulty_ddlst(&sp->diff_ddlst, hud_scale, hud_scale * 0.5);
-	init_sprite_ddlst(&sprt->wall_ddlst, hud_scale, wall_icon_lst, 51);
-	init_sprite_ddlst(&sprt->zone_ddlst, hud_scale, zone_icon_lst, 36);
-	init_sprite_ddlst(&sprt->decor_ddlst, hud_scale, obj_icon_lst, 49);
-	init_sprite_ddlst(&sprt->enemy_ddlst, hud_scale, enemy_icon_lst, 33);
-	init_sprite_ddlst(&sprt->item_ddlst, hud_scale, item_icon_lst, 19);
+	init_rotate_ddlst(&sp->drop[ROTATION], hud_scale, hud_scale * 0.75);
+	init_difficulty_ddlst(&sp->drop[DIFFICULTY], hud_scale, hud_scale * 0.5);
+	init_sprite_ddlst(&sprt->drop[WALL], hud_scale, wall_icon_lst, 51);
+	init_sprite_ddlst(&sprt->drop[ZONE], hud_scale, zone_icon_lst, 36);
+	init_sprite_ddlst(&sprt->drop[DECOR], hud_scale, obj_icon_lst, 49);
+	init_sprite_ddlst(&sprt->drop[ENEMY], hud_scale, enemy_icon_lst, 33);
+	init_sprite_ddlst(&sprt->drop[ITEM], hud_scale, item_icon_lst, 19);
 }

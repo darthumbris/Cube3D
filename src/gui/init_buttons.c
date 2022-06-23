@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:02:25 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 12:44:15 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:31:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ t_button	new_button(t_rect rect, char *txt)
 
 static void	init_top_btns(t_vis_btns *vis, t_rect rect, double scale)
 {
-	vis->obj_btn = new_button(rect, NULL);
+	vis->btns[OBJ] = new_button(rect, NULL);
 	rect.pos0.x += 91 * scale;
 	rect.pos1.x += 91 * scale;
-	vis->enemy_btn = new_button(rect, NULL);
+	vis->btns[ENMY] = new_button(rect, NULL);
 	rect.pos0.x += 74 * scale;
 	rect.pos1.x += 74 * scale;
-	vis->floor_btn = new_button(rect, NULL);
+	vis->btns[FLOOR] = new_button(rect, NULL);
 	rect.pos0.x = 2 * scale;
 	rect.pos1.x = 16 * scale;
 	rect.pos0.y = 224 * scale;
 	rect.pos1.y = 238 * scale;
-	vis->floor_btn.active = true;
+	vis->btns[FLOOR].active = true;
 }
 
 static void	init_paint_btns(t_map_edit *editor, t_rect rect, double scale)
@@ -46,23 +46,23 @@ static void	init_paint_btns(t_map_edit *editor, t_rect rect, double scale)
 
 	pnt = &editor->pnt_btns;
 	file = &editor->file;
-	pnt->bucket_btn = new_button(rect, NULL);
+	pnt->btns[BUCKET] = new_button(rect, NULL);
 	rect.pos0.x += 16 * scale;
 	rect.pos1.x += 16 * scale;
-	pnt->pen_btn = new_button(rect, NULL);
+	pnt->btns[PEN] = new_button(rect, NULL);
 	rect.pos0.x += 16 * scale;
 	rect.pos1.x += 16 * scale;
-	pnt->area_btn = new_button(rect, NULL);
+	pnt->btns[AREA] = new_button(rect, NULL);
 	rect.pos0.x += 16 * scale;
 	rect.pos1.x += 16 * scale;
-	pnt->picker_btn = new_button(rect, NULL);
+	pnt->btns[PICKER] = new_button(rect, NULL);
 	rect.pos0.x += 20 * scale;
 	rect.pos1.x += 20 * scale;
 	file->load_btn = new_button(rect, NULL);
 	rect.pos0.x += 16 * scale;
 	rect.pos1.x += 16 * scale;
 	file->save_btn = new_button(rect, NULL);
-	pnt->pen_btn.active = true;
+	pnt->btns[PEN].active = true;
 	editor->pen = PEN;
 }
 

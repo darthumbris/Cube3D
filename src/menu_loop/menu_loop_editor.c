@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:54:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 14:02:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 14:55:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,28 @@ void	move_map(mlx_t *mlx, t_menu *menu, t_vector_double *map_offset, t_vector_in
 
 static bool	is_vis_btns_hvr(t_vis_btns *vis_btns, int x, int y)
 {
-	return (is_hover(&vis_btns->enemy_btn, x, y) || \
-			is_hover(&vis_btns->floor_btn, x, y) || \
-			is_hover(&vis_btns->obj_btn, x, y));
+	int	i;
+
+	i = -1;
+	while (++i < DIS_BTNS)
+	{
+		if (is_hover(&vis_btns->btns[i], x, y))
+			return (true);
+	}
+	return (false);
 }
 
 static bool	is_pnt_btns_hvr(t_pnt_btns *pnt, int x, int y)
 {
-	return (is_hover(&pnt->bucket_btn, x, y) || \
-		is_hover(&pnt->pen_btn, x, y) || \
-		is_hover(&pnt->area_btn, x, y) || \
-		is_hover(&pnt->picker_btn, x, y));
+	int	i;
+
+	i = -1;
+	while (++i < PNT_BTNS)
+	{
+		if (is_hover(&pnt->btns[i], x, y))
+			return (true);
+	}
+	return (false);
 }
 
 static bool	is_file_btn_hvr(t_file *file, int x, int y)
@@ -73,29 +84,56 @@ static bool	is_file_btn_hvr(t_file *file, int x, int y)
 
 static bool	is_drop_lst_hover(t_map_edit *editor, int x, int y)
 {
-	return (is_hover(&editor->plane_ddlst.active, x, y) || \
-		is_hover(&editor->sprt_drops.wall_ddlst.active, x, y) || \
-		is_hover(&editor->sprt_drops.decor_ddlst.active, x, y) || \
-		is_hover(&editor->sprt_drops.enemy_ddlst.active, x, y) || \
-		is_hover(&editor->sprt_drops.item_ddlst.active, x, y) || \
-		is_hover(&editor->sprt_drops.zone_ddlst.active, x, y) || \
-		is_hover(&editor->sp_drops.rotate_ddlst.active, x, y) || \
-		(editor->sp_drops.rotate_ddlst.active.active == false && \
-		is_hover(&editor->sp_drops.diff_ddlst.active, x, y)) || \
-		(editor->plane_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->plane_ddlst.open_rct)) || \
-		(editor->sprt_drops.wall_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->sprt_drops.wall_ddlst.open_rct)) || \
-		(editor->sp_drops.rotate_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->sp_drops.rotate_ddlst.open_rct)) || \
-		(editor->sp_drops.diff_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->sp_drops.diff_ddlst.open_rct)) || \
-		(editor->sprt_drops.decor_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->sprt_drops.decor_ddlst.open_rct)) || \
-		(editor->sprt_drops.enemy_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->sprt_drops.enemy_ddlst.open_rct)) || \
-		(editor->sprt_drops.item_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, editor->sprt_drops.item_ddlst.open_rct)));
+	int		i;
+
+	if (is_hover(&editor->plane_ddlst.active, x, y))
+		return (true);
+	i = -1;
+	while (++i < SPRITE_LSTS)
+	{
+		if (is_hover(&editor->sprt_drops.drop[i].active, x, y))
+			return (true);
+	}
+	if (editor->sp_drops.drop[ROTATION].active.active == false && \
+		is_hover(&editor->sp_drops.drop[DIFFICULTY].active, x, y))
+		return (true);
+	if (editor->plane_ddlst.active.active && \
+		is_mouse_in_rect(x, y, editor->plane_ddlst.open_rct))
+		return (true);
+	i = -1;
+	while (++i < SPRITE_LSTS)
+	{
+		if (editor->sprt_drops.drop[i].active.active && \
+			is_mouse_in_rect(x, y, editor->sprt_drops.drop[i].open_rct))
+			return (true);
+		if (i < SPECIAL_LSTS && editor->sp_drops.drop[i].active.active && \
+			is_mouse_in_rect(x, y, editor->sp_drops.drop[i].open_rct))
+			return (true);
+	}
+	return (false);
+	// return (is_hover(&editor->plane_ddlst.active, x, y) || \
+	// 	is_hover(&editor->sprt_drops.wall_ddlst.active, x, y) || \
+	// 	is_hover(&editor->sprt_drops.decor_ddlst.active, x, y) || \
+	// 	is_hover(&editor->sprt_drops.enemy_ddlst.active, x, y) || \
+	// 	is_hover(&editor->sprt_drops.item_ddlst.active, x, y) || \
+	// 	is_hover(&editor->sprt_drops.zone_ddlst.active, x, y) || \
+	// 	is_hover(&editor->sp_drops.rotate_ddlst.active, x, y) || \
+	// 	(editor->sp_drops.rotate_ddlst.active.active == false && \
+	// 	is_hover(&editor->sp_drops.diff_ddlst.active, x, y)) || \
+	// 	(editor->plane_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->plane_ddlst.open_rct)) || \
+	// 	(editor->sprt_drops.wall_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->sprt_drops.wall_ddlst.open_rct)) || \
+	// 	(editor->sp_drops.rotate_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->sp_drops.rotate_ddlst.open_rct)) || \
+	// 	(editor->sp_drops.diff_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->sp_drops.diff_ddlst.open_rct)) || \
+	// 	(editor->sprt_drops.decor_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->sprt_drops.decor_ddlst.open_rct)) || \
+	// 	(editor->sprt_drops.enemy_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->sprt_drops.enemy_ddlst.open_rct)) || \
+	// 	(editor->sprt_drops.item_ddlst.active.active == true && \
+	// 	is_mouse_in_rect(x, y, editor->sprt_drops.item_ddlst.open_rct)));
 }
 
 void	check_hover(t_data *data)

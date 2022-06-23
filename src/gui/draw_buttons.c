@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:55:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 13:22:19 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:19:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,21 +82,21 @@ static void	draw_hover_drop_down(mlx_image_t *menu_img, t_map_edit *editor, \
 		draw_button(menu_img, editor->plane_ddlst.hvr_rct, 0);
 		if (editor->plane_ddlst.active.active == false)
 		{
-			if (sprt->wall_ddlst.active.state == HOVER)
-				draw_button(menu_img, sprt->wall_ddlst.hvr_rct, HOVER_COLOR);
-			else if (sprt->wall_ddlst.active.state == IDLE)
-				draw_button(menu_img, sprt->wall_ddlst.hvr_rct, 0);
+			if (sprt->drop[WALL].active.state == HOVER)
+				draw_button(menu_img, sprt->drop[WALL].hvr_rct, HOVER_COLOR);
+			else if (sprt->drop[WALL].active.state == IDLE)
+				draw_button(menu_img, sprt->drop[WALL].hvr_rct, 0);
 			if (editor->active_plane == 4)
 			{
-				if (sp->rotate_ddlst.active.state == HOVER)
-					draw_button(menu_img, sp->rotate_ddlst.hvr_rct, HOVER_COLOR);
-				if (sp->diff_ddlst.active.state == HOVER)
-					draw_button(menu_img, sp->diff_ddlst.hvr_rct, HOVER_COLOR);
+				if (sp->drop[ROTATION].active.state == HOVER)
+					draw_button(menu_img, sp->drop[0].hvr_rct, HOVER_COLOR);
+				if (sp->drop[DIFFICULTY].active.state == HOVER)
+					draw_button(menu_img, sp->drop[1].hvr_rct, HOVER_COLOR);
 			}
-			if (sp->rotate_ddlst.active.state == IDLE)
-				draw_button(menu_img, sp->rotate_ddlst.hvr_rct, 0);
-			if (sp->diff_ddlst.active.state == IDLE)
-				draw_button(menu_img, sp->diff_ddlst.hvr_rct, 0);
+			if (sp->drop[ROTATION].active.state == IDLE)
+				draw_button(menu_img, sp->drop[ROTATION].hvr_rct, 0);
+			if (sp->drop[DIFFICULTY].active.state == IDLE)
+				draw_button(menu_img, sp->drop[DIFFICULTY].hvr_rct, 0);
 		}
 	}
 }
@@ -106,19 +106,20 @@ void	draw_buttons(t_mlx *mlx, t_map_edit *editor)
 	t_vis_btns	*vis;
 	t_pnt_btns	*pnt;
 	t_file		*file;
+	int			i;
 
 	vis = &editor->vis_btns;
 	pnt = &editor->pnt_btns;
 	file = &editor->file;
 	draw_hover_drop_down(mlx->menu_editor_fg, editor, \
 					&editor->sprt_drops, &editor->sp_drops);
-	draw_click_idle(mlx, vis->enemy_btn);
-	draw_click_idle(mlx, vis->floor_btn);
-	draw_click_idle(mlx, vis->obj_btn);
-	draw_click_idle(mlx, pnt->bucket_btn);
-	draw_click_idle(mlx, pnt->pen_btn);
-	draw_click_idle(mlx, pnt->area_btn);
-	draw_click_idle(mlx, pnt->picker_btn);
+	i = -1;
+	while (++i < PNT_BTNS)
+	{
+		if (i < DIS_BTNS)
+			draw_click_idle(mlx, vis->btns[i]);
+		draw_click_idle(mlx, pnt->btns[i]);
+	}
 	draw_click_idle(mlx, file->load_btn);
 	draw_click_idle(mlx, file->save_btn);
 }

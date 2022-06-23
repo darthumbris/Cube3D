@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 12:24:40 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 15:10:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,22 @@ t_vector_int	icon_lst_check(t_ddlst *drop, int tile, const t_icon icon_lst[])
 
 t_vector_int	get_icon_pos(t_sprt_drop *sprt, int tile, int plane)
 {
-	t_vector_int	pos;
-
 	if (plane == 0)
 	{
 		if (is_wall_lst(tile))
-		{
-			pos = icon_lst_check
-				(&sprt->wall_ddlst, tile, wall_icon_lst);
 			return (icon_lst_check
-				(&sprt->wall_ddlst, tile, wall_icon_lst));
-		}
-		return (icon_lst_check(&sprt->zone_ddlst, tile, zone_icon_lst));
+				(&sprt->drop[WALL], tile, wall_icon_lst));
+		return (icon_lst_check(&sprt->drop[ZONE], tile, zone_icon_lst));
 	}
 	else if (plane == 1)
 	{
 		if (is_decor_lst(tile))
 			return (icon_lst_check
-				(&sprt->decor_ddlst, tile, obj_icon_lst));
-		return (icon_lst_check(&sprt->item_ddlst, tile, item_icon_lst));
+				(&sprt->drop[DECOR], tile, obj_icon_lst));
+		return (icon_lst_check(&sprt->drop[ITEM], tile, item_icon_lst));
 	}
 	else
-		return (icon_lst_check(&sprt->enemy_ddlst, tile, enemy_icon_lst));
+		return (icon_lst_check(&sprt->drop[ENMY], tile, enemy_icon_lst));
 }
 
 static void	draw_active_plane_tile(t_data *data, t_map_edit *editor, \
@@ -59,26 +53,19 @@ static void	draw_active_plane_tile(t_data *data, t_map_edit *editor, \
 	t_vector_int	m;
 	t_vector_int	pix;
 	int				tile_plane[2];
+	int				i;
 
 	pix = pos[0];
 	m = pos[1];
-	if (editor->vis_btns.floor_btn.active && editor->map[m.y][m.x][0] != 0)
+	i = -1;
+	while (++i < DIS_BTNS)
 	{
-		tile_plane[0] = editor->map[m.y][m.x][0];
-		tile_plane[1] = 0;
-		draw_icon_square(&data->mlx, pix, tile_plane, &data->menu.editor);
-	}
-	if (editor->vis_btns.obj_btn.active && editor->map[m.y][m.x][1] != 0)
-	{
-		tile_plane[0] = editor->map[m.y][m.x][1];
-		tile_plane[1] = 1;
-		draw_icon_square(&data->mlx, pix, tile_plane, &data->menu.editor);
-	}
-	if (editor->vis_btns.enemy_btn.active && editor->map[m.y][m.x][2] != 0)
-	{
-		tile_plane[0] = editor->map[m.y][m.x][2];
-		tile_plane[1] = 2;
-		draw_icon_square(&data->mlx, pix, tile_plane, &data->menu.editor);
+		if (editor->vis_btns.btns[i].active && editor->map[m.y][m.x][i])
+		{
+			tile_plane[0] = editor->map[m.y][m.x][i];
+			tile_plane[1] = i;
+			draw_icon_square(&data->mlx, pix, tile_plane, &data->menu.editor);
+		}
 	}
 }
 
