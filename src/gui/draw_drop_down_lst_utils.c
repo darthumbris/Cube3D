@@ -6,82 +6,78 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:59:00 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:19:20 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 12:56:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-void	draw_rect(t_data *data, t_rect rec, uint32_t color)
+void	draw_rect(mlx_image_t *menu_img, t_rect rec, uint32_t color)
 {
 	uint8_t			*map;
 	int				y;
 	int				x;
 
-	y = rec.pos0.y;
-	map = data->mlx.menu_editor->pixels;
-	if (y < 0)
-		y = 0;
-	while (y < rec.pos1.y && y < (int)data->mlx.fg->height)
+	y = rec.pos0.y - 1;
+	map = menu_img->pixels;
+	if (y < -1)
+		y = -1;
+	while (++y < rec.pos1.y && y < (int)menu_img->height)
 	{
 		x = rec.pos0.x - 1;
 		if (x < -1)
 			x = -1;
-		while (++x < rec.pos1.x && x < (int)data->mlx.fg->width)
-			*(uint32_t *)(map + ((y * data->mlx.fg->width + x) * 4)) = color;
-		y++;
+		while (++x < rec.pos1.x && x < (int)menu_img->width)
+			*(uint32_t *)(map + ((y * menu_img->width + x) * 4)) = color;
 	}
 }
 
-static void	draw_vertical_line(t_data *data, t_rect rec, uint32_t c, \
+static void	draw_vertical_line(mlx_image_t *menu_img, t_rect rec, uint32_t c, \
 								int thickness)
 {
 	int		y;
 	uint8_t	*menu;
 	int		pixels;
 
-	y = rec.pos0.y - 1;
-	menu = data->mlx.menu_editor->pixels;
-	if (y < 0)
-		y = 0;
-	while (y < rec.pos1.y && y < (int)data->mlx.fg->height)
+	y = rec.pos0.y - 2;
+	menu = menu_img->pixels;
+	if (y < -1)
+		y = -1;
+	while (++y < rec.pos1.y && y < (int)menu_img->height)
 	{
 		pixels = 0;
 		while (pixels < thickness)
 		{
-			*(uint32_t *)(menu + ((y * data->mlx.fg->width + rec.pos1.x + \
+			*(uint32_t *)(menu + ((y * menu_img->width + rec.pos1.x + \
 				pixels) * 4)) = c;
-			*(uint32_t *)(menu + ((y * data->mlx.fg->width + rec.pos0.x - \
+			*(uint32_t *)(menu + ((y * menu_img->width + rec.pos0.x - \
 				pixels) * 4)) = c;
 			pixels++;
 		}
-		y++;
 	}
 }
 
-void	draw_rect_outline(t_data *data, t_rect rec, uint32_t c, \
+void	draw_rect_outline(mlx_image_t *menu_img, t_rect rec, uint32_t c, \
 			int thickness)
 {
 	uint8_t	*menu;
 	int		x;
 	int		pixels;
 
-	draw_vertical_line(data, rec, c, thickness);
-	menu = data->mlx.menu_editor->pixels;
-	x = rec.pos0.x;
-	if (x < 0)
-		x = 0;
-	while (x < rec.pos1.x && x < (int)data->mlx.fg->width)
+	draw_vertical_line(menu_img, rec, c, thickness);
+	menu = menu_img->pixels;
+	x = rec.pos0.x - 1;
+	if (x < -1)
+		x = -1;
+	while (++x < rec.pos1.x && x < (int)menu_img->width)
 	{
-		pixels = -thickness;
-		while (pixels < thickness)
+		pixels = -thickness - 1;
+		while (++pixels < thickness)
 		{
 			*(uint32_t *)(menu + (((rec.pos0.y + pixels) * \
-				data->mlx.fg->width + x) * 4)) = c;
+				menu_img->width + x) * 4)) = c;
 			*(uint32_t *)(menu + (((rec.pos1.y + pixels) * \
-				data->mlx.fg->width + x) * 4)) = c;
-			pixels++;
+				menu_img->width + x) * 4)) = c;
 		}
-		x++;
 	}
 }

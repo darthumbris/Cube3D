@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:38:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 15:01:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 11:27:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,41 +63,70 @@ enum	e_pen_mode
 	PICKER
 };
 
-typedef struct s_menu
+typedef struct s_sprite_drop_lists
 {
-	int				cursor_pos;
-	int				menu_level;
-	int				grid_size;
-	int				map_zoom;
-	int				active_plane;
-	int				active_sprite;
-	char			filenname[30];
-	bool			update;
-	bool			cursor;
-	bool			player_placed;
-	bool			reset_filename;
-	t_rect			map_area;
-	uint8_t			map[200][200][3];
-	t_ddlst			plane_ddlst;
-	t_ddlst			rotate_ddlst;
 	t_ddlst			wall_ddlst;
 	t_ddlst			decor_ddlst;
 	t_ddlst			enemy_ddlst;
 	t_ddlst			item_ddlst;
 	t_ddlst			zone_ddlst;
+}	t_sprt_drop;
+
+typedef struct s_special_drop_lists
+{
+	t_ddlst			rotate_ddlst;
+	t_ddlst			diff_ddlst;
+}	t_sp_drop;
+
+typedef struct s_display_btns
+{
 	t_button		obj_btn;
 	t_button		enemy_btn;
 	t_button		floor_btn;
+}	t_vis_btns;
+
+typedef struct s_paint_btns
+{
 	t_button		bucket_btn;
 	t_button		picker_btn;
 	t_button		area_btn;
 	t_button		pen_btn;
+}	t_pnt_btns;
+
+typedef struct	s_file
+{
+	char			filenname[30];
+	bool			reset_filename;
 	t_button		load_btn;
 	t_button		save_btn;
-	t_vector_int	player_pos;
+}	t_file;
+
+typedef struct s_map_editor
+{
+	int				grid_size;
+	int				map_zoom;
+	int				active_plane;
+	int				active_sprite;
+	t_rect			map_area;
+	uint8_t			map[200][200][3];
 	t_vector_int	max_tiles_on_map;
 	enum e_pen_mode	pen;
 	t_vector_double	map_offset;
+	t_ddlst			plane_ddlst;
+	t_sprt_drop		sprt_drops;
+	t_sp_drop		sp_drops;
+	t_vis_btns		vis_btns;
+	t_pnt_btns		pnt_btns;
+	t_file			file;
+}	t_map_edit;
+
+typedef struct s_menu
+{
+	int				cursor_pos;
+	int				menu_level;
+	bool			update;
+	bool			cursor;
+	t_map_edit		editor;	
 }				t_menu;
 
 # define MENU_CURSOR_0_X_POS	69

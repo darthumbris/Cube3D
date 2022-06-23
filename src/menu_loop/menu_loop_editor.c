@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:54:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:06:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 14:02:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,61 +24,91 @@ static bool	is_movement_key_down(mlx_t *mlx)
 			mlx_is_key_down(mlx, MLX_KEY_A));
 }
 
-void	move_map(t_data *data, t_menu *menu)
+void	move_map(mlx_t *mlx, t_menu *menu, t_vector_double *map_offset, t_vector_int max_tiles)
 {
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_LEFT) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_A))
-		menu->map_offset.x -= MAP_TRANSLATE_SPEED;
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_RIGHT) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_D))
-		menu->map_offset.x += MAP_TRANSLATE_SPEED;
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_DOWN) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_S))
-		menu->map_offset.y += MAP_TRANSLATE_SPEED;
-	if (mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_UP) || \
-		mlx_is_key_down(data->mlx.mlx_handle, MLX_KEY_W))
-		menu->map_offset.y -= MAP_TRANSLATE_SPEED;
-	if (is_movement_key_down(data->mlx.mlx_handle))
-		data->menu.update = true;
-	if (menu->map_offset.x < -.4)
-		menu->map_offset.x = -.4;
-	if (menu->map_offset.x > MAX_MAP_SIZE - menu->max_tiles_on_map.x - 0.4)
-		menu->map_offset.x = MAX_MAP_SIZE - menu->max_tiles_on_map.x - 0.4;
-	if (menu->map_offset.y > MAX_MAP_SIZE - menu->max_tiles_on_map.y - 0.4)
-			menu->map_offset.y = MAX_MAP_SIZE - menu->max_tiles_on_map.y - 0.4;
-	if (menu->map_offset.y < -.4)
-		menu->map_offset.y = -.4;
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT) || \
+		mlx_is_key_down(mlx, MLX_KEY_A))
+		map_offset->x -= MAP_TRANSLATE_SPEED;
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT) || \
+		mlx_is_key_down(mlx, MLX_KEY_D))
+		map_offset->x += MAP_TRANSLATE_SPEED;
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN) || \
+		mlx_is_key_down(mlx, MLX_KEY_S))
+		map_offset->y += MAP_TRANSLATE_SPEED;
+	if (mlx_is_key_down(mlx, MLX_KEY_UP) || \
+		mlx_is_key_down(mlx, MLX_KEY_W))
+		map_offset->y -= MAP_TRANSLATE_SPEED;
+	if (is_movement_key_down(mlx))
+		menu->update = true;
+	if (map_offset->x < -.4)
+		map_offset->x = -.4;
+	if (map_offset->x > MAX_MAP_SIZE - max_tiles.x - 0.4)
+		map_offset->x = MAX_MAP_SIZE - max_tiles.x - 0.4;
+	if (map_offset->y > MAX_MAP_SIZE - max_tiles.y - 0.4)
+			map_offset->y = MAX_MAP_SIZE - max_tiles.y - 0.4;
+	if (map_offset->y < -.4)
+		map_offset->y = -.4;
+}
+
+static bool	is_vis_btns_hvr(t_vis_btns *vis_btns, int x, int y)
+{
+	return (is_hover(&vis_btns->enemy_btn, x, y) || \
+			is_hover(&vis_btns->floor_btn, x, y) || \
+			is_hover(&vis_btns->obj_btn, x, y));
+}
+
+static bool	is_pnt_btns_hvr(t_pnt_btns *pnt, int x, int y)
+{
+	return (is_hover(&pnt->bucket_btn, x, y) || \
+		is_hover(&pnt->pen_btn, x, y) || \
+		is_hover(&pnt->area_btn, x, y) || \
+		is_hover(&pnt->picker_btn, x, y));
+}
+
+static bool	is_file_btn_hvr(t_file *file, int x, int y)
+{
+	return (is_hover(&file->load_btn, x, y) || \
+			is_hover(&file->save_btn, x, y));
+}
+
+static bool	is_drop_lst_hover(t_map_edit *editor, int x, int y)
+{
+	return (is_hover(&editor->plane_ddlst.active, x, y) || \
+		is_hover(&editor->sprt_drops.wall_ddlst.active, x, y) || \
+		is_hover(&editor->sprt_drops.decor_ddlst.active, x, y) || \
+		is_hover(&editor->sprt_drops.enemy_ddlst.active, x, y) || \
+		is_hover(&editor->sprt_drops.item_ddlst.active, x, y) || \
+		is_hover(&editor->sprt_drops.zone_ddlst.active, x, y) || \
+		is_hover(&editor->sp_drops.rotate_ddlst.active, x, y) || \
+		(editor->sp_drops.rotate_ddlst.active.active == false && \
+		is_hover(&editor->sp_drops.diff_ddlst.active, x, y)) || \
+		(editor->plane_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->plane_ddlst.open_rct)) || \
+		(editor->sprt_drops.wall_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->sprt_drops.wall_ddlst.open_rct)) || \
+		(editor->sp_drops.rotate_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->sp_drops.rotate_ddlst.open_rct)) || \
+		(editor->sp_drops.diff_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->sp_drops.diff_ddlst.open_rct)) || \
+		(editor->sprt_drops.decor_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->sprt_drops.decor_ddlst.open_rct)) || \
+		(editor->sprt_drops.enemy_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->sprt_drops.enemy_ddlst.open_rct)) || \
+		(editor->sprt_drops.item_ddlst.active.active == true && \
+		is_mouse_in_rect(x, y, editor->sprt_drops.item_ddlst.open_rct)));
 }
 
 void	check_hover(t_data *data)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	t_map_edit	*editor;
 
+	editor = &data->menu.editor;
 	mlx_get_mouse_pos(data->mlx.mlx_handle, &x, &y);
-	if (is_hover(&data->menu.enemy_btn, x, y) || \
-		is_hover(&data->menu.obj_btn, x, y) || \
-		is_hover(&data->menu.floor_btn, x, y) || \
-		is_hover(&data->menu.plane_ddlst.active, x, y) || \
-		is_hover(&data->menu.wall_ddlst.active, x, y) || \
-		is_hover(&data->menu.decor_ddlst.active, x, y) || \
-		is_hover(&data->menu.enemy_ddlst.active, x, y) || \
-		is_hover(&data->menu.rotate_ddlst.active, x, y) || \
-		is_hover(&data->menu.bucket_btn, x, y) || \
-		is_hover(&data->menu.pen_btn, x, y) || \
-		is_hover(&data->menu.area_btn, x, y) || \
-		is_hover(&data->menu.picker_btn, x, y) || \
-		is_hover(&data->menu.load_btn, x, y) || \
-		is_hover(&data->menu.save_btn, x, y) || \
-		(data->menu.plane_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, data->menu.plane_ddlst.open_rct)) || \
-		(data->menu.wall_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, data->menu.wall_ddlst.open_rct)) || \
-		(data->menu.rotate_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, data->menu.rotate_ddlst.open_rct)) || \
-		(data->menu.decor_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, data->menu.decor_ddlst.open_rct)) || \
-		(data->menu.enemy_ddlst.active.active == true && \
-		is_mouse_in_rect(x, y, data->menu.enemy_ddlst.open_rct)))
+	if (is_drop_lst_hover(editor, x, y) || \
+		is_file_btn_hvr(&editor->file, x, y) || \
+		is_pnt_btns_hvr(&editor->pnt_btns, x, y) || \
+		is_vis_btns_hvr(&editor->vis_btns, x, y))
 		data->menu.update = true;
 }

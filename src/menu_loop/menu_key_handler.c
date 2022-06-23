@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:39:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 12:17:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 11:51:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,22 @@ static void	move_keys(t_data *data, struct mlx_key_data keys)
 	}
 }
 
-static void	zoom_map(t_data *data, enum keys key, t_menu *menu)
+static void	zoom_map(double scale, enum keys key, t_menu *menu, t_map_edit *editor)
 {
 	if (key == MLX_KEY_KP_SUBTRACT && menu->menu_level == 2)
 	{
-		menu->map_zoom--;
-		if (menu->map_zoom < 1)
-			menu->map_zoom = 1;
-		menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom + 1;
+		editor->map_zoom--;
+		if (editor->map_zoom < 1)
+			editor->map_zoom = 1;
+		editor->grid_size = GRID_SIZE * scale * editor->map_zoom + 1;
 		menu->update = true;
 	}
 	if (key == MLX_KEY_KP_ADD && menu->menu_level == 2)
 	{
-		menu->map_zoom++;
-		if (menu->map_zoom > 8)
-			menu->map_zoom = 8;
-		menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom + 1;
+		editor->map_zoom++;
+		if (editor->map_zoom > 8)
+			editor->map_zoom = 8;
+		editor->grid_size = GRID_SIZE * scale * editor->map_zoom + 1;
 		menu->update = true;
 	}
 }
@@ -89,7 +89,7 @@ void	menu_key_handler(struct mlx_key_data keys, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (keys.action == MLX_RELEASE || data->menu.save_btn.active)
+	if (keys.action == MLX_RELEASE || data->menu.editor.file.save_btn.active)
 		return ;
 	if (keys.key == MLX_KEY_ESCAPE)
 		escape_key(data);
@@ -98,5 +98,5 @@ void	menu_key_handler(struct mlx_key_data keys, void *param)
 	if (keys.key == MLX_KEY_ENTER && data->menu.menu_level == 0)
 		enter_key(data);
 	if (keys.key == MLX_KEY_KP_ADD || keys.key == MLX_KEY_KP_SUBTRACT)
-		zoom_map(data, keys.key, &data->menu);
+		zoom_map(data->hud.scale, keys.key, &data->menu, &data->menu.editor);
 }

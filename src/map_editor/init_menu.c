@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/30 14:23:32 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/13 16:29:46 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 12:39:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	zero_map(t_data *data)
 		{
 			k = -1;
 			while (++k < 3)
-				data->menu.map[i][j][k] = 0;
+				data->menu.editor.map[i][j][k] = 0;
 		}
 	}
 }
@@ -60,27 +60,24 @@ static bool	init_menu_textures(t_mlx *mlx)
 	return (true);
 }
 
-static void	init_map_editor(t_data *data, t_menu *menu)
+static void	init_map_editor(t_data *data, t_map_edit *editor, t_menu *menu)
 {
 	zero_map(data);
-	menu->active_sprite = 1;
-	menu->active_plane = 0;
-	menu->map_zoom = 2;
-	menu->map_offset.x = 149;
-	menu->map_offset.y = 149;
+	editor->active_sprite = 1;
+	editor->active_plane = 0;
+	editor->map_zoom = 2;
+	editor->map_offset.x = 149;
+	editor->map_offset.y = 149;
 	menu->cursor = true;
 	menu->cursor_pos = 0;
 	menu->menu_level = 0;
-	menu->map_area.pos0.x = 103 * data->hud.scale;
-	menu->map_area.pos1.x = 315 * data->hud.scale;
-	menu->map_area.pos0.y = 15 * data->hud.scale;
-	menu->map_area.pos1.y = 232 * data->hud.scale;
-	menu->grid_size = GRID_SIZE * data->hud.scale * menu->map_zoom + 1;
-	menu->max_tiles_on_map.x = 213 * data->hud.scale / menu->grid_size;
-	menu->max_tiles_on_map.y = 218 * data->hud.scale / menu->grid_size;
-	menu->player_placed = false;
-	menu->player_pos.x = -1;
-	menu->player_pos.y = -1;
+	editor->map_area.pos0.x = 103 * data->hud.scale;
+	editor->map_area.pos1.x = 315 * data->hud.scale;
+	editor->map_area.pos0.y = 15 * data->hud.scale;
+	editor->map_area.pos1.y = 232 * data->hud.scale;
+	editor->grid_size = GRID_SIZE * data->hud.scale * editor->map_zoom + 1;
+	editor->max_tiles_on_map.x = 213 * data->hud.scale / editor->grid_size;
+	editor->max_tiles_on_map.y = 218 * data->hud.scale / editor->grid_size;
 }
 
 bool	init_menu(t_data *data)
@@ -90,9 +87,9 @@ bool	init_menu(t_data *data)
 	init_hud(data);
 	if (init_menu_textures(&data->mlx) == false)
 		return (false);
-	init_map_editor(data, &data->menu);
+	init_map_editor(data, &data->menu.editor, &data->menu);
 	init_buttons(data);
-	init_dropdown_lists(&data->menu, data->hud.scale);
+	init_dropdown_lists(&data->menu.editor, data->hud.scale);
 	pos.x = 0;
 	pos.y = 0;
 	draw_texture(data->mlx.fg, data->mlx.menu_screen, pos, data->hud.scale);

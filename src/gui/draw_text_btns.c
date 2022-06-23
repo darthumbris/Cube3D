@@ -6,14 +6,14 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 13:56:43 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/14 14:10:44 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 13:04:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static void	draw_char(t_data *data, t_vector_int pos, int tex_pos_width[2], \
-						double font_scale, mlx_image_t *img)
+static void	draw_char(t_mlx *mlx, t_vector_int pos, int tex_pos_width[2], \
+						double font_scale)
 {
 	t_vector_int	pixel;
 	t_vector_int	tex;
@@ -21,10 +21,10 @@ static void	draw_char(t_data *data, t_vector_int pos, int tex_pos_width[2], \
 	uint8_t			*font;
 	uint32_t		color;
 
-	font = data->mlx.font->pixels;
+	font = mlx->font->pixels;
 	pixel.y = -1;
-	menu = img->pixels + (((pos.x) * 4) + \
-			(int)(pos.y + font_scale) * img->width * 4);
+	menu = mlx->menu_editor->pixels + ((pos.x + \
+			(pos.y + (int)font_scale) * mlx->menu_editor->width) * 4);
 	while (++pixel.y < 8 * font_scale)
 	{
 		pixel.x = -1;
@@ -32,19 +32,18 @@ static void	draw_char(t_data *data, t_vector_int pos, int tex_pos_width[2], \
 		{
 			tex.x = pixel.x * (1 / font_scale) + tex_pos_width[0];
 			tex.y = pixel.y * (1 / font_scale);
-			color = (*(int *)(font + ((tex.y * \
-				data->mlx.font->width + tex.x) * 4)));
+			color = (*(int *)(font + ((tex.y * mlx->font->width + tex.x) * 4)));
 			if (color == 4278190080)
 				*(uint32_t *)menu = color;
 			menu += 4;
 		}
-		if (pixel.x < (int)img->width)
-			menu += (img->width * 4 - (tex_pos_width[1]) * 4);
+		if (pixel.x < (int)mlx->menu_editor->width)
+			menu += (mlx->menu_editor->width * 4 - (tex_pos_width[1]) * 4);
 	}
 }
 
-static void	draw_number(t_data *data, t_vector_int pos, int nbr, \
-						double font_scale, mlx_image_t *img)
+static void	draw_number(t_mlx *mlx, t_vector_int pos, int nbr, \
+						double font_scale)
 {
 	t_vector_int	pixel;
 	t_vector_int	tex;
@@ -53,9 +52,9 @@ static void	draw_number(t_data *data, t_vector_int pos, int nbr, \
 	uint32_t		color;
 
 	pixel.y = -1;
-	font = data->mlx.font->pixels;
-	menu = img->pixels + (pos.x * 4 + \
-			(pos.y * img->width * 4));
+	font = mlx->font->pixels;
+	menu = mlx->menu_editor->pixels + \
+			((pos.x + pos.y * mlx->menu_editor->width) * 4);
 	while (++pixel.y < (int)(8 * font_scale))
 	{
 		pixel.x = -1;
@@ -63,31 +62,30 @@ static void	draw_number(t_data *data, t_vector_int pos, int nbr, \
 		{
 			tex.x = pixel.x * (1 / font_scale) + (nbr * 12);
 			tex.y = pixel.y * (1 / font_scale) + 8;
-			color = (*(int *)(font + ((tex.y * \
-				data->mlx.font->width + tex.x) * 4)));
+			color = (*(int *)(font + ((tex.y * mlx->font->width + tex.x) * 4)));
 			if (color == 4278190080)
 				*(uint32_t *)menu = color;
 			menu += 4;
 		}
-		if (pixel.x < (int)img->width)
-			menu += (img->width * 4 - pixel.x * 4);
+		if (pixel.x < (int)mlx->menu_editor->width)
+			menu += (mlx->menu_editor->width * 4 - pixel.x * 4);
 	}
 }
 
-static void	draw_alpha(t_data *data, t_vector_int pos, char c, \
-						double font_scale, mlx_image_t *img)
+static void	draw_alpha(t_mlx *mlx, t_vector_int pos, char c, \
+						double font_scale)
 {
 	int				tex_pos_width[2];
 
 	tex_pos_width[1] = 12 * font_scale;
 	tex_pos_width[0] = (c - 'a') * 12;
-	draw_char(data, pos, tex_pos_width, font_scale, img);
+	draw_char(mlx, pos, tex_pos_width, font_scale);
 }
 
-static void	alpha_pos_move(t_data *data, char c, t_vector_int *pos, \
-							double font_scale, mlx_image_t *img)
+static void	alpha_pos_move(t_mlx *mlx, char c, t_vector_int *pos, \
+							double font_scale)
 {
-	draw_alpha(data, *pos, c, font_scale, img);
+	draw_alpha(mlx, *pos, c, font_scale);
 	if (c == 'l' || c == 'i')
 		pos->x += 5 * font_scale;
 	else
@@ -96,17 +94,17 @@ static void	alpha_pos_move(t_data *data, char c, t_vector_int *pos, \
 		pos->x += 2 * font_scale;
 }
 
-void	draw_str(t_data *data, char *str, t_vector_int pos, \
-				double font_scale, mlx_image_t *img)
+void	draw_str(t_mlx *mlx, char *str, t_vector_int pos, \
+				double font_scale)
 {
 	int				i;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (ft_isalpha(str[i]))
 		{
-			alpha_pos_move(data, str[i], &pos, font_scale, img);
+			alpha_pos_move(mlx, str[i], &pos, font_scale);
 			if (str[i + 1] == 'm' || str[i + 1] == 'w')
 				pos.x += 2 * font_scale;
 			else if (str[i + 1] == 'l' || str[i + 1] == 'i')
@@ -114,17 +112,16 @@ void	draw_str(t_data *data, char *str, t_vector_int pos, \
 		}
 		else if (ft_isdigit(str[i]))
 		{
-			draw_number(data, pos, str[i] - '0', font_scale, img);
+			draw_number(mlx, pos, str[i] - '0', font_scale);
 			pos.x += 10 * font_scale;
 		}
 		else if (str[i] == '.')
 		{
 			pos.x -= 2 * font_scale;
-			draw_number(data, pos, 10, font_scale, img);
+			draw_number(mlx, pos, 10, font_scale);
 			pos.x += 6 * font_scale;
 		}
 		else
 			pos.x += 4 * font_scale;
-		i++;
 	}
 }

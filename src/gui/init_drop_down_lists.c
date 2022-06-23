@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:03:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 16:09:34 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 12:39:43 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,14 @@ void	init_rotate_ddlst(t_ddlst *p, double scale, double font_scale)
 	p->height = 7 * scale;
 	p->width = 85 * scale;
 	p->pos.x = 3 * scale;
-	p->pos.y = 191 * scale;
+	p->pos.y = 190 * scale;
 	p->btn_txt = ft_calloc(sizeof(char *), p->elements);
 	p->btn_txt[0] = ft_strdup("west");
 	p->btn_txt[1] = ft_strdup("south");
 	p->btn_txt[2] = ft_strdup("north");
 	p->btn_txt[3] = ft_strdup("east");
 	p->hvr_rct.pos0.x = 3 * scale;
-	p->hvr_rct.pos0.y = 191 * scale;
+	p->hvr_rct.pos0.y = 192 * scale;
 	p->hvr_rct.pos1.x = 88 * scale;
 	p->hvr_rct.pos1.y = 198 * scale;
 	p->active = new_button(p->hvr_rct, p->btn_txt[0]);
@@ -137,13 +137,47 @@ void	init_rotate_ddlst(t_ddlst *p, double scale, double font_scale)
 	p->max_visible = 4;
 }
 
-void	init_dropdown_lists(t_menu *menu, double hud_scale)
+void	init_difficulty_ddlst(t_ddlst *p, double scale, double font_scale)
 {
-	init_plane_ddlst(&menu->plane_ddlst, hud_scale, hud_scale * 0.75);
-	init_rotate_ddlst(&menu->rotate_ddlst, hud_scale, hud_scale * 0.75);
-	init_sprite_ddlst(&menu->wall_ddlst, hud_scale, wall_icon_lst, 51);
-	init_sprite_ddlst(&menu->zone_ddlst, hud_scale, zone_icon_lst, 36);
-	init_sprite_ddlst(&menu->decor_ddlst, hud_scale, obj_icon_lst, 49);
-	init_sprite_ddlst(&menu->enemy_ddlst, hud_scale, enemy_icon_lst, 33);
-	init_sprite_ddlst(&menu->item_ddlst, hud_scale, item_icon_lst, 19);
+	p->elements = 3;
+	p->height = 7 * scale;
+	p->width = 85 * scale;
+	p->pos.x = 3 * scale;
+	p->pos.y = 213 * scale;
+	p->btn_txt = ft_calloc(sizeof(char *), p->elements);
+	p->btn_txt[0] = ft_strdup("easy");
+	p->btn_txt[1] = ft_strdup("medium");
+	p->btn_txt[2] = ft_strdup("hard");
+	p->hvr_rct.pos0.x = 3 * scale;
+	p->hvr_rct.pos0.y = 215 * scale;
+	p->hvr_rct.pos1.x = 88 * scale;
+	p->hvr_rct.pos1.y = 221 * scale;
+	p->active = new_button(p->hvr_rct, p->btn_txt[0]);
+	p->btn_lst = ft_calloc(sizeof(t_button), p->elements);
+	p->open_rct = p->hvr_rct;
+	p->open_rct.pos0.y = 221 * scale;
+	p->open_rct.pos1.y = p->hvr_rct.pos1.y + (p->elements * 9 * font_scale) + 1;
+	p->outline = p->active.rect;
+	p->outline.pos1.y = p->active.rect.pos1.y + 9 * font_scale;
+	p->font_scale = font_scale;
+	init_buttons_ddlst(p, scale, p->open_rct.pos0.y);
+	p->scroll_pos = 0;
+	p->max_visible = 3;
+}
+
+void	init_dropdown_lists(t_map_edit *editor, double hud_scale)
+{
+	t_sprt_drop	*sprt;
+	t_sp_drop	*sp;
+
+	sprt = &editor->sprt_drops;
+	sp = &editor->sp_drops;
+	init_plane_ddlst(&editor->plane_ddlst, hud_scale, hud_scale * 0.75);
+	init_rotate_ddlst(&sp->rotate_ddlst, hud_scale, hud_scale * 0.75);
+	init_difficulty_ddlst(&sp->diff_ddlst, hud_scale, hud_scale * 0.5);
+	init_sprite_ddlst(&sprt->wall_ddlst, hud_scale, wall_icon_lst, 51);
+	init_sprite_ddlst(&sprt->zone_ddlst, hud_scale, zone_icon_lst, 36);
+	init_sprite_ddlst(&sprt->decor_ddlst, hud_scale, obj_icon_lst, 49);
+	init_sprite_ddlst(&sprt->enemy_ddlst, hud_scale, enemy_icon_lst, 33);
+	init_sprite_ddlst(&sprt->item_ddlst, hud_scale, item_icon_lst, 19);
 }

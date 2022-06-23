@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 16:01:00 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 13:22:11 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,16 +208,17 @@ void			menu_mouse_handler(mouse_key_t button, action_t action, \
 					modifier_key_t mods, void *param);
 void			draw_check_mark(t_data *data, t_vector_int pos);
 void			draw_map_editor(t_data *data);
-void			draw_map_grid(t_data *data, t_rect grid, t_menu *menu);
-void			draw_map_tiles(t_data *data, t_menu *menu);
+void			draw_map_grid(t_data *data, t_rect grid, t_map_edit *editor);
+void			draw_map_tiles(t_data *data, t_map_edit *editor);
 void			draw_filled_square(t_data *data, t_rect rec, \
 								t_vector_int offset, int tile);
 void			check_hover(t_data *data);
-void			move_map(t_data *data, t_menu *menu);
-t_vector_int	get_icon_pos(t_data *data, int tile, int plane);
-void			draw_icon_square(t_data *data, t_vector_int offset, \
-									int tile_plane[2]);
-mlx_texture_t	*get_icon_texture(t_data *data, int plane);
+void			move_map(mlx_t *mlx, t_menu *menu, t_vector_double *map_offset, \
+					t_vector_int max_tiles);
+t_vector_int	get_icon_pos(t_sprt_drop *sprt, int tile, int plane);
+void			draw_icon_square(t_mlx *mlx, t_vector_int offset, \
+					int tile_plane[2], t_map_edit *editor);
+mlx_texture_t	*get_icon_texture(t_mlx *mlx, int plane);
 void			save_map(t_data *data);
 void			check_mouse_svbtn_clicked(t_data *data);
 void			filename_key_handler(struct mlx_key_data keys, void *param);
@@ -226,20 +227,20 @@ void			map_to_file(t_data *data);
 //====================GUI Functions============================================
 void			init_buttons(t_data *data);
 t_button		new_button(t_rect rect, char *txt);
-void			draw_buttons(t_data *data);
-void			init_dropdown_lists(t_menu *menu, double hud_scale);
-void			draw_rect(t_data *data, t_rect rec, uint32_t color);
-void			draw_drop_down_lsts(t_data *data);
-void			draw_rect_outline(t_data *data, t_rect rec, uint32_t c, \
+void			draw_buttons(t_mlx *mlx, t_map_edit *editor);
+void			init_dropdown_lists(t_map_edit *editor, double hud_scale);
+void			draw_rect(mlx_image_t *menu_img, t_rect rec, uint32_t color);
+void			draw_drop_down_lsts(t_mlx *mlx, t_map_edit *editor);
+void			draw_rect_outline(mlx_image_t *menu_img, t_rect rec, uint32_t c, \
 						int thickness);
-void			draw_str(t_data *data, char *str, t_vector_int pos, \
-					double font_scale, mlx_image_t *img);
+void			draw_str(t_mlx *mlx, char *str, t_vector_int pos, \
+						double font_scale);
 void			check_btns_clicked(t_data *data, mouse_key_t button, \
 					action_t action, t_vector_int pos);
 int				set_btn_state(t_button *btn, mouse_key_t button, \
 					action_t action, t_vector_int pos);
-void			draw_icon_button(t_data *data, t_vector_int pos, \
-						t_vector_int icon, double font_scale);			
+void			draw_icon_button(t_mlx *mlx, t_vector_int pos_icon[2], \
+					int active_plane, double font_scale);		
 
 //==============Door utils function============================================
 int				get_distance(int x, int y, t_vector_double player);
