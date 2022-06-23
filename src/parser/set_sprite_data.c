@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/21 16:32:27 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 16:37:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,15 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, uint8_t ***map, 
 		sprite->transp_end.x = 127 - sprite->transp_begin.x;
 		sprite->transp_begin.y = 128 - data->mlx.tex.obj[sprite->kind - 1]->height - 1;
 		sprite->transp_end.y =  sprite->transp_begin.y - data->mlx.tex.obj[sprite->kind - 1]->height;
+
 		if (sprite->transp_begin.x < 0)
 			sprite->transp_begin.x = 0;
 		if (sprite->transp_begin.y < 0)
 			sprite->transp_begin.y = 0;
+		sprite->transp.start.x = sprite->transp_begin.x;
+		sprite->transp.start.y = sprite->transp_begin.y;
+		sprite->transp.end.x = sprite->transp_end.x;
+		sprite->transp.end.y = sprite->transp_end.y;
 		printf("kind: %d, transpbegin: %d,%d, end: %d,%d\n", sprite->kind, sprite->transp_begin.x, sprite->transp_begin.y, sprite->transp_end.x, sprite->transp_end.y);
 	}
 }

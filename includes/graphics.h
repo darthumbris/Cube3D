@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/21 15:11:31 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 16:35:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,17 @@ enum	e_weapon_textures
 	MACHINEGUN3_T,
 };
 
+typedef struct s_enemy_sprites
+{
+	mlx_texture_t	**tex;
+}		t_enmy_sprites;
+
 typedef struct s_lodtex
 {
 	mlx_texture_t	*wall[51];
 	mlx_texture_t	*obj[69];
 	mlx_texture_t	*enmy[23];
+	t_enmy_sprites	enmy_sprites[23];
 	mlx_texture_t	*hud[6];
 	mlx_texture_t	*wpn[12];
 }	t_lodtex;

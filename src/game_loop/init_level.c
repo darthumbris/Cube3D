@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 12:09:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 16:03:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 16:16:28 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ bool	init_level(t_data *data)
 	struct timeval	timev;
 	int				i;
 	int				player_count;
+	char			*path;
+	char			*png;
+	char			*full_path;
 
 	player_count = 0;
 	if (!init_textures(data))
@@ -114,6 +117,23 @@ bool	init_level(t_data *data)
 	init_secrets(data);
 	init_player(data);
 	init_weapons(data);
+	data->mlx.tex.enmy_sprites[0].tex = ft_calloc(49, sizeof(mlx_texture_t *));
+	path = ft_strdup("assets/sprites/guards/Guard/garda");
+	png = ft_strdup("1.png");
+	i = -1;
+	while (++i < 49)
+	{
+		if (i < 40)
+			path[ft_strlen(path) - 1] = 'a' + i / 8;
+		else
+			path[ft_strlen(path) - 1] = 'f' + i - 40;
+		if (i < 40)
+			png[0] = i % 8 + '1';
+		else if (i < 43)
+			png[0] = '0';
+		full_path = ft_strjoin_r(path, png);
+		data->mlx.tex.enmy_sprites[0].tex[i] = mlx_load_png(full_path);
+	}
 	draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \
 				data->mlx.weapon);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.weapon, 0, 0);

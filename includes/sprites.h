@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:05:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 16:36:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,17 @@ typedef struct s_enemy_data
 	double			speed;
 }				t_enemy_data;
 
+typedef struct s_transp
+{
+	t_vector_int	start;
+	t_vector_int	end;
+}	t_transp;
+
 typedef struct s_sprite
 {
 	t_vector_double	map_pos;
 	int				kind;
+	t_transp		transp;
 	t_vector_int	transp_begin;
 	t_vector_int	transp_end;
 	double			dist;

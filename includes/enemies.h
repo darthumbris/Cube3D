@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/20 10:03:47 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:19:23 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/23 16:15:44 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,23 @@ enum e_enemies
 	PAC_2,
 	PAC_3,
 	PAC_4,
+};
+
+typedef struct s_enemy_sprt_sht
+{
+	char	*name;
+	int		move_frames;
+	int		attack_frames;
+	int		hit_frames;
+	int		death_frames;
+	int		total_sprites;
+	bool	rotation;
+}	t_sprt_sht_data;
+
+static const t_sprt_sht_data g_enemy_sprt_data[] = \
+{
+	{"Guard/gard", 5, 3, 1, 5, 49, true},
+	{"Dog/dogy", 4, 3, 1, 4, 39, true},
 };
 
 int	get_enemy_kind(uint8_t c);
