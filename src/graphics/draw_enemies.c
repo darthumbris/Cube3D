@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:36:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 13:35:45 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static bool	in_color_area(t_vector_int texp, mlx_texture_t *tex, t_transp tr)
 			texp.y >= tr.start.y && texp.y <= tr.end.y);
 }
 
-static void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
+void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
 {
 	int				d;
 	uint8_t			*fg;

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:52:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:03:24 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static bool	ceiling_sprite(int kind)
 {
 	return (kind == LAMP_G || kind == LAMP_R || kind == CHANDELIER || \
 			kind == ORB || kind == CAGE1 || kind == CAGE2 || kind == CAGE3 \
-			|| kind == CAGE4 || kind == PANS1 || kind == PANS2 || kind == STATUE);
+			|| kind == CAGE4 || kind == PANS1 || kind == PANS2 || \
+			kind == STATUE);
 }
 
 static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)
@@ -63,77 +64,67 @@ static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)
 		c->draw_end.x = img->width - 1;
 }
 
-//TODO check if this function can be improved.
-//TODO redo this, now performs worse than old one.....!!
-void	draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
+static bool	is_transparent_color(uint32_t color)
 {
-	int				d;
+	return (color == 0x880098 || color == 0x8b009b || \
+			color == 0x8c009c || !color);
+}
+
+static void	draw_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
+							mlx_texture_t *t, t_vector_int pos)
+{
+	uint32_t		clr;
 	uint8_t			*fg;
-	// uint32_t		color;
-	t_vector_int	pos;
-	t_vector_int	t;
+	int				d;
 	int				h;
-	int				iter;
+
+	fg = i->pixels;
+	h = (-(int)i->height + c->sprite_height) * 128;
+	if (((pos.y - c->move) * 256) < h)
+		pos.y = -(h / 256) + c->move;
+	if (pos.y < -1)
+		pos.y = -1;
+	while (++pos.y < c->draw_end.y && pos.y < 600)
+	{
+		d = (pos.y - c->move) * 256 + h;
+		c->tex.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
+		if (c->tex.y >= (int)t->height)
+			break ;
+		if (c->tex.y >= 0)
+		{
+			clr = (*(int *)(t->pixels + (t->width * c->tex.y + c->tex.x) * 4));
+			if (!is_transparent_color(clr))
+				*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = clr;
+		}
+	}
+}
+
+//TODO check if this function can be improved.
+void	draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, \
+					mlx_texture_t *tex)
+{
+	t_vector_int	pos;
+	int				h;
 
 	if (c->transform.y < 0.3)
 		return ;
-	fg = i->pixels;
-	h = (c->sprite_height - i->height) * 128;
+	h = (-(int)i->height + c->sprite_height) * 128;
 	pos.x = c->draw_start.x - 1;
-	if (pos.x < ((-c->sprite_width_halve + 
-		c->sprite_screen_x)))
-			pos.x = (-c->sprite_width_halve + 
-		c->sprite_screen_x) - 1;
-	iter = 0;
+	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
+			pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
 	while (++pos.x < c->draw_end.x)
 	{
-		t.x = (int)(256 * (pos.x - (-c->sprite_width_halve + 
+		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width / 2 + \
 			c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
-		t.x -= tr.start.x;
-		if (t.x >= (int)tex->width)
+		c->tex.x -= tr.start.x;
+		if (c->tex.x >= (int)tex->width)
 			break ;
-		if (pos.x > 0 && pos.x < (int)i->width && c->transform.y < c->zbuffer[pos.x] && t.x >= 0)
+		if (pos.x < (int)i->width && c->transform.y < c->zbuffer[pos.x] && \
+			c->tex.x >= 0)
 		{
 			pos.y = c->draw_start.y - 1;
-			if (((c->draw_end.y - c->move) * 256) < h)
-				return ;
-			if (((pos.y - c->move) * 256) < h)
-				pos.y = -(h / 256) + c->move;
-			if (pos.y < -1)
-				pos.y = -1;
-			while (++pos.y < c->draw_end.y && pos.y < 600)
-			{
-				d = (pos.y - c->move) * 256 + h;
-				t.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
-				t.y -= (tr.end.y - tr.start.y);
-				iter++;
-				if (t.y >= (int)tex->height)
-					break ;
-				if (t.y >= 0)
-				{
-					// color = (*(uint32_t *)(tex->pixels + 
-					// 	((tex->width * t.y + t.x) * 4)));
-					// if (color != 0x880098 && color != 0x8b009b && color != 0x8c009c && color)
-					// 	*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = color;
-				}
-			}
+			draw_sprite_line(c, i, tex, pos);
 		}
-	}
-	if (iter > 250000)
-	{
-		pos.x = c->draw_start.x - 1;
-		if (pos.x < ((-c->sprite_width_halve + 
-			c->sprite_screen_x)))
-				pos.x = (-c->sprite_width_halve + 
-			c->sprite_screen_x) - 1;
-		pos.y = c->draw_start.y - 1;
-		if (((pos.y - c->move) * 256) < h)
-			pos.y = -(h / 256) + c->move;
-		if (pos.y < -1)
-			pos.y = -1;
-		printf("pos: %d, %d\n", pos.x, pos.y);
-		printf("i: %d\n", iter);
-		printf("draw: %d,%d , %d,%d\n", c->draw_start.x, c->draw_start.y, c->draw_end.x, c->draw_end.y);
 	}
 }
 
@@ -143,7 +134,7 @@ void	draw_sprites(t_data *data)
 
 	data->spr_cast.inverse_determinant = 1.0 / \
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
-	// sort_sprites(data, &(data->sprite_lst));
+	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
 	while (lst)
 	{
@@ -153,8 +144,8 @@ void	draw_sprites(t_data *data)
 			set_draw_pos(lst->sprite_data.kind, &data->spr_cast, data->mlx.fg);
 			if (!is_enemy_kind(lst->sprite_data.kind))
 			{
-				draw_sprite(&data->spr_cast, lst->sprite_data.transp, data->mlx.fg, \
-					data->mlx.tex.obj[lst->sprite_data.kind - 1]);
+				draw_sprite(&data->spr_cast, lst->sprite_data.transp, \
+					data->mlx.fg, data->mlx.tex.obj[lst->sprite_data.kind - 1]);
 			}
 			else
 				update_enemies(data, &lst->sprite_data);

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/24 12:24:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 13:35:58 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void			draw_weapons(t_data *data, mlx_texture_t *gun, \
 						mlx_image_t *weapon);
 void			animate_weapon(t_data *data);
 void			draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex);
+void			draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex);
 //==========Draw Door function util functions==============
 void			extend_ray(t_data *data, t_raycaster *ray);
 bool			secret_hit(t_data *dat, t_intersect *seg);
