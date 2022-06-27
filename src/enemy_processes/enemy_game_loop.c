@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:02:10 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 16:18:06 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ static void	check_enemies_dead(t_sprite *enemy)
 	enemy->en_dat.state = DEAD;
 }
 
+//TODO change this to use a struct with function pointers
+// similar to how real wolfenstein does it 
+//	and (https://github.com/amalliar/cub3d) does it too
 void	update_enemies(t_data *data, t_sprite *enemy)
 {
 	draw_enemies(data, enemy, &data->spr_cast);

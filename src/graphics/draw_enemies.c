@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:00:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 16:09:14 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
 			&& c->transform.y < c->zbuffer[pos.x]);
 }
 
-// static void	draw_enemy_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
+// static void	draw_enemy_sprite_line(t_sprite_raycaster *c, mlx_image_t *i,
 // 							mlx_texture_t *t, t_vector_int pos, t_transp tr)
 // {
 // 	uint32_t		clr;
@@ -102,7 +102,8 @@ bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
 // 	}
 // }
 
-// void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
+// void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, 
+						// mlx_texture_t *tex)
 // {
 // 	t_vector_int	pos;
 
@@ -111,7 +112,7 @@ bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
 // 		pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
 // 	while (++pos.x < c->draw_end.x && pos.x < (int)i->width)
 // 	{
-// 		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
+// 		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width_halve + 
 // 		c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
 // 		if (c->tex.x > tr.end.x || c->tex.x > (int)tex->width)
 // 			break ;
@@ -133,7 +134,6 @@ void	draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c)
 	{
 		transp = get_enemy_transp(sprt, data->cam.dir, sprt->kind - GUARD);
 		draw_sprite(c, transp, data->mlx.fg, texture);
-		// draw_enemy_sprite(c, transp, data->mlx.fg, texture);
 	}
 	else
 	{
