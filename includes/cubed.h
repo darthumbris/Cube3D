@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 13:35:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:22:07 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ enum e_compas	get_enemy_direction(t_vector_double dir_cam, \
 
 //==========Draw Sprites util function======================
 void			sort_sprites(t_data *data, t_sprite_lst **begin);
+bool			can_draw_line(t_sprite_raycaster *c, t_vector_int pos, \
+							mlx_image_t *img);
 
 //=========Functions for checking if player hits an enemy===
 void			check_weapon_hit(t_data *data);

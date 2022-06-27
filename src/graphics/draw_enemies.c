@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 13:35:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:23:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,56 +56,59 @@ static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir)
 	return (g_guard[tex]);
 }
 
-static bool	in_sprite_area(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
+bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
 {
-	return (pos.x > 0 && pos.x < (int)img->width \
+	return (pos.x < (int)img->width \
 			&& c->transform.y < c->zbuffer[pos.x]);
 }
 
-static bool	in_color_area(t_vector_int texp, mlx_texture_t *tex, t_transp tr)
+static void	draw_enemy_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
+							mlx_texture_t *t, t_vector_int pos, t_transp tr)
 {
-	return (texp.x >= 0 && texp.x < (int)tex->width && \
-			texp.y >= tr.start.y && texp.y <= tr.end.y);
-}
-
-void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
-{
-	int				d;
+	uint32_t		clr;
 	uint8_t			*fg;
-	uint32_t		color;
-	t_vector_int	pos;
-	t_vector_int	t;
+	int				d;
+	int				h;
 
-	pos.x = c->draw_start.x - 1;
 	fg = i->pixels;
-	while (++pos.x < c->draw_end.x && pos.x < (int)i->width)
+	h = (-(int)i->height + c->sprite_height) * 128;
+	if (((pos.y) * 256) < h)
+		pos.y = -(h / 256);
+	if (pos.y < -1)
+		pos.y = -1;
+	while (++pos.y < c->draw_end.y && pos.y < 600)
 	{
-		t.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
-		c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
-		if (t.x > tr.end.x)
+		d = (pos.y) * 256 + h;
+		c->tex.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
+		if (c->tex.y >= (int)t->height || c->tex.y > tr.end.y)
 			break ;
-		if (in_sprite_area(c, pos, i) && t.x >= tr.start.x)
+		if (c->tex.y >= 0 && c->tex.y >= tr.start.y)
 		{
-			pos.y = c->draw_start.y - 1;
-			while (++pos.y < c->draw_end.y && pos.y < 600)
-			{
-				d = pos.y * 256 - i->height * 128 + c->sprite_height * 128;
-				t.y = (d * TEX_SIZE * c->inverse_sprite_height) / 256;
-				if (t.y > tr.end.y)
-					break ;
-				if (in_color_area(t, tex, tr))
-				{
-					color = (*(uint32_t *)(tex->pixels + (tex->width * t.y + t.x) * 4));
-					if (color != 0x880098 && color != 0x8b009b && color != 0x8c009c && color)
-						*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = color;
-				}
-			}
+			clr = (*(int *)(t->pixels + (t->width * c->tex.y + c->tex.x) * 4));
+			if (!is_transparent_color(clr))
+				*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = clr;
 		}
 	}
 }
 
-//TODO use the draw_sprite and all the different sprites 
-// instead of the sheet. makes it easier to do all the transp checks etc.
+void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
+{
+	t_vector_int	pos;
+
+	pos.x = c->draw_start.x - 1;
+	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
+		pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
+	while (++pos.x < c->draw_end.x && pos.x < (int)i->width)
+	{
+		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
+		c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
+		if (c->tex.x > tr.end.x || c->tex.x > (int)tex->width)
+			break ;
+		if (can_draw_line(c, pos, i) && c->tex.x >= tr.start.x)
+			draw_enemy_sprite_line(c, i, tex, pos, tr);
+	}
+}
+
 // TODO make it work for the rest of the enemies.
 void	draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c)
 {

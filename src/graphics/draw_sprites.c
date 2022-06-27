@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:03:24 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:22:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)
 		c->draw_end.x = img->width - 1;
 }
 
-static bool	is_transparent_color(uint32_t color)
+bool	is_transparent_color(uint32_t color)
 {
 	return (color == 0x880098 || color == 0x8b009b || \
 			color == 0x8c009c || !color);
@@ -104,11 +104,9 @@ void	draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, \
 					mlx_texture_t *tex)
 {
 	t_vector_int	pos;
-	int				h;
 
 	if (c->transform.y < 0.3)
 		return ;
-	h = (-(int)i->height + c->sprite_height) * 128;
 	pos.x = c->draw_start.x - 1;
 	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
 			pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
@@ -119,8 +117,7 @@ void	draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, \
 		c->tex.x -= tr.start.x;
 		if (c->tex.x >= (int)tex->width)
 			break ;
-		if (pos.x < (int)i->width && c->transform.y < c->zbuffer[pos.x] && \
-			c->tex.x >= 0)
+		if (can_draw_line(c, pos, i) && c->tex.x >= 0)
 		{
 			pos.y = c->draw_start.y - 1;
 			draw_sprite_line(c, i, tex, pos);

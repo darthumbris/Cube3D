@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 16:35:45 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:18:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,5 +190,6 @@ void	draw_texture(mlx_image_t *img, mlx_texture_t *tex, \
 void	draw_texture_area(mlx_image_t *img, mlx_texture_t *tex, \
 					t_vector_int start, t_vector_int tex_pos, \
 					int wh[2], double scale);
+bool	is_transparent_color(uint32_t color);
 
 #endif
