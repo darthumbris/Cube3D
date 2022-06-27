@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:22:30 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 15:34:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	ceiling_sprite(int kind)
 	return (kind == LAMP_G || kind == LAMP_R || kind == CHANDELIER || \
 			kind == ORB || kind == CAGE1 || kind == CAGE2 || kind == CAGE3 \
 			|| kind == CAGE4 || kind == PANS1 || kind == PANS2 || \
-			kind == STATUE);
+			kind == STATUE || kind == GUARD);
 }
 
 static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)
@@ -71,7 +71,7 @@ bool	is_transparent_color(uint32_t color)
 }
 
 static void	draw_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
-							mlx_texture_t *t, t_vector_int pos)
+							mlx_texture_t *t, t_vector_int pos, t_transp tr)
 {
 	uint32_t		clr;
 	uint8_t			*fg;
@@ -88,7 +88,7 @@ static void	draw_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
 	{
 		d = (pos.y - c->move) * 256 + h;
 		c->tex.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
-		if (c->tex.y >= (int)t->height)
+		if (c->tex.y >= (int)t->height || c->tex.y > tr.end.y)
 			break ;
 		if (c->tex.y >= 0)
 		{
@@ -109,18 +109,19 @@ void	draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, \
 		return ;
 	pos.x = c->draw_start.x - 1;
 	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
-			pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
+		pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
 	while (++pos.x < c->draw_end.x)
 	{
 		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width / 2 + \
 			c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
-		c->tex.x -= tr.start.x;
+		if (tex->width < 128)
+			c->tex.x -= tr.start.x;
 		if (c->tex.x >= (int)tex->width)
 			break ;
 		if (can_draw_line(c, pos, i) && c->tex.x >= 0)
 		{
 			pos.y = c->draw_start.y - 1;
-			draw_sprite_line(c, i, tex, pos);
+			draw_sprite_line(c, i, tex, pos, tr);
 		}
 	}
 }

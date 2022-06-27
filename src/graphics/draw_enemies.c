@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 14:23:33 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 16:00:53 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,34 @@ static mlx_texture_t	*get_enemy_texture(t_data *data, t_vector_double cam_dir, t
 	return (data->mlx.tex.enmy[0]);
 }
 
-static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir)
+static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir, \
+								int enemy)
 {
 	enum e_compas	dir;
-	int				tex;
+	int				dir_frames;
+	t_sprt_sht_data	sheet;
+	int				frames;
 
+	sheet = g_enemy_sprt_data[enemy];
 	dir = get_enemy_direction(cam_dir, sprt->en_dat.dir);
-	if (sprt->en_dat.state == HURT)
-		tex = 3 + 5 * 8;
-	else if (sprt->en_dat.state == DYING)
-		tex = sprt->en_dat.frame % 5 + 5 * 8 + 4;
-	else if (sprt->en_dat.state == DEAD)
-		tex = 6 * 8;
-	else if (sprt->en_dat.state == ATTACK)
-		tex = 40 + sprt->en_dat.frame % 3;
+	dir_frames = 1;
+	if (sheet.rotation == true)
+		dir_frames = 8;
+	if (sprt->en_dat.state < ATTACK)
+		frames = dir * (sprt->en_dat.frame % sheet.move_frames);
 	else
-		tex = dir + sprt->en_dat.frame * 8;
-	return (g_guard[tex]);
+		frames = dir_frames * sheet.move_frames;
+	if (sprt->en_dat.state >= HURT)
+		frames += sheet.attack_frames;
+	if (sprt->en_dat.state >= DYING)
+		frames += sheet.hit_frames;
+	if (sprt->en_dat.state == DYING)
+		frames += sprt->en_dat.frame % sheet.death_frames;
+	else if (sprt->en_dat.state == DEAD)
+		frames += sheet.death_frames;
+	if (sprt->en_dat.state == ATTACK)
+		frames += sprt->en_dat.frame % sheet.attack_frames;
+	return (g_guard[frames]); // TODO make this use a struct with all the transp in it
 }
 
 bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
@@ -62,52 +73,52 @@ bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
 			&& c->transform.y < c->zbuffer[pos.x]);
 }
 
-static void	draw_enemy_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
-							mlx_texture_t *t, t_vector_int pos, t_transp tr)
-{
-	uint32_t		clr;
-	uint8_t			*fg;
-	int				d;
-	int				h;
+// static void	draw_enemy_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
+// 							mlx_texture_t *t, t_vector_int pos, t_transp tr)
+// {
+// 	uint32_t		clr;
+// 	uint8_t			*fg;
+// 	int				d;
+// 	int				h;
 
-	fg = i->pixels;
-	h = (-(int)i->height + c->sprite_height) * 128;
-	if (((pos.y) * 256) < h)
-		pos.y = -(h / 256);
-	if (pos.y < -1)
-		pos.y = -1;
-	while (++pos.y < c->draw_end.y && pos.y < 600)
-	{
-		d = (pos.y) * 256 + h;
-		c->tex.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
-		if (c->tex.y >= (int)t->height || c->tex.y > tr.end.y)
-			break ;
-		if (c->tex.y >= 0 && c->tex.y >= tr.start.y)
-		{
-			clr = (*(int *)(t->pixels + (t->width * c->tex.y + c->tex.x) * 4));
-			if (!is_transparent_color(clr))
-				*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = clr;
-		}
-	}
-}
+// 	fg = i->pixels;
+// 	h = (-(int)i->height + c->sprite_height) * 128;
+// 	if (((pos.y) * 256) < h)
+// 		pos.y = -(h / 256);
+// 	if (pos.y < -1)
+// 		pos.y = -1;
+// 	while (++pos.y < c->draw_end.y && pos.y < 600)
+// 	{
+// 		d = (pos.y) * 256 + h;
+// 		c->tex.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
+// 		if (c->tex.y >= (int)t->height || c->tex.y > tr.end.y)
+// 			break ;
+// 		if (c->tex.y >= 0 && c->tex.y >= tr.start.y)
+// 		{
+// 			clr = (*(int *)(t->pixels + (t->width * c->tex.y + c->tex.x) * 4));
+// 			if (!is_transparent_color(clr))
+// 				*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = clr;
+// 		}
+// 	}
+// }
 
-void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
-{
-	t_vector_int	pos;
+// void	draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex)
+// {
+// 	t_vector_int	pos;
 
-	pos.x = c->draw_start.x - 1;
-	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
-		pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
-	while (++pos.x < c->draw_end.x && pos.x < (int)i->width)
-	{
-		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
-		c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
-		if (c->tex.x > tr.end.x || c->tex.x > (int)tex->width)
-			break ;
-		if (can_draw_line(c, pos, i) && c->tex.x >= tr.start.x)
-			draw_enemy_sprite_line(c, i, tex, pos, tr);
-	}
-}
+// 	pos.x = c->draw_start.x - 1;
+// 	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
+// 		pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
+// 	while (++pos.x < c->draw_end.x && pos.x < (int)i->width)
+// 	{
+// 		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width_halve + \
+// 		c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
+// 		if (c->tex.x > tr.end.x || c->tex.x > (int)tex->width)
+// 			break ;
+// 		if (can_draw_line(c, pos, i) && c->tex.x >= tr.start.x)
+// 			draw_enemy_sprite_line(c, i, tex, pos, tr);
+// 	}
+// }
 
 // TODO make it work for the rest of the enemies.
 void	draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c)
@@ -120,8 +131,9 @@ void	draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c)
 	texture = get_enemy_texture(data, data->cam.dir, sprt);
 	if (sprt->kind == GUARD)
 	{
-		transp = get_enemy_transp(sprt, data->cam.dir);
-		draw_enemy_sprite(c, transp, data->mlx.fg, texture);
+		transp = get_enemy_transp(sprt, data->cam.dir, sprt->kind - GUARD);
+		draw_sprite(c, transp, data->mlx.fg, texture);
+		// draw_enemy_sprite(c, transp, data->mlx.fg, texture);
 	}
 	else
 	{
