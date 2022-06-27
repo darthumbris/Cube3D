@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:47:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:40:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/24 16:47:51 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ typedef struct s_vector_double
 	double	x;
 	double	y;
 }				t_vector_double;
+
+typedef struct s_vector_uint
+{
+	uint32_t	x;
+	uint32_t	y;
+}				t_vector_uint;
 
 typedef struct s_vector_int
 {

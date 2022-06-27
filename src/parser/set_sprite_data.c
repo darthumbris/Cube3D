@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 16:37:53 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:25:16 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,16 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, uint8_t ***map, 
 		sprite->texture = data->mlx.tex.obj[sprite->kind - 1];
 	if (!is_enemy)
 	{
-		sprite->transp_begin.x = (128 - data->mlx.tex.obj[sprite->kind - 1]->width) / 2 - 1;
-		sprite->transp_end.x = 127 - sprite->transp_begin.x;
-		sprite->transp_begin.y = 128 - data->mlx.tex.obj[sprite->kind - 1]->height - 1;
-		sprite->transp_end.y =  sprite->transp_begin.y - data->mlx.tex.obj[sprite->kind - 1]->height;
-
-		if (sprite->transp_begin.x < 0)
-			sprite->transp_begin.x = 0;
-		if (sprite->transp_begin.y < 0)
-			sprite->transp_begin.y = 0;
-		sprite->transp.start.x = sprite->transp_begin.x;
-		sprite->transp.start.y = sprite->transp_begin.y;
-		sprite->transp.end.x = sprite->transp_end.x;
-		sprite->transp.end.y = sprite->transp_end.y;
-		printf("kind: %d, transpbegin: %d,%d, end: %d,%d\n", sprite->kind, sprite->transp_begin.x, sprite->transp_begin.y, sprite->transp_end.x, sprite->transp_end.y);
+		sprite->transp.start.x = (128 - data->mlx.tex.obj[sprite->kind - 1]->width) / 2 - 1;
+		sprite->transp.end.x = 127 - sprite->transp.start.x;
+		if (sprite->transp.start.x < 0)
+		{
+			sprite->transp.start.x = 0;
+			sprite->transp.end.x = data->mlx.tex.obj[sprite->kind - 1]->width;
+		}
+		sprite->transp.start.y = 0;
+		sprite->transp.end.y = data->mlx.tex.obj[sprite->kind - 1]->height;
+		printf("kind: %d, transpbegin: %d,%d, end: %d,%d\n", sprite->kind, sprite->transp.start.x, sprite->transp.start.y, sprite->transp.end.x, sprite->transp.end.y);
 	}
 }
 

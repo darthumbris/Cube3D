@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 13:01:41 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 16:36:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 11:23:32 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,6 @@ typedef struct s_sprite
 	t_vector_double	map_pos;
 	int				kind;
 	t_transp		transp;
-	t_vector_int	transp_begin;
-	t_vector_int	transp_end;
 	double			dist;
 	bool			dropped;
 	t_enemy_data	en_dat;
