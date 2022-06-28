@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/28 12:19:17 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 15:09:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ static void	check_attack_sound_play(t_data *data, t_sprite *enemy)
 				enemy->dist);
 		if (enemy->kind == GUARD)
 			play_sound_vol(data, "./assets/wav_files/sounds/grdatk.wav", \
+				enemy->dist);
+		if (enemy->kind == BOSS_BARNEY)
+			play_sound_vol(data, "./assets/wav_files/sounds/biggun.wav", \
 				enemy->dist);
 		enemy->en_dat.played_sound = true;
 	}
