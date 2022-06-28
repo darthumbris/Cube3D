@@ -6,11 +6,42 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/22 16:01:43 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:10:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
+
+static t_transp	get_transp(int enemy, int frame)
+{
+	printf("frame: %d\n", frame);
+	switch (enemy)
+	{
+	case 0:
+		return (g_guard[frame]);
+	case 1:
+		return (g_dog[frame]);
+	case 8:
+		return (g_barny[frame]);
+	default :
+		return (g_guard[frame]);
+	}
+}
+
+static void	init_transparencies(t_transp **tr)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < 9)
+	{
+		tr[i] = ft_calloc(g_enemy_sprt_data[i].total_sprites, sizeof(t_transp));
+		j = -1;
+		while (++j < g_enemy_sprt_data[i].total_sprites)
+			tr[i][j] = get_transp(i, j);
+	}
+}	
 
 bool	init_mlx(t_data *data)
 {
@@ -32,6 +63,8 @@ bool	init_mlx(t_data *data)
 	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
 	data->spr_cast.zbuffer = ft_calloc(sizeof(double), SCREEN_WIDTH);
+	data->spr_cast.tr_lst = ft_calloc(23, sizeof(t_transp *));
+	init_transparencies(data->spr_cast.tr_lst);
 	if (!data->spr_cast.zbuffer)
 		return (error_msg("Malloc error"));
 	return (true);

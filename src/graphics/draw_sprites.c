@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 15:34:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 11:35:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	ceiling_sprite(int kind)
 	return (kind == LAMP_G || kind == LAMP_R || kind == CHANDELIER || \
 			kind == ORB || kind == CAGE1 || kind == CAGE2 || kind == CAGE3 \
 			|| kind == CAGE4 || kind == PANS1 || kind == PANS2 || \
-			kind == STATUE || kind == GUARD);
+			kind == STATUE || is_enemy_kind(kind));
 }
 
 static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)

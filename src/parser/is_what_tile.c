@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 09:36:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 15:38:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 11:28:22 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	is_sprite_tile(uint8_t	c)
 
 bool	is_enemy_tile(uint8_t	c)
 {
-	return (c >= 5 && c <= 160);
+	return (c >= 5 && c <= 184);
 }
 
 bool	is_wall_tile(uint8_t c)

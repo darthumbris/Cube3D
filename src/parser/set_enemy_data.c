@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 16:05:05 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:20:51 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:03:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,10 @@ static void	set_kind(t_sprite *enemy)
 		enemy->kind = UBERMUTANT;
 		break;
 	default:
-		enemy->kind = enemy->kind - 135;
+		enemy->kind = enemy->kind + 120;
 		break;
 	}
+	printf("enemy kind: %d\n", enemy->kind);
 }
 
 void	set_enemy_data(t_sprite *enemy, uint8_t ***map, t_vector_int pos)
@@ -134,6 +135,7 @@ void	set_enemy_data(t_sprite *enemy, uint8_t ***map, t_vector_int pos)
 	enemy->en_dat.player_detected = false;
 	set_state(enemy);
 	set_kind(enemy);
+	printf("enemy loaded: %d\n", enemy->kind);
 	set_health(enemy);
 	set_speed(enemy);
 	set_direction(enemy, map[pos.y][pos.x][2]);

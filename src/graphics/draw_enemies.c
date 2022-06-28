@@ -6,39 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:09:36 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:09:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:28:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static mlx_texture_t	*get_enemy_texture(t_data *data, t_vector_double cam_dir, t_sprite *sprt)
-{
-	enum e_compas	dir;
-	int				tex;
-
-	if (sprt->kind == DOG)
-		return (data->mlx.tex.enmy[1]);
-	else if (sprt->kind == GUARD)
-	{
-		dir = get_enemy_direction(cam_dir, sprt->en_dat.dir);
-		if (sprt->en_dat.state == HURT)
-			tex = 3 + 5 * 8;
-		else if (sprt->en_dat.state == DYING)
-			tex = sprt->en_dat.frame % 5 + 5 * 8 + 4;
-		else if (sprt->en_dat.state == DEAD)
-			tex = 6 * 8;
-		else if (sprt->en_dat.state == ATTACK)
-			tex = 40 + sprt->en_dat.frame % 3;
-		else
-			tex = dir + sprt->en_dat.frame * 8;
-		return (data->mlx.tex.enmy_sprites[0].tex[tex]);
-	}
-	return (data->mlx.tex.enmy[0]);
-}
-
-static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir, \
-								int enemy)
+static int	get_frames(t_vector_double cam_dir, t_sprite *sprt, int enemy)
 {
 	enum e_compas	dir;
 	int				dir_frames;
@@ -46,7 +20,9 @@ static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir, \
 	int				frames;
 
 	sheet = g_enemy_sprt_data[enemy];
-	dir = get_enemy_direction(cam_dir, sprt->en_dat.dir);
+	dir = 0;
+	if (sheet.rotation == true)
+		dir = get_enemy_direction(cam_dir, sprt->en_dat.dir);
 	dir_frames = 1;
 	if (sheet.rotation == true)
 		dir_frames = 8;
@@ -61,10 +37,28 @@ static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir, \
 	if (sprt->en_dat.state == DYING)
 		frames += sprt->en_dat.frame % sheet.death_frames;
 	else if (sprt->en_dat.state == DEAD)
-		frames += sheet.death_frames;
+		frames = sheet.total_sprites - 1;
 	if (sprt->en_dat.state == ATTACK)
 		frames += sprt->en_dat.frame % sheet.attack_frames;
-	return (g_guard[frames]); // TODO make this use a struct with all the transp in it
+	return (frames);
+}
+
+static mlx_texture_t	*get_enemy_texture(t_data *data, \
+	t_vector_double cam_dir, t_sprite *sprt, int enemy)
+{
+	int	frames;
+
+	frames = get_frames(cam_dir, sprt, enemy);
+	return (data->mlx.tex.enmy_sprites[enemy].tex[frames]);
+}
+
+static t_transp	get_enemy_transp(t_sprite *sprt, t_vector_double cam_dir, \
+								int enemy, t_sprite_raycaster *c)
+{
+	int				frames;
+
+	frames = get_frames(cam_dir, sprt, enemy);
+	return (c->tr_lst[enemy][frames]);
 }
 
 bool	can_draw_line(t_sprite_raycaster *c, t_vector_int pos, mlx_image_t *img)
@@ -129,15 +123,7 @@ void	draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c)
 
 	if (c->transform.y < 0.3)
 		return ;
-	texture = get_enemy_texture(data, data->cam.dir, sprt);
-	if (sprt->kind == GUARD)
-	{
-		transp = get_enemy_transp(sprt, data->cam.dir, sprt->kind - GUARD);
-		draw_sprite(c, transp, data->mlx.fg, texture);
-	}
-	else
-	{
-		printf("other type of enemy not implemented yet\n");
-		return ;
-	}
+	texture = get_enemy_texture(data, data->cam.dir, sprt, sprt->kind - GUARD);
+	transp = get_enemy_transp(sprt, data->cam.dir, sprt->kind - GUARD, c);
+	draw_sprite(c, transp, data->mlx.fg, texture);
 }

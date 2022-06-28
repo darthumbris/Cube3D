@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:25:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 11:25:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, uint8_t ***map, 
 	}
 	else if (sprite->kind >= CROSS && sprite->kind <= CROWN)
 		data->level.treasure_count++;
-	if (is_enemy)
-		sprite->texture = data->mlx.tex.enmy[0];// TODO fix this shit
-	else
+	if (!is_enemy)
 		sprite->texture = data->mlx.tex.obj[sprite->kind - 1];
 	if (!is_enemy)
 	{

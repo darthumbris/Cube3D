@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:01:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 16:18:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:19:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	change_animation_frame(t_sprite *enemy, int delay, bool dead)
 	}
 	else
 	{
-		if (enemy->kind == GUARD && enemy->en_dat.frame > 4)
+		if ((enemy->kind == GUARD || enemy->kind == BOSS_BARNEY) && enemy->en_dat.frame > 4)
 		{
 			enemy->en_dat.state = DEAD;
 			enemy->en_dat.frame = 4;

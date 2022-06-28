@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 13:42:13 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 16:05:02 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 10:27:52 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,28 +72,30 @@ bool	init_needed_obj_textures(t_lodtex *tex, t_data *data)
 
 bool	init_needed_enemy_textures(t_lodtex *tex, t_data *data)
 {
-	int		i;
-	char	*path;
+	// int		i;
+	// char	*path;
 
-	i = -1;
-	while (++i < 23)
-	{
-		if (data->mlx.txt_in_map.enmy[i])
-		{
-			path = ft_strjoin_r("assets/sprites/guards/", enemy_icon_lst[i + 2].tex_name);
-			tex->enmy[i] = mlx_load_png(path);
-			printf("i: %d, path: %s\n", i, path);
-			if (tex->enmy[i] == NULL)
-			{
-				printf("failed to load %d name: %s\n", i, path);
-				free(path);
-				return (false);
-			}
-			free(path);
-		}
-		else
-			tex->enmy[i] = NULL;
-	}
+	// i = -1;
+	// while (++i < 23)
+	// {
+	// 	if (data->mlx.txt_in_map.enmy[i])
+	// 	{
+	// 		path = ft_strjoin_r("assets/sprites/guards/", enemy_icon_lst[i + 2].tex_name);
+	// 		tex->enmy[i] = mlx_load_png(path);
+	// 		printf("i: %d, path: %s\n", i, path);
+	// 		if (tex->enmy[i] == NULL)
+	// 		{
+	// 			printf("failed to load %d name: %s\n", i, path);
+	// 			free(path);
+	// 			return (false);
+	// 		}
+	// 		free(path);
+	// 	}
+	// 	else
+	// 		tex->enmy[i] = NULL;
+	// }
+	(void)tex;
+	(void)data;
 	return (true);
 }
 

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/15 12:09:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/24 15:15:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:06:30 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,85 @@ void	set_player_pos(t_data *data, uint8_t ***map)
 	}
 }
 
-//TODO properly parse the level for player pos/dir and all sprites/ doors/ secrets enemies etc
+static bool	init_textures_with_rotation(t_enmy_sprites *ssheet, int enemy)
+{
+	int				i;
+	char			*path;
+	char			*full_path;
+	char			*png;
+	t_sprt_sht_data	sheet;
 
+	sheet = g_enemy_sprt_data[enemy];
+	ssheet->tex = ft_calloc(sheet.total_sprites, sizeof(mlx_texture_t *));
+	path = ft_strjoin_r("assets/sprites/guards/", sheet.name);
+	png = ft_strdup("1.png");
+	i = -1;
+	while (++i < sheet.total_sprites)
+	{
+		if (i < (8 * sheet.move_frames))
+			path[ft_strlen(path) - 1] = 'a' + i / 8;
+		else
+			path[ft_strlen(path) - 1] = 'a' + sheet.move_frames + i - (8 * sheet.move_frames);
+		if (i < (8 * sheet.move_frames))
+			png[0] = i % 8 + '1';
+		else
+			png[0] = '0';
+		full_path = ft_strjoin_r(path, png);
+		ssheet->tex[i] = mlx_load_png(full_path);
+		if (ssheet->tex[i] == NULL)
+		{
+			free(path);
+			free(png);
+			printf("failed to load sprite %d: %s\n", i, full_path);
+			free(full_path);
+			return (false);
+		}
+		free(full_path);
+	}
+	free(path);
+	free(png);
+	return (true);
+}
+
+static bool	init_textures_without_rotation(t_enmy_sprites *ssheet, int enemy)
+{
+	int				i;
+	char			*path;
+	char			*full_path;
+	t_sprt_sht_data	sheet;
+	char			end;
+
+	sheet = g_enemy_sprt_data[enemy];
+	ssheet->tex = ft_calloc(sheet.total_sprites, sizeof(mlx_texture_t *));
+	path = ft_strjoin_r("assets/sprites/guards/", sheet.name);
+	end = sheet.name[ft_strlen(sheet.name) - 1];
+	i = -1;
+	while (++i < sheet.total_sprites)
+	{
+		path[ft_strlen(path) - 1] = end + i;
+		full_path = ft_strjoin_r(path, "0.png");
+		ssheet->tex[i] = mlx_load_png(full_path);
+		if (ssheet->tex[i] == NULL)
+		{
+			free(path);
+			printf("failed to load sprite %d: %s\n", i, full_path);
+			free(full_path);
+			return (false);
+		}
+		else
+			printf("loaded sprite %d: %s\n", i, full_path);
+		free(full_path);
+	}
+	free(path);
+	return (true);
+}
+
+//TODO properly parse the level for player pos/dir and all sprites/ doors/ secrets enemies etc
 bool	init_level(t_data *data)
 {
 	struct timeval	timev;
 	int				i;
 	int				player_count;
-	char			*path;
-	char			*png;
-	char			*full_path;
 
 	player_count = 0;
 	if (!init_textures(data))
@@ -117,23 +186,12 @@ bool	init_level(t_data *data)
 	init_secrets(data);
 	init_player(data);
 	init_weapons(data);
-	data->mlx.tex.enmy_sprites[0].tex = ft_calloc(49, sizeof(mlx_texture_t *));
-	path = ft_strdup("assets/sprites/guards/Guard/garda");
-	png = ft_strdup("1.png");
-	i = -1;
-	while (++i < 49)
-	{
-		if (i < 40)
-			path[ft_strlen(path) - 1] = 'a' + i / 8;
-		else
-			path[ft_strlen(path) - 1] = 'f' + i - 40;
-		if (i < 40)
-			png[0] = i % 8 + '1';
-		else if (i < 43)
-			png[0] = '0';
-		full_path = ft_strjoin_r(path, png);
-		data->mlx.tex.enmy_sprites[0].tex[i] = mlx_load_png(full_path);
-	}
+	if (init_textures_with_rotation(&data->mlx.tex.enmy_sprites[0], 0) == false)
+		return (false);
+	if (init_textures_with_rotation(&data->mlx.tex.enmy_sprites[1], 1) == false)
+		return (false);
+	if (init_textures_without_rotation(&data->mlx.tex.enmy_sprites[8], 8) == false)
+		return (false);
 	draw_weapons(data, data->mlx.weapon_anim[PISTOL].tex0, \
 				data->mlx.weapon);
 	mlx_image_to_window(data->mlx.mlx_handle, data->mlx.weapon, 0, 0);

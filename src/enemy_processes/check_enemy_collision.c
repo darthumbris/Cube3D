@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 15:58:03 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/27 11:32:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 12:00:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	is_enemy_kind(int kind)
 {
-	return (kind == GUARD || kind == DOG);
+	return (kind >= GUARD && kind <= PAC_4);
 }
 
 bool	is_guard(int kind)
