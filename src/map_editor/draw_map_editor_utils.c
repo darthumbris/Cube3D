@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 09:58:49 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 15:10:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 10:48:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_vector_int	get_icon_pos(t_sprt_drop *sprt, int tile, int plane)
 		return (icon_lst_check(&sprt->drop[ITEM], tile, item_icon_lst));
 	}
 	else
-		return (icon_lst_check(&sprt->drop[ENMY], tile, enemy_icon_lst));
+		return (icon_lst_check(&sprt->drop[ENEMY], tile, enemy_icon_lst));
 }
 
 static void	draw_active_plane_tile(t_data *data, t_map_edit *editor, \

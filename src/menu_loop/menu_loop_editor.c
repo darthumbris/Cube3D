@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/08 15:54:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 14:55:32 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/30 15:25:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static bool	is_drop_lst_hover(t_map_edit *editor, int x, int y)
 			return (true);
 	}
 	if (editor->sp_drops.drop[ROTATION].active.active == false && \
-		is_hover(&editor->sp_drops.drop[DIFFICULTY].active, x, y))
+		(is_hover(&editor->sp_drops.drop[DIFFICULTY].active, x, y) || \
+		is_hover(&editor->sp_drops.drop[ROTATION].active, x, y)))
 		return (true);
 	if (editor->plane_ddlst.active.active && \
 		is_mouse_in_rect(x, y, editor->plane_ddlst.open_rct))

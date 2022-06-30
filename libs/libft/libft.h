@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 15:37:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/30 15:11:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 10:19:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_swap(int *a, int *b);
 
 int		ft_memcmp(const void *str1, const void *str2, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *str1, const char *str2);
 long	ft_atoi(const char *str);	
 int		ft_tolower(int c);
 int		ft_isalpha(int c);

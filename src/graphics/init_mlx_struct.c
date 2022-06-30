@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/06/28 12:10:08 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 11:02:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static t_transp	get_transp(int enemy, int frame)
 {
-	printf("frame: %d\n", frame);
 	switch (enemy)
 	{
 	case 0:
@@ -34,11 +33,11 @@ static void	init_transparencies(t_transp **tr)
 	int	j;
 
 	i = -1;
-	while (++i < 9)
+	while (++i < 23)
 	{
 		tr[i] = ft_calloc(g_enemy_sprt_data[i].total_sprites, sizeof(t_transp));
 		j = -1;
-		while (++j < g_enemy_sprt_data[i].total_sprites)
+		while (++j < g_enemy_sprt_data[i].total_sprites && j < 49)
 			tr[i][j] = get_transp(i, j);
 	}
 }	

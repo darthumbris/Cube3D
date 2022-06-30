@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/31 08:58:48 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/06/23 11:48:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 11:00:48 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	get_correct_plane(int active_plane)
 
 static uint8_t	get_tile_value(int plane, int dir, int difficulty, int sprt)
 {
-	const int	tile_shift = difficulty * 3 + dir;
+	const int	tile_shift = difficulty * 4 + dir;
 
 	if (plane == 0 && wall_icon_lst[sprt].tile_value_begin + tile_shift <= \
 		wall_icon_lst[sprt].tile_value_end)
@@ -51,20 +51,79 @@ static uint8_t	get_tile_value(int plane, int dir, int difficulty, int sprt)
 	return (0);
 }
 
+//TODO check if this is the same as in the other places for direction
+static int	get_dir_editor(t_map_edit *edit)
+{
+	char	*txt;
+
+	if (edit->active_plane != 4)
+		return (0);
+	txt = edit->sp_drops.drop[0].active.txt;
+	if (ft_strcmp(txt, "north") == 0)
+		return (0);
+	else if (ft_strcmp(txt, "east") == 0)
+		return (1);
+	else if (ft_strcmp(txt, "south") == 0)
+		return (2);
+	return (3);
+}
+
+static int	get_difficulty_editor(t_map_edit *edit, int active_sprite)
+{
+	char	*txt;
+
+	if (edit->active_plane != 4 || active_sprite < 3)
+		return (0);
+	txt = edit->sp_drops.drop[1].active.txt;
+	if (ft_strcmp(txt, "easy") == 0)
+		return (0);
+	else if (ft_strcmp(txt, "medium") == 0)
+		return (1);
+	return (2);
+}
+
+static int	get_active_sprt(t_map_edit *edit)
+{
+	int			i;
+	int			plane;
+	t_button	*btn_lst;
+	char		*actv;
+
+	plane = edit->active_plane;
+	btn_lst = edit->sprt_drops.drop[plane].btn_lst;
+	actv = edit->sprt_drops.drop[plane].active.txt;
+	i = -1;
+	while (++i < (int)edit->sprt_drops.drop[plane].elements)
+	{
+		if (ft_strcmp(btn_lst[i].txt, actv) == 0)
+			return (i + 1);
+	}
+	return (0);
+}
+
 //TODO also possible to place on floors 
 //(0 should be replaced by is_floor function)
 //TODO also make that you can't place a wall when there is already
 // an obj or enmy
-static void	change_map(mouse_key_t button, t_map_edit *edit, t_vector_int map)
+static void	change_map(mouse_key_t btn, t_map_edit *edit, t_vector_int map)
 {
-	if (button == MLX_MOUSE_BUTTON_LEFT && \
-		edit->map[map.y][map.x][edit->active_plane] != edit->active_sprite)
+	int	dir;
+	int	diff;
+	int	plane;
+	int	actv;
+
+	dir = get_dir_editor(edit);
+	plane = get_correct_plane(edit->active_plane);
+	actv = get_active_sprt(edit);
+	diff = get_difficulty_editor(edit, actv);
+	if (btn == MLX_MOUSE_BUTTON_LEFT && \
+		edit->map[map.y][map.x][edit->active_plane] != actv)
 	{
-			edit->map[map.y][map.x][get_correct_plane(edit->active_plane)] = \
-			get_tile_value(edit->active_plane, 0, 0, edit->active_sprite - 1);
+		edit->map[map.y][map.x][plane] = \
+		get_tile_value(edit->active_plane, dir, diff, actv - 1);
 	}
-	else if (button == MLX_MOUSE_BUTTON_RIGHT)
-		edit->map[map.y][map.x][get_correct_plane(edit->active_plane)] = 0;
+	else if (btn == MLX_MOUSE_BUTTON_RIGHT)
+		edit->map[map.y][map.x][plane] = 0;
 }
 
 void	menu_mouse_handler(mouse_key_t button, action_t action, \
