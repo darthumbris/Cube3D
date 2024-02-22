@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/04 15:37:54 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/04/20 11:17:18 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 10:19:09 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_swap(int *a, int *b);
 
 int		ft_memcmp(const void *str1, const void *str2, size_t len);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strcmp(const char *str1, const char *str2);
 long	ft_atoi(const char *str);	
 int		ft_tolower(int c);
 int		ft_isalpha(int c);
@@ -60,6 +61,7 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len);
 char	*ft_strrev(char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_r(const char *s1, const char *s2);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strtrim(char const *s1, char const *set);

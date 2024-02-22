@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:19 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/13 15:01:11 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/24 12:12:23 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_door_hit(t_data *data)
 	t_vector_double			wall;
 	const t_vector_double	pos = data->cam.pos;
 
-	if (!is_door_tile(data->level.map[(int)pos.y][(int)pos.x]))
+	if (!is_door_tile(data->level.map_planes[(int)pos.y][(int)pos.x][0]))
 		return ;
 	if (data->caster.side == 0)
 	{
@@ -64,7 +64,7 @@ void	set_texture_pos(t_data *data, mlx_texture_t *tex, t_raycaster *ray)
 		ray->tex.x = tex->width - ray->tex.x - 1;
 	if (ray->side == 1 && ray->ray_dir.y > 0)
 		ray->tex.x = tex->width - ray->tex.x - 1;
-	ray->step_y = 1.0 * tex->height * ray->inv_line_height;
+	ray->step_y = 0.5 * tex->height * ray->inv_line_height;
 	ray->tex_pos = (ray->draw_start - \
 		data->floor.halve_height + ray->halve_line_height) * \
 		ray->step_y;
@@ -72,16 +72,11 @@ void	set_texture_pos(t_data *data, mlx_texture_t *tex, t_raycaster *ray)
 
 static void	extra_drawing(t_data *data, int x)
 {
-	if (data->bonus)
-	{
-		if (data->floor_ceiling)
-			draw_floor_ceiling(data, x);
-		else
-			draw_transparency(data, x);
-		data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
-	}
+	if (data->floor_ceiling)
+		draw_floor_ceiling(data, x);
 	else
 		draw_transparency(data, x);
+	data->spr_cast.zbuffer[x] = data->caster.perp_wall_dist;
 }
 
 void	raycaster(t_data *data)
@@ -102,6 +97,6 @@ void	raycaster(t_data *data)
 		set_texture_pos(data, texture, &data->caster);
 		draw_walls(data, x, texture);
 		extra_drawing(data, x);
-		++x;
+		x++;
 	}
 }

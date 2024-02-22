@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 15:24:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/20 11:45:01 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:15:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	simple_heal_item(t_data *data, t_sprite_lst *item, int kind)
 {
 	if (kind == MEDKIT)
 		data->player.health += 25;
-	else if (kind == DOGMEAL)
+	else if (kind == DOG_MEAL)
 		data->player.health += 4;
 	else if (kind == STIMULANT)
 		data->player.health += 10;

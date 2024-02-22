@@ -6,34 +6,33 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 09:26:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 10:24:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:38:55 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static void	init_weapon_textures(t_data *data)
+static void	init_weapon_anim(t_data *data)
 {
-	data->mlx.weapon_anim[PISTOL].tex0 = data->mlx.tex.texarr[PISTOL0];
-	data->mlx.weapon_anim[PISTOL].tex1 = data->mlx.tex.texarr[PISTOL1];
-	data->mlx.weapon_anim[PISTOL].tex2 = data->mlx.tex.texarr[PISTOL2];
-	data->mlx.weapon_anim[PISTOL].tex3 = data->mlx.tex.texarr[PISTOL3];
-	data->mlx.weapon_anim[KNIFE].tex0 = data->mlx.tex.texarr[KNIFE0];
-	data->mlx.weapon_anim[KNIFE].tex1 = data->mlx.tex.texarr[KNIFE1];
-	data->mlx.weapon_anim[KNIFE].tex2 = data->mlx.tex.texarr[KNIFE2];
-	data->mlx.weapon_anim[KNIFE].tex3 = data->mlx.tex.texarr[KNIFE3];
-	data->mlx.weapon_anim[MACHINEGUN].tex0 = data->mlx.tex.texarr[MACHINEGUN0];
-	data->mlx.weapon_anim[MACHINEGUN].tex1 = data->mlx.tex.texarr[MACHINEGUN1];
-	data->mlx.weapon_anim[MACHINEGUN].tex2 = data->mlx.tex.texarr[MACHINEGUN2];
-	data->mlx.weapon_anim[MACHINEGUN].tex3 = data->mlx.tex.texarr[MACHINEGUN3];
+	data->mlx.weapon_anim[PISTOL].tex0 = data->mlx.tex.wpn[PISTOL0_T];
+	data->mlx.weapon_anim[PISTOL].tex1 = data->mlx.tex.wpn[PISTOL1_T];
+	data->mlx.weapon_anim[PISTOL].tex2 = data->mlx.tex.wpn[PISTOL2_T];
+	data->mlx.weapon_anim[PISTOL].tex3 = data->mlx.tex.wpn[PISTOL3_T];
+	data->mlx.weapon_anim[KNIFE].tex0 = data->mlx.tex.wpn[KNIFE0_T];
+	data->mlx.weapon_anim[KNIFE].tex1 = data->mlx.tex.wpn[KNIFE1_T];
+	data->mlx.weapon_anim[KNIFE].tex2 = data->mlx.tex.wpn[KNIFE2_T];
+	data->mlx.weapon_anim[KNIFE].tex3 = data->mlx.tex.wpn[KNIFE3_T];
+	data->mlx.weapon_anim[MACHINEGUN].tex0 = data->mlx.tex.wpn[MACHINEGUN0_T];
+	data->mlx.weapon_anim[MACHINEGUN].tex1 = data->mlx.tex.wpn[MACHINEGUN1_T];
+	data->mlx.weapon_anim[MACHINEGUN].tex2 = data->mlx.tex.wpn[MACHINEGUN2_T];
+	data->mlx.weapon_anim[MACHINEGUN].tex3 = data->mlx.tex.wpn[MACHINEGUN3_T];
 }
 
-//TODO load the textures properly instead of hardcoded.
 void	init_weapons(t_data *data)
 {
 	data->mlx.weapon = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
-	init_weapon_textures(data);
+	init_weapon_anim(data);
 	data->mlx.weapon_anim[PISTOL].frame = 0;
 	data->mlx.weapon_anim[PISTOL].animate = false;
 	data->mlx.weapon_anim[KNIFE].frame = 0;
@@ -42,6 +41,7 @@ void	init_weapons(t_data *data)
 	data->mlx.weapon_anim[MACHINEGUN].animate = false;
 }
 
+//TODO make this us the draw_texture function
 void	draw_weapons(t_data *data, mlx_texture_t *gun, mlx_image_t *weapon)
 {
 	t_vector_int	pos;

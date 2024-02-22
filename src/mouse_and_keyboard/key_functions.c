@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:24:54 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:55:16 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:02:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	key_handler(struct mlx_key_data keys, void *param)
 	data = (t_data *)param;
 	if (keys.key == MLX_KEY_ESCAPE && keys.action != MLX_RELEASE)
 	{
-		cleanup_data(data);
-		mlx_close_hook(data->mlx.mlx_handle, game_loop, param);
-		mlx_close_window(data->mlx.mlx_handle);
+		// cleanup_data(data);
+		// mlx_close_hook(data->mlx.mlx_handle, game_loop, param);
+		// mlx_close_window(data->mlx.mlx_handle);
 		exit(EXIT_SUCCESS);
 	}
-	if (data->bonus && !data->player.game_over)
+	if (!data->player.game_over)
 	{
 		minimap_keys(data, keys);
 		if (keys.key == MLX_KEY_LEFT_CONTROL && keys.action != MLX_RELEASE)

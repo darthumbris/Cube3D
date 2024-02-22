@@ -6,12 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/03 11:00:37 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 11:40:04 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 14:47:36 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//TODO make this improved version or use the draw_rect function
 static void	draw_border(t_data *data, int max)
 {
 	t_vector_int	pos;
@@ -68,23 +69,19 @@ void	init_hud(t_data *data)
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->mlx.score_screen = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->hud.scale = (SCREEN_WIDTH / \
-		(double)data->mlx.tex.texarr[HUD_MAIN]->width);
+	data->hud.scale = SCREEN_WIDTH / 320;
 	data->hud.inv_scale = 1.0 / data->hud.scale;
 	data->delay = 0;
 	data->hud.max_height = data->mlx.mlx_handle->height - 1;
 	data->hud.pos_hud.y = data->mlx.mlx_handle->height - \
-			data->mlx.tex.texarr[HUD_MAIN]->height * data->hud.scale;
-	data->hud.max_width = data->mlx.tex.texarr[HUD_MAIN]->width;
+			40 * data->hud.scale;
+	data->hud.max_width = 320;
 	data->hud.border_width = (data->mlx.mlx_handle->width - \
 					data->hud.max_width * data->hud.scale) / 2;
-	data->hud.max_size_faces = data->hud.scale * \
-		(data->mlx.tex.texarr[HUD_FACES]->width / 3);
+	data->hud.max_size_faces = data->hud.scale * 30;
 	data->hud.face_pos_x = FACES_POS * data->hud.scale + data->hud.border_width;
-	data->hud.max_size_numbers = data->hud.scale * \
-		(data->mlx.tex.texarr[HUD_NUMBERS]->width / 10);
-	data->hud.max_size_score_nbrs = data->hud.scale * \
-		(data->mlx.tex.texarr[SCORE_NUMBERS]->width / 12);
+	data->hud.max_size_numbers = data->hud.scale * 8;
+	data->hud.max_size_score_nbrs = data->hud.scale * (146 / 12);
 	init_minimap(data);
 	draw_border(data, data->hud.max_height * data->floor.width4);
 }

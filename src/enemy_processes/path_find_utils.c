@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/10 15:48:51 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:01:52 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:33:49 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	door_check(t_data *data, t_vector_double pos)
 {
-	return (is_door_tile(data->level.map[(int)pos.y][(int)pos.x]) && \
+	return (is_door_tile(data->level.map_planes[(int)pos.y][(int)pos.x][0]) && \
 			!is_door_open(data, (int)pos.y, (int)pos.x));
 }
 

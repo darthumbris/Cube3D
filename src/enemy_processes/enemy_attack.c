@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/13 13:35:59 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:29:13 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:09:40 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	attack_player(t_sprite *sprite, t_data *data)
 	running = check_running(data);
 	max_dist = get_max_dist(player_angle, running);
 	dodge_chance = get_dodge_chance(sprite, running, player_angle);
-	sprite->en_dat.state = ATTACKING;
+	sprite->en_dat.state = ATTACK;
 	sprite->en_dat.frame = 0;
 	sprite->en_dat.played_sound = false;
 	damage_player(data, dodge_chance, sprite, max_dist);

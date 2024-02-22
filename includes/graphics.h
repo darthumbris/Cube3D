@@ -6,14 +6,14 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 13:46:23 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 16:14:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/27 14:18:01 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GRAPHICS_H
 # define GRAPHICS_H
 
-# include "../libs/MLX42/include/MLX42/MLX42.h"
+// # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "sprites.h"
 # include <fcntl.h>
 # include <stdio.h>
@@ -22,14 +22,16 @@
 //takes to finish the level.
 # include <sys/time.h>
 
-# define SCREEN_HEIGHT		768
-# define SCREEN_WIDTH		1024
+# define SCREEN_HEIGHT		720
+# define SCREEN_WIDTH		960
 # define FOV				70
 # define RENDER_DIST_S		400
 
 # define VIEW_LINE_COLOUR	0xD7FFFFFF
 # define WALL_COLOUR 		0xD8D8FCFF
 # define BORDER_COLOR		4282400768
+# define MENU_BORDER_COLOR	0x880000FF
+# define TEX_SIZE			128
 
 //FIXED VALUES DONT CHANGE
 # define MINIMAP_WIDTH		61
@@ -60,10 +62,53 @@
 # define SECRET_POS_Y		152
 # define TREASURE_POS_Y		169
 
-typedef union u_lodtex
+enum	e_hud_textures
 {
-	mlx_texture_t	*texarr[GAME_OVER + 2];
+	HUD_M_T,
+	HUD_N_T,
+	HUD_F_T,
+	SCORE_M_T,
+	SCORE_N_T,
+	GAMEOVER_T
+};
+
+enum	e_weapon_textures
+{
+	PISTOL0_T,
+	PISTOL1_T,
+	PISTOL2_T,
+	PISTOL3_T,
+	KNIFE0_T,
+	KNIFE1_T,
+	KNIFE2_T,
+	KNIFE3_T,
+	MACHINEGUN0_T,
+	MACHINEGUN1_T,
+	MACHINEGUN2_T,
+	MACHINEGUN3_T,
+};
+
+typedef struct s_enemy_sprites
+{
+	mlx_texture_t	**tex;
+}		t_enmy_sprites;
+
+typedef struct s_lodtex
+{
+	mlx_texture_t	*wall[51];
+	mlx_texture_t	*obj[69];
+	mlx_texture_t	*enmy[23];
+	t_enmy_sprites	enmy_sprites[23];
+	mlx_texture_t	*hud[6];
+	mlx_texture_t	*wpn[12];
 }	t_lodtex;
+
+typedef struct s_texture_in_map
+{
+	bool	wall[51];
+	bool	obj[69];
+	bool	enmy[23];
+}	t_txtr_in_map;
 
 typedef struct s_weapon_animation
 {
@@ -119,10 +164,32 @@ typedef struct s_mlx
 	mlx_image_t		*hud;
 	mlx_image_t		*minimap;
 	mlx_image_t		*score_screen;
+	mlx_image_t		*menu_editor;
+	mlx_image_t		*menu_editor_fg;
+	t_txtr_in_map	txt_in_map;
 	mlx_texture_t	*numbers;
 	mlx_texture_t	*faces;
 	mlx_texture_t	*hud_texture;
+	mlx_texture_t	*menu_screen;
+	mlx_texture_t	*level_select;
+	mlx_texture_t	*map_editor_screen;
+	mlx_texture_t	*cursor;
+	mlx_texture_t	*check_mark;
+	mlx_texture_t	*font;
+	mlx_texture_t	*wall_icons;
+	mlx_texture_t	*obj_icons;
+	mlx_texture_t	*enmy_icons;
+	mlx_texture_t	*item_icons;
+	mlx_texture_t	*zone_icons;
+	mlx_texture_t	*dir_icons;
 	t_weapon_anim	weapon_anim[3];
 }			t_mlx;
+
+void	draw_texture(mlx_image_t *img, mlx_texture_t *tex, \
+					t_vector_int start, double scale);
+void	draw_texture_area(mlx_image_t *img, mlx_texture_t *tex, \
+					t_vector_int start, t_vector_int tex_pos, \
+					int wh[2], double scale);
+bool	is_transparent_color(uint32_t color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/02 10:16:56 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:39:03 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 09:48:17 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "raycaster.h"
 # include "graphics.h"
 # include "level_data.h"
+# include "menu.h"
+# include "enemies.h"
 
 # ifndef DEBUG_MODE
 #  define DEBUG_MODE		0
@@ -32,9 +34,9 @@
 typedef struct s_data
 {
 	int					number_of_textures;
-	bool				bonus;
 	bool				update_hud;
 	bool				floor_ceiling;
+	uint8_t				difficulty;
 	uint32_t			delay;
 	uint32_t			color;
 	t_mlx				mlx;
@@ -51,6 +53,8 @@ typedef struct s_data
 	t_raycaster			caster;
 	t_floor_raycaster	floor;
 	t_sprite_raycaster	spr_cast;
+	t_episodes			eps;
+	t_menu				menu;
 }				t_data;
 
 //============Init Functions==========================
@@ -60,6 +64,11 @@ void			init_secrets(t_data *data);
 void			init_doors(t_data *data);
 void			init_weapons(t_data *data);
 void			init_hud(t_data *data);
+bool			init_textures(t_data *data);
+bool			init_level(t_data *data);
+bool			init_hud_textures(t_mlx *gfx);
+bool			init_weapon_textures(t_mlx *gfx);
+void			check_textures_needed(t_data *data, int i, int j, int k);
 
 //==========Raycaster Functions=======================
 void			raycaster(t_data *data);
@@ -77,6 +86,7 @@ void			set_new_map_pos(t_vector_double *map, t_vector_double ray, \
 					t_vector_double rd);
 void			segment_to_line(t_segment *segm, t_line *line);
 mlx_texture_t	*get_texture(t_data *data, t_vector_double pos);
+int				get_door_lst_nbr(uint8_t tile);
 
 //==========Draw functions====================
 void			draw_background(t_data *data);
@@ -88,10 +98,12 @@ bool			draw_door(t_data *data);
 void			draw_hud(t_data *data);
 void			draw_score_screen(t_data *data, mlx_texture_t *texture);
 void			draw_minimap(t_data *data);
-void			draw_enemies(t_data *data, t_sprite *sprt);
+void			draw_enemies(t_data *data, t_sprite *sprt, t_sprite_raycaster *c);
 void			draw_weapons(t_data *data, mlx_texture_t *gun, \
 						mlx_image_t *weapon);
 void			animate_weapon(t_data *data);
+void			draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex);
+void			draw_enemy_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, mlx_texture_t *tex);
 //==========Draw Door function util functions==============
 void			extend_ray(t_data *data, t_raycaster *ray);
 bool			secret_hit(t_data *dat, t_intersect *seg);
@@ -124,6 +136,8 @@ enum e_compas	get_enemy_direction(t_vector_double dir_cam, \
 
 //==========Draw Sprites util function======================
 void			sort_sprites(t_data *data, t_sprite_lst **begin);
+bool			can_draw_line(t_sprite_raycaster *c, t_vector_int pos, \
+							mlx_image_t *img);
 
 //=========Functions for checking if player hits an enemy===
 void			check_weapon_hit(t_data *data);
@@ -185,7 +199,55 @@ bool			is_nearby_elevator(t_data *data);
 void			simple_heal_item(t_data *data, t_sprite_lst *item, int kind);
 void			game_over(t_data *data);
 
-//==============Door utils function====================
+//====================Menu Loop Functions=================================
+void			menu_loop(void *v_data);
+void			menu_key_handler(struct mlx_key_data keys, void *param);
+void			draw_menu_screen(t_data *data, mlx_texture_t *texture);
+void			draw_cursor(t_data *data, t_vector_int pos);
+bool			is_movement_key(enum keys key);
+void			close_game(t_data *data);
+
+//===================Map-Editor functions======================================
+bool			is_in_map_area(t_rect map, int x, int y);
+void			menu_mouse_handler(mouse_key_t button, action_t action, \
+					modifier_key_t mods, void *param);
+void			draw_check_mark(t_data *data, t_vector_int pos);
+void			draw_map_editor(t_data *data);
+void			draw_map_grid(t_data *data, t_rect grid, t_map_edit *editor);
+void			draw_map_tiles(t_data *data, t_map_edit *editor);
+void			draw_filled_square(t_data *data, t_rect rec, \
+								t_vector_int offset, int tile);
+void			check_hover(t_data *data);
+void			move_map(mlx_t *mlx, t_menu *menu, t_vector_double *map_offset, \
+					t_vector_int max_tiles);
+t_vector_int	get_icon_pos(t_sprt_drop *sprt, int tile, int plane);
+void			draw_icon_square(t_mlx *mlx, t_vector_int offset, \
+					int tile_plane[2], t_map_edit *editor);
+mlx_texture_t	*get_icon_texture(t_mlx *mlx, int plane);
+void			save_map(t_data *data);
+void			check_mouse_svbtn_clicked(t_data *data);
+void			filename_key_handler(struct mlx_key_data keys, void *param);
+void			map_to_file(t_data *data);
+
+//====================GUI Functions============================================
+void			init_buttons(t_data *data);
+t_button		new_button(t_rect rect, char *txt);
+void			draw_buttons(t_mlx *mlx, t_map_edit *editor);
+void			init_dropdown_lists(t_map_edit *editor, double hud_scale);
+void			draw_rect(mlx_image_t *menu_img, t_rect rec, uint32_t color);
+void			draw_drop_down_lsts(t_mlx *mlx, t_map_edit *editor);
+void			draw_rect_outline(mlx_image_t *menu_img, t_rect rec, uint32_t c, \
+						int thickness);
+void			draw_str(t_mlx *mlx, char *str, t_vector_int pos, \
+						double font_scale);
+void			check_btns_clicked(t_data *data, mouse_key_t button, \
+					action_t action, t_vector_int pos);
+int				set_btn_state(t_button *btn, mouse_key_t button, \
+					action_t action, t_vector_int pos);
+void			draw_icon_button(t_mlx *mlx, t_vector_int pos_icon[2], \
+					int active_plane, double font_scale);		
+
+//==============Door utils function============================================
 int				get_distance(int x, int y, t_vector_double player);
 bool			is_nearby_door(t_data *data);
 bool			is_door_open(t_data *data, int y, int x);
@@ -209,36 +271,38 @@ bool			parse_input(char **argv, t_data *data);
 char			**readmap(int fd, char **temp);
 bool			checkmap(char *map);
 bool			playerposcheck(char c);
-bool			validchar(char c);
+bool			validchar(uint8_t c);
 bool			mapjmptable(char *line, t_data *data);
 bool			checktypes(t_data *data);
 bool			parse_config(t_data *data);
 bool			bonus_weapons(char *line, t_data *data);
-char			**parse_map(char **upmap, t_data *data);
+bool			parse_map(uint8_t	***map, t_data *data);
 bool			check_needed_textures_loaded(t_data *data);
-bool			verifyzero(char **upmap, int i, int j, t_data *data);
-int				get_sprite_kind(char c, t_data *data);
+bool			verifyzero(uint8_t	***map, int i, int j, t_data *data);
+int				get_sprite_kind(uint8_t c, t_data *data);
 void			store_path(char *line, t_data *data, int kind);
 void			color_store(char *line, t_data *data, int kind);
 typedef void	(*t_func)(char *line, t_data *data, int kind);
-void			set_sprite_positions(char **map, t_data *data);
-void			set_enemy_data(t_sprite *sprite, char **map, t_vector_int pos, \
-							t_data *data);
-bool			verifyspace(char **upmap, int i, int j, t_data *data);
+void			set_sprite_positions(uint8_t	***map, t_data *data);
+void			set_enemy_data(t_sprite *sprite, uint8_t ***map, t_vector_int pos);
+bool			verifyspace(uint8_t	***map, int i, int j, t_data *data);
 void			*map_error_msg(char *msg);
 bool			error_msg(char *msg);
+bool			init_menu(t_data *data);
+bool			init_map_data(t_data *data);
+bool			norm_loop(t_data *data, uint8_t	***map, int *count);
 
 //===============Util functions==============================
-bool			is_player_tile(char c);
-bool			is_sprite_tile(char c);
-bool			is_wall_tile(char c);
-bool			is_empty_tile(char c);
-bool			is_door_tile(char c);
+bool			is_player_tile(uint8_t c);
+bool			is_sprite_tile(uint8_t c);
+bool			is_wall_tile(uint8_t c);
+bool			is_empty_tile(uint8_t c);
+bool			is_door_tile(uint8_t c);
 bool			is_finish_tile(char c);
-bool			is_secret_tile(char c);
-bool			is_wall_kind_tile(char c);
+bool			is_secret_tile(uint8_t c);
+bool			is_wall_kind_tile(uint8_t c);
 bool			is_item(int kind);
-bool			is_enemy_tile(char c);
+bool			is_enemy_tile(uint8_t c);
 bool			is_enemy_kind(int kind);
 bool			is_guard(int kind);
 bool			is_dog(int kind);
@@ -260,5 +324,8 @@ void			play_sound_vol(t_data *data, char *fpath, double dist);
 void			arr_cleanup(char **arr);
 void			cleanup_data(t_data *data);
 void			cleanup_soundtrack(t_data *data);
+
+//===================Map Editor Functions=================
+void			load_map(t_data *data);
 
 #endif

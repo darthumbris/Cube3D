@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 15:09:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:02:58 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:26:25 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	is_target_visible(t_vector_double target_pos, \
 	{
 		ray_posfloor.x = (ray_pos.x - ((ray_pos.x - floor(ray_pos.x))));
 		ray_posfloor.y = (ray_pos.y - ((ray_pos.y - floor(ray_pos.y))));
-		c = data->level.map[(int)ray_posfloor.y][(int)ray_posfloor.x];
+		c = data->level.map_planes[(int)ray_posfloor.y][(int)ray_posfloor.x][0];
 		if ((int)ray_pos.x == (int)target_pos.x && \
 			(int)ray_pos.y == (int)target_pos.y)
 			return (true);

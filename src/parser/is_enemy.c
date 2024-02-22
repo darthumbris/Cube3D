@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 13:27:14 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:44:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 09:39:37 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ bool	is_dog_tile(char c)
 bool	is_guard_tile(char c)
 {
 	return (c == 'G' || c == '[' || c == ']' || c == '@' || c == '!');
-}
-
-bool	is_enemy_tile(char c)
-{
-	return (c == 'G' || c == 'c' || c == '[' || c == ']' || \
-			c == '@' || c == '!' || c == '(' || c == ')' || \
-			c == '#' || c == '%');
 }
 
 bool	is_block_patrol_tile(char c)

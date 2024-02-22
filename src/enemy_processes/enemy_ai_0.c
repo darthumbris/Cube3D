@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 12:08:29 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 16:26:49 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:16:08 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	is_vision_blocked(t_vector_double player_pos, \
 	{
 		ray.x = enemy->map_pos.x + dist * dir.x;
 		ray.y = enemy->map_pos.y + dist * dir.y;
-		c = data->level.map[(int)ray.y][(int)ray.x];
+		c = data->level.map_planes[(int)ray.y][(int)ray.x][0];
 		if (is_wall_tile(c) || door_check(data, ray))
 			return (true);
 		dist += 0.5;
@@ -80,18 +80,17 @@ void	rotate_enemy(t_data *data, t_sprite *enemy)
 	enemy->en_dat.dir.y = (data->cam.pos.y - enemy->map_pos.y) / enemy->dist;
 }
 
-//TODO make the sound play at certain volume
 void	check_for_player(t_data *data, t_sprite *enemy)
 {
 	if (enemy->dist > ENEMY_RANGE || \
 		player_oustide_viewing_cone(data, enemy))
 		return ;
-	if (enemy->en_dat.state == ATTACKING)
+	if (enemy->en_dat.state == ATTACK)
 	{
-		enemy->en_dat.state = TRACKING;
+		enemy->en_dat.state = CHASE;
 		return ;
 	}
-	enemy->en_dat.state = TRACKING;
+	enemy->en_dat.state = CHASE;
 	if (!enemy->en_dat.played_sound && enemy->kind == GUARD)
 		play_sound_vol(data, "./assets/wav_files/sounds/grdsit2.wav", \
 			enemy->dist);

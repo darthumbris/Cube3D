@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 12:25:06 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/23 13:46:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 14:26:57 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	draw_kill_ratio(t_data *data)
 		kill_ratio = 0;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (KILL_POS_Y * data->hud.scale);
-	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
+	score_nbr = data->mlx.tex.hud[SCORE_N_T];
 	if (kill_ratio > 99)
 		draw_single_nbr_score(data, kill_ratio / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -50,7 +50,7 @@ void	draw_treasure_ratio(t_data *data)
 		treasure_ratio = 0;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (TREASURE_POS_Y * data->hud.scale);
-	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
+	score_nbr = data->mlx.tex.hud[SCORE_N_T];
 	if (treasure_ratio > 99)
 		draw_single_nbr_score(data, treasure_ratio / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -76,7 +76,7 @@ void	draw_secrets_ratio(t_data *data)
 		secrets_ratio = 0;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (SECRET_POS_Y * data->hud.scale);
-	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
+	score_nbr = data->mlx.tex.hud[SCORE_N_T];
 	if (secrets_ratio > 99)
 		draw_single_nbr_score(data, secrets_ratio / 100, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -99,7 +99,7 @@ void	draw_time(t_data *data, int time[2])
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (TIME_POS_Y * data->hud.scale);
 	par_y = data->mlx.mlx_handle->height - (PAR_POS_Y * data->hud.scale);
-	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
+	score_nbr = data->mlx.tex.hud[SCORE_N_T];
 	draw_single_nbr_score(data, time[0] / 10, pos, score_nbr);
 	draw_single_nbr_score(data, 0, (t_vector_int){pos.x, par_y}, score_nbr);
 	pos.x += 14 * data->hud.scale;
@@ -125,7 +125,7 @@ void	draw_bonus_score(t_data *data)
 	bonus = data->player.bonus_score;
 	pos.x = NBR_STARTPOS_X * data->hud.scale + data->hud.border_width;
 	pos.y = data->mlx.mlx_handle->height - (BONUS_POS_Y * data->hud.scale);
-	score_nbr = data->mlx.tex.texarr[SCORE_NUMBERS];
+	score_nbr = data->mlx.tex.hud[SCORE_N_T];
 	if (bonus > 9999)
 		draw_single_nbr_score(data, bonus / 10000, pos, score_nbr);
 	pos.x += 14 * data->hud.scale;

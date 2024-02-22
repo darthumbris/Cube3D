@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:16 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/09 11:48:12 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 13:52:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ static void	set_direction(t_raycaster *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir.x < 0)
-			ray->dir = WEST;
+			ray->dir = C_WEST;
 		else
-			ray->dir = EAST;
+			ray->dir = C_EAST;
 	}
 	else
 	{
 		if (ray->ray_dir.y < 0)
-			ray->dir = NORTH;
+			ray->dir = C_NORTH;
 		else
-			ray->dir = SOUTH;
+			ray->dir = C_SOUTH;
 	}
 }
 
@@ -48,13 +48,13 @@ void	check_wall_collision(t_data *data, t_raycaster *ray, \
 			ray->side = 1;
 		}
 		set_direction(ray);
-		if (is_wall_kind_tile(data->level.map[(int)map->y][(int)map->x]))
+		if (is_wall_kind_tile(data->level.map_planes[(int)map->y][(int)map->x][0]))
 		{
 			ray->hit = true;
 			ray->door_hit = 0;
 			ray->secret_hit = 0;
-			if (is_door_tile(data->level.map[(int)map->y][(int)map->x]) || \
-			is_secret_tile(data->level.map[(int)map->y][(int)map->x]))
+			if (is_door_tile(data->level.map_planes[(int)map->y][(int)map->x][0]) || \
+			is_secret_tile(data->level.map_planes[(int)map->y][(int)map->x][2]))
 				extend_ray(data, ray);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/29 13:55:37 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:39:14 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/10 14:13:00 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ static void	draw_minimap_walls(t_data *data)
 	}
 }
 
-//draws the minimap
-//TODO: this really should not be run every frame
 void	draw_minimap(t_data *data)
 {
 	int					i;

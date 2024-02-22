@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/21 09:54:57 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 09:48:06 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 11:35:50 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,103 +32,122 @@ static void	set_sprite_variables(t_data *data, t_sprite_lst *sprite)
 	data->spr_cast.inverse_sprite_height = 1.0 / data->spr_cast.sprite_height;
 }
 
-static void	set_draw_start_end(t_data *data)
+static bool	ceiling_sprite(int kind)
 {
-	data->spr_cast.draw_start.y = -(data->spr_cast.sprite_height << 1) + \
-		data->floor.halve_height;
-	if (data->spr_cast.draw_start.y < 0)
-		data->spr_cast.draw_start.y = 0;
-	data->spr_cast.draw_end.y = (data->spr_cast.sprite_height << 1) + \
-		data->floor.halve_height;
-	if (data->spr_cast.draw_end.y >= data->mlx.mlx_handle->height)
-		data->spr_cast.draw_end.y = data->mlx.mlx_handle->height - 1;
-	data->spr_cast.sprite_width = abs((int)(data->mlx.mlx_handle->height * \
-		data->spr_cast.inverse_transform_y));
-	data->spr_cast.sprite_width_halve = data->spr_cast.sprite_width / 2;
-	data->spr_cast.inverse_sprite_width = 1.0 / data->spr_cast.sprite_width;
-	data->spr_cast.draw_start.x = -data->spr_cast.sprite_width_halve + \
-		data->spr_cast.sprite_screen_x;
-	if (data->spr_cast.draw_start.x < 0)
-		data->spr_cast.draw_start.x = 0;
-	data->spr_cast.draw_end.x = data->spr_cast.sprite_width_halve + \
-		data->spr_cast.sprite_screen_x;
-	if (data->spr_cast.draw_end.x >= data->mlx.mlx_handle->width)
-		data->spr_cast.draw_end.x = data->mlx.mlx_handle->width - 1;
+	return (kind == LAMP_G || kind == LAMP_R || kind == CHANDELIER || \
+			kind == ORB || kind == CAGE1 || kind == CAGE2 || kind == CAGE3 \
+			|| kind == CAGE4 || kind == PANS1 || kind == PANS2 || \
+			kind == STATUE || is_enemy_kind(kind));
 }
 
-static void	draw_sprite_line(t_data *data, int x, int y, t_sprite *sprt)
+static void	set_draw_pos(int kind, t_sprite_raycaster *c, mlx_image_t *img)
 {
-	uint8_t		*fg;
-	int			dist;
-	uint32_t	color;
+	if (ceiling_sprite(kind))
+		c->move = 0;
+	else
+		c->move = (int)((5 * TEX_SIZE) * c->inverse_transform_y);
+	c->draw_start.y = (-(c->sprite_height << 1) + (img->height / 2)) + c->move;
+	if (c->draw_start.y < 0)
+		c->draw_start.y = 0;
+	c->draw_end.y = ((c->sprite_height << 1) + (img->height / 2)) + c->move;
+	if (c->draw_end.y >= (int)img->height)
+		c->draw_end.y = img->height - 1;
+	c->sprite_width = abs((int)(img->height * \
+		c->inverse_transform_y));
+	c->sprite_width_halve = c->sprite_width / 2;
+	c->inverse_sprite_width = 1.0 / c->sprite_width;
+	c->draw_start.x = -c->sprite_width_halve + c->sprite_screen_x;
+	if (c->draw_start.x < 0)
+		c->draw_start.x = 0;
+	c->draw_end.x = c->sprite_width_halve + c->sprite_screen_x;
+	if (c->draw_end.x >= (int)img->width)
+		c->draw_end.x = img->width - 1;
+}
 
-	fg = data->mlx.fg->pixels + ((y * data->floor.width4) + x * 4);
-	while (++y < data->spr_cast.draw_end.y && y < data->hud.pos_hud.y)
+bool	is_transparent_color(uint32_t color)
+{
+	return (color == 0x880098 || color == 0x8b009b || \
+			color == 0x8c009c || !color);
+}
+
+static void	draw_sprite_line(t_sprite_raycaster *c, mlx_image_t *i, \
+							mlx_texture_t *t, t_vector_int pos, t_transp tr)
+{
+	uint32_t		clr;
+	uint8_t			*fg;
+	int				d;
+	int				h;
+
+	fg = i->pixels;
+	h = (-(int)i->height + c->sprite_height) * 128;
+	if (((pos.y - c->move) * 256) < h)
+		pos.y = -(h / 256) + c->move;
+	if (pos.y < -1)
+		pos.y = -1;
+	while (++pos.y < c->draw_end.y && pos.y < 600)
 	{
-		dist = y * 256 - data->mlx.mlx_handle->height * 128 + \
-			data->spr_cast.sprite_height * 128;
-		data->spr_cast.tex.y = ((dist * data->mlx.tex.texarr[sprt->kind]->\
-			height) * data->spr_cast.inverse_sprite_height) / 256;
-		if (data->spr_cast.tex.y < (int)data->mlx.tex.texarr[sprt->kind]->\
-			height && data->spr_cast.tex.y > sprt->transp_end.y)
+		d = (pos.y - c->move) * 256 + h;
+		c->tex.y = ((d * TEX_SIZE) * c->inverse_sprite_height) / 256;
+		if (c->tex.y >= (int)t->height || c->tex.y > tr.end.y)
+			break ;
+		if (c->tex.y >= 0)
 		{
-			if (sprt->transp_begin.y > 0 && data->spr_cast.tex.y > \
-				sprt->transp_begin.y)
-				break ;
-			color = (*(unsigned int *)(data->mlx.tex.texarr[sprt->kind]->pixels \
-			+ (data->mlx.tex.texarr[sprt->kind]->width * data->spr_cast.tex.y * \
-			4 + data->spr_cast.tex.x * 4)));
-			if (color != 0xff000000)
-				*(uint32_t *)fg = color;
+			clr = (*(int *)(t->pixels + (t->width * c->tex.y + c->tex.x) * 4));
+			if (!is_transparent_color(clr))
+				*(uint32_t *)(fg + (pos.y * i->width + pos.x) * 4) = clr;
 		}
-		fg += data->floor.width4;
 	}
 }
 
-static void	draw_sprite(t_data *data, int kind, t_sprite *sprt)
+//TODO check if this function can be improved.
+void	draw_sprite(t_sprite_raycaster *c, t_transp tr, mlx_image_t *i, \
+					mlx_texture_t *tex)
 {
-	int			x;
+	t_vector_int	pos;
 
-	x = data->spr_cast.draw_start.x;
-	while (x < data->spr_cast.draw_end.x)
+	if (c->transform.y < 0.3)
+		return ;
+	pos.x = c->draw_start.x - 1;
+	if (pos.x < ((-c->sprite_width / 2 + c->sprite_screen_x)))
+		pos.x = (-c->sprite_width / 2 + c->sprite_screen_x) - 1;
+	while (++pos.x < c->draw_end.x)
 	{
-		data->spr_cast.tex.x = (int)(256 * \
-			(x - (-data->spr_cast.sprite_width_halve + \
-			data->spr_cast.sprite_screen_x)) * \
-			data->mlx.tex.texarr[kind]->width * \
-		data->spr_cast.inverse_sprite_width) / 256;
-		if (data->spr_cast.transform.y > 0 && x > 0 && \
-			x < data->mlx.mlx_handle->width && \
-			data->spr_cast.transform.y < data->spr_cast.zbuffer[x] && \
-			data->spr_cast.tex.x > sprt->transp_begin.x && \
-			data->spr_cast.tex.x < sprt->transp_end.x)
-			draw_sprite_line(data, x, data->spr_cast.draw_start.y, sprt);
-		x++;
+		c->tex.x = (int)(256 * (pos.x - (-c->sprite_width / 2 + \
+			c->sprite_screen_x)) * TEX_SIZE * c->inverse_sprite_width) / 256;
+		if (tex->width < 128)
+			c->tex.x -= tr.start.x;
+		if (c->tex.x >= (int)tex->width)
+			break ;
+		if (can_draw_line(c, pos, i) && c->tex.x >= 0)
+		{
+			pos.y = c->draw_start.y - 1;
+			draw_sprite_line(c, i, tex, pos, tr);
+		}
 	}
 }
 
 void	draw_sprites(t_data *data)
 {
 	t_sprite_lst	*lst;
-	int				i;
 
 	data->spr_cast.inverse_determinant = 1.0 / \
 	(data->cam.plane.x * data->cam.dir.y - data->cam.dir.x * data->cam.plane.y);
 	sort_sprites(data, &(data->sprite_lst));
 	lst = data->sprite_lst;
-	i = 0;
 	while (lst)
 	{
-		if (lst->sprite_data.dist < RENDER_DIST_S && lst->sprite_data.kind)
+		if (lst->sprite_data.dist < RENDER_DIST_S && lst->sprite_data.kind && lst->sprite_data.dist > 0.5)
 		{
 			set_sprite_variables(data, lst);
-			set_draw_start_end(data);
+			set_draw_pos(lst->sprite_data.kind, &data->spr_cast, data->mlx.fg);
 			if (!is_enemy_kind(lst->sprite_data.kind))
-				draw_sprite(data, lst->sprite_data.kind, &lst->sprite_data);
+			{
+				draw_sprite(&data->spr_cast, lst->sprite_data.transp, \
+					data->mlx.fg, data->mlx.tex.obj[lst->sprite_data.kind - 1]);
+			}
 			else
 				update_enemies(data, &lst->sprite_data);
 		}
-		i++;
 		lst = lst->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/06 16:31:46 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/20 09:42:38 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 15:08:13 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void	set_state(t_sprite *enemy, t_data *data, int kind)
 {
 	if (enemy->en_dat.player_detected && \
 		((is_dog(kind) && enemy->dist < 2) || \
-		(is_guard(kind) && enemy->dist < 100)))
+		((is_guard(kind) || kind == BOSS_BARNEY) && enemy->dist < 100)))
 	{
-		if (enemy->en_dat.last_attack % 2 == 0 && is_guard(kind))
+		if (enemy->en_dat.last_attack % 2 == 0 && (is_guard(kind) || kind == BOSS_BARNEY))
 			pathfind_to_player(data, enemy);
 		enemy->en_dat.last_attack++;
 		if (enemy->en_dat.last_attack > 50)
@@ -48,7 +48,7 @@ static void	set_state(t_sprite *enemy, t_data *data, int kind)
 		else if (enemy->en_dat.last_attack % 30 == 0)
 			attack_player(enemy, data);
 	}
-	else if (is_guard(kind) && enemy->dist < 300)
+	else if ((is_guard(kind) || kind == BOSS_BARNEY) && enemy->dist < 300)
 		pathfind_to_player(data, enemy);
 	else if (enemy->dist < 250)
 		pathind_dog(data, enemy);
@@ -58,13 +58,12 @@ void	path_find(t_data *data, t_sprite *enemy)
 {
 	static int		delay = 0;
 
-	if (enemy->en_dat.state == PATROLLING && \
-		enemy->dist < 400)
+	if (enemy->en_dat.state == PATROL && enemy->dist < 400)
 		patrol_routine(data, enemy);
-	if (delay % 5 == 0 && (enemy->en_dat.state == ALIVE || \
-		enemy->en_dat.state == PATROLLING))
+	if (delay % 5 == 0 && (enemy->en_dat.state == STAND || \
+		enemy->en_dat.state == PATROL))
 		check_for_player(data, enemy);
-	else if (enemy->en_dat.state == TRACKING)
+	else if (enemy->en_dat.state == CHASE)
 	{
 		track_player(data, enemy);
 		set_state(enemy, data, enemy->kind);

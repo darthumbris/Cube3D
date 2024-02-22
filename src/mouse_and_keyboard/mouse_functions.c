@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/11 11:19:30 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 16:08:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 16:02:38 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	gun_actions(t_data *data)
 static void	mouse_fire(t_data *data, bool *fired, int *old_x)
 {
 	if (mlx_is_mouse_down(data->mlx.mlx_handle, MLX_MOUSE_BUTTON_LEFT) && \
-		!*fired && data->bonus)
+		!*fired)
 	{
 		data->mlx.weapon_anim[data->player.active_weapon].animate = true;
 		if (data->player.ammo > 0 && data->player.active_weapon != KNIFE)

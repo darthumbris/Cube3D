@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 14:48:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/20 12:32:59 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:27:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ bool	is_nearby_elevator(t_data *data)
 		j = 0;
 		while (j < data->level.map_w)
 		{
-			if (is_finish_tile(data->level.map[i][j]) && \
+			if (is_finish_tile(data->level.map_planes[i][j][0]) && \
 				is_player_facing_door(data, j, i, \
 				get_distance(j, i, data->cam.pos)))
 			{
-				data->level.map[i][j] = '~';
+				data->level.map_planes[i][j][0] = '~';
 				play_sound_vol(data, "assets/wav_files/sounds/elstart.wav", \
 				sprite_dist(data->cam.pos, (t_vector_double){j, i}));
 				return (true);

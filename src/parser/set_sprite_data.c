@@ -6,47 +6,46 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/26 11:44:20 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:08:41 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/28 11:25:29 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static t_vector_int	get_transparency_begin(int kind, t_data *data)
-{
-	if (kind >= 0 && kind <= ITEM_8)
-		return (data->config.dat[kind].transp_begin);
-	else
-		return ((t_vector_int){.x = -1, .y = -1});
-}
-
-static t_vector_int	get_transparency_end(int kind, t_data *data)
-{
-	if (kind >= 0 && kind <= ITEM_8)
-		return (data->config.dat[kind].transp_end);
-	else
-		return ((t_vector_int){.x = -1, .y = -1});
-}
-
-static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, char **map, \
-	t_data *data)
+static void	set_sprite_data(t_sprite *sprite, t_vector_int pos, uint8_t ***map, \
+	t_data *data, bool is_enemy)
 {
 	sprite->map_pos.x = pos.x + 0.5;
 	sprite->map_pos.y = pos.y + 0.5;
-	sprite->kind = get_sprite_kind(map[pos.y][pos.x], data);
-	if (sprite->kind == GUARD || sprite->kind == DOG)
+	if (!is_enemy)
+		sprite->kind = map[pos.y][pos.x][1];
+	else
+		sprite->kind = get_enemy_kind(map[pos.y][pos.x][2]);
+	if (is_enemy)
 	{
-		set_enemy_data(sprite, map, pos, data);
+		set_enemy_data(sprite, map, pos);
 		data->level.enemies_count++;
 	}
-	else if (sprite->kind == TREASURE_0 || sprite->kind == TREASURE_1 || \
-			sprite->kind == TREASURE_2)
+	else if (sprite->kind >= CROSS && sprite->kind <= CROWN)
 		data->level.treasure_count++;
-	sprite->transp_begin = get_transparency_begin(sprite->kind, data);
-	sprite->transp_end = get_transparency_end(sprite->kind, data);
+	if (!is_enemy)
+		sprite->texture = data->mlx.tex.obj[sprite->kind - 1];
+	if (!is_enemy)
+	{
+		sprite->transp.start.x = (128 - data->mlx.tex.obj[sprite->kind - 1]->width) / 2 - 1;
+		sprite->transp.end.x = 127 - sprite->transp.start.x;
+		if (sprite->transp.start.x < 0)
+		{
+			sprite->transp.start.x = 0;
+			sprite->transp.end.x = data->mlx.tex.obj[sprite->kind - 1]->width;
+		}
+		sprite->transp.start.y = 0;
+		sprite->transp.end.y = data->mlx.tex.obj[sprite->kind - 1]->height;
+		printf("kind: %d, transpbegin: %d,%d, end: %d,%d\n", sprite->kind, sprite->transp.start.x, sprite->transp.start.y, sprite->transp.end.x, sprite->transp.end.y);
+	}
 }
 
-void	set_sprite_positions(char **map, t_data *data)
+void	set_sprite_positions(uint8_t ***map, t_data *data)
 {
 	int	i;
 	int	j;
@@ -55,20 +54,19 @@ void	set_sprite_positions(char **map, t_data *data)
 	data->sprite = ft_calloc(sizeof(t_sprite), data->level.number_of_sprites);
 	if (!data->sprite)
 		exit(1);
-	i = 0;
 	sprite_cnt = 0;
-	while (map && map[i])
+	i = -1;
+	while (++i < data->level.map_h)
 	{
-		j = 0;
-		while (map[i][j])
+		j = -1;
+		while (++j < data->level.map_w)
 		{
-			if (is_sprite_tile(map[i][j]))
-			{
+			if (is_sprite_tile(map[i][j][1]))
 				set_sprite_data(&data->sprite[sprite_cnt++], \
-					(t_vector_int){.x = j, .y = i}, map, data);
-			}
-			j++;
+					(t_vector_int){.x = j, .y = i}, map, data, false);
+			else if (is_enemy_tile(map[i][j][2]))
+				set_sprite_data(&data->sprite[sprite_cnt++], \
+					(t_vector_int){.x = j, .y = i}, map, data, true);
 		}
-		i++;
 	}
 }

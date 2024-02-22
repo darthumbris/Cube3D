@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/17 12:47:07 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 12:48:50 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:33:33 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	check_south_north(t_data *data, t_sprite *enemy, int dir_to_p)
 		cardinal_dir = 2;
 	}
 	if (is_out_of_bounds(collision, data) || is_obstacle
-		(data->level.map[(int)(collision.y)][(int)(collision.x)]))
+		(data->level.map_planes[(int)(collision.y)][(int)(collision.x)][0]))
 		return (0);
 	return (cardinal_dir);
 }
@@ -53,7 +53,7 @@ static int	check_east_west(t_data *data, t_sprite *enemy, int dir_to_p)
 		cardinal_dir = 4;
 	}
 	if (is_out_of_bounds(collision, data) || is_obstacle
-		(data->level.map[(int)(collision.y)][(int)(collision.x)]))
+		(data->level.map_planes[(int)(collision.y)][(int)(collision.x)][0]))
 		return (0);
 	return (cardinal_dir);
 }
@@ -81,7 +81,7 @@ int	try_diagonals(t_data *data, t_sprite *enemy)
 	else
 		set_new_x_pos(&temp_pos, &collision, enemy, -1);
 	if (is_out_of_bounds(collision, data) || is_obstacle
-		(data->level.map[(int)(collision.y)][(int)(collision.x)]))
+		(data->level.map_planes[(int)(collision.y)][(int)(collision.x)][0]))
 		return (0);
 	return (rand_dir + 1);
 }

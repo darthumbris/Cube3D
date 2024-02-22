@@ -6,64 +6,41 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/19 17:37:12 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/25 10:24:26 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/29 11:02:05 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static bool	check_non_bonus_textures(t_data *data)
+static t_transp	get_transp(int enemy, int frame)
+{
+	switch (enemy)
+	{
+	case 0:
+		return (g_guard[frame]);
+	case 1:
+		return (g_dog[frame]);
+	case 8:
+		return (g_barny[frame]);
+	default :
+		return (g_guard[frame]);
+	}
+}
+
+static void	init_transparencies(t_transp **tr)
 {
 	int	i;
+	int	j;
 
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (++i < 23)
 	{
-		if (data->mlx.tex.texarr[i] == NULL)
-			return (error_msg("Failed to load textures"));
-		i++;
+		tr[i] = ft_calloc(g_enemy_sprt_data[i].total_sprites, sizeof(t_transp));
+		j = -1;
+		while (++j < g_enemy_sprt_data[i].total_sprites && j < 49)
+			tr[i][j] = get_transp(i, j);
 	}
-	return (true);
-}
-
-//temp for now
-static bool	init_sprites(t_data *data)
-{
-	unsigned int	i;
-
-	if (data->level.number_of_sprites == 0)
-		return (true);
-	data->sprite_lst = new_sprite(data->sprite[0]);
-	i = 1;
-	while (i < data->level.number_of_sprites)
-	{
-		add_sprite(&(data->sprite_lst), data->sprite[i]);
-		i++;
-	}
-	sort_sprites(data, &data->sprite_lst);
-	return (check_needed_textures_loaded(data));
-}
-
-static bool	init_textures(t_data *data)
-{
-	int	i;
-	int	textures_to_load;
-
-	textures_to_load = data->number_of_textures;
-	i = 0;
-	while (i <= textures_to_load)
-	{
-		if (data->level.paths.path[i])
-			data->mlx.tex.texarr[i] = mlx_load_png(data->level.paths.path[i]);
-		else
-			data->mlx.tex.texarr[i] = NULL;
-		i++;
-	}
-	data->caster.ray_dist = 0;
-	if (data->bonus)
-		return (init_sprites(data));
-	return (check_non_bonus_textures(data));
-}
+}	
 
 bool	init_mlx(t_data *data)
 {
@@ -73,8 +50,6 @@ bool	init_mlx(t_data *data)
 		(SCREEN_WIDTH, SCREEN_HEIGHT, "cube3D", false);
 	if (data->mlx.mlx_handle == NULL)
 		return (error_msg("Failed to init mlx"));
-	if (!data->bonus && data->level.colors_error != 0)
-		return (error_msg("Colors not configured"));
 	data->mlx.fg = mlx_new_image
 		(data->mlx.mlx_handle, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->mlx.bg = mlx_new_image
@@ -87,7 +62,9 @@ bool	init_mlx(t_data *data)
 	data->floor.halve_width = data->mlx.mlx_handle->width / 2;
 	data->floor.width4 = data->mlx.mlx_handle->width * 4;
 	data->spr_cast.zbuffer = ft_calloc(sizeof(double), SCREEN_WIDTH);
+	data->spr_cast.tr_lst = ft_calloc(23, sizeof(t_transp *));
+	init_transparencies(data->spr_cast.tr_lst);
 	if (!data->spr_cast.zbuffer)
 		return (error_msg("Malloc error"));
-	return (init_textures(data));
+	return (true);
 }

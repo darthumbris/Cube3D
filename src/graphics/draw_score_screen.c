@@ -6,12 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/19 10:34:22 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/19 17:04:09 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:40:15 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
+//TODO make all these functions use the draw_texture_area functions
 void	draw_colon(t_data *data, t_vector_int pos, \
 								mlx_texture_t *nbr_tex)
 {

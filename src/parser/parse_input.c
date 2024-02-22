@@ -6,43 +6,13 @@
 /*   By: pvan-dij <pvan-dij@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/13 14:15:21 by pvan-dij      #+#    #+#                 */
-/*   Updated: 2022/05/24 14:09:36 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/20 11:29:35 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 #include <string.h>
 
-//loops through the configs
-bool	parse_types(char **upmap, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->bonus)
-	{
-		while (upmap[i] && i < data->number_of_textures + 3 \
-		&& upmap[i][0] != ' ' && !ft_isdigit(upmap[i][0]))
-		{
-			if (mapjmptable(upmap[i], data) == false)
-				return (error_msg("Map is misconfigured"));
-			i++;
-		}
-	}
-	else
-	{
-		data->config.size = 4;
-		while (upmap[i] && i <= SOUTH + 2)
-		{
-			if (mapjmptable(upmap[i], data) == false)
-				return (error_msg("Map is misconfigured"));
-			i++;
-		}
-	}
-	return (true);
-}
-
-//name
 t_vector_double	getplayerpos(char **map)
 {
 	int	i;
@@ -85,58 +55,58 @@ void	setplayerdir(char **map, t_vector_double pos, t_data *data)
 	data->cam.plane.y = tan(M_PI_2 * FOV / 180.0) * data->cam.dir.x;
 }
 
-static void	make_square_map(t_data *data, char **upmap)
-{
-	int			i;
-	const int	h = data->level.map_h;
-	const int	w = data->level.map_w;
+// static void	make_square_map(t_data *data, char **upmap)
+// {
+// 	int			i;
+// 	const int	h = data->level.map_h;
+// 	const int	w = data->level.map_w;
 
-	i = 0;
-	if (!upmap)
-		return ;
-	data->level.map = (char **)malloc(sizeof(char *) * (h + 1));
-	data->level.wall_map = (int **)malloc(sizeof(int *) * (h + 1));
-	if (!data->level.map || !data->level.wall_map)
-		exit(1);
-	while (*upmap)
-	{
-		data->level.map[i] = malloc(sizeof(char) * (w + 1));
-		data->level.wall_map[i] = ft_calloc(sizeof(int), (w + 1));
-		if (!data->level.map[i] || !data->level.wall_map[i])
-			exit(1);
-		ft_memset(data->level.map[i], 32, w);
-		data->level.map[i][w] = 0;
-		ft_memcpy(data->level.map[i], *upmap, ft_strlen(*upmap));
-		upmap++;
-		i++;
-	}
-	data->level.map[i] = NULL;
-	data->level.wall_map[i] = NULL;
-}
+// 	i = 0;
+// 	if (!upmap)
+// 		return ;
+// 	data->level.map = (char **)malloc(sizeof(char *) * (h + 1));
+// 	data->level.wall_map = (int **)malloc(sizeof(int *) * (h + 1));
+// 	if (!data->level.map || !data->level.wall_map)
+// 		exit(1);
+// 	while (*upmap)
+// 	{
+// 		data->level.map[i] = malloc(sizeof(char) * (w + 1));
+// 		data->level.wall_map[i] = ft_calloc(sizeof(int), (w + 1));
+// 		if (!data->level.map[i] || !data->level.wall_map[i])
+// 			exit(1);
+// 		ft_memset(data->level.map[i], 32, w);
+// 		data->level.map[i][w] = 0;
+// 		ft_memcpy(data->level.map[i], *upmap, ft_strlen(*upmap));
+// 		upmap++;
+// 		i++;
+// 	}
+// 	data->level.map[i] = NULL;
+// 	data->level.wall_map[i] = NULL;
+// }
 
-bool	parse_input(char **argv, t_data *data)
-{
-	char	**upmap;
-	int		fd;
+// bool	parse_input(char **argv, t_data *data)
+// {
+// 	char	**upmap;
+// 	int		fd;
 
-	upmap = NULL;
-	if (ft_strlen(argv[1]) < 4 || \
-		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
-		return (error_msg("Incorrect map file type"));
-	if (ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 10), "_bonus.cub", 10) == 0)
-		data->bonus = true;
-	fd = open(argv[1], O_RDONLY);
-	upmap = readmap(fd, upmap);
-	data->level.unparsed = upmap;
-	close(fd);
-	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
-		return (false);
-	make_square_map(data, parse_map(upmap, data));
-	data->cam.pos = getplayerpos(data->level.map);
-	if (!data->level.map || \
-		data->cam.pos.x == -1 || data->cam.pos.y == -1)
-		return (false);
-	setplayerdir(data->level.map, data->cam.pos, data);
-	set_sprite_positions(data->level.map, data);
-	return (true);
-}
+// 	upmap = NULL;
+// 	if (ft_strlen(argv[1]) < 4 || \
+// 		ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 4), ".cub", 4) != 0)
+// 		return (error_msg("Incorrect map file type"));
+// 	if (ft_strncmp(argv[1] + (ft_strlen(argv[1]) - 10), "_bonus.cub", 10) == 0)
+// 		data->bonus = true;
+// 	fd = open(argv[1], O_RDONLY);
+// 	upmap = readmap(fd, upmap);
+// 	data->level.unparsed = upmap;
+// 	close(fd);
+// 	if (!upmap || parse_types(upmap, data) == false || checktypes(data))
+// 		return (false);
+// 	make_square_map(data, parse_map(upmap, data));
+// 	data->cam.pos = getplayerpos(data->level.map);
+// 	if (!data->level.map || \
+// 		data->cam.pos.x == -1 || data->cam.pos.y == -1)
+// 		return (false);
+// 	setplayerdir(data->level.map, data->cam.pos, data);
+// 	set_sprite_positions(data->level.map, data);
+// 	return (true);
+// }

@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/12 13:56:45 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 13:28:37 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/22 12:13:21 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	get_xpos_sheet(t_sprite *sprt, t_vector_double cam_dir)
 		return (sprt->en_dat.frame % 5 * 65);
 	else if (sprt->en_dat.state == DYING && sprt->kind == DOG)
 		return (sprt->en_dat.frame % 4 * 65);
-	else if (sprt->en_dat.state == ATTACKING)
+	else if (sprt->en_dat.state == ATTACK)
 		return (sprt->en_dat.frame % 3 * 65);
 	else if (sprt->kind == DOG)
 		return (3 * 65);

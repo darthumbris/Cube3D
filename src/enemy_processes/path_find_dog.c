@@ -6,7 +6,7 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/18 11:38:11 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/18 12:35:42 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:34:34 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	try_diagonals_dog(t_data *data, t_sprite *dog, int dir)
 	else
 		set_new_x_pos(&temp_pos, &collision, dog, -1);
 	if (is_out_of_bounds(collision, data) || is_obstacle
-		(data->level.map[(int)(collision.y)][(int)(collision.x)]) || \
+		(data->level.map_planes[(int)(collision.y)][(int)(collision.x)][0]) || \
 		sprite_dist(collision, data->cam.pos) > dog->dist)
 		return (0);
 	return (dir + 1);
@@ -46,7 +46,7 @@ static int	pathfind_cardinal_dog(t_data *data, t_sprite *dog, int dir)
 	else if (dir == 3)
 		set_new_x_pos(&temp_pos, &collision, dog, -1);
 	if (is_out_of_bounds(collision, data) || is_obstacle
-		(data->level.map[(int)(collision.y)][(int)(collision.x)]) || \
+		(data->level.map_planes[(int)(collision.y)][(int)(collision.x)][0]) || \
 		sprite_dist(collision, data->cam.pos) > dog->dist)
 		return (0);
 	return (dir + 4);

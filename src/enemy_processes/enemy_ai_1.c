@@ -6,13 +6,13 @@
 /*   By: shoogenb <shoogenb@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/05/16 14:09:24 by shoogenb      #+#    #+#                 */
-/*   Updated: 2022/05/17 09:02:07 by shoogenb      ########   odam.nl         */
+/*   Updated: 2022/06/15 16:36:03 by shoogenb      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-static bool	check_west_dir(char **map, int j, int i)
+static bool	check_west_dir(uint8_t ***map, int j, int i)
 {
 	int	end;
 
@@ -21,14 +21,14 @@ static bool	check_west_dir(char **map, int j, int i)
 	end = j - PATROL_DIST;
 	while (j > end)
 	{
-		if (is_block_patrol_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j][0]))
 			return (false);
 		j--;
 	}
 	return (true);
 }
 
-static bool	check_east_dir(char **map, int j, int i, int max_w)
+static bool	check_east_dir(uint8_t ***map, int j, int i, int max_w)
 {
 	int	end;
 
@@ -37,14 +37,14 @@ static bool	check_east_dir(char **map, int j, int i, int max_w)
 	end = j + PATROL_DIST;
 	while (j < end)
 	{
-		if (is_block_patrol_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j][0]))
 			return (false);
 		j++;
 	}
 	return (true);
 }
 
-static bool	check_north_dir(char **map, int j, int i)
+static bool	check_north_dir(uint8_t ***map, int j, int i)
 {
 	int	end;
 
@@ -53,14 +53,14 @@ static bool	check_north_dir(char **map, int j, int i)
 	end = i - PATROL_DIST;
 	while (i > end)
 	{
-		if (is_block_patrol_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j][0]))
 			return (false);
 		i--;
 	}
 	return (true);
 }
 
-static bool	check_south_dir(char **map, int j, int i, int max_h)
+static bool	check_south_dir(uint8_t ***map, int j, int i, int max_h)
 {
 	int	end;
 
@@ -69,7 +69,7 @@ static bool	check_south_dir(char **map, int j, int i, int max_h)
 	end = i + PATROL_DIST;
 	while (i < end)
 	{
-		if (is_block_patrol_tile(map[i][j]))
+		if (is_block_patrol_tile(map[i][j][0]))
 			return (false);
 		i++;
 	}
@@ -84,11 +84,11 @@ bool	is_enemy_patrol(t_data *data, t_sprite *sprite)
 	i = (int)sprite->map_pos.y;
 	j = (int)sprite->map_pos.x;
 	if (sprite->en_dat.dir.x == -1.0)
-		return (check_west_dir(data->level.map, j, i));
+		return (check_west_dir(data->level.map_planes, j, i));
 	else if (sprite->en_dat.dir.x == 1.0)
-		return (check_east_dir(data->level.map, j, i, data->level.map_w));
+		return (check_east_dir(data->level.map_planes, j, i, data->level.map_w));
 	else if (sprite->en_dat.dir.y == -1.0)
-		return (check_north_dir(data->level.map, j, i));
+		return (check_north_dir(data->level.map_planes, j, i));
 	else
-		return (check_south_dir(data->level.map, j, i, data->level.map_h));
+		return (check_south_dir(data->level.map_planes, j, i, data->level.map_h));
 }
