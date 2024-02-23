@@ -132,6 +132,9 @@ void	filename_key_handler(struct mlx_key_data keys, void *param)
 	static int	i = 0;
 
 	data = (t_data *)param;
+	if (data->menu.menu_level > 2) {
+		return;
+	}
 	file = &data->menu.editor.file;
 	if (file->reset_filename)
 	{

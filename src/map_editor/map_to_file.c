@@ -154,7 +154,8 @@ void	map_to_file(t_data *data)
 		}
 		write_to_file(editor, fd, wh);
 		printf("Succesfully saved file\n");
-		load_map(data);
+		//TODO clear mapeditor screen before loading map
+		load_map(data); //This is for testing (should only load map when clicking load_map)
 	}
 	free(full_path);
 }

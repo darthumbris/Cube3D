@@ -129,6 +129,18 @@ void	load_map(t_data *data)
 	data->level.map_planes = create_map_planes(data);
 	fill_map(data);
 	print_map(data);
+
+	mlx_image_t	*menu_editor_temp;
+	mlx_image_t	*menu_editor_fg_temp;
+	menu_editor_temp = mlx_new_image(data->mlx.mlx_handle, data->mlx.menu_editor->width, data->mlx.menu_editor->height);
+	menu_editor_fg_temp = mlx_new_image(data->mlx.mlx_handle, data->mlx.menu_editor_fg->width, data->mlx.menu_editor_fg->height);
+	mlx_delete_image(data->mlx.mlx_handle, data->mlx.menu_editor);
+	mlx_delete_image(data->mlx.mlx_handle, data->mlx.menu_editor_fg);
+	data->mlx.menu_editor = menu_editor_temp;
+	data->mlx.menu_editor_fg = menu_editor_fg_temp;
+	data->menu.menu_level = 3;
+	data->menu.update = false;
+	data->menu.editor.file.save_btn.active = false;
 	if (init_level(data) == false)
 	{
 		printf("Error in loading map\n");
