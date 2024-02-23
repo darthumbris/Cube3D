@@ -12,7 +12,7 @@
 
 #include "cubed.h"
 
-void	draw_rects(t_data *data, double scale, mlx_image_t	*menu_img);
+void	draw_rects(t_data *data, double scale, mlx_image_t	*menu_img, char* filename);
 
 bool	is_digit_key(enum keys key)
 {
@@ -55,7 +55,7 @@ void	remove_char(t_data *data, int *i)
 void	save_map(t_data *data)
 {
 	printf("Enter filename> \n");
-	draw_rects(data, data->hud.scale, data->mlx.menu_editor);
+	draw_rects(data, data->hud.scale, data->mlx.menu_editor, NULL);
 	data->menu.editor.file.reset_filename = true;
 	mlx_key_hook(data->mlx.mlx_handle, filename_key_handler, data);
 }

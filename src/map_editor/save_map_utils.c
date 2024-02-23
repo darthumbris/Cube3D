@@ -42,6 +42,7 @@ static void	end_filename(enum keys key, t_data *data)
 			map_to_file(data);
 		}
 	}
+	printf("setting filename to 0\n");
 	ft_memset(file->filenname, 0, 30);
 }
 

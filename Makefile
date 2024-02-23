@@ -13,8 +13,8 @@
 NAME = cube3D_bonus
 
 CC  := gcc
-COMPILE_FLAGS = -Wall -Wextra -Werror -o3 -Wno-enum-compare #last flag is for linux compilation
-LINKING_FLAGS = $(MLX) $(LIBFT) -pthread -lm -ldl -lglfw -L "/Users/$(USER)/.brew/opt/glfw/lib/"
+COMPILE_FLAGS = -Wall -Wextra -o3 -Wno-enum-compare #last flag is for linux compilation
+LINKING_FLAGS = $(MLX) $(LIBFT) -pthread -lm -ldl -lglfw
 #pthread also linux
 SRC_DIR = src
 OBJ_DIR = obj
@@ -78,7 +78,6 @@ SRC =	main.c \
 		parser/set_enemy_data.c \
 		parser/special_tiles.c \
 		parser/parse_config.c \
-		parser/check_textures.c \
 		parser/init_doormap.c \
 		enemy_processes/path_find.c \
 		enemy_processes/path_find_2.c \

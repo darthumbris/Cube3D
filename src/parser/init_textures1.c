@@ -101,9 +101,6 @@ bool	init_needed_enemy_textures(t_lodtex *tex, t_data *data)
 
 bool	init_textures(t_data *data)
 {
-	int	textures_to_load;
-
-	textures_to_load = data->number_of_textures;
 	check_textures_needed(data, -1, -1, -1);
 	if (init_hud_textures(&data->mlx) == false)
 		return (false);

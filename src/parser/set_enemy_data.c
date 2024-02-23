@@ -118,8 +118,10 @@ static void	set_kind(t_sprite *enemy)
 		break;
 	case SPECTRE_STANDING ... SPECTRE_PATROL:
 		enemy->kind = SPECTRE;
+		break;
 	case DEATHKNIGHT_STANDING ... DEATHKNIGHT_PATROL:
 		enemy->kind = DEATHKNIGHT;
+		break;
 	case UBERMUTANT_STANDING ... UBERMUTANT_PATROL:
 		enemy->kind = UBERMUTANT;
 		break;

@@ -13,6 +13,8 @@
 #ifndef VECTORS_H
 # define VECTORS_H
 
+# include <stdint.h>
+
 typedef struct s_vector_double
 {
 	double	x;

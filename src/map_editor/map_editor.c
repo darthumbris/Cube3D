@@ -56,8 +56,11 @@ void	fill_map(t_data *data)
 		plane = ft_atoi(cords[i][2]);
 		if (ft_atoi(cords[i][3]) != 0)
 			data->level.map_planes[pos.y][pos.x][plane] = ft_atoi(cords[i][3]);
+		arr_cleanup(cords[i]);
 		i++;
 	}
+	free(cords);
+	arr_cleanup(map_tiles);
 }
 
 char	**readnewmap(int fd, char **temp)

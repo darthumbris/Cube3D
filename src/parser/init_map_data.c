@@ -33,6 +33,7 @@ static bool	init_episodes(t_data *data, int i, char *ep_file)
 
 	bytes_read = 1;
 	episode = NULL;
+	printf("opening epfile: %s\n", ep_file);
 	fd = open(ep_file, O_RDONLY);
 	if (fd == -1)
 		return (error_msg("Failed to open episode file"));
@@ -87,7 +88,7 @@ bool	init_map_data(t_data *data)
 
 	bytes_read = 1;
 	map_config = NULL;
-	fd = open("config/MAP_CONFIG.map", O_RDONLY);
+	fd = open("maps/episodes.wf3", O_RDONLY);
 	if (fd == -1)
 		return (error_msg("Failed to open map config file"));
 	while (bytes_read > 0)

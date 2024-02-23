@@ -112,7 +112,7 @@ static bool	is_drop_lst_hover(t_map_edit *editor, int x, int y)
 			return (true);
 	}
 	return (false);
-	// return (is_hover(&editor->plane_ddlst.active, x, y) || \
+	/* return (is_hover(&editor->plane_ddlst.active, x, y) || \
 	// 	is_hover(&editor->sprt_drops.wall_ddlst.active, x, y) || \
 	// 	is_hover(&editor->sprt_drops.decor_ddlst.active, x, y) || \
 	// 	is_hover(&editor->sprt_drops.enemy_ddlst.active, x, y) || \
@@ -135,6 +135,7 @@ static bool	is_drop_lst_hover(t_map_edit *editor, int x, int y)
 	// 	is_mouse_in_rect(x, y, editor->sprt_drops.enemy_ddlst.open_rct)) || \
 	// 	(editor->sprt_drops.item_ddlst.active.active == true && \
 	// 	is_mouse_in_rect(x, y, editor->sprt_drops.item_ddlst.open_rct)));
+	*/
 }
 
 void	check_hover(t_data *data)

@@ -57,7 +57,7 @@ void	draw_drop_down_lst(t_mlx *mlx, t_vector_int pos, \
 {
 	int				x;
 	int				y;
-	unsigned int	offset;
+	int	offset;
 	t_vector_int	pos_icon[2];
 
 	pos_icon[0] = pos;
@@ -75,7 +75,7 @@ void	draw_drop_down_lst(t_mlx *mlx, t_vector_int pos, \
 		if (is_mouse_in_rect(x, y, ddlst.open_rct))
 		{
 			offset = get_button_mouse_on(x, y, ddlst);
-			if (offset >= 0 && offset < ddlst.elements)
+			if (offset >= 0 && offset < (int)ddlst.elements)
 				draw_rect_outline(mlx->menu_editor, \
 					ddlst.btn_lst[offset].rect, \
 					MAP_BORDER_COLOUR, 1 * ddlst.font_scale);

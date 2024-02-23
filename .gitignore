@@ -58,4 +58,5 @@ cube3D
 cube3D_bonus
 mlx_frag_shader.c
 mlx_vert_shader.c
+saves/*.cub
 

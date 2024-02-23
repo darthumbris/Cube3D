@@ -85,10 +85,8 @@ bool	norm_loop(t_data *data, uint8_t	***map, int *count)
 bool	parse_map(uint8_t	***map, t_data *data)
 {
 	int	p_count;
-	int	e_count;
 
 	p_count = 0;
-	e_count = 0;
 	if (!map)
 		return (error_msg("Map is empty"));
 	if (norm_loop(data, map, &p_count))

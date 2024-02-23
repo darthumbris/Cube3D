@@ -100,6 +100,11 @@ void	draw_str(t_mlx *mlx, char *str, t_vector_int pos, \
 	int				i;
 
 	i = -1;
+	if (!str)
+	{
+		printf("wtf\n");
+		return;
+	}
 	while (str[++i])
 	{
 		if (ft_isalpha(str[i]))
